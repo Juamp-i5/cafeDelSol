@@ -62,8 +62,13 @@ public class ControlNavegacion {
     }
     
     public static void mostrarPantallaToppings(){
-        JOptionPane.showMessageDialog(null, "Se selecciono");
+        JFrame toppings = new Toppings(gestor.cargarToppings());
+        toppings.setLocationRelativeTo(null);
+        toppings.setVisible(true);
     }
     
+    public static void mostrarPantallaAgregarProducto(){
+        JOptionPane.showMessageDialog(null, "Se selecciono topping");
+    }
     
 }

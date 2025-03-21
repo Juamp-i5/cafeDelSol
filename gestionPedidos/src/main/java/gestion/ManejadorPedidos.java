@@ -9,6 +9,7 @@ import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
 import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
+import DTOs.ToppingsMostrarDTO;
 import java.util.List;
 
 /**
@@ -85,5 +86,17 @@ public class ManejadorPedidos implements IGestionPedidos {
         
         );
     }
+
+    @Override
+    public List<ToppingsMostrarDTO> cargarToppings() {
+        return List.of(
+                new ToppingsMostrarDTO(1L, "Azúcar",  "../img/azucar.jpeg"),
+                new ToppingsMostrarDTO(2L, "Canela",  "../img/canela.jpg"),
+                new ToppingsMostrarDTO(3L, "Nutella",  "../img/nutella.jpg"),
+                new ToppingsMostrarDTO(4L, "Cajeta",  "../img/cajeta.jpg")     
+        );
+    }
+    
+    
 
 }

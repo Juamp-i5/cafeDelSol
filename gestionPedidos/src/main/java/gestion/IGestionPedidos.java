@@ -7,6 +7,7 @@ package gestion;
 import DTOs.ProductoMostrarDTO;
 import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
+import DTOs.ToppingsMostrarDTO;
 import java.util.List;
 
 /**
@@ -25,4 +26,6 @@ public interface IGestionPedidos {
 
     public List<TamanioMostrarDTO> cargarTamanios();
     public List<SaboresMostrarDTO> cargarSabores();
+    
+    public List<ToppingsMostrarDTO> cargarToppings();
 }
