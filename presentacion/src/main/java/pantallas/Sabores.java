@@ -77,6 +77,7 @@ public class Sabores extends javax.swing.JFrame {
     
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
         ControlNavegacion.mostrarPantallaToppings();
+        dispose();
     }
 
     /**

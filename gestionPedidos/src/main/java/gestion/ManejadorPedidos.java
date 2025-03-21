@@ -10,6 +10,7 @@ import DTOs.ProductoPedidoDTO;
 import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
+import DTOs.TarjetaDTO;
 import java.util.List;
 
 /**
@@ -43,8 +44,8 @@ public class ManejadorPedidos implements IGestionPedidos {
         );
     }
 
-    @Override
-    public void agregarProducto(ProductoMostrarDTO producto){
+    @Override 
+    public void agregarProducto(ProductoMostrarDTO producto) {
         productoPedido.setProducto(producto);
     }
     
@@ -99,4 +100,26 @@ public class ManejadorPedidos implements IGestionPedidos {
     
     
 
+    @Override
+    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
+        if (tarjeta == null) {
+            return false; // Si la tarjeta es nula, la validación falla.
+        }
+        // Validar número de tarjeta 
+        String numeroTarjeta = tarjeta.getNumTarjeta();
+        if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
+            return false;
+        }
+        // Validar nombre del banco 
+        String banco = tarjeta.getNombreBanco();
+        if (banco == null || banco.trim().isEmpty()) {
+            return false;
+        }
+        // Validar CVV (3 o 4 dígitos)
+        String cvv = tarjeta.getCVV();
+        if (cvv == null || !cvv.matches("\\d{3,4}")) {
+            return false;
+        }
+        return true; // Si pasa todas las validaciones, retorna verdadero.       
+    }
 }

@@ -8,6 +8,7 @@ import DTOs.ProductoMostrarDTO;
 import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
+import DTOs.TarjetaDTO;
 import java.util.List;
 
 /**
@@ -15,7 +16,6 @@ import java.util.List;
  * @author Jp
  */
 public interface IGestionPedidos {
-
     public List<ProductoMostrarDTO> cargarProductos();
     
     public void agregarProducto(ProductoMostrarDTO producto);
@@ -25,7 +25,11 @@ public interface IGestionPedidos {
     public void crearProductoPedido();
 
     public List<TamanioMostrarDTO> cargarTamanios();
+    
     public List<SaboresMostrarDTO> cargarSabores();
     
     public List<ToppingsMostrarDTO> cargarToppings();
+    
+    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
+
 }

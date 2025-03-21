@@ -13,7 +13,7 @@ import control.ControlNavegacion;
 public class Presentacion {
 
     public static void main(String[] args) {
-        //.
         ControlNavegacion.mostrarPantallaMenuPrincipal();
+//        ControlNavegacion.mostrarPantallaProductos();
     }
 }

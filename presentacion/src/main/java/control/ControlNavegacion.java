@@ -24,7 +24,6 @@ public class ControlNavegacion {
         JFrame productos = new Productos(gestor.cargarProductos());
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
-
         framesVisitados.add(productos);
     }
 
@@ -49,12 +48,14 @@ public class ControlNavegacion {
         }
     }
     
+
+     
     public static void mostrarPantallaTamanios(){
         JFrame tamanios = new Tamanios(gestor.cargarTamanios());
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
     }
-    
+
     public static void mostrarPantallaSabores(){
         JFrame sabores = new Sabores(gestor.cargarSabores());
         sabores.setLocationRelativeTo(null);
@@ -71,4 +72,19 @@ public class ControlNavegacion {
         JOptionPane.showMessageDialog(null, "Se selecciono topping");
     }
     
+    public static void mostrarAgregarTerminarPedido(){
+        JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
+        agregarTerminarPedido.setLocationRelativeTo(null);
+        agregarTerminarPedido.setVisible(true);
+    }
+    
+    public static void mostrarPagoTarjeta(){
+        JFrame pagoTarjeta = new PagoTarjeta();
+        pagoTarjeta.setLocationRelativeTo(null);
+        pagoTarjeta.setVisible(true);
+    }
+    
+    public static void mostrarPantallaTarjetaRechazada(){
+        JOptionPane.showMessageDialog(null,"Tarjeta rechazada");
+    }
 }
