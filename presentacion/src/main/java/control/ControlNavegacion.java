@@ -24,6 +24,7 @@ public class ControlNavegacion {
         JFrame productos = new Productos(gestor.cargarProductos());
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
+        
         framesVisitados.add(productos);
     }
 
@@ -47,37 +48,45 @@ public class ControlNavegacion {
             }
         }
     }
-    
-
      
     public static void mostrarPantallaTamanios(){
         JFrame tamanios = new Tamanios(gestor.cargarTamanios());
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
+        
+        framesVisitados.add(tamanios);
     }
 
     public static void mostrarPantallaSabores(){
         JFrame sabores = new Sabores(gestor.cargarSabores());
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
+        
+        framesVisitados.add(sabores);
     }
     
     public static void mostrarPantallaToppings(){
         JFrame toppings = new Toppings(gestor.cargarToppings());
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
+        
+        framesVisitados.add(toppings);
     }
     
     public static void mostrarAgregarTerminarPedido(){
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
+        
+        framesVisitados.add(agregarTerminarPedido);
     }
     
     public static void mostrarPagoTarjeta(){
         JFrame pagoTarjeta = new PagoTarjeta();
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);
+        
+        framesVisitados.add(pagoTarjeta);
     }
     
     public static void mostrarPantallaTarjetaRechazada(){
