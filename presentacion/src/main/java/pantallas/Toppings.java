@@ -79,7 +79,6 @@ public class Toppings extends javax.swing.JFrame {
     
     private void toppingSeleccionado(ToppingsMostrarDTO topping){
         this.dispose();
-        ControlNavegacion.mostrarPantallaAgregarProducto();
         ControlNavegacion.mostrarAgregarTerminarPedido();
     }
     

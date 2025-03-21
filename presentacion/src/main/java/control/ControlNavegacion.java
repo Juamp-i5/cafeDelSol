@@ -68,10 +68,6 @@ public class ControlNavegacion {
         toppings.setVisible(true);
     }
     
-    public static void mostrarPantallaAgregarProducto(){
-        JOptionPane.showMessageDialog(null, "Se selecciono topping");
-    }
-    
     public static void mostrarAgregarTerminarPedido(){
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
