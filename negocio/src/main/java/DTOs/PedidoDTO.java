@@ -4,6 +4,7 @@
  */
 package DTOs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class PedidoDTO {
 
-    List<ProductoPedidoDTO> pedido;
+    List<ProductoPedidoDTO> pedido = new ArrayList<>();
 
     public PedidoDTO() {
     }

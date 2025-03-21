@@ -6,8 +6,8 @@ package control;
 
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
+import java.util.Stack;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import pantallas.*;
 
 /**
@@ -15,15 +15,37 @@ import pantallas.*;
  * @author Jp
  */
 public class ControlNavegacion {
-    private static IGestionPedidos gestor = new ManejadorPedidos();
-    
-    public static void mostrarPantallaProductos(){
+
+    public static IGestionPedidos gestor = new ManejadorPedidos();
+    private static Stack framesVisitados = new Stack();
+
+    public static void mostrarPantallaProductos() {
         JFrame productos = new Productos(gestor.cargarProductos());
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
+
+        framesVisitados.add(productos);
     }
-    
-    public static void mostrarPantallaTamanios(){
-        JOptionPane.showMessageDialog(null, "Se selecciono");
+
+    public static void mostrarPantallaMenuPrincipal() {
+        JFrame menuPrincipal = new MenuPrincipal();
+        menuPrincipal.setLocationRelativeTo(null);
+        menuPrincipal.setVisible(true);
+
+        framesVisitados.add(menuPrincipal);
     }
+
+    public static void volverPantallaAnterior() {
+        if (!framesVisitados.isEmpty()) {
+            JFrame ventanaActual = (JFrame) framesVisitados.pop();
+            ventanaActual.dispose();
+
+            if (!framesVisitados.isEmpty()) {
+                JFrame frameAnterior = (JFrame) framesVisitados.peek();
+                frameAnterior.setLocationRelativeTo(null);
+                frameAnterior.setVisible(true);
+            }
+        }
+    }
+
 }

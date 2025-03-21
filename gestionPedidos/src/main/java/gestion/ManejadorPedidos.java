@@ -39,8 +39,26 @@ public class ManejadorPedidos implements IGestionPedidos {
         );
     }
 
+    @Override
     public void agregarProducto(ProductoMostrarDTO producto){
         productoPedido.setProducto(producto);
+    }
+    
+    @Override
+    public void crearPedido(){
+        this.pedido = new PedidoDTO();
+    }
+    
+    @Override
+    public void crearProductoPedido(){
+        if (pedido == null) {
+            crearPedido();
+        }
+        if (productoPedido != null) {
+            pedido.getPedido().add(productoPedido);
+        }
+        
+        this.productoPedido = new ProductoPedidoDTO();
     }
 
 }

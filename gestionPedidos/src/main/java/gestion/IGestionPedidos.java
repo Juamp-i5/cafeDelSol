@@ -14,4 +14,10 @@ import java.util.List;
 public interface IGestionPedidos {
 
     public List<ProductoMostrarDTO> cargarProductos();
+    
+    public void agregarProducto(ProductoMostrarDTO producto);
+    
+    public void crearPedido();
+    
+    public void crearProductoPedido();
 }

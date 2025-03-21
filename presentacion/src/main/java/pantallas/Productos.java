@@ -25,8 +25,13 @@ public class Productos extends javax.swing.JFrame {
         this.productos = productos;
         initComponents();
         agregarProductos();
+        ajustarScroll();
     }
 
+    private void ajustarScroll() {
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
+    }
+    
     private void agregarProductos() {
         int columnas = 3; // Número de productos por fila
         int filas = (int) Math.ceil((double) productos.size() / columnas); // Calcula filas necesarias
@@ -52,12 +57,23 @@ public class Productos extends javax.swing.JFrame {
             panelProducto.add(lblNombre, BorderLayout.SOUTH);
 
             panelProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                @Override
+                public void mousePressed(java.awt.event.MouseEvent evt) {
                     productoSeleccionado(producto); // Método que recibe el ProductoMostrarDTO
                 }
-            });
 
-            jPanel1.add(panelProducto);
+                @Override
+                public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    panelProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    panelProducto.setBackground(new Color(220, 220, 220));
+                }
+
+                @Override
+                public void mouseExited(java.awt.event.MouseEvent evt) {
+                    panelProducto.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    panelProducto.setBackground(null);
+                }
+            });
 
             jPanel1.add(panelProducto);
         }
@@ -67,7 +83,8 @@ public class Productos extends javax.swing.JFrame {
     }
 
     private void productoSeleccionado(ProductoMostrarDTO producto) {
-        ControlNavegacion.mostrarPantallaTamanios();
+        JOptionPane.showMessageDialog(null, "Producto seleccionado: " + producto.getNombre());
+        ControlNavegacion.gestor.agregarProducto(producto);
     }
 
     /**
@@ -83,10 +100,11 @@ public class Productos extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Productos");
-        setPreferredSize(new java.awt.Dimension(1024, 768));
         setResizable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -97,10 +115,24 @@ public class Productos extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 522, Short.MAX_VALUE)
         );
 
         jScrollPane1.setViewportView(jPanel1);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setText("Selecciona tu producto");
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jButton1.setText("<---");
+        jButton1.setMaximumSize(new java.awt.Dimension(120, 70));
+        jButton1.setMinimumSize(new java.awt.Dimension(120, 70));
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 70));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,27 +141,47 @@ public class Productos extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addComponent(jSeparator2)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ControlNavegacion.volverPantallaAnterior();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
