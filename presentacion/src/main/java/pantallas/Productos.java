@@ -83,8 +83,9 @@ public class Productos extends javax.swing.JFrame {
     }
 
     private void productoSeleccionado(ProductoMostrarDTO producto) {
-        JOptionPane.showMessageDialog(null, "Producto seleccionado: " + producto.getNombre());
+        ControlNavegacion.mostrarPantallaTamanios();
         ControlNavegacion.gestor.agregarProducto(producto);
+        this.dispose();
     }
 
     /**
