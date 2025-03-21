@@ -7,6 +7,8 @@ package gestion;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
+import DTOs.SaboresMostrarDTO;
+import DTOs.TamanioMostrarDTO;
 import java.util.List;
 
 /**
@@ -17,6 +19,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedido;
+    private TamanioMostrarDTO tamanioPedido;
 
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
@@ -59,6 +62,28 @@ public class ManejadorPedidos implements IGestionPedidos {
         }
         
         this.productoPedido = new ProductoPedidoDTO();
+    }
+
+    @Override
+    public List<TamanioMostrarDTO> cargarTamanios() {
+        return List.of(
+                new TamanioMostrarDTO(1L, "Pequenio", "../img/tamanioPequenio.jpg", 0),
+                new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5),
+                new TamanioMostrarDTO(3L, "Grande", "../img/tamanioGrande.jpg",10)
+        );
+    }
+
+    @Override
+    public List<SaboresMostrarDTO> cargarSabores() {
+        return List.of(
+                new SaboresMostrarDTO(1L, "Vainilla",  "../img/saborVainilla.jpg"),
+                new SaboresMostrarDTO(1L, "Chocolate",  "../img/saborChocolate.jpeg"),
+                new SaboresMostrarDTO(1L, "Moka",  "../img/saborMoka.jpg"),
+                new SaboresMostrarDTO(1L, "Fresa",  "../img/saborFresa.jpg"),
+                new SaboresMostrarDTO(1L, "Oreo",  "../img/saborOreo.jpg"),
+                new SaboresMostrarDTO(1L, "Caramelo",  "../img/saborCaramelo.jpg")
+        
+        );
     }
 
 }

@@ -5,6 +5,8 @@
 package gestion;
 
 import DTOs.ProductoMostrarDTO;
+import DTOs.SaboresMostrarDTO;
+import DTOs.TamanioMostrarDTO;
 import java.util.List;
 
 /**
@@ -20,4 +22,7 @@ public interface IGestionPedidos {
     public void crearPedido();
     
     public void crearProductoPedido();
+
+    public List<TamanioMostrarDTO> cargarTamanios();
+    public List<SaboresMostrarDTO> cargarSabores();
 }

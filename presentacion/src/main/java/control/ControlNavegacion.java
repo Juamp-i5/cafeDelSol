@@ -8,6 +8,7 @@ import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.util.Stack;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import pantallas.*;
 
 /**
@@ -47,5 +48,22 @@ public class ControlNavegacion {
             }
         }
     }
-
+    
+    public static void mostrarPantallaTamanios(){
+        JFrame tamanios = new Tamanios(gestor.cargarTamanios());
+        tamanios.setLocationRelativeTo(null);
+        tamanios.setVisible(true);
+    }
+    
+    public static void mostrarPantallaSabores(){
+        JFrame sabores = new Sabores(gestor.cargarSabores());
+        sabores.setLocationRelativeTo(null);
+        sabores.setVisible(true);
+    }
+    
+    public static void mostrarPantallaToppings(){
+        JOptionPane.showMessageDialog(null, "Se selecciono");
+    }
+    
+    
 }
