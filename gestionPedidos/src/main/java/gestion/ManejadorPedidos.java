@@ -83,11 +83,11 @@ public class ManejadorPedidos implements IGestionPedidos {
     public List<SaboresMostrarDTO> cargarSabores() {
         return List.of(
                 new SaboresMostrarDTO(1L, "Vainilla",  "../img/saborVainilla.jpg"),
-                new SaboresMostrarDTO(1L, "Chocolate",  "../img/saborChocolate.jpeg"),
-                new SaboresMostrarDTO(1L, "Moka",  "../img/saborMoka.jpg"),
-                new SaboresMostrarDTO(1L, "Fresa",  "../img/saborFresa.jpg"),
-                new SaboresMostrarDTO(1L, "Oreo",  "../img/saborOreo.jpg"),
-                new SaboresMostrarDTO(1L, "Caramelo",  "../img/saborCaramelo.jpg")
+                new SaboresMostrarDTO(2L, "Chocolate",  "../img/saborChocolate.jpeg"),
+                new SaboresMostrarDTO(3L, "Moka",  "../img/saborMoka.jpg"),
+                new SaboresMostrarDTO(4L, "Fresa",  "../img/saborFresa.jpg"),
+                new SaboresMostrarDTO(5L, "Oreo",  "../img/saborOreo.jpg"),
+                new SaboresMostrarDTO(6L, "Caramelo",  "../img/saborCaramelo.jpg")
         
         );
     }

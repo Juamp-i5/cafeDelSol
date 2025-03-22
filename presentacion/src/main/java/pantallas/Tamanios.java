@@ -26,11 +26,23 @@ import javax.swing.SwingConstants;
 public class Tamanios extends javax.swing.JFrame {
     
     List<TamanioMostrarDTO> tamanios;
+    private EditarProducto editarProductoFrame;
     /**
      * Creates new form Tamanios
      */
+    
     public Tamanios(List<TamanioMostrarDTO> tamanios) {
         this.tamanios = tamanios;
+        initComponents();
+        setTitle("Tamaños");
+        setSize(1024, 768);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        agregarTamanios();
+    }
+    
+    public Tamanios(List<TamanioMostrarDTO> tamanios,  EditarProducto editarProductoFrame) {
+        this.tamanios = tamanios;
+        this.editarProductoFrame = editarProductoFrame;
         initComponents();
         setTitle("Tamaños");
         setSize(1024, 768);
@@ -69,8 +81,6 @@ public class Tamanios extends javax.swing.JFrame {
             });
 
             jPanel1.add(panelTamanio);
-
-
         }
 
         jPanel1.revalidate();
@@ -78,7 +88,12 @@ public class Tamanios extends javax.swing.JFrame {
     }
     
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
-        ControlNavegacion.mostrarPantallaSabores();
+        if (editarProductoFrame != null){
+            editarProductoFrame.actualizarTamanio(tamanio);
+            editarProductoFrame.setVisible(true);
+        } else{
+            ControlNavegacion.mostrarPantallaSabores();
+        }
         ControlNavegacion.gestor.agregarTamanio(tamanio);
         this.dispose();
     }
