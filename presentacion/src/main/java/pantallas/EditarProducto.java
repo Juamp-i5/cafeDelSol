@@ -5,6 +5,7 @@
 package pantallas;
 
 import DTOs.ProductoMostrarDTO;
+import DTOs.ProductoPedidoDTO;
 import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
@@ -24,13 +25,14 @@ public class EditarProducto extends javax.swing.JFrame {
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
     // Variables para almacenar las selecciones del usuario
-    private ProductoMostrarDTO productoSeleccionado;
-    private TamanioMostrarDTO tamanioSeleccionado;
-    private SaboresMostrarDTO saborSeleccionado;
-    private ToppingsMostrarDTO toppingSeleccionado;
+//    private ProductoMostrarDTO productoSeleccionado;
+//    private TamanioMostrarDTO tamanioSeleccionado;
+//    private SaboresMostrarDTO saborSeleccionado;
+//    private ToppingsMostrarDTO toppingSeleccionado;
+    private ProductoPedidoDTO productoPedido;
     
-    public EditarProducto(ProductoMostrarDTO producto) {
-        this.productoSeleccionado = producto; // Guardamos el producto inicial
+    public EditarProducto(ProductoPedidoDTO productoPedido) {
+        this.productoPedido = productoPedido; // Guardamos el producto inicial
         
         setTitle("Editar Producto");
         setSize(1000, 800);
@@ -38,10 +40,10 @@ public class EditarProducto extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Crear botones con las selecciones actuales
-        btnProducto = new JButton("Producto: " + producto.getNombre());
-        btnTamanio = new JButton("Tamaño: " + tamanioSeleccionado);
-        btnSabor = new JButton("Sabor: " + saborSeleccionado);
-        btnToppings = new JButton("Toppings: " + toppingSeleccionado);
+        btnProducto = new JButton("Producto: " + productoPedido.getProducto().getNombre());
+        btnTamanio = new JButton("Tamaño: " + productoPedido.getTamanio().getNombre());
+        btnSabor = new JButton("Sabor: " + productoPedido.getSabor().getNombre());
+        btnToppings = new JButton("Toppings: " + productoPedido.getTopping().getNombre());
         btnRegresar = new JButton("←");
 
         // Posicionar los botones
@@ -102,23 +104,23 @@ public class EditarProducto extends javax.swing.JFrame {
 
     // Métodos para actualizar el texto de los botones según la selección del usuario
     public void actualizarProducto(ProductoMostrarDTO producto) {
-        this.productoSeleccionado = producto;
+        this.productoPedido.setProducto(producto);
         btnProducto.setText("Producto: " + producto.getNombre());
     }
 
     public void actualizarTamanio(TamanioMostrarDTO tamanio) {
-        this.tamanioSeleccionado = tamanio;
+        this.productoPedido.setTamanio(tamanio);
         btnTamanio.setText("Tamaño: " + tamanio.getNombre());
     }
 
     public void actualizarSabor(SaboresMostrarDTO sabor) {
-        this.saborSeleccionado = sabor;
+        this.productoPedido.setSabor(sabor);
         btnSabor.setText("Sabor: " + sabor.getNombre());
     }
 
     public void actualizarTopping(ToppingsMostrarDTO topping) {
-        toppingSeleccionado = topping;
-        btnToppings.setText("Toppings: " + topping);
+        this.productoPedido.setTopping(topping);
+        btnToppings.setText("Toppings: " + topping.getNombre());
     }
 
     /**

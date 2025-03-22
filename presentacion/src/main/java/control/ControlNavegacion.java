@@ -135,8 +135,8 @@ public class ControlNavegacion {
         framesVisitados.add(toppings);
     }
     
-    public static void mostrarPantallaEditarProducto(ProductoMostrarDTO producto){
-        JFrame editarProducto = new EditarProducto(producto);
+    public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido){
+        JFrame editarProducto = new EditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
         
