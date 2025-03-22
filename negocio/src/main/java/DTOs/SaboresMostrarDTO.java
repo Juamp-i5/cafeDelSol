@@ -46,6 +46,11 @@ public class SaboresMostrarDTO {
     public void setUrlImagen(String urlImagen) {
         this.urlImagen = urlImagen;
     }
+
+    @Override
+    public String toString() {
+        return "SaboresMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+    }
     
     
 }

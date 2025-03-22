@@ -8,6 +8,8 @@ import DTOs.ProductoMostrarDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.util.Stack;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
@@ -148,5 +150,15 @@ public class ControlNavegacion {
         pagoEfectivo.setVisible(true);
         
         framesVisitados.add(pagoEfectivo);
+    }
+    
+    public static void mostrarPantallaPedidoRealizado(){
+         JOptionPane.showMessageDialog(null, "Pedido realizado");
+         new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    ControlNavegacion.mostrarPantallaMenuPrincipal();
+                }
+            }, 3000);
     }
 }

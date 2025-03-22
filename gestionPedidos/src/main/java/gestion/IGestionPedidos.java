@@ -4,6 +4,7 @@
  */
 package gestion;
 
+import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
@@ -47,4 +48,13 @@ public interface IGestionPedidos {
     
     public boolean cancelarPedido(PedidoDTO pedido);
 
+    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido);
+    
+    public boolean terminarPedido();
+    
+    public double calcularCosto();
+     
+    public double calcularTotal();
+    
+    public double calcularCambio(EfectivoDTO efectivo);
 }

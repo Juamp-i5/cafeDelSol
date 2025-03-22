@@ -56,6 +56,11 @@ public class TamanioMostrarDTO {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
+
+    @Override
+    public String toString() {
+        return "TamanioMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
+    }
     
     
 }

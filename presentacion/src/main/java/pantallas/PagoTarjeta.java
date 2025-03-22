@@ -5,6 +5,7 @@
 package pantallas;
 
 import DTOs.ProductoMostrarDTO;
+import control.ControlNavegacion;
 import DTOs.TarjetaDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
@@ -16,8 +17,6 @@ import javax.swing.*;
  * @author pablo
  */
 public class PagoTarjeta extends javax.swing.JFrame {
-
-    public static IGestionPedidos gestion = new ManejadorPedidos();
 
     /**
      * Creates new form PagoTarjeta
@@ -95,7 +94,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
     }
 
     public void BtnAtrasSeleccionado() {
-        System.out.println("Regresa a pantalla anterior");
+        ControlNavegacion.volverPantallaAnterior();
         dispose();
     }
 
@@ -115,7 +114,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
     }
 
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
-        return gestion.validarTarjetaPresentacion(tarjeta);
+        return ControlNavegacion.gestor.validarTarjetaPresentacion(tarjeta);
     }
 
     /**

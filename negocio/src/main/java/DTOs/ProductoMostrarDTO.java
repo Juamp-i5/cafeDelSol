@@ -63,4 +63,9 @@ public class ProductoMostrarDTO {
         this.urlImagen = urlImagen;
     }
 
+    @Override
+    public String toString() {
+        return "ProductoMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import java.util.List;
@@ -24,7 +25,8 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     public TotalDesglosado() {
         initComponents();
-        List<ProductoPedidoDTO> productosPedidos = (List<ProductoPedidoDTO>) ControlNavegacion.gestor.getPedido();
+        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        List<ProductoPedidoDTO> productosPedidos = pedido.getPedido();
 
         JPanel contenedorPaneles = new JPanel();
         contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
@@ -35,6 +37,9 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
 
         this.pnlProductosPedidos.setViewportView(contenedorPaneles);
+        
+        this.lblTotalTotal.setText(String.format("%.2f", ControlNavegacion.gestor.calcularTotal()));
+
     }
 
     /**
@@ -84,7 +89,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblTotal.setText("Total");
 
-        lblTotalTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblTotalTotal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTotalTotal.setText("......");
 
         lblSigno.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -103,26 +108,28 @@ public class TotalDesglosado extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRegresar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnTarjeta)
-                .addGap(18, 18, 18)
-                .addComponent(btnEfectivo)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblSigno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblTotal))
-                .addGap(41, 41, 41))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelarPedido)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTotal)
+                            .addComponent(lblTotalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnRegresar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnTarjeta)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEfectivo))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCancelarPedido)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,8 +161,8 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlNavegacion.mostrarAgregarTerminarPedido();
-        this.dispose();
+        ControlNavegacion.volverPantallaAnterior();
+        dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
@@ -185,7 +192,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
                 public void run() {
                     ControlNavegacion.mostrarPantallaMenuPrincipal();
                 }
-            }, 5000);
+            }, 2000);
         }
 
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
@@ -196,10 +203,10 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
-         ControlNavegacion.mostrarPantallaPagoEfectivo();
-         this.dispose();
+        ControlNavegacion.mostrarPantallaPagoEfectivo();
+        this.dispose();
     }//GEN-LAST:event_btnEfectivoActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelarPedido;
     private javax.swing.JButton btnEfectivo;

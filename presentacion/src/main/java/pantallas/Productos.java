@@ -100,6 +100,11 @@ public class Productos extends javax.swing.JFrame {
             ControlNavegacion.mostrarPantallaTamanios();
         }
         ControlNavegacion.gestor.agregarProducto(producto);
+        //
+         System.out.println(ControlNavegacion.gestor.getProductoPedido());
+         System.out.println(ControlNavegacion.gestor.getPedido());
+         
+        //
         this.dispose();
     }
    

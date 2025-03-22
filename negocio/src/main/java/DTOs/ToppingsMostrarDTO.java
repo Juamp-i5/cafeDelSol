@@ -47,4 +47,9 @@ public class ToppingsMostrarDTO {
         this.urlImagen = urlImagen;
     }
 
+    @Override
+    public String toString() {
+        return "ToppingsMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+    }
+
 }

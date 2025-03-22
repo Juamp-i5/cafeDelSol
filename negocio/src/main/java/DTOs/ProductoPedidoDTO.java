@@ -77,4 +77,10 @@ public class ProductoPedidoDTO {
         this.costo = costo;
     }
 
+    @Override
+    public String toString() {
+        return "ProductoPedidoDTO{" + "producto=" + producto + ", tamanio=" + tamanio + ", sabor=" + sabor + ", topping=" + topping + ", cantidad=" + cantidad + ", costo=" + costo + '}';
+    }
+    
+    
 }

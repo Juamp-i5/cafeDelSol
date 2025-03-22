@@ -4,6 +4,7 @@
  */
 package gestion;
 
+import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
@@ -11,6 +12,7 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +21,14 @@ import java.util.List;
  */
 public class ManejadorPedidos implements IGestionPedidos {
 
+    List<ProductoPedidoDTO> pedidos = new ArrayList<>();
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedido;
 
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
         return List.of(
-                new ProductoMostrarDTO(1L, "Frappe frío", "../img/latteFrio.jpeg"),
+                new ProductoMostrarDTO(1L, "Frappe frío", 100, "../img/latteFrio.jpeg"),
                 new ProductoMostrarDTO(2L, "Chocolate caliente", "../img/chocolateCaliente.jpeg"),
                 new ProductoMostrarDTO(3L, "Café Americano", "../img/cafeAmericano.jpeg"),
                 new ProductoMostrarDTO(4L, "Latte", "../img/latte.jpeg"),
@@ -68,11 +71,12 @@ public class ManejadorPedidos implements IGestionPedidos {
         if (pedido == null) {
             crearPedido();
         }
-        if (productoPedido != null) {
-            pedido.getPedido().add(productoPedido);
-        }
+        if (productoPedido == null) {
+            productoPedido = new ProductoPedidoDTO();
 
-        this.productoPedido = new ProductoPedidoDTO();
+            pedido.getPedido().add(productoPedido);
+
+        }
     }
 
     @Override
@@ -124,43 +128,73 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
         if (tarjeta == null) {
-            return false; // Si la tarjeta es nula, la validación falla.
+            return false;
         }
-        // Validar número de tarjeta 
         String numeroTarjeta = tarjeta.getNumTarjeta();
         if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
             return false;
         }
-        // Validar nombre del banco 
         String banco = tarjeta.getNombreBanco();
         if (banco == null || banco.trim().isEmpty()) {
             return false;
         }
-        // Validar CVV (3 o 4 dígitos)
         String cvv = tarjeta.getCVV();
         if (cvv == null || !cvv.matches("\\d{3,4}")) {
             return false;
         }
-        return true; // Si pasa todas las validaciones, retorna verdadero.       
+        return true;
     }
 
+    @Override
     public boolean cancelarPedido(PedidoDTO pedido) {
-        if (pedido != null) {
-
-            pedido.getPedido().clear();
-
-            pedido.setCostoTotal(0.0);
-        }
 
         if (productoPedido != null) {
-            productoPedido.setProducto(null);
-            productoPedido.setTamanio(null);
-            productoPedido.setSabor(null);
-            productoPedido.setTopping(null);
-            productoPedido.setCantidad(1);
-            productoPedido.setCosto(0.0);
+            productoPedido = null;
         }
 
         return true;
+    }
+
+    @Override
+    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido) {
+        return pedidos.add(productoPedido);
+    }
+
+    @Override
+    public boolean terminarPedido() {
+        if (pedido != null) {
+            pedido.setTerminado(true);
+            System.out.println("Pedido terminado con éxito");
+            pedidos.add(productoPedido);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public double calcularCosto() {
+        double costo = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecio()) * productoPedido.getCantidad();
+        productoPedido.setCosto(costo);
+        return productoPedido.getCosto();
+    }
+
+    @Override
+    public double calcularTotal() {
+        double total = 0;
+
+        for (ProductoPedidoDTO productoPedido : pedido.getPedido()) {
+            total += productoPedido.getCosto();
+        }
+        pedido.setCostoTotal(total);
+        return total;
+    }
+
+    @Override
+    public double calcularCambio(EfectivoDTO efectivo) {
+        if (efectivo.getCantidadIngresada() >= pedido.getCostoTotal()) {
+            return efectivo.getCantidadIngresada() - pedido.getCostoTotal();
+        } else {
+            return -1;
+        }
     }
 }
