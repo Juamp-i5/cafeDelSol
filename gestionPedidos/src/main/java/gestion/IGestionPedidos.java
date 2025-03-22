@@ -45,4 +45,7 @@ public interface IGestionPedidos {
 
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
 
+    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido);
+    
+    public boolean terminarPedido();
 }

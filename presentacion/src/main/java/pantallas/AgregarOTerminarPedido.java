@@ -4,6 +4,7 @@
  */
 package pantallas;
 
+import DTOs.ProductoPedidoDTO;
 import control.ControlNavegacion;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
@@ -22,8 +23,10 @@ import javax.swing.SwingConstants;
  *
  * @author pablo
  */
-public class AgregarOTerminarPedido extends javax.swing.JFrame {   
+public class AgregarOTerminarPedido extends javax.swing.JFrame {
+
     public static IGestionPedidos gestion = new ManejadorPedidos();
+    private ProductoPedidoDTO ProductoPedido;
 
     /**
      * Creates new form AgregarOTerminarPedido
@@ -43,7 +46,6 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
         // Panel superior con título en gris
-
         JPanel panelTitulo = new JPanel(new BorderLayout());
         panelTitulo.setBackground(Color.WHITE);
 
@@ -76,14 +78,14 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAtrasSeleccionado(); 
+                BtnAtrasSeleccionado();
             }
         });
 
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAgregarSeleccionado(); 
+                BtnAgregarSeleccionado();
             }
         });
 
@@ -97,27 +99,39 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     }
 
     public void BtnAtrasSeleccionado() {
-        ControlNavegacion.mostrarPantallaToppings();
+        ControlNavegacion.volverPantallaAnterior();
         dispose();
     }
 
     public void BtnAgregarSeleccionado() {
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro pedido?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (ProductoPedido == null) {
+            ProductoPedido = new ProductoPedidoDTO(); 
+        }
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            //Guardar pedido y abre otro 
-            
-            ControlNavegacion.mostrarPantallaProductos();            
-            dispose(); 
-        }        
+            boolean agregado = gestion.agregarProductoPedidoAPedido(ProductoPedido);
+            if (agregado) {
+                ControlNavegacion.mostrarPantallaProductos();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: No se pudo agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     public void BtnTerminarSeleccionado() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea finalizar el pedido?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            //Guardar pedido
-            
-            System.out.println("Pasa a la siguiente pantalla");
-            dispose(); 
+            boolean terminado = gestion.terminarPedido();
+            if (terminado) {
+                JOptionPane.showMessageDialog(this, "Pedido finalizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+                //muestra siguiente pantalla
+                
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Error: No se puede finalizar un pedido vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

@@ -11,6 +11,7 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,8 @@ import java.util.List;
  * @author Jp
  */
 public class ManejadorPedidos implements IGestionPedidos {
-
+    
+    List<ProductoPedidoDTO> pedidos = new ArrayList<>();
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedido;
 
@@ -125,25 +127,41 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
         if (tarjeta == null) {
-            return false; // Si la tarjeta es nula, la validación falla.
+            return false; 
         }
-        // Validar número de tarjeta 
         String numeroTarjeta = tarjeta.getNumTarjeta();
         if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
             return false;
         }
-        // Validar nombre del banco 
         String banco = tarjeta.getNombreBanco();
         if (banco == null || banco.trim().isEmpty()) {
             return false;
         }
-        // Validar CVV (3 o 4 dígitos)
         String cvv = tarjeta.getCVV();
         if (cvv == null || !cvv.matches("\\d{3,4}")) {
             return false;
         }
-        return true; // Si pasa todas las validaciones, retorna verdadero.       
+        return true;       
     }
-
     
+    @Override
+    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido) {
+//        if (productoPedido == null) {
+//            System.out.println("Error: No se puede agregar un pedido que es nulo");
+//            return false;
+//        }        
+        return pedidos.add(productoPedido);   
+    }
+    
+    @Override
+    public boolean terminarPedido() {
+//        if (pedidos==null) {
+//            System.out.println("Error: No se puede terminar un pedido vacío");
+//            return false;
+//        }
+        pedido.setTerminado(true);        
+        System.out.println("Pedido terminado con éxito");
+        pedidos.add(productoPedido);
+        return true;
+    }
 }
