@@ -92,4 +92,12 @@ public class ControlNavegacion {
     public static void mostrarPantallaTarjetaRechazada(){
         JOptionPane.showMessageDialog(null,"Tarjeta rechazada");
     }
+    
+    public static void mostrarPantallaTotalDesglosado(){
+        JFrame totalDesglosado = new TotalDesglosado();
+        totalDesglosado.setLocationRelativeTo(null);
+        totalDesglosado.setVisible(true);
+        
+        framesVisitados.add(totalDesglosado);
+    }
 }

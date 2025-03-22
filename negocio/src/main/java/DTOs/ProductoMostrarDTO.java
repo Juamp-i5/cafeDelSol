@@ -12,6 +12,7 @@ public class ProductoMostrarDTO {
 
     private Long id;
     private String nombre;
+    private double precio;
     private String urlImagen;
 
     public ProductoMostrarDTO() {
@@ -20,6 +21,13 @@ public class ProductoMostrarDTO {
     public ProductoMostrarDTO(Long id, String nombre, String urlImagen) {
         this.id = id;
         this.nombre = nombre;
+        this.urlImagen = urlImagen;
+    }
+
+    public ProductoMostrarDTO(Long id, String nombre, double precio, String urlImagen) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
         this.urlImagen = urlImagen;
     }
 
@@ -37,6 +45,14 @@ public class ProductoMostrarDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
     public String getUrlImagen() {

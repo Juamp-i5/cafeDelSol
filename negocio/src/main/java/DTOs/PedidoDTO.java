@@ -14,6 +14,7 @@ import java.util.List;
 public class PedidoDTO {
 
     List<ProductoPedidoDTO> pedido = new ArrayList<>();
+    private double costoTotal;
 
     public PedidoDTO() {
     }
@@ -30,4 +31,13 @@ public class PedidoDTO {
         this.pedido = pedido;
     }
 
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+    
+    
 }

@@ -15,6 +15,7 @@ public class ProductoPedidoDTO {
     private SaboresMostrarDTO sabor;
     private ToppingsMostrarDTO topping;
     private int cantidad = 1;
+    private double costo;
 
     public ProductoPedidoDTO() {
         this.cantidad = 1;
@@ -67,8 +68,13 @@ public class ProductoPedidoDTO {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
-    
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
 
 }
