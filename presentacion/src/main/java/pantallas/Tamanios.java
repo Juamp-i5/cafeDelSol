@@ -78,8 +78,9 @@ public class Tamanios extends javax.swing.JFrame {
     }
     
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
-        this.dispose();
         ControlNavegacion.mostrarPantallaSabores();
+        ControlNavegacion.gestor.agregarTamanio(tamanio);
+        this.dispose();
     }
     
     /**

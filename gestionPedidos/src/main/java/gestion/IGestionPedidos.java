@@ -26,9 +26,15 @@ public interface IGestionPedidos {
 
     public List<TamanioMostrarDTO> cargarTamanios();
     
+    public void agregarTamanio(TamanioMostrarDTO tamanio);
+    
     public List<SaboresMostrarDTO> cargarSabores();
     
+    public void agregarSabor(SaboresMostrarDTO sabor);
+    
     public List<ToppingsMostrarDTO> cargarToppings();
+    
+    public void agregarTopping(ToppingsMostrarDTO topping);
     
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
 

@@ -21,7 +21,6 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedido;
-    private TamanioMostrarDTO tamanioPedido;
 
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
@@ -74,6 +73,11 @@ public class ManejadorPedidos implements IGestionPedidos {
                 new TamanioMostrarDTO(3L, "Grande", "../img/tamanioGrande.jpg",10)
         );
     }
+    
+    @Override
+    public void agregarTamanio(TamanioMostrarDTO tamanio) {
+        productoPedido.setTamanio(tamanio);
+    }
 
     @Override
     public List<SaboresMostrarDTO> cargarSabores() {
@@ -87,6 +91,11 @@ public class ManejadorPedidos implements IGestionPedidos {
         
         );
     }
+    
+    @Override
+    public void agregarSabor(SaboresMostrarDTO sabor) {
+        productoPedido.setSabor(sabor);
+    }
 
     @Override
     public List<ToppingsMostrarDTO> cargarToppings() {
@@ -98,7 +107,10 @@ public class ManejadorPedidos implements IGestionPedidos {
         );
     }
     
-    
+    @Override
+    public void agregarTopping(ToppingsMostrarDTO topping) {
+        productoPedido.setTopping(topping);
+    }
 
     @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
@@ -122,4 +134,6 @@ public class ManejadorPedidos implements IGestionPedidos {
         }
         return true; // Si pasa todas las validaciones, retorna verdadero.       
     }
+
+    
 }
