@@ -10,11 +10,17 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import control.ControlNavegacion;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -24,11 +30,6 @@ public class EditarProducto extends javax.swing.JFrame {
     
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
-    // Variables para almacenar las selecciones del usuario
-//    private ProductoMostrarDTO productoSeleccionado;
-//    private TamanioMostrarDTO tamanioSeleccionado;
-//    private SaboresMostrarDTO saborSeleccionado;
-//    private ToppingsMostrarDTO toppingSeleccionado;
     private ProductoPedidoDTO productoPedido;
     
     public EditarProducto(ProductoPedidoDTO productoPedido) {
@@ -36,70 +37,101 @@ public class EditarProducto extends javax.swing.JFrame {
         
         setTitle("Editar Producto");
         setSize(1000, 800);
-        setLayout(null);
+        setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        JPanel panelBotones = new JPanel(new GridLayout(2, 2, 20, 20));
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
         // Crear botones con las selecciones actuales
         btnProducto = new JButton("Producto: " + productoPedido.getProducto().getNombre());
         btnTamanio = new JButton("Tamaño: " + productoPedido.getTamanio().getNombre());
         btnSabor = new JButton("Sabor: " + productoPedido.getSabor().getNombre());
         btnToppings = new JButton("Toppings: " + productoPedido.getTopping().getNombre());
+        
+        JButton[] botones = {btnProducto, btnTamanio, btnSabor, btnToppings};
+
+        for (JButton boton : botones) {
+            boton.setPreferredSize(new Dimension(250, 50));
+            boton.setFont(new Font("Arial", Font.BOLD, 16));
+        }
+        
         btnRegresar = new JButton("←");
+        btnRegresar.setPreferredSize(new Dimension(80, 40));
 
-        // Posicionar los botones
-        btnProducto.setBounds(50, 50, 150, 40);
-        btnTamanio.setBounds(220, 50, 150, 40);
-        btnSabor.setBounds(50, 120, 150, 40);
-        btnToppings.setBounds(220, 120, 150, 40);
-        btnRegresar.setBounds(20, 200, 60, 40);
-
+        panelBotones.add(btnProducto);
+        panelBotones.add(btnTamanio);
+        panelBotones.add(btnSabor);
+        panelBotones.add(btnToppings);
+        
+        JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelInferior.add(btnRegresar);
+        
         // Agregar acción a cada botón
         btnProducto.addActionListener(e -> abrirProductos());
         btnTamanio.addActionListener(e -> abrirTamanios());
         btnSabor.addActionListener(e -> abrirSabores());
         btnToppings.addActionListener(e -> abrirToppings());
         btnRegresar.addActionListener(e -> regresar());
+        
+        // Agregar los paneles al Frame
+        add(panelBotones, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
 
-        // Agregar los botones al Frame
-        add(btnProducto);
-        add(btnTamanio);
-        add(btnSabor);
-        add(btnToppings);
-        add(btnRegresar);
-
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
+//    private void abrirProductos() {
+//        List<ProductoMostrarDTO> productosD = ControlNavegacion.gestor.cargarProductos();
+//        Productos productosFrame = new Productos(productosD, this);
+//        productosFrame.setVisible(true);
+//        this.setVisible(false);
+//    }
+    
     private void abrirProductos() {
-        List<ProductoMostrarDTO> productosD = ControlNavegacion.gestor.cargarProductos();
-        Productos productosFrame = new Productos(productosD, this);
-        productosFrame.setVisible(true);
-        this.setVisible(false);
+        dispose(); // Cierra la pantalla actual antes de abrir la nueva
+        ControlNavegacion.mostrarPantallaProductos(this);
     }
 
+//    private void abrirTamanios() {
+//        List<TamanioMostrarDTO> tamaniosD = ControlNavegacion.gestor.cargarTamanios();
+//        Tamanios tamaniosFrame = new Tamanios(tamaniosD, this);
+//        tamaniosFrame.setVisible(true);
+//        this.setVisible(false);
+//    }
+    
     private void abrirTamanios() {
-        List<TamanioMostrarDTO> tamaniosD = ControlNavegacion.gestor.cargarTamanios();
-        Tamanios tamaniosFrame = new Tamanios(tamaniosD, this);
-        tamaniosFrame.setVisible(true);
-        this.setVisible(false);
+        dispose();
+        ControlNavegacion.mostrarPantallaTamanios(this);
     }
 
+//    private void abrirSabores() {
+//        List<SaboresMostrarDTO> saboresD = ControlNavegacion.gestor.cargarSabores();
+//        Sabores saboresFrame = new Sabores(saboresD, this);
+//        saboresFrame.setVisible(true);
+//        this.setVisible(false);
+//    }
+    
     private void abrirSabores() {
-        List<SaboresMostrarDTO> saboresD = ControlNavegacion.gestor.cargarSabores();
-        Sabores saboresFrame = new Sabores(saboresD, this);
-        saboresFrame.setVisible(true);
-        this.setVisible(false);
+        dispose();
+        ControlNavegacion.mostrarPantallaSabores(this);
     }
+
+//    private void abrirToppings() {
+//        List<ToppingsMostrarDTO> toppingsD = ControlNavegacion.gestor.cargarToppings();
+//        Toppings toppingsFrame = new Toppings(toppingsD, this);
+//        toppingsFrame.setVisible(true);
+//        this.setVisible(false);
+//    }
 
     private void abrirToppings() {
-        List<ToppingsMostrarDTO> toppingsD = ControlNavegacion.gestor.cargarToppings();
-        Toppings toppingsFrame = new Toppings(toppingsD, this);
-        toppingsFrame.setVisible(true);
-        this.setVisible(false);
+        dispose();
+        ControlNavegacion.mostrarPantallaToppings(this);
     }
-
+    
     private void regresar() {
-        this.dispose();
+        ControlNavegacion.volverPantallaAnterior();
     }
 
     // Métodos para actualizar el texto de los botones según la selección del usuario

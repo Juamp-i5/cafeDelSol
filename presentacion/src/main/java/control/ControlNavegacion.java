@@ -104,6 +104,9 @@ public class ControlNavegacion {
     }
 
     public static void mostrarPantallaProductos(EditarProducto editarProductoFrame) {
+        if (editarProductoFrame != null) {
+            editarProductoFrame.dispose();
+        }
         JFrame productos = new Productos(gestor.cargarProductos(), editarProductoFrame);
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
@@ -112,6 +115,9 @@ public class ControlNavegacion {
     }
     
     public static void mostrarPantallaTamanios(EditarProducto editarProductoFrame) {
+        if (editarProductoFrame != null) {
+            editarProductoFrame.dispose();
+        }
         JFrame tamanios = new Tamanios(gestor.cargarTamanios(), editarProductoFrame);
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
@@ -120,6 +126,9 @@ public class ControlNavegacion {
     }
     
     public static void mostrarPantallaSabores(EditarProducto editarProductoFrame){
+        if (editarProductoFrame != null) {
+            editarProductoFrame.dispose();
+        }
         JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
@@ -128,6 +137,9 @@ public class ControlNavegacion {
     }
     
     public static void mostrarPantallaToppings(EditarProducto editarProductoFrame){
+        if (editarProductoFrame != null) {
+            editarProductoFrame.dispose();
+        }
         JFrame toppings = new Toppings(gestor.cargarToppings(), editarProductoFrame);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
