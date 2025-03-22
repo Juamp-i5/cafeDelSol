@@ -4,6 +4,7 @@
  */
 package control;
 
+import DTOs.ProductoMostrarDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.util.Stack;
@@ -100,4 +101,46 @@ public class ControlNavegacion {
         
         framesVisitados.add(totalDesglosado);
     }
+
+    public static void mostrarPantallaProductos(EditarProducto editarProductoFrame) {
+        JFrame productos = new Productos(gestor.cargarProductos(), editarProductoFrame);
+        productos.setLocationRelativeTo(null);
+        productos.setVisible(true);
+
+        framesVisitados.add(productos);
+    }
+    
+    public static void mostrarPantallaTamanios(EditarProducto editarProductoFrame) {
+        JFrame tamanios = new Tamanios(gestor.cargarTamanios(), editarProductoFrame);
+        tamanios.setLocationRelativeTo(null);
+        tamanios.setVisible(true);
+
+        framesVisitados.add(tamanios);
+    }
+    
+    public static void mostrarPantallaSabores(EditarProducto editarProductoFrame){
+        JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
+        sabores.setLocationRelativeTo(null);
+        sabores.setVisible(true);
+        
+        framesVisitados.add(sabores);
+    }
+    
+    public static void mostrarPantallaToppings(EditarProducto editarProductoFrame){
+        JFrame toppings = new Toppings(gestor.cargarToppings(), editarProductoFrame);
+        toppings.setLocationRelativeTo(null);
+        toppings.setVisible(true);
+        
+        framesVisitados.add(toppings);
+    }
+    
+    public static void mostrarPantallaEditarProducto(ProductoMostrarDTO producto){
+        JFrame editarProducto = new EditarProducto(producto);
+        editarProducto.setLocationRelativeTo(null);
+        editarProducto.setVisible(true);
+        
+        framesVisitados.add(editarProducto);
+    }
+    
+    
 }

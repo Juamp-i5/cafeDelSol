@@ -25,11 +25,24 @@ import javax.swing.SwingConstants;
 public class Sabores extends javax.swing.JFrame {
 
     List<SaboresMostrarDTO> sabores;
+    private EditarProducto editarProductoFrame;
     /**
      * Creates new form Sabores
      */
+    
     public Sabores(List<SaboresMostrarDTO> sabores) {
         this.sabores = sabores;
+        initComponents();
+        setTitle("Sabores");
+        setSize(1024, 768);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        agregarSabores();
+        
+    }
+    
+    public Sabores(List<SaboresMostrarDTO> sabores, EditarProducto editarProductoFrame) {
+        this.sabores = sabores;
+        this.editarProductoFrame = editarProductoFrame;
         initComponents();
         setTitle("Sabores");
         setSize(1024, 768);
@@ -76,7 +89,13 @@ public class Sabores extends javax.swing.JFrame {
     }
     
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
-        ControlNavegacion.mostrarPantallaToppings();
+        if (editarProductoFrame != null){
+            editarProductoFrame.actualizarSabor(sabor);
+            editarProductoFrame.setVisible(true);
+        } else{
+            ControlNavegacion.mostrarPantallaToppings();
+        }
+        ControlNavegacion.gestor.agregarSabor(sabor);
         dispose();
     }
 

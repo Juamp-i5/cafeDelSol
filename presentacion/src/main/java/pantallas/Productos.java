@@ -20,6 +20,8 @@ public class Productos extends javax.swing.JFrame {
      * Creates new form Productos
      */
     List<ProductoMostrarDTO> productos;
+    
+    private EditarProducto editarProductoFrame;
 
     public Productos(List<ProductoMostrarDTO> productos) {
         this.productos = productos;
@@ -27,7 +29,15 @@ public class Productos extends javax.swing.JFrame {
         agregarProductos();
         ajustarScroll();
     }
-
+    
+    public Productos(List<ProductoMostrarDTO> productos, EditarProducto editarProductoFrame) {
+        this.editarProductoFrame = editarProductoFrame;
+        this.productos = productos;
+        initComponents();
+        agregarProductos();
+        ajustarScroll();
+    }
+    
     private void ajustarScroll() {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
     }
@@ -83,11 +93,16 @@ public class Productos extends javax.swing.JFrame {
     }
 
     private void productoSeleccionado(ProductoMostrarDTO producto) {
-        ControlNavegacion.mostrarPantallaTamanios();
+        if (editarProductoFrame != null){
+            editarProductoFrame.actualizarProducto(producto);
+            editarProductoFrame.setVisible(true);
+        } else{
+            ControlNavegacion.mostrarPantallaTamanios();
+        }
         ControlNavegacion.gestor.agregarProducto(producto);
         this.dispose();
     }
-
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

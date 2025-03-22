@@ -25,12 +25,24 @@ import javax.swing.SwingConstants;
 public class Toppings extends javax.swing.JFrame {
 
     List<ToppingsMostrarDTO> toppings;
+    private EditarProducto editarProductoFrame;
+
     
     /**
      * Creates new form Toppings
      */
     public Toppings(List<ToppingsMostrarDTO> toppings) {
         this.toppings = toppings;
+        initComponents();
+        setTitle("Toppings");
+        setSize(1024, 768);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        agregarToppings();
+    }
+    
+    public Toppings(List<ToppingsMostrarDTO> toppings, EditarProducto editarProductoFrame) {
+        this.toppings = toppings;
+        this.editarProductoFrame = editarProductoFrame;
         initComponents();
         setTitle("Toppings");
         setSize(1024, 768);
@@ -69,8 +81,6 @@ public class Toppings extends javax.swing.JFrame {
             });
 
             jPanel1.add(panelToppings);
-
-
         }
 
         jPanel1.revalidate();
@@ -78,12 +88,16 @@ public class Toppings extends javax.swing.JFrame {
     }
     
     private void toppingSeleccionado(ToppingsMostrarDTO topping){
+        if (editarProductoFrame != null){
+            editarProductoFrame.actualizarTopping(topping);
+            editarProductoFrame.setVisible(true);
+        } else{
+            ControlNavegacion.mostrarAgregarTerminarPedido();
+        }
+        ControlNavegacion.gestor.agregarTopping(topping);
         this.dispose();
-        ControlNavegacion.mostrarAgregarTerminarPedido();
     }
-    
-    
-    
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
