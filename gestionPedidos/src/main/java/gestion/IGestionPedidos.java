@@ -47,5 +47,5 @@ public interface IGestionPedidos {
 
     public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido);
     
-    public boolean terminarPedido();
+    public boolean terminarPedido(ProductoPedidoDTO productoPedido);
 }

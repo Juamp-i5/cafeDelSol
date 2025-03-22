@@ -19,8 +19,8 @@ import java.util.List;
  * @author Jp
  */
 public class ManejadorPedidos implements IGestionPedidos {
-    
-    List<ProductoPedidoDTO> pedidos = new ArrayList<>();
+
+    List<ProductoPedidoDTO> listaProductoPedido = new ArrayList<>();
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedido;
 
@@ -55,25 +55,25 @@ public class ManejadorPedidos implements IGestionPedidos {
         return productoPedido;
     }
 
-    @Override 
+    @Override
     public void agregarProducto(ProductoMostrarDTO producto) {
         productoPedido.setProducto(producto);
     }
-    
+
     @Override
-    public void crearPedido(){
+    public void crearPedido() {
         this.pedido = new PedidoDTO();
     }
-    
+
     @Override
-    public void crearProductoPedido(){
+    public void crearProductoPedido() {
         if (pedido == null) {
             crearPedido();
         }
         if (productoPedido != null) {
             pedido.getPedido().add(productoPedido);
         }
-        
+
         this.productoPedido = new ProductoPedidoDTO();
     }
 
@@ -82,10 +82,10 @@ public class ManejadorPedidos implements IGestionPedidos {
         return List.of(
                 new TamanioMostrarDTO(1L, "Pequenio", "../img/tamanioPequenio.jpg", 0),
                 new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5),
-                new TamanioMostrarDTO(3L, "Grande", "../img/tamanioGrande.jpg",10)
+                new TamanioMostrarDTO(3L, "Grande", "../img/tamanioGrande.jpg", 10)
         );
     }
-    
+
     @Override
     public void agregarTamanio(TamanioMostrarDTO tamanio) {
         productoPedido.setTamanio(tamanio);
@@ -94,16 +94,15 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<SaboresMostrarDTO> cargarSabores() {
         return List.of(
-                new SaboresMostrarDTO(1L, "Vainilla",  "../img/saborVainilla.jpg"),
-                new SaboresMostrarDTO(2L, "Chocolate",  "../img/saborChocolate.jpeg"),
-                new SaboresMostrarDTO(3L, "Moka",  "../img/saborMoka.jpg"),
-                new SaboresMostrarDTO(4L, "Fresa",  "../img/saborFresa.jpg"),
-                new SaboresMostrarDTO(5L, "Oreo",  "../img/saborOreo.jpg"),
-                new SaboresMostrarDTO(6L, "Caramelo",  "../img/saborCaramelo.jpg")
-        
+                new SaboresMostrarDTO(1L, "Vainilla", "../img/saborVainilla.jpg"),
+                new SaboresMostrarDTO(2L, "Chocolate", "../img/saborChocolate.jpeg"),
+                new SaboresMostrarDTO(3L, "Moka", "../img/saborMoka.jpg"),
+                new SaboresMostrarDTO(4L, "Fresa", "../img/saborFresa.jpg"),
+                new SaboresMostrarDTO(5L, "Oreo", "../img/saborOreo.jpg"),
+                new SaboresMostrarDTO(6L, "Caramelo", "../img/saborCaramelo.jpg")
         );
     }
-    
+
     @Override
     public void agregarSabor(SaboresMostrarDTO sabor) {
         productoPedido.setSabor(sabor);
@@ -112,13 +111,13 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<ToppingsMostrarDTO> cargarToppings() {
         return List.of(
-                new ToppingsMostrarDTO(1L, "Azúcar",  "../img/azucar.jpeg"),
-                new ToppingsMostrarDTO(2L, "Canela",  "../img/canela.jpg"),
-                new ToppingsMostrarDTO(3L, "Nutella",  "../img/nutella.jpg"),
-                new ToppingsMostrarDTO(4L, "Cajeta",  "../img/cajeta.jpg")     
+                new ToppingsMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg"),
+                new ToppingsMostrarDTO(2L, "Canela", "../img/canela.jpg"),
+                new ToppingsMostrarDTO(3L, "Nutella", "../img/nutella.jpg"),
+                new ToppingsMostrarDTO(4L, "Cajeta", "../img/cajeta.jpg")
         );
     }
-    
+
     @Override
     public void agregarTopping(ToppingsMostrarDTO topping) {
         productoPedido.setTopping(topping);
@@ -127,7 +126,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
         if (tarjeta == null) {
-            return false; 
+            return false;
         }
         String numeroTarjeta = tarjeta.getNumTarjeta();
         if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
@@ -141,27 +140,33 @@ public class ManejadorPedidos implements IGestionPedidos {
         if (cvv == null || !cvv.matches("\\d{3,4}")) {
             return false;
         }
-        return true;       
+        return true;
     }
-    
+
     @Override
     public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido) {
-//        if (productoPedido == null) {
-//            System.out.println("Error: No se puede agregar un pedido que es nulo");
-//            return false;
-//        }        
-        return pedidos.add(productoPedido);   
+        if (productoPedido == null) {
+            System.out.println("Error: No se puede agregar un pedido que es nulo");
+            return false;
+        }
+        listaProductoPedido.add(productoPedido);
+        crearProductoPedido();
+        return true;
     }
-    
+
     @Override
-    public boolean terminarPedido() {
-//        if (pedidos==null) {
-//            System.out.println("Error: No se puede terminar un pedido vacío");
-//            return false;
-//        }
-        pedido.setTerminado(true);        
-        System.out.println("Pedido terminado con éxito");
-        pedidos.add(productoPedido);
+    public boolean terminarPedido(ProductoPedidoDTO productoPedido) {
+        if (this.pedido == null) {
+            System.out.println("Error: No se puede terminar un pedido vacío");
+            return false;
+        }
+        this.pedido.setTerminado(true);      
+        if (productoPedido != null) {
+            listaProductoPedido.add(productoPedido);
+            System.out.println("Pedido terminado con éxito");
+        } else {
+            System.out.println("Error: No se puede agregar un producto nulo a la lista");
+        }
         return true;
     }
 }

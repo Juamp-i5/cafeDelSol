@@ -5,6 +5,7 @@
 package control;
 
 import DTOs.ProductoMostrarDTO;
+import DTOs.ProductoPedidoDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.util.Stack;

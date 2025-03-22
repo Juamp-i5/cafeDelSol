@@ -26,30 +26,33 @@ import javax.swing.SwingConstants;
 public class AgregarOTerminarPedido extends javax.swing.JFrame {
 
     public static IGestionPedidos gestion = new ManejadorPedidos();
-    private ProductoPedidoDTO ProductoPedido;
-
+    private ProductoPedidoDTO productoPedido;
     /**
      * Creates new form AgregarOTerminarPedido
+     * @param productopedido
      */
-    public AgregarOTerminarPedido() {
+
+    public AgregarOTerminarPedido(ProductoPedidoDTO productopedido) {
+        this.productoPedido = productopedido;
         setTitle("");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         add(crearPanelPedido(), BorderLayout.CENTER);
-
         setVisible(true);
+    }
+    
+    public AgregarOTerminarPedido() {
+        this(null);
     }
 
     private JPanel crearPanelPedido() {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        // Panel superior con título en gris
         JPanel panelTitulo = new JPanel(new BorderLayout());
         panelTitulo.setBackground(Color.WHITE);
 
-        // Panel central con botones
         JPanel panelCentral = new JPanel(new GridLayout(1, 2, 10, 10));
 
         JButton btnAgregar = new JButton("+");
@@ -69,12 +72,10 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
 
         panelInferior.add(btnAtras, BorderLayout.WEST);
 
-        // Agregar los subpaneles al panel principal
         panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
         panelPrincipal.add(panelCentral, BorderLayout.CENTER);
         panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
 
-        // Agregar eventos a los botones
         btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -104,12 +105,9 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     }
 
     public void BtnAgregarSeleccionado() {
-        if (ProductoPedido == null) {
-            ProductoPedido = new ProductoPedidoDTO(); 
-        }
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            boolean agregado = gestion.agregarProductoPedidoAPedido(ProductoPedido);
+            boolean agregado = ControlNavegacion.gestor.agregarProductoPedidoAPedido(productoPedido);
             if (agregado) {
                 ControlNavegacion.mostrarPantallaProductos();
                 dispose();
@@ -122,11 +120,10 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     public void BtnTerminarSeleccionado() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea finalizar el pedido?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            boolean terminado = gestion.terminarPedido();
+            boolean terminado = gestion.terminarPedido(productoPedido);
             if (terminado) {
-                JOptionPane.showMessageDialog(this, "Pedido finalizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
-                //muestra siguiente pantalla
+                ControlNavegacion.mostrarPantallaTotalDesglosado();
                 
                 dispose();
             } else {
@@ -135,7 +132,6 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         }
     }
 
-    // Método auxiliar para organizar botones con etiquetas
     private JPanel crearBotonPanel(JButton boton, String texto) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(boton, BorderLayout.CENTER);

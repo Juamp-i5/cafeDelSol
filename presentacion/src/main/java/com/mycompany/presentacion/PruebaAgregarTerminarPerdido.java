@@ -52,9 +52,11 @@ public static IGestionPedidos gestion = new ManejadorPedidos();
 //        ProductoPedidoDTO PEDIDO2 = new ProductoPedidoDTO(producto, tamanio, sabor, topping);
 //        ProductoPedidoDTO PEDIDO3 = new ProductoPedidoDTO(producto, tamanio, sabor, topping);
 //        
+//        
+//        
 //        lista.add(PEDIDO1);
-//        lista.add(PEDIDO2);
-//        lista.add(PEDIDO3);
+////        lista.add(PEDIDO2);
+////        lista.add(PEDIDO3);
 //        
 //        pedido.setPedido(lista);
 //

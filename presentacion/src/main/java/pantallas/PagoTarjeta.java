@@ -6,6 +6,7 @@ package pantallas;
 
 import DTOs.ProductoMostrarDTO;
 import DTOs.TarjetaDTO;
+import control.ControlNavegacion;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.awt.*;
@@ -30,10 +31,8 @@ public class PagoTarjeta extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Panel Principal
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
 
-        // Título superior
         JLabel lblTitulo = new JLabel("Pago con tarjeta", SwingConstants.LEFT);
         lblTitulo.setForeground(Color.GRAY);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -41,7 +40,6 @@ public class PagoTarjeta extends javax.swing.JFrame {
         panelTitulo.add(lblTitulo, BorderLayout.WEST);
         panelTitulo.setBackground(Color.WHITE);
 
-        // Panel de formulario
         JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 10, 10));
         panelFormulario.setBackground(Color.LIGHT_GRAY);
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -62,7 +60,6 @@ public class PagoTarjeta extends javax.swing.JFrame {
         JPasswordField txtCVV = new JPasswordField();
         panelFormulario.add(txtCVV);
 
-        // Panel inferior con botones
         JPanel panelInferior = new JPanel(new BorderLayout());
 
         JButton btnAtras = new JButton("<-");
@@ -86,7 +83,6 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 BtnConfirmarSeleccionado(txtNumero, txtBanco, txtFecha, txtCVV);
             }
         });
-        // Agregar componentes al JFrame
         panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
@@ -95,7 +91,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
     }
 
     public void BtnAtrasSeleccionado() {
-        System.out.println("Regresa a pantalla anterior");
+        ControlNavegacion.volverPantallaAnterior();
         dispose();
     }
 
@@ -115,7 +111,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
     }
 
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
-        return gestion.validarTarjetaPresentacion(tarjeta);
+        return ControlNavegacion.gestor.validarTarjetaPresentacion(tarjeta);
     }
 
     /**
