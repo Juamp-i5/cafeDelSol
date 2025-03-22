@@ -7,7 +7,10 @@ package pantallas;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,25 +18,24 @@ import javax.swing.JPanel;
  * @author norma
  */
 public class TotalDesglosado extends javax.swing.JFrame {
-     
+
     /**
      * Creates new form TotalDesglosado
      */
     public TotalDesglosado() {
         initComponents();
         List<ProductoPedidoDTO> productosPedidos = (List<ProductoPedidoDTO>) ControlNavegacion.gestor.getPedido();
-        
+
         JPanel contenedorPaneles = new JPanel();
-        contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS)); 
-        
-        for(ProductoPedidoDTO productoPedido: productosPedidos){
+        contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
+
+        for (ProductoPedidoDTO productoPedido : productosPedidos) {
             PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
-            contenedorPaneles.add(panelProductoPedido); 
+            contenedorPaneles.add(panelProductoPedido);
         }
-        
-        this.pnlProductosPedidos.setViewportView(contenedorPaneles); 
+
+        this.pnlProductosPedidos.setViewportView(contenedorPaneles);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,41 +47,56 @@ public class TotalDesglosado extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlProductosPedidos = new javax.swing.JScrollPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        btnTarjeta = new javax.swing.JButton();
+        btnEfectivo = new javax.swing.JButton();
+        lblTotal = new javax.swing.JLabel();
+        lblTotalTotal = new javax.swing.JLabel();
+        lblSigno = new javax.swing.JLabel();
+        btnCancelarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("< ---");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnRegresar.setText("< ---");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton2.setText("Tarjeta");
+        btnTarjeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnTarjeta.setText("Tarjeta");
+        btnTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTarjetaActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton3.setText("Efectivo");
+        btnEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnEfectivo.setText("Efectivo");
+        btnEfectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEfectivoActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Total");
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblTotal.setText("Total");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("......");
+        lblTotalTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblTotalTotal.setText("......");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("$");
+        lblSigno.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblSigno.setText("$");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton4.setText("Cancelar Pedido");
+        btnCancelarPedido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCancelarPedido.setText("Cancelar Pedido");
+        btnCancelarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,25 +104,25 @@ public class TotalDesglosado extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnRegresar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnTarjeta)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnEfectivo)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSigno, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1))
+                        .addComponent(lblTotalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblTotal))
                 .addGap(41, 41, 41))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                .addComponent(btnCancelarPedido)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -118,37 +135,79 @@ public class TotalDesglosado extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton4)
+                        .addComponent(btnCancelarPedido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(lblTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                            .addComponent(lblSigno)
+                            .addComponent(lblTotalTotal))
                         .addGap(52, 52, 52)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(btnTarjeta)
+                    .addComponent(btnEfectivo)
+                    .addComponent(btnRegresar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ControlNavegacion.mostrarAgregarTerminarPedido();
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
 
+        int opc = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas cancelar el pedido?",
+                "Confirmar cancelación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opc == JOptionPane.YES_OPTION) {
+            ControlNavegacion.gestor.cancelarPedido(ControlNavegacion.gestor.getPedido());
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El pedido ha sido cancelado con éxito.",
+                    "Cancelación Exitosa",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            this.dispose();
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    ControlNavegacion.mostrarPantallaMenuPrincipal();
+                }
+            }, 5000);
+        }
+
+    }//GEN-LAST:event_btnCancelarPedidoActionPerformed
+
+    private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
+        ControlNavegacion.mostrarPagoTarjeta();
+        this.dispose();
+    }//GEN-LAST:event_btnTarjetaActionPerformed
+
+    private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
+         ControlNavegacion.mostrarPantallaPagoEfectivo();
+         this.dispose();
+    }//GEN-LAST:event_btnEfectivoActionPerformed
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnCancelarPedido;
+    private javax.swing.JButton btnEfectivo;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnTarjeta;
+    private javax.swing.JLabel lblSigno;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalTotal;
     private javax.swing.JScrollPane pnlProductosPedidos;
     // End of variables declaration//GEN-END:variables
 }

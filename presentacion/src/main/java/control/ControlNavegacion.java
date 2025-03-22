@@ -142,5 +142,11 @@ public class ControlNavegacion {
         framesVisitados.add(editarProducto);
     }
     
-    
+    public static void mostrarPantallaPagoEfectivo(){
+        JFrame pagoEfectivo = new PagoEfectivo();
+        pagoEfectivo.setLocationRelativeTo(null);
+        pagoEfectivo.setVisible(true);
+        
+        framesVisitados.add(pagoEfectivo);
+    }
 }

@@ -44,5 +44,7 @@ public interface IGestionPedidos {
     public void agregarTopping(ToppingsMostrarDTO topping);
 
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
+    
+    public boolean cancelarPedido(PedidoDTO pedido);
 
 }
