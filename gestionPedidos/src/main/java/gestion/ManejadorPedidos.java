@@ -76,6 +76,8 @@ public class ManejadorPedidos implements IGestionPedidos {
 
             pedido.getPedido().add(productoPedido);
 
+        }else if(productoPedido != null){
+            pedido.getPedido().add(productoPedido);
         }
         
 //        this.productoPedido = new ProductoPedidoDTO();
