@@ -172,6 +172,6 @@ public class ControlNavegacion {
                 public void run() {
                     ControlNavegacion.mostrarPantallaMenuPrincipal();
                 }
-            }, 3000);
+            }, 1000);
     }
 }

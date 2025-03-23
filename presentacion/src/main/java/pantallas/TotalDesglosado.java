@@ -30,7 +30,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         cargarPanelesProductosPedidos();
     }
 
-    private void cargarPanelesProductosPedidos() {
+    public void cargarPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
         List<ProductoPedidoDTO> productosPedidos = pedido.getPedido();
 
@@ -66,9 +66,9 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }
 
     private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
-        System.out.println("Editar producto: " + productoPedido.getProducto().getNombre());
+        this.dispose();
+        ControlNavegacion.mostrarPantallaEditarProducto(productoPedido);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -220,7 +220,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
                 public void run() {
                     ControlNavegacion.mostrarPantallaMenuPrincipal();
                 }
-            }, 2000);
+            }, 1000);
         }
 
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed

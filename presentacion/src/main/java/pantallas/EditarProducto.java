@@ -131,7 +131,9 @@ public class EditarProducto extends javax.swing.JFrame {
     }
     
     private void regresar() {
-        ControlNavegacion.volverPantallaAnterior();
+        ControlNavegacion.gestor.calcularCosto();
+        this.dispose();
+        ControlNavegacion.mostrarPantallaTotalDesglosado();
     }
 
     // Métodos para actualizar el texto de los botones según la selección del usuario

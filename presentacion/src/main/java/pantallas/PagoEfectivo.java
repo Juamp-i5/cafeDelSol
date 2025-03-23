@@ -38,7 +38,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
 
     private void pagoEnEfectivoInformacion() {
         setSize(800, 600);
-         
+
         lblPrecio = new JLabel("Precio:");
         lblPrecioValor = new JLabel(String.valueOf(ControlNavegacion.gestor.getPedido().getCostoTotal()));
         lblCantidadRecibida = new JLabel("Cantidad Recibida:");
@@ -116,6 +116,14 @@ public class PagoEfectivo extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ControlNavegacion.volverPantallaAnterior(); 
+                dispose(); 
+            }
+        });
+
         btnAceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -127,7 +135,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
 
                     if (cambio >= 0) {
                         ControlNavegacion.mostrarPantallaPedidoRealizado();
-                        dispose(); 
+                        dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Cantidad insuficiente para completar el pago", "Error", JOptionPane.ERROR_MESSAGE);
                     }

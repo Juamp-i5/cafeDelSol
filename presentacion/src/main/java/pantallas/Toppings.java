@@ -92,9 +92,6 @@ public class Toppings extends javax.swing.JFrame {
             editarProductoFrame.actualizarTopping(topping);
             editarProductoFrame.setVisible(true);
         } else{
-            System.out.println("Toppings");
-            System.out.println(ControlNavegacion.gestor.getPedido());
-            System.out.println(ControlNavegacion.gestor.getProductoPedido());
             ControlNavegacion.mostrarAgregarTerminarPedido();
         }
         ControlNavegacion.gestor.agregarTopping(topping);
