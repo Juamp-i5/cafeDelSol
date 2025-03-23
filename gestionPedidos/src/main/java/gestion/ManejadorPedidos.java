@@ -77,6 +77,9 @@ public class ManejadorPedidos implements IGestionPedidos {
             pedido.getPedido().add(productoPedido);
 
         }
+
+        this.productoPedido = new ProductoPedidoDTO();
+
     }
 
     @Override

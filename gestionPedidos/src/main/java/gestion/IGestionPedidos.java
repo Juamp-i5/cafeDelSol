@@ -50,6 +50,7 @@ public interface IGestionPedidos {
 
     public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido);
     
+
     public boolean terminarPedido();
     
     public double calcularCosto();
@@ -57,4 +58,5 @@ public interface IGestionPedidos {
     public double calcularTotal();
     
     public double calcularCambio(EfectivoDTO efectivo);
+
 }
