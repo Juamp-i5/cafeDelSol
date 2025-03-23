@@ -7,6 +7,8 @@ package pantallas;
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,6 +27,10 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     public TotalDesglosado() {
         initComponents();
+        cargarPanelesProductosPedidos();
+    }
+
+    private void cargarPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
         List<ProductoPedidoDTO> productosPedidos = pedido.getPedido();
 
@@ -33,14 +39,36 @@ public class TotalDesglosado extends javax.swing.JFrame {
 
         for (ProductoPedidoDTO productoPedido : productosPedidos) {
             PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
+            panelProductoPedido.setCancelarActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    cancelarProductoPedido(panelProductoPedido.getProductoPedido());
+                }
+            });
+
+            panelProductoPedido.setEditarActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    editarProductoPedido(panelProductoPedido.getProductoPedido());
+                }
+            });
+
             contenedorPaneles.add(panelProductoPedido);
         }
 
         this.pnlProductosPedidos.setViewportView(contenedorPaneles);
-        
         this.lblTotalTotal.setText(String.format("%.2f", ControlNavegacion.gestor.calcularTotal()));
-
     }
+
+    private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
+        ControlNavegacion.gestor.cancelarProductoPedido(productoPedido);
+        cargarPanelesProductosPedidos();
+    }
+
+    private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
+        System.out.println("Editar producto: " + productoPedido.getProducto().getNombre());
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -77,8 +77,8 @@ public class ManejadorPedidos implements IGestionPedidos {
             pedido.getPedido().add(productoPedido);
 
         }
-
-        this.productoPedido = new ProductoPedidoDTO();
+        
+//        this.productoPedido = new ProductoPedidoDTO();
 
     }
 
@@ -199,5 +199,10 @@ public class ManejadorPedidos implements IGestionPedidos {
         } else {
             return -1;
         }
+    }
+    
+    @Override
+    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido){
+        pedido.getPedido().remove(productoPedido);
     }
 }

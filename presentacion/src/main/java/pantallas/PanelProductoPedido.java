@@ -5,26 +5,43 @@
 package pantallas;
 
 import DTOs.ProductoPedidoDTO;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author norma
  */
 public class PanelProductoPedido extends javax.swing.JPanel {
-
+    
+     private ProductoPedidoDTO productoPedido;
+     
     /**
      * Creates new form PanelTotalDesglosado
      * @param productoPedido
      */
     public PanelProductoPedido(ProductoPedidoDTO productoPedido) {
         initComponents();
+        this.productoPedido = productoPedido;
         this.lblNombreProducto.setText(productoPedido.getProducto().getNombre());
         this.lblTamaño.setText(productoPedido.getTamanio().getNombre());
         this.lblSabor.setText(productoPedido.getSabor().getNombre());
         double costo = productoPedido.getCosto();  
         this.lblPrecio.setText(String.format("%.2f", costo));
     }
+    
+     public ProductoPedidoDTO getProductoPedido() {
+        return this.productoPedido;
+    }
 
+    // Setters para los ActionListener de los botones
+    public void setCancelarActionListener(ActionListener listener) {
+        this.btnCancelar.addActionListener(listener);
+    }
+
+    public void setEditarActionListener(ActionListener listener) {
+        this.btnEditar.addActionListener(listener);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +57,8 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         lblSigno = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -57,8 +76,14 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         lblSigno.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblSigno.setText("$");
 
-        lblPrecio.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblPrecio.setText("Precio");
+
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCancelar.setText("Cancelar");
+
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnEditar.setText("Editar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,37 +95,56 @@ public class PanelProductoPedido extends javax.swing.JPanel {
                     .addComponent(lblNombreProducto)
                     .addComponent(lblSabor)
                     .addComponent(lblTamaño))
-                .addGap(99, 99, 99)
+                .addGap(56, 56, 56)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(lblSigno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPrecio)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar)
+                        .addGap(22, 22, 22))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblSigno)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                                .addComponent(btnCancelar)
+                                .addGap(14, 14, 14))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(lblPrecio)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(lblNombreProducto)
-                        .addGap(32, 32, 32)
-                        .addComponent(lblTamaño)
-                        .addGap(26, 26, 26)
-                        .addComponent(lblSabor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSigno)
-                            .addComponent(lblPrecio))))
+                .addGap(15, 15, 15)
+                .addComponent(lblNombreProducto)
+                .addGap(32, 32, 32)
+                .addComponent(lblTamaño)
+                .addGap(26, 26, 26)
+                .addComponent(lblSabor)
                 .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addGap(38, 38, 38)
+                .addComponent(btnEditar)
+                .addGap(43, 43, 43))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSigno)
+                    .addComponent(lblPrecio))
+                .addGap(77, 77, 77))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrecio;
