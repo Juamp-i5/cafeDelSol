@@ -26,7 +26,7 @@ public class Productos extends javax.swing.JFrame {
     public Productos(List<ProductoMostrarDTO> productos) {
         this.productos = productos;
         initComponents();
-        agregarProductos();
+        cargarProductos();
         ajustarScroll();
     }
     
@@ -34,7 +34,7 @@ public class Productos extends javax.swing.JFrame {
         this.editarProductoFrame = editarProductoFrame;
         this.productos = productos;
         initComponents();
-        agregarProductos();
+        cargarProductos();
         ajustarScroll();
     }
     
@@ -42,7 +42,7 @@ public class Productos extends javax.swing.JFrame {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(15);
     }
     
-    private void agregarProductos() {
+    private void cargarProductos() {
         int columnas = 3; // Número de productos por fila
         int filas = (int) Math.ceil((double) productos.size() / columnas); // Calcula filas necesarias
 
@@ -93,16 +93,16 @@ public class Productos extends javax.swing.JFrame {
     }
 
     private void productoSeleccionado(ProductoMostrarDTO producto) {
+        ControlNavegacion.gestor.agregarProducto(producto);
         if (editarProductoFrame != null){
             editarProductoFrame.actualizarProducto(producto);
             editarProductoFrame.setVisible(true);
         } else{
             ControlNavegacion.mostrarPantallaTamanios();
         }
-        ControlNavegacion.gestor.agregarProducto(producto);
         //
-         System.out.println(ControlNavegacion.gestor.getProductoPedido());
-         System.out.println(ControlNavegacion.gestor.getPedido());
+//         System.out.println(ControlNavegacion.gestor.getProductoPedido());
+//         System.out.println(ControlNavegacion.gestor.getPedido());
          
         //
         this.dispose();

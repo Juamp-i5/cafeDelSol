@@ -60,4 +60,6 @@ public interface IGestionPedidos {
     public double calcularCambio(EfectivoDTO efectivo);
     
     public void cancelarProductoPedido(ProductoPedidoDTO productoPedido);
+    
+    public void imprimirPedidoConsola();
 }

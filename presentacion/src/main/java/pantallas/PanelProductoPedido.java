@@ -25,6 +25,11 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         this.lblNombreProducto.setText(productoPedido.getProducto().getNombre());
         this.lblTamaño.setText(productoPedido.getTamanio().getNombre());
         this.lblSabor.setText(productoPedido.getSabor().getNombre());
+        String topping = productoPedido.getTopping().getNombre();
+        if (topping != null){
+            this.lblTopping.setText(topping);
+        }
+        
         double costo = productoPedido.getCosto();  
         this.lblPrecio.setText(String.format("%.2f", costo));
     }
@@ -59,6 +64,7 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         lblPrecio = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        lblTopping = new javax.swing.JLabel();
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -85,6 +91,8 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         btnEditar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnEditar.setText("Editar");
 
+        lblTopping.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +102,8 @@ public class PanelProductoPedido extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblNombreProducto)
                     .addComponent(lblSabor)
-                    .addComponent(lblTamaño))
+                    .addComponent(lblTamaño)
+                    .addComponent(lblTopping))
                 .addGap(56, 56, 56)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,11 +132,13 @@ public class PanelProductoPedido extends javax.swing.JPanel {
                 .addComponent(lblNombreProducto)
                 .addGap(32, 32, 32)
                 .addComponent(lblTamaño)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSabor)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTopping)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(52, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addGap(38, 38, 38)
                 .addComponent(btnEditar)
@@ -151,5 +162,6 @@ public class PanelProductoPedido extends javax.swing.JPanel {
     private javax.swing.JLabel lblSabor;
     private javax.swing.JLabel lblSigno;
     private javax.swing.JLabel lblTamaño;
+    private javax.swing.JLabel lblTopping;
     // End of variables declaration//GEN-END:variables
 }

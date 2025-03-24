@@ -54,6 +54,10 @@ public class PedidoDTO {
     
     @Override
     public String toString() {
-        return "PedidoDTO{" + "pedido=" + pedido + ", terminado=" + terminado + '}';
+        StringBuilder salida = new StringBuilder();
+        for (ProductoPedidoDTO producto : pedido) {
+            salida.append(producto.toString());
+        }
+        return salida.toString();
     }
 }

@@ -29,6 +29,7 @@
                   <Component id="lblNombreProducto" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblSabor" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblTamaño" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTopping" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="9" max="-2" attributes="0"/>
@@ -66,12 +67,14 @@
               <Component id="lblNombreProducto" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="lblTamaño" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblSabor" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="lblTopping" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="52" max="32767" attributes="0"/>
               <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
@@ -154,6 +157,13 @@
           <Font name="Segoe UI" size="18" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Editar"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTopping">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="14" style="0"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

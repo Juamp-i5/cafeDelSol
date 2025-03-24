@@ -28,8 +28,10 @@ public class ControlNavegacion {
         JFrame productos = new Productos(gestor.cargarProductos());
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(productos);
+        
     }
 
     public static void mostrarPantallaMenuPrincipal() {
@@ -51,12 +53,14 @@ public class ControlNavegacion {
                 frameAnterior.setVisible(true);
             }
         }
+        gestor.imprimirPedidoConsola();
     }
      
     public static void mostrarPantallaTamanios(){
         JFrame tamanios = new Tamanios(gestor.cargarTamanios());
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(tamanios);
     }
@@ -65,6 +69,7 @@ public class ControlNavegacion {
         JFrame sabores = new Sabores(gestor.cargarSabores());
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(sabores);
     }
@@ -73,6 +78,7 @@ public class ControlNavegacion {
         JFrame toppings = new Toppings(gestor.cargarToppings());
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(toppings);
     }
@@ -81,6 +87,7 @@ public class ControlNavegacion {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(agregarTerminarPedido);
     }
@@ -89,6 +96,7 @@ public class ControlNavegacion {
         JFrame pagoTarjeta = new PagoTarjeta();
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(pagoTarjeta);
     }
@@ -101,6 +109,7 @@ public class ControlNavegacion {
         JFrame totalDesglosado = new TotalDesglosado();
         totalDesglosado.setLocationRelativeTo(null);
         totalDesglosado.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(totalDesglosado);
     }
@@ -112,6 +121,7 @@ public class ControlNavegacion {
         JFrame productos = new Productos(gestor.cargarProductos(), editarProductoFrame);
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
+        gestor.imprimirPedidoConsola();
 
         framesVisitados.add(productos);
     }
@@ -123,6 +133,7 @@ public class ControlNavegacion {
         JFrame tamanios = new Tamanios(gestor.cargarTamanios(), editarProductoFrame);
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
+        gestor.imprimirPedidoConsola();
 
         framesVisitados.add(tamanios);
     }
@@ -134,6 +145,7 @@ public class ControlNavegacion {
         JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(sabores);
     }
@@ -145,6 +157,7 @@ public class ControlNavegacion {
         JFrame toppings = new Toppings(gestor.cargarToppings(), editarProductoFrame);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(toppings);
     }
@@ -153,6 +166,7 @@ public class ControlNavegacion {
         JFrame editarProducto = new EditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(editarProducto);
     }
@@ -161,6 +175,7 @@ public class ControlNavegacion {
         JFrame pagoEfectivo = new PagoEfectivo();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
+        gestor.imprimirPedidoConsola();
         
         framesVisitados.add(pagoEfectivo);
     }

@@ -207,4 +207,9 @@ public class ManejadorPedidos implements IGestionPedidos {
     public void cancelarProductoPedido(ProductoPedidoDTO productoPedido){
         pedido.getPedido().remove(productoPedido);
     }
+
+    @Override
+    public void imprimirPedidoConsola() {
+        System.out.println(pedido.toString());
+    }
 }

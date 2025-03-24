@@ -79,8 +79,14 @@ public class ProductoPedidoDTO {
 
     @Override
     public String toString() {
-        return "ProductoPedidoDTO{" + "producto=" + producto + ", tamanio=" + tamanio + ", sabor=" + sabor + ", topping=" + topping + ", cantidad=" + cantidad + ", costo=" + costo + '}';
+        return "{\n"
+                + "  \"producto\": \"" + producto + "\",\n"
+                + "  \"tamanio\": \"" + tamanio + "\",\n"
+                + "  \"sabor\": \"" + sabor + "\",\n"
+                + "  \"topping\": \"" + topping + "\",\n"
+                + "  \"cantidad\": " + cantidad + ",\n"
+                + "  \"costo\": " + costo + "\n"
+                + "}";
     }
-    
-    
+
 }

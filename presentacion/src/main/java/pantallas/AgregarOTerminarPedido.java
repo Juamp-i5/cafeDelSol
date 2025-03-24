@@ -42,8 +42,8 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     }
 
     private JPanel crearPanelPedido() {
-        System.out.println(ControlNavegacion.gestor.getProductoPedido());
-        System.out.println(ControlNavegacion.gestor.getPedido());
+//        System.out.println(ControlNavegacion.gestor.getProductoPedido());
+//        System.out.println(ControlNavegacion.gestor.getPedido());
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
         JPanel panelTitulo = new JPanel(new BorderLayout());
