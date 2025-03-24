@@ -25,7 +25,7 @@ public class ControlNavegacion {
     private static Stack framesVisitados = new Stack();
 
     public static void mostrarPantallaProductos() {
-        JFrame productos = new Productos(gestor.cargarProductos());
+        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos());
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
         gestor.imprimirPedidoConsola();
@@ -35,7 +35,7 @@ public class ControlNavegacion {
     }
 
     public static void mostrarPantallaMenuPrincipal() {
-        JFrame menuPrincipal = new MenuPrincipal();
+        JFrame menuPrincipal = new PantallaMenuPrincipal();
         menuPrincipal.setLocationRelativeTo(null);
         menuPrincipal.setVisible(true);
 
@@ -118,7 +118,7 @@ public class ControlNavegacion {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
         }
-        JFrame productos = new Productos(gestor.cargarProductos(), editarProductoFrame);
+        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), editarProductoFrame);
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
         gestor.imprimirPedidoConsola();
