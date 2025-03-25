@@ -36,7 +36,7 @@ public class Tamanios extends javax.swing.JFrame {
         this.tamanios = tamanios;
         initComponents();
         setTitle("Tamaños");
-        setSize(1024, 768);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarTamanios();
     }

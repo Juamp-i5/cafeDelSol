@@ -88,6 +88,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
 //            boolean agregado = gestion.agregarProductoPedidoAPedido(ProductoPedido);
+
             ControlNavegacion.gestor.calcularCosto();
             ControlNavegacion.agregarProductoPedidoAPedido();
 

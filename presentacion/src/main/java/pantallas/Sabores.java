@@ -35,7 +35,7 @@ public class Sabores extends javax.swing.JFrame {
         this.sabores = sabores;
         initComponents();
         setTitle("Sabores");
-        setSize(1024, 768);
+        setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarSabores();
 

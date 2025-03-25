@@ -36,7 +36,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
     }
 
     private void pagarEnEfectivo() {
-        setSize(800, 600);
+        setSize(1000, 800);
         inicializarEtiquetasYCampos();
         JPanel panelPrincipal = crearPanelPrincipal();
         add(panelPrincipal);
@@ -82,7 +82,9 @@ public class PagoEfectivo extends javax.swing.JFrame {
         panelBotones.setLayout(new BorderLayout());
 
         btnRegresar = new JButton("< - -");
+        btnRegresar.setPreferredSize(new Dimension(200, 50));
         btnAceptar = new JButton("Terminar pedido");
+        btnAceptar.setPreferredSize(new Dimension(200, 50));
 
         JPanel panelVacio = new JPanel();
 
