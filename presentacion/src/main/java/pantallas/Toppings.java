@@ -8,14 +8,18 @@ import DTOs.ToppingsMostrarDTO;
 import control.ControlNavegacion;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -26,6 +30,7 @@ public class Toppings extends javax.swing.JFrame {
 
     List<ToppingsMostrarDTO> toppings;
     private EditarProducto editarProductoFrame;
+    private JPanel panelConTodosLosToppings;
 
     
     /**
@@ -33,7 +38,7 @@ public class Toppings extends javax.swing.JFrame {
      */
     public Toppings(List<ToppingsMostrarDTO> toppings) {
         this.toppings = toppings;
-        initComponents();
+        initComponents2();
         setTitle("Toppings");
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,26 +48,42 @@ public class Toppings extends javax.swing.JFrame {
     public Toppings(List<ToppingsMostrarDTO> toppings, EditarProducto editarProductoFrame) {
         this.toppings = toppings;
         this.editarProductoFrame = editarProductoFrame;
-        initComponents();
-        setTitle("Toppings");
-        setSize(1024, 768);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        initComponents2();
         agregarToppings();
     }
     
+    private void initComponents2(){
+        setTitle("Toppings");
+        setSize(1000, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        
+        JLabel lblTitulo = new JLabel("Toppings", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(lblTitulo, BorderLayout.NORTH);
+        
+        panelConTodosLosToppings = new JPanel();
+        panelConTodosLosToppings.setLayout(new GridLayout(0, 2, 20, 20));
+        add(new JScrollPane(panelConTodosLosToppings), BorderLayout.CENTER);
+        
+        JPanel panelNavegacion = new JPanel(new BorderLayout());
+        
+        JButton btnRegresar = new JButton("<-");
+        btnRegresar.setFont(new Font("Arial", Font.BOLD, 16));
+        btnRegresar.addActionListener(e -> regresar());
+        
+        panelNavegacion.add(btnRegresar, BorderLayout.WEST);
+        add(panelNavegacion,BorderLayout.SOUTH);
+    }
     
+        
     private void agregarToppings() {
-        int columnas = 2; // Número de productos por fila
-        int filas = (int) Math.ceil((double) toppings.size() / columnas); // Calcula filas necesarias
-
-        jPanel1.setLayout(new GridLayout(filas, columnas, 10, 10)); // Espaciado entre productos
-
         for (ToppingsMostrarDTO topping : toppings) {
-            JPanel panelToppings = new JPanel();
-            panelToppings.setLayout(new BorderLayout());
-            panelToppings.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            JPanel panelTopping = new JPanel(new BorderLayout());
+            panelTopping.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            panelTopping.setPreferredSize(new Dimension(250, 300));
 
-            // Cargar imagen desde la URL o ruta del sistema
             JLabel lblImagen = new JLabel();
             ImageIcon icono = new ImageIcon(topping.getUrlImagen());
             Image img = icono.getImage().getScaledInstance(250, 250, Image.SCALE_SMOOTH);
@@ -70,22 +91,25 @@ public class Toppings extends javax.swing.JFrame {
             lblImagen.setHorizontalAlignment(JLabel.CENTER);
 
             JLabel lblNombre = new JLabel(topping.getNombre(), SwingConstants.CENTER);
+            lblNombre.setFont(new Font("Arial", Font.BOLD, 16));
+            
+            panelTopping.add(lblImagen, BorderLayout.CENTER);
+            panelTopping.add(lblNombre, BorderLayout.SOUTH);
 
-            panelToppings.add(lblImagen, BorderLayout.CENTER);
-            panelToppings.add(lblNombre, BorderLayout.SOUTH);
-
-            panelToppings.addMouseListener(new java.awt.event.MouseAdapter() {
+            panelTopping.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    toppingSeleccionado(topping); // Método que recibe el ProductoMostrarDTO
+                    toppingSeleccionado(topping); 
                 }
             });
 
-            jPanel1.add(panelToppings);
+            panelConTodosLosToppings.add(panelTopping);
         }
 
-        jPanel1.revalidate();
-        jPanel1.repaint();
+        panelConTodosLosToppings.revalidate();
+        panelConTodosLosToppings.repaint();
     }
+    
+    
     
     private void toppingSeleccionado(ToppingsMostrarDTO topping){
         if (editarProductoFrame != null){
@@ -97,6 +121,10 @@ public class Toppings extends javax.swing.JFrame {
         ControlNavegacion.gestor.agregarTopping(topping);
         this.dispose();
     }
+    
+    private void regresar(){
+        ControlNavegacion.volverPantallaAnterior();
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,36 +135,17 @@ public class Toppings extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 177, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addGap(0, 345, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+            .addGap(0, 245, Short.MAX_VALUE)
         );
 
         pack();
@@ -145,6 +154,5 @@ public class Toppings extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
