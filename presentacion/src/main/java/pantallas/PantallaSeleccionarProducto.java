@@ -3,25 +3,34 @@ package pantallas;
 import DTOs.ProductoMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
-    final int COLUMNAS_TABLA_PRODUCTOS_CARGADOS = 3;
-    final int PADDING_HORIZONTAL_PANEL_PRODUCTO = 10;
-    final int PADDING_VERTICAL_PANEL_PRODUCTO = 10;
-    final int ANCHO_PANEL_PRODUCTO = 150;
-    final int ALTO_PANEL_PRODUCTO = 150;
-    final int ANCHO_IMAGEN_PRODUCTO = 100;
-    final int ALTO_IMAGEN_PRODUCTO = 100;
-    final int MOVIMIENTO_SCROLL_MOUSE = 15;
+    private final int COLUMNAS_TABLA_PRODUCTOS_CARGADOS = 3;
+    private final int PADDING_HORIZONTAL_PANEL_PRODUCTO = 10;
+    private final int PADDING_VERTICAL_PANEL_PRODUCTO = 10;
+    private final int ANCHO_PANEL_PRODUCTO = 150;
+    private final int ALTO_PANEL_PRODUCTO = 150;
+    private final int ANCHO_IMAGEN_PRODUCTO = 100;
+    private final int ALTO_IMAGEN_PRODUCTO = 100;
+    private final int MOVIMIENTO_SCROLL_MOUSE = 15;
 
-    final Color COLOR_HOVER_PANEL_PRODUCTO = new Color(220, 220, 220);
-    final Border BORDE_PANEL_PRODUCTO = BorderFactory.createLineBorder(Color.GRAY, 1);
+    private final Color COLOR_HOVER_PANEL_PRODUCTO = new Color(220, 220, 220);
+    private final Border BORDE_PANEL_PRODUCTO = BorderFactory.createLineBorder(Color.GRAY, 1);
 
     private List<ProductoMostrarDTO> productos;
     private Modo modo;
@@ -162,6 +171,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         lblTitulo.setText("Selecciona tu producto");
 
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         btnRegresar.setText("<---");
         btnRegresar.setMaximumSize(new java.awt.Dimension(120, 70));
