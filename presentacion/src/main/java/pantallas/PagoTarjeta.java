@@ -22,6 +22,15 @@ public class PagoTarjeta extends javax.swing.JFrame {
     /**
      * Creates new form PagoTarjeta
      */
+    final int CANTIDAD_FILAS = 4;
+    final int CANTIDAD_COLUMNAS = 2;
+    final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
+    final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10;
+    final int MARGEN_PANEL_ARRIBA = 20;
+    final int MARGEN_PANEL_IZQUIERDA = 0;
+    final int MARGEN_PANEL_ABAJO = 20;
+    final int MARGEN_PANEL_DERECHA = 20;
+
     private TarjetaDTO tarjeta;
 
     public PagoTarjeta() {
@@ -39,9 +48,9 @@ public class PagoTarjeta extends javax.swing.JFrame {
         panelTitulo.add(lblTitulo, BorderLayout.WEST);
         panelTitulo.setBackground(Color.WHITE);
 
-        JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 10, 10));
+        JPanel panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
         panelFormulario.setBackground(Color.LIGHT_GRAY);
-        panelFormulario.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panelFormulario.setBorder(BorderFactory.createEmptyBorder(MARGEN_PANEL_ARRIBA, MARGEN_PANEL_IZQUIERDA, MARGEN_PANEL_ABAJO, MARGEN_PANEL_DERECHA));
 
         panelFormulario.add(new JLabel("16 dígitos de la tarjeta"));
         JTextField txtNumero = new JTextField();
@@ -102,15 +111,14 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 txtFecha.getText(),
                 new String(txtCVV.getPassword())
         );
-        if (validarTarjetaPresentacion(tarjetaIngresada)) {
-            JOptionPane.showMessageDialog(this, "Pago realizado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);            
+        if (ControlNavegacion.gestor.validarTarjetaPresentacion(tarjetaIngresada)) {
+            
+            ControlNavegacion.mostrarPantallaPedidoRealizado();
+            
+            dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
-        return ControlNavegacion.gestor.validarTarjetaPresentacion(tarjeta);
     }
 
     /**

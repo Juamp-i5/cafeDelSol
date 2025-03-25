@@ -13,6 +13,9 @@ import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -130,22 +133,22 @@ public class ManejadorPedidos implements IGestionPedidos {
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
         if (tarjeta == null) {
             return false;
-        }
+        }        
         String numeroTarjeta = tarjeta.getNumTarjeta();
         if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
             return false;
-        }
+        }        
         String banco = tarjeta.getNombreBanco();
         if (banco == null || banco.trim().isEmpty()) {
             return false;
-        }
+        }        
         String cvv = tarjeta.getCVV();
         if (cvv == null || !cvv.matches("\\d{3,4}")) {
             return false;
         }
         return true;
     }
-
+    
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) {
 
@@ -229,6 +232,5 @@ public class ManejadorPedidos implements IGestionPedidos {
         
         pedido.setCostoTotal(total);
         return total;
-    }
-
+    }    
 }
