@@ -32,7 +32,6 @@ public class Toppings extends javax.swing.JFrame {
     private EditarProducto editarProductoFrame;
     private JPanel panelConTodosLosToppings;
 
-    
     /**
      * Creates new form Toppings
      */
@@ -44,40 +43,39 @@ public class Toppings extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarToppings();
     }
-    
+
     public Toppings(List<ToppingsMostrarDTO> toppings, EditarProducto editarProductoFrame) {
         this.toppings = toppings;
         this.editarProductoFrame = editarProductoFrame;
         initComponents2();
         agregarToppings();
     }
-    
-    private void initComponents2(){
+
+    private void initComponents2() {
         setTitle("Toppings");
         setSize(1000, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        
+
         JLabel lblTitulo = new JLabel("Toppings", SwingConstants.CENTER);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(lblTitulo, BorderLayout.NORTH);
-        
+
         panelConTodosLosToppings = new JPanel();
         panelConTodosLosToppings.setLayout(new GridLayout(0, 2, 20, 20));
         add(new JScrollPane(panelConTodosLosToppings), BorderLayout.CENTER);
-        
+
         JPanel panelNavegacion = new JPanel(new BorderLayout());
-        
+
         JButton btnRegresar = new JButton("<-");
         btnRegresar.setFont(new Font("Arial", Font.BOLD, 16));
         btnRegresar.addActionListener(e -> regresar());
-        
+
         panelNavegacion.add(btnRegresar, BorderLayout.WEST);
-        add(panelNavegacion,BorderLayout.SOUTH);
+        add(panelNavegacion, BorderLayout.SOUTH);
     }
-    
-        
+
     private void agregarToppings() {
         for (ToppingsMostrarDTO topping : toppings) {
             JPanel panelTopping = new JPanel(new BorderLayout());
@@ -92,13 +90,13 @@ public class Toppings extends javax.swing.JFrame {
 
             JLabel lblNombre = new JLabel(topping.getNombre(), SwingConstants.CENTER);
             lblNombre.setFont(new Font("Arial", Font.BOLD, 16));
-            
+
             panelTopping.add(lblImagen, BorderLayout.CENTER);
             panelTopping.add(lblNombre, BorderLayout.SOUTH);
 
             panelTopping.addMouseListener(new java.awt.event.MouseAdapter() {
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    toppingSeleccionado(topping); 
+                    toppingSeleccionado(topping);
                 }
             });
 
@@ -108,24 +106,19 @@ public class Toppings extends javax.swing.JFrame {
         panelConTodosLosToppings.revalidate();
         panelConTodosLosToppings.repaint();
     }
-    
-    
-    
-    private void toppingSeleccionado(ToppingsMostrarDTO topping){
-        if (editarProductoFrame != null){
-            editarProductoFrame.actualizarTopping(topping);
-            editarProductoFrame.setVisible(true);
-        } else{
-            ControlNavegacion.mostrarAgregarTerminarPedido();
-        }
+
+    private void toppingSeleccionado(ToppingsMostrarDTO topping) {
         ControlNavegacion.gestor.agregarTopping(topping);
+
+        ControlNavegacion.mostrarAgregarTerminarPedido();
+
         this.dispose();
     }
-    
-    private void regresar(){
+
+    private void regresar() {
         ControlNavegacion.volverPantallaAnterior();
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -150,7 +143,6 @@ public class Toppings extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,6 +5,7 @@
 package pantallas;
 
 import control.ControlNavegacion;
+import control.Modo;
 import javax.swing.JOptionPane;
 
 /**
@@ -140,9 +141,8 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
-        ControlNavegacion.gestor.crearPedido();
-        ControlNavegacion.gestor.crearProductoPedido();
-        ControlNavegacion.mostrarPantallaProductos();
+        ControlNavegacion.gestor.iniciarPedido();
+        ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
         this.dispose();
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 

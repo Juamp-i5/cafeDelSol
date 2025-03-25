@@ -6,6 +6,7 @@ package pantallas;
 
 import DTOs.ProductoPedidoDTO;
 import control.ControlNavegacion;
+import control.Modo;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.awt.BorderLayout;
@@ -60,24 +61,8 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         panelCentral.add(crearBotonPanel(btnAgregar, "Agregar otro producto"));
         panelCentral.add(crearBotonPanel(btnTerminar, "Terminar pedido"));
 
-        // Panel inferior con botón de retroceso
-        JPanel panelInferior = new JPanel(new BorderLayout());
-        JButton btnAtras = new JButton("<-");
-        btnAtras.setFont(new Font("Arial", Font.BOLD, 20));
-        btnAtras.setBackground(Color.GRAY);
-
-        panelInferior.add(btnAtras, BorderLayout.WEST);
-
         panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
         panelPrincipal.add(panelCentral, BorderLayout.CENTER);
-        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
-
-        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAtrasSeleccionado();
-            }
-        });
 
         btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -95,11 +80,6 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         return panelPrincipal;
     }
 
-    public void BtnAtrasSeleccionado() {
-        ControlNavegacion.volverPantallaAnterior();
-        dispose();
-    }
-
     public void BtnAgregarSeleccionado() {
 
 //        if (ProductoPedido == null) {
@@ -109,10 +89,10 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
 //            boolean agregado = gestion.agregarProductoPedidoAPedido(ProductoPedido);
             ControlNavegacion.gestor.calcularCosto();
-            ControlNavegacion.gestor.crearProductoPedido();
+            ControlNavegacion.agregarProductoPedidoAPedido();
 
 //            if (agregado) {
-            ControlNavegacion.mostrarPantallaProductos();
+            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
             dispose();
 //            } else {
 //                JOptionPane.showMessageDialog(this, "Error: No se pudo agregar el producto", "Error", JOptionPane.ERROR_MESSAGE);
@@ -126,6 +106,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
 
 //            boolean terminado = gestion.terminarPedido();
             ControlNavegacion.gestor.calcularCosto();
+            ControlNavegacion.agregarProductoPedidoAPedido();
             boolean terminado = ControlNavegacion.gestor.terminarPedido();
 
             if (terminado) {

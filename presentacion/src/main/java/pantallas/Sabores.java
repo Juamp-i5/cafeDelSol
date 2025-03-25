@@ -26,10 +26,11 @@ public class Sabores extends javax.swing.JFrame {
 
     List<SaboresMostrarDTO> sabores;
     private EditarProducto editarProductoFrame;
+
     /**
      * Creates new form Sabores
      */
-    
+
     public Sabores(List<SaboresMostrarDTO> sabores) {
         this.sabores = sabores;
         initComponents();
@@ -37,9 +38,9 @@ public class Sabores extends javax.swing.JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarSabores();
-        
+
     }
-    
+
     public Sabores(List<SaboresMostrarDTO> sabores, EditarProducto editarProductoFrame) {
         this.sabores = sabores;
         this.editarProductoFrame = editarProductoFrame;
@@ -48,9 +49,9 @@ public class Sabores extends javax.swing.JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarSabores();
-        
+
     }
-    
+
     private void agregarSabores() {
         int columnas = 3; // Número de productos por fila
         int filas = (int) Math.ceil((double) sabores.size() / columnas); // Calcula filas necesarias
@@ -87,15 +88,12 @@ public class Sabores extends javax.swing.JFrame {
         jPanel1.revalidate();
         jPanel1.repaint();
     }
-    
+
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
-        if (editarProductoFrame != null){
-            editarProductoFrame.actualizarSabor(sabor);
-            editarProductoFrame.setVisible(true);
-        } else{
-            ControlNavegacion.mostrarPantallaToppings();
-        }
+
         ControlNavegacion.gestor.agregarSabor(sabor);
+        ControlNavegacion.mostrarPantallaToppings();
+
         dispose();
     }
 

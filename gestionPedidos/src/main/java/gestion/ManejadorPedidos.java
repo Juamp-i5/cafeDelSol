@@ -12,7 +12,6 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,28 +20,37 @@ import java.util.List;
  */
 public class ManejadorPedidos implements IGestionPedidos {
 
-    List<ProductoPedidoDTO> pedidos = new ArrayList<>();
     private PedidoDTO pedido;
-    private ProductoPedidoDTO productoPedido;
+    private ProductoPedidoDTO productoPedidoActual;
+
+    @Override
+    public ProductoPedidoDTO getProductoPedidoActual() {
+        return productoPedidoActual;
+    }
+
+    @Override
+    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual) {
+        this.productoPedidoActual = productoPedidoActual;
+    }
 
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
         return List.of(
                 new ProductoMostrarDTO(1L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
-                new ProductoMostrarDTO(2L, "Chocolate caliente",50, "../img/chocolateCaliente.jpeg"),
-                new ProductoMostrarDTO(3L, "Café Americano", 40,"../img/cafeAmericano.jpeg"),
-                new ProductoMostrarDTO(4L, "Latte", 55,"../img/latte.jpeg"),
-                new ProductoMostrarDTO(5L, "Capuchino", 50,"../img/capuchino.jpeg"),
-                new ProductoMostrarDTO(6L, "Espresso", 60,"../img/espresso.jpeg"),
-                new ProductoMostrarDTO(7L, "Té Chai", 45,"../img/teChai.jpeg"),
-                new ProductoMostrarDTO(8L, "Matcha Latte", 50,"../img/matchaLatte.jpeg"),
-                new ProductoMostrarDTO(9L, "Mocaccino", 30,"../img/mocaccino.jpeg"),
-                new ProductoMostrarDTO(10L, "Té Negro", 20,"../img/teNegro.jpeg"),
-                new ProductoMostrarDTO(11L, "Café Descafeinado",30, "../img/cafeDescafeinado.jpeg"),
-                new ProductoMostrarDTO(12L, "Affogato", 50,"../img/affogato.jpeg"),
-                new ProductoMostrarDTO(13L, "Flat White", 50,"../img/flatWhite.jpeg"),
-                new ProductoMostrarDTO(14L, "Caramel Macchiato",50, "../img/caramelMacchiato.jpeg"),
-                new ProductoMostrarDTO(15L, "Frappuccino", 45,"../img/frappuccino.jpeg")
+                new ProductoMostrarDTO(2L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpeg"),
+                new ProductoMostrarDTO(3L, "Café Americano", 40, "../img/cafeAmericano.jpeg"),
+                new ProductoMostrarDTO(4L, "Latte", 55, "../img/latte.jpeg"),
+                new ProductoMostrarDTO(5L, "Capuchino", 50, "../img/capuchino.jpeg"),
+                new ProductoMostrarDTO(6L, "Espresso", 60, "../img/espresso.jpeg"),
+                new ProductoMostrarDTO(7L, "Té Chai", 45, "../img/teChai.jpeg"),
+                new ProductoMostrarDTO(8L, "Matcha Latte", 50, "../img/matchaLatte.jpeg"),
+                new ProductoMostrarDTO(9L, "Mocaccino", 30, "../img/mocaccino.jpeg"),
+                new ProductoMostrarDTO(10L, "Té Negro", 20, "../img/teNegro.jpeg"),
+                new ProductoMostrarDTO(11L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpeg"),
+                new ProductoMostrarDTO(12L, "Affogato", 50, "../img/affogato.jpeg"),
+                new ProductoMostrarDTO(13L, "Flat White", 50, "../img/flatWhite.jpeg"),
+                new ProductoMostrarDTO(14L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpeg"),
+                new ProductoMostrarDTO(15L, "Frappuccino", 45, "../img/frappuccino.jpeg")
         );
     }
 
@@ -53,35 +61,23 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public ProductoPedidoDTO getProductoPedido() {
-        return productoPedido;
+        return productoPedidoActual;
     }
 
     @Override
     public void agregarProducto(ProductoMostrarDTO producto) {
-        productoPedido.setProducto(producto);
+        productoPedidoActual.setProducto(producto);
     }
 
     @Override
-    public void crearPedido() {
+    public void iniciarPedido() {
         this.pedido = new PedidoDTO();
+        this.productoPedidoActual = new ProductoPedidoDTO();
     }
 
     @Override
     public void crearProductoPedido() {
-        if (pedido == null) {
-            crearPedido();
-        }
-        if (productoPedido == null) {
-            productoPedido = new ProductoPedidoDTO();
-
-            pedido.getPedido().add(productoPedido);
-
-        }else if(productoPedido != null){
-            pedido.getPedido().add(productoPedido);
-        }
-        
-//        this.productoPedido = new ProductoPedidoDTO();
-
+        this.productoPedidoActual = new ProductoPedidoDTO();
     }
 
     @Override
@@ -95,7 +91,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public void agregarTamanio(TamanioMostrarDTO tamanio) {
-        productoPedido.setTamanio(tamanio);
+        productoPedidoActual.setTamanio(tamanio);
     }
 
     @Override
@@ -112,7 +108,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public void agregarSabor(SaboresMostrarDTO sabor) {
-        productoPedido.setSabor(sabor);
+        productoPedidoActual.setSabor(sabor);
     }
 
     @Override
@@ -127,7 +123,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public void agregarTopping(ToppingsMostrarDTO topping) {
-        productoPedido.setTopping(topping);
+        productoPedidoActual.setTopping(topping);
     }
 
     @Override
@@ -153,16 +149,20 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) {
 
-        if (productoPedido != null) {
-            productoPedido = null;
+        if (productoPedidoActual != null) {
+            productoPedidoActual = null;
         }
 
         return true;
     }
 
     @Override
-    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido) {
-        return pedidos.add(productoPedido);
+    public boolean agregarProductoPedidoAPedido() {
+        boolean agregado = pedido.getPedido().add(productoPedidoActual);
+        if (agregado) {
+            crearProductoPedido();
+        }
+        return agregado;
     }
 
     @Override
@@ -170,7 +170,6 @@ public class ManejadorPedidos implements IGestionPedidos {
         if (pedido != null) {
             pedido.setTerminado(true);
             System.out.println("Pedido terminado con éxito");
-            pedidos.add(productoPedido);
             return true;
         }
         return false;
@@ -178,9 +177,9 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public double calcularCosto() {
-        double costo = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecio()) * productoPedido.getCantidad();
-        productoPedido.setCosto(costo);
-        return productoPedido.getCosto();
+        double costo = (productoPedidoActual.getProducto().getPrecio() + productoPedidoActual.getTamanio().getPrecio()) * productoPedidoActual.getCantidad();
+        productoPedidoActual.setCosto(costo);
+        return productoPedidoActual.getCosto();
     }
 
     @Override
@@ -202,14 +201,19 @@ public class ManejadorPedidos implements IGestionPedidos {
             return -1;
         }
     }
-    
+
     @Override
-    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido){
+    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
         pedido.getPedido().remove(productoPedido);
     }
 
     @Override
     public void imprimirPedidoConsola() {
+        System.out.println("########################");
+        System.out.println("pedido");
         System.out.println(pedido.toString());
+        System.out.println("----------------------");
+        System.out.println("producto pedido actual");
+        System.out.println(productoPedidoActual);
     }
 }

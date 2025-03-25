@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class PedidoDTO {
 
-    List<ProductoPedidoDTO> pedido = new ArrayList<>();
+    private List<ProductoPedidoDTO> pedido = new ArrayList<>();
     private double costoTotal;
     private boolean terminado;
 

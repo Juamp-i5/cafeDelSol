@@ -10,6 +10,7 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import control.ControlNavegacion;
+import control.Modo;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -30,10 +31,11 @@ public class EditarProducto extends javax.swing.JFrame {
     
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
-    private ProductoPedidoDTO productoPedido;
+    private static ProductoPedidoDTO productoPedido;
     
     public EditarProducto(ProductoPedidoDTO productoPedido) {
         this.productoPedido = productoPedido; // Guardamos el producto inicial
+        ControlNavegacion.gestor.setProductoPedidoActual(productoPedido);
         
         setTitle("Editar Producto");
         setSize(1000, 800);
@@ -91,7 +93,7 @@ public class EditarProducto extends javax.swing.JFrame {
     
     private void abrirProductos() {
         dispose(); // Cierra la pantalla actual antes de abrir la nueva
-        ControlNavegacion.mostrarPantallaProductos(this);
+        ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
     }
 
 //    private void abrirTamanios() {
@@ -132,29 +134,30 @@ public class EditarProducto extends javax.swing.JFrame {
     
     private void regresar() {
         ControlNavegacion.gestor.calcularCosto();
+        ControlNavegacion.gestor.crearProductoPedido();
         this.dispose();
         ControlNavegacion.mostrarPantallaTotalDesglosado();
     }
 
     // Métodos para actualizar el texto de los botones según la selección del usuario
-    public void actualizarProducto(ProductoMostrarDTO producto) {
-        this.productoPedido.setProducto(producto);
-        btnProducto.setText("Producto: " + producto.getNombre());
+    public static void actualizarProducto(ProductoMostrarDTO producto) {
+        productoPedido.setProducto(producto);
+//        btnProducto.setText("Producto: " + producto.getNombre());
     }
 
-    public void actualizarTamanio(TamanioMostrarDTO tamanio) {
-        this.productoPedido.setTamanio(tamanio);
-        btnTamanio.setText("Tamaño: " + tamanio.getNombre());
+    public static void actualizarTamanio(TamanioMostrarDTO tamanio) {
+        productoPedido.setTamanio(tamanio);
+//        btnTamanio.setText("Tamaño: " + tamanio.getNombre());
     }
 
-    public void actualizarSabor(SaboresMostrarDTO sabor) {
-        this.productoPedido.setSabor(sabor);
-        btnSabor.setText("Sabor: " + sabor.getNombre());
+    public static void actualizarSabor(SaboresMostrarDTO sabor) {
+        productoPedido.setSabor(sabor);
+//        btnSabor.setText("Sabor: " + sabor.getNombre());
     }
 
-    public void actualizarTopping(ToppingsMostrarDTO topping) {
-        this.productoPedido.setTopping(topping);
-        btnToppings.setText("Toppings: " + topping.getNombre());
+    public static void actualizarTopping(ToppingsMostrarDTO topping) {
+        productoPedido.setTopping(topping);
+//        btnToppings.setText("Toppings: " + topping.getNombre());
     }
 
     /**

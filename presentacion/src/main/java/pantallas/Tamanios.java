@@ -24,13 +24,14 @@ import javax.swing.SwingConstants;
  * @author rodri
  */
 public class Tamanios extends javax.swing.JFrame {
-    
+
     List<TamanioMostrarDTO> tamanios;
     private EditarProducto editarProductoFrame;
+
     /**
      * Creates new form Tamanios
      */
-    
+
     public Tamanios(List<TamanioMostrarDTO> tamanios) {
         this.tamanios = tamanios;
         initComponents();
@@ -39,8 +40,8 @@ public class Tamanios extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarTamanios();
     }
-    
-    public Tamanios(List<TamanioMostrarDTO> tamanios,  EditarProducto editarProductoFrame) {
+
+    public Tamanios(List<TamanioMostrarDTO> tamanios, EditarProducto editarProductoFrame) {
         this.tamanios = tamanios;
         this.editarProductoFrame = editarProductoFrame;
         initComponents();
@@ -48,9 +49,9 @@ public class Tamanios extends javax.swing.JFrame {
         setSize(1024, 768);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarTamanios();
-        
+
     }
-    
+
     private void agregarTamanios() {
         int columnas = 3; // Número de productos por fila
         int filas = (int) Math.ceil((double) tamanios.size() / columnas); // Calcula filas necesarias
@@ -86,18 +87,15 @@ public class Tamanios extends javax.swing.JFrame {
         jPanel1.revalidate();
         jPanel1.repaint();
     }
-    
+
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
-        if (editarProductoFrame != null){
-            editarProductoFrame.actualizarTamanio(tamanio);
-            editarProductoFrame.setVisible(true);
-        } else{
-            ControlNavegacion.mostrarPantallaSabores();
-        }
+
         ControlNavegacion.gestor.agregarTamanio(tamanio);
+        ControlNavegacion.mostrarPantallaSabores();
+
         this.dispose();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

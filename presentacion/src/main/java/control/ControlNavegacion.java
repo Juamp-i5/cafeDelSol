@@ -4,7 +4,6 @@
  */
 package control;
 
-import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
@@ -25,14 +24,23 @@ public class ControlNavegacion {
     public static IGestionPedidos gestor = new ManejadorPedidos();
     private static Stack framesVisitados = new Stack();
 
-    public static void mostrarPantallaProductos() {
-        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos());
+    public static void iniciarPedidoNuevo() {
+        gestor.iniciarPedido();
+    }
+    
+    public static void agregarProductoPedidoAPedido(){
+        gestor.agregarProductoPedidoAPedido();
+    }
+
+    // PANTALLAS
+    public static void mostrarPantallaProductos(Modo modo) {
+        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), modo);
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
+
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(productos);
-
     }
 
     public static void mostrarPantallaMenuPrincipal() {
@@ -54,13 +62,13 @@ public class ControlNavegacion {
                 frameAnterior.setVisible(true);
             }
         }
-        gestor.imprimirPedidoConsola();
     }
 
     public static void mostrarPantallaTamanios() {
         JFrame tamanios = new Tamanios(gestor.cargarTamanios());
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(tamanios);
@@ -70,6 +78,7 @@ public class ControlNavegacion {
         JFrame sabores = new Sabores(gestor.cargarSabores());
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(sabores);
@@ -79,6 +88,7 @@ public class ControlNavegacion {
         JFrame toppings = new Toppings(gestor.cargarToppings());
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(toppings);
@@ -88,9 +98,10 @@ public class ControlNavegacion {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
+
         gestor.imprimirPedidoConsola();
 
-        framesVisitados.add(agregarTerminarPedido);
+        framesVisitados.empty();
     }
 
     public static void mostrarPagoTarjeta() {
@@ -110,21 +121,10 @@ public class ControlNavegacion {
         JFrame totalDesglosado = new TotalDesglosado();
         totalDesglosado.setLocationRelativeTo(null);
         totalDesglosado.setVisible(true);
+
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(totalDesglosado);
-    }
-
-    public static void mostrarPantallaProductos(EditarProducto editarProductoFrame) {
-        if (editarProductoFrame != null) {
-            editarProductoFrame.dispose();
-        }
-        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), editarProductoFrame);
-        productos.setLocationRelativeTo(null);
-        productos.setVisible(true);
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(productos);
     }
 
     public static void mostrarPantallaTamanios(EditarProducto editarProductoFrame) {
@@ -134,6 +134,7 @@ public class ControlNavegacion {
         JFrame tamanios = new Tamanios(gestor.cargarTamanios(), editarProductoFrame);
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(tamanios);
@@ -146,6 +147,7 @@ public class ControlNavegacion {
         JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(sabores);
@@ -158,6 +160,7 @@ public class ControlNavegacion {
         JFrame toppings = new Toppings(gestor.cargarToppings(), editarProductoFrame);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(toppings);
@@ -167,6 +170,7 @@ public class ControlNavegacion {
         JFrame editarProducto = new EditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(editarProducto);
@@ -176,6 +180,7 @@ public class ControlNavegacion {
         JFrame pagoEfectivo = new PagoEfectivo();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
+        
         gestor.imprimirPedidoConsola();
 
         framesVisitados.add(pagoEfectivo);

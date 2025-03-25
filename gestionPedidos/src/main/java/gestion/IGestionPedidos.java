@@ -28,7 +28,7 @@ public interface IGestionPedidos {
 
     public void agregarProducto(ProductoMostrarDTO producto);
 
-    public void crearPedido();
+    public void iniciarPedido();
 
     public void crearProductoPedido();
 
@@ -45,21 +45,24 @@ public interface IGestionPedidos {
     public void agregarTopping(ToppingsMostrarDTO topping);
 
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
-    
+
     public boolean cancelarPedido(PedidoDTO pedido);
 
-    public boolean agregarProductoPedidoAPedido(ProductoPedidoDTO productoPedido);
-    
+    public boolean agregarProductoPedidoAPedido();
 
     public boolean terminarPedido();
-    
+
     public double calcularCosto();
-     
+
     public double calcularTotal();
-    
+
     public double calcularCambio(EfectivoDTO efectivo);
-    
+
     public void cancelarProductoPedido(ProductoPedidoDTO productoPedido);
-    
+
     public void imprimirPedidoConsola();
+    
+    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual);
+    
+    public ProductoPedidoDTO getProductoPedidoActual();
 }

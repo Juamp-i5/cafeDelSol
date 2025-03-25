@@ -2,7 +2,9 @@ package pantallas;
 
 import DTOs.ProductoMostrarDTO;
 import control.ControlNavegacion;
+import control.Modo;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,22 +19,16 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
     final int ANCHO_IMAGEN_PRODUCTO = 100;
     final int ALTO_IMAGEN_PRODUCTO = 100;
     final int MOVIMIENTO_SCROLL_MOUSE = 15;
+
     final Color COLOR_HOVER_PANEL_PRODUCTO = new Color(220, 220, 220);
     final Border BORDE_PANEL_PRODUCTO = BorderFactory.createLineBorder(Color.GRAY, 1);
 
-    private EditarProducto editarProductoFrame;
     private List<ProductoMostrarDTO> productos;
+    private Modo modo;
 
-    public PantallaSeleccionarProducto(List<ProductoMostrarDTO> productos) {
+    public PantallaSeleccionarProducto(List<ProductoMostrarDTO> productos, Modo modo) {
         this.productos = productos;
-        initComponents();
-        cargarProductos();
-        ajustarScroll();
-    }
-
-    public PantallaSeleccionarProducto(List<ProductoMostrarDTO> productos, EditarProducto editarProductoFrame) {
-        this.editarProductoFrame = editarProductoFrame;
-        this.productos = productos;
+        this.modo = modo;
         initComponents();
         cargarProductos();
         ajustarScroll();
@@ -48,31 +44,9 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pnlProductos.setLayout(new GridLayout(filas, COLUMNAS_TABLA_PRODUCTOS_CARGADOS, PADDING_HORIZONTAL_PANEL_PRODUCTO, PADDING_VERTICAL_PANEL_PRODUCTO));
 
         for (ProductoMostrarDTO producto : productos) {
-            JPanel panelProducto = crearPanelProducto();
-            JLabel lblImagen = cargarImagenProducto(producto.getUrlImagen());
-            JLabel lblNombre = cargarNombreProducto(producto.getNombre());
+            JPanel panelProducto = crearPanelProducto(producto);
 
-            panelProducto.add(lblImagen, BorderLayout.CENTER);
-            panelProducto.add(lblNombre, BorderLayout.SOUTH);
-
-            panelProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    productoSeleccionado(producto);
-                }
-
-                @Override
-                public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    panelProducto.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    panelProducto.setBackground(COLOR_HOVER_PANEL_PRODUCTO);
-                }
-
-                @Override
-                public void mouseExited(java.awt.event.MouseEvent evt) {
-                    panelProducto.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    panelProducto.setBackground(null);
-                }
-            });
+            panelProducto.addMouseListener(new EventosPanelProducto(producto, panelProducto));
 
             pnlProductos.add(panelProducto);
         }
@@ -81,39 +55,75 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pnlProductos.repaint();
     }
 
+    // EVENTOS PANEL PRODUCTO
+    private class EventosPanelProducto extends MouseAdapter {
+
+        private final ProductoMostrarDTO producto;
+        private final JPanel panel;
+
+        public EventosPanelProducto(ProductoMostrarDTO producto, JPanel panel) {
+            this.producto = producto;
+            this.panel = panel;
+        }
+
+        @Override
+        public void mousePressed(java.awt.event.MouseEvent evt) {
+            productoSeleccionado(producto);
+        }
+
+        @Override
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+            panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            panel.setBackground(COLOR_HOVER_PANEL_PRODUCTO);
+        }
+
+        @Override
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+            panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            panel.setBackground(null);
+        }
+    }
+
+    // ONCLICK DEL PANEL
     private void productoSeleccionado(ProductoMostrarDTO producto) {
-        ControlNavegacion.gestor.agregarProducto(producto);
-        if (editarProductoFrame != null) {
-            editarProductoFrame.actualizarProducto(producto);
-            editarProductoFrame.setVisible(true);
-        } else {
+        if (modo == Modo.CREACION) {
+            ControlNavegacion.gestor.agregarProducto(producto);
             ControlNavegacion.mostrarPantallaTamanios();
+        } else if (modo == Modo.EDICION) {
+            EditarProducto.actualizarProducto(producto);
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
         }
 
         this.dispose();
     }
 
-    private JPanel crearPanelProducto() {
+    // PANEL PRODUCTO CARGADO
+    private JPanel crearPanelProducto(ProductoMostrarDTO producto) {
         JPanel panelProducto = new JPanel();
         panelProducto.setLayout(new BorderLayout());
         panelProducto.setBorder(BORDE_PANEL_PRODUCTO);
         panelProducto.setPreferredSize(new Dimension(ANCHO_PANEL_PRODUCTO, ALTO_PANEL_PRODUCTO));
 
+        cargarImagenProducto(producto.getUrlImagen(), panelProducto);
+        cargarNombreProducto(producto.getNombre(), panelProducto);
+
         return panelProducto;
     }
 
-    private JLabel cargarImagenProducto(String urlImagenProducto) {
+    private void cargarImagenProducto(String urlImagenProducto, JPanel panelProducto) {
         JLabel lblImagen = new JLabel();
         ImageIcon icono = new ImageIcon(urlImagenProducto);
         Image img = icono.getImage().getScaledInstance(ANCHO_IMAGEN_PRODUCTO, ALTO_IMAGEN_PRODUCTO, Image.SCALE_SMOOTH);
         lblImagen.setIcon(new ImageIcon(img));
         lblImagen.setHorizontalAlignment(JLabel.CENTER);
 
-        return lblImagen;
+        panelProducto.add(lblImagen, BorderLayout.CENTER);
     }
 
-    private JLabel cargarNombreProducto(String nombreProducto) {
-        return new JLabel(nombreProducto, SwingConstants.CENTER);
+    private void cargarNombreProducto(String nombreProducto, JPanel panelProducto) {
+        JLabel lblNombre = new JLabel(nombreProducto, SwingConstants.CENTER);
+
+        panelProducto.add(lblNombre, BorderLayout.SOUTH);
     }
 
     /**
@@ -204,9 +214,13 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlNavegacion.volverPantallaAnterior();
+        if (modo == Modo.CREACION) {
+            ControlNavegacion.volverPantallaAnterior();
+        } else if(modo == Modo.EDICION){
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
+        }
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegresar;
