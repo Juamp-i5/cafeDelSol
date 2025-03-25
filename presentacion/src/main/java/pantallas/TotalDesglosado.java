@@ -31,38 +31,83 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }
 
     public void cargarPanelesProductosPedidos() {
-        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
-        List<ProductoPedidoDTO> productosPedidos = pedido.getPedido();
-
-        JPanel contenedorPaneles = new JPanel();
-        contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
-
-        for (ProductoPedidoDTO productoPedido : productosPedidos) {
-            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
-            panelProductoPedido.setCancelarActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    cancelarProductoPedido(panelProductoPedido.getProductoPedido());
-                }
-            });
-
-            panelProductoPedido.setEditarActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    editarProductoPedido(panelProductoPedido.getProductoPedido());
-                }
-            });
-
-            contenedorPaneles.add(panelProductoPedido);
-        }
-
-        this.pnlProductosPedidos.setViewportView(contenedorPaneles);
+        JPanel contenedorPanelesProductosPedidos = obtenerPanelesProductosPedidos();
+        this.pnlProductosPedidos.setViewportView(contenedorPanelesProductosPedidos);
         this.lblTotalTotal.setText(String.format("%.2f", ControlNavegacion.gestor.calcularTotal()));
     }
 
+    private JPanel obtenerPanelesProductosPedidos() {
+        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+
+        JPanel contenedorPanelesProductosPedidos = new JPanel();
+        contenedorPanelesProductosPedidos.setLayout(new BoxLayout(contenedorPanelesProductosPedidos, BoxLayout.Y_AXIS));
+
+        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
+            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
+            configurarPanelProducto(panelProductoPedido);
+            contenedorPanelesProductosPedidos.add(panelProductoPedido);
+        }
+
+        return contenedorPanelesProductosPedidos;
+    }
+
+    private void configurarPanelProducto(PanelProductoPedido panelProductoPedido) {
+        panelProductoPedido.setCancelarActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cancelarProductoPedido(panelProductoPedido.getProductoPedido());
+            }
+        });
+
+        panelProductoPedido.setEditarActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                editarProductoPedido(panelProductoPedido.getProductoPedido());
+            }
+        });
+    }
+
     private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
-        ControlNavegacion.gestor.cancelarProductoPedido(productoPedido);
-        cargarPanelesProductosPedidos();
+        int opc = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas cancelar el producto pedido?",
+                "Confirmar cancelación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opc == JOptionPane.YES_OPTION) {
+            ControlNavegacion.gestor.cancelarProductoPedido(productoPedido);
+
+            ControlNavegacion.mostrarPantallaProductoPedidoCancelado(this);
+
+            cargarPanelesProductosPedidos();
+        }
+    }
+
+    private void cancelarPedido() {
+        int opc = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas cancelar el pedido?",
+                "Confirmar cancelación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (opc == JOptionPane.YES_OPTION) {
+            ControlNavegacion.gestor.cancelarPedido(ControlNavegacion.gestor.getPedido());
+
+            ControlNavegacion.mostrarPantallaPedidoCancelado(this);
+            this.dispose();
+
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    ControlNavegacion.mostrarPantallaMenuPrincipal();
+                }
+            }, 1000);
+        }
     }
 
     private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
@@ -189,40 +234,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlNavegacion.volverPantallaAnterior();
+        ControlNavegacion.mostrarAgregarTerminarPedido();
         dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
-
-        int opc = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas cancelar el pedido?",
-                "Confirmar cancelación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-
-        if (opc == JOptionPane.YES_OPTION) {
-            ControlNavegacion.gestor.cancelarPedido(ControlNavegacion.gestor.getPedido());
-
-            JOptionPane.showMessageDialog(
-                    this,
-                    "El pedido ha sido cancelado con éxito.",
-                    "Cancelación Exitosa",
-                    JOptionPane.INFORMATION_MESSAGE
-            );
-
-            this.dispose();
-
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ControlNavegacion.mostrarPantallaMenuPrincipal();
-                }
-            }, 1000);
-        }
-
+        cancelarPedido();
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed

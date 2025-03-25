@@ -8,6 +8,7 @@ import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
+import java.awt.Component;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,9 +30,9 @@ public class ControlNavegacion {
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(productos);
-        
+
     }
 
     public static void mostrarPantallaMenuPrincipal() {
@@ -55,62 +56,62 @@ public class ControlNavegacion {
         }
         gestor.imprimirPedidoConsola();
     }
-     
-    public static void mostrarPantallaTamanios(){
+
+    public static void mostrarPantallaTamanios() {
         JFrame tamanios = new Tamanios(gestor.cargarTamanios());
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(tamanios);
     }
 
-    public static void mostrarPantallaSabores(){
+    public static void mostrarPantallaSabores() {
         JFrame sabores = new Sabores(gestor.cargarSabores());
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(sabores);
     }
-    
-    public static void mostrarPantallaToppings(){
+
+    public static void mostrarPantallaToppings() {
         JFrame toppings = new Toppings(gestor.cargarToppings());
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(toppings);
     }
-    
-    public static void mostrarAgregarTerminarPedido(){
+
+    public static void mostrarAgregarTerminarPedido() {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(agregarTerminarPedido);
     }
-    
-    public static void mostrarPagoTarjeta(){
+
+    public static void mostrarPagoTarjeta() {
         JFrame pagoTarjeta = new PagoTarjeta();
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(pagoTarjeta);
     }
-    
-    public static void mostrarPantallaTarjetaRechazada(){
-        JOptionPane.showMessageDialog(null,"Tarjeta rechazada");
+
+    public static void mostrarPantallaTarjetaRechazada() {
+        JOptionPane.showMessageDialog(null, "Tarjeta rechazada");
     }
-    
-    public static void mostrarPantallaTotalDesglosado(){
+
+    public static void mostrarPantallaTotalDesglosado() {
         JFrame totalDesglosado = new TotalDesglosado();
         totalDesglosado.setLocationRelativeTo(null);
         totalDesglosado.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(totalDesglosado);
     }
 
@@ -125,7 +126,7 @@ public class ControlNavegacion {
 
         framesVisitados.add(productos);
     }
-    
+
     public static void mostrarPantallaTamanios(EditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
@@ -137,8 +138,8 @@ public class ControlNavegacion {
 
         framesVisitados.add(tamanios);
     }
-    
-    public static void mostrarPantallaSabores(EditarProducto editarProductoFrame){
+
+    public static void mostrarPantallaSabores(EditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
         }
@@ -146,11 +147,11 @@ public class ControlNavegacion {
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(sabores);
     }
-    
-    public static void mostrarPantallaToppings(EditarProducto editarProductoFrame){
+
+    public static void mostrarPantallaToppings(EditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
         }
@@ -158,35 +159,57 @@ public class ControlNavegacion {
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(toppings);
     }
-    
-    public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido){
+
+    public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         JFrame editarProducto = new EditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(editarProducto);
     }
-    
-    public static void mostrarPantallaPagoEfectivo(){
+
+    public static void mostrarPantallaPagoEfectivo() {
         JFrame pagoEfectivo = new PagoEfectivo();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(pagoEfectivo);
     }
-    
-    public static void mostrarPantallaPedidoRealizado(){
-         JOptionPane.showMessageDialog(null, "Pedido realizado");
-         new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ControlNavegacion.mostrarPantallaMenuPrincipal();
-                }
-            }, 1000);
+
+    public static void mostrarPantallaPedidoRealizado() {
+        JOptionPane.showMessageDialog(null, "Pedido realizado");
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                ControlNavegacion.mostrarPantallaMenuPrincipal();
+            }
+        }, 1000);
+    }
+
+    public static void mostrarPantallaPedidoCancelado(Component frame) {
+
+        JOptionPane.showMessageDialog(
+                frame,
+                "El pedido ha sido cancelado con éxito.",
+                "Cancelación Exitosa",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+    }
+
+    public static void mostrarPantallaProductoPedidoCancelado(Component frame) {
+
+        JOptionPane.showMessageDialog(
+                frame,
+                "El producto pedido ha sido cancelado con éxito.",
+                "Cancelación Exitosa",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
     }
 }

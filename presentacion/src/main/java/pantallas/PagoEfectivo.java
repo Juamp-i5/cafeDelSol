@@ -32,43 +32,56 @@ public class PagoEfectivo extends javax.swing.JFrame {
      * Creates new form PagoEfectivo
      */
     public PagoEfectivo() {
-
-        pagoEnEfectivoInformacion();
+        pagarEnEfectivo();
     }
 
-    private void pagoEnEfectivoInformacion() {
+    private void pagarEnEfectivo() {
         setSize(800, 600);
+        inicializarEtiquetasYCampos();
+        JPanel panelPrincipal = crearPanelPrincipal();
+        add(panelPrincipal);
+        setVisible(true);
+        agregarDocumentListener();
+        agregarActionListeners();
+    }
 
+    private void inicializarEtiquetasYCampos() {
         lblPrecio = new JLabel("Precio:");
         lblPrecioValor = new JLabel(String.valueOf(ControlNavegacion.gestor.getPedido().getCostoTotal()));
         lblCantidadRecibida = new JLabel("Cantidad Recibida:");
         txtCantidadRecibida = new JTextField(0);
         lblCambio = new JLabel("Cambio:");
         lblCambioValor = new JLabel("0.00");
+    }
 
+    private JPanel crearPanelPrincipal() {
         JPanel panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BorderLayout());
+        panelPrincipal.add(crearPanel(), BorderLayout.CENTER);
+        panelPrincipal.add(crearPanelBotones(), BorderLayout.SOUTH);
+        return panelPrincipal;
+    }
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    private JPanel crearPanel() {
+        JPanel panelPagoEfectivoInformacion = new JPanel();
+        panelPagoEfectivoInformacion.setLayout(new GridLayout(3, 2, 10, 10));
+        panelPagoEfectivoInformacion.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        panel.add(lblPrecio);
-        panel.add(lblPrecioValor);
+        panelPagoEfectivoInformacion.add(lblPrecio);
+        panelPagoEfectivoInformacion.add(lblPrecioValor);
+        panelPagoEfectivoInformacion.add(lblCantidadRecibida);
+        panelPagoEfectivoInformacion.add(txtCantidadRecibida);
+        panelPagoEfectivoInformacion.add(lblCambio);
+        panelPagoEfectivoInformacion.add(lblCambioValor);
 
-        panel.add(lblCantidadRecibida);
-        panel.add(txtCantidadRecibida);
+        return panelPagoEfectivoInformacion;
+    }
 
-        panel.add(lblCambio);
-        panel.add(lblCambioValor);
-
-        panelPrincipal.add(panel, BorderLayout.CENTER);
-
-        // Panel de botones
+    private JPanel crearPanelBotones() {
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new BorderLayout());
 
-        btnRegresar = new JButton("Regresar");
+        btnRegresar = new JButton("< - -");
         btnAceptar = new JButton("Terminar pedido");
 
         JPanel panelVacio = new JPanel();
@@ -77,34 +90,28 @@ public class PagoEfectivo extends javax.swing.JFrame {
         panelBotones.add(panelVacio, BorderLayout.CENTER);
         panelBotones.add(btnAceptar, BorderLayout.EAST);
 
-        panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
+        return panelBotones;
+    }
 
-        add(panelPrincipal);
-        setVisible(true);
-
+    private void agregarDocumentListener() {
         txtCantidadRecibida.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
-
             @Override
             public void removeUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
-
             @Override
             public void changedUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
-
             private void actualizarCambio() {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());
                     EfectivoDTO efectivo = new EfectivoDTO(cantidadRecibida);
-
                     double cambio = ControlNavegacion.gestor.calcularCambio(efectivo);
-
                     if (cambio < 0) {
                         lblCambioValor.setText("Cantidad insuficiente");
                     } else {
@@ -115,12 +122,14 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 }
             }
         });
+    }
 
+    private void agregarActionListeners() {
         btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ControlNavegacion.volverPantallaAnterior(); 
-                dispose(); 
+                ControlNavegacion.volverPantallaAnterior();
+                dispose();
             }
         });
 
@@ -130,9 +139,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());
                     EfectivoDTO efectivo = new EfectivoDTO(cantidadRecibida);
-
                     double cambio = ControlNavegacion.gestor.calcularCambio(efectivo);
-
                     if (cambio >= 0) {
                         ControlNavegacion.mostrarPantallaPedidoRealizado();
                         dispose();
@@ -144,7 +151,6 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 }
             }
         });
-
     }
 
     /**
@@ -167,7 +173,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 719, Short.MAX_VALUE)
+            .addGap(0, 705, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
