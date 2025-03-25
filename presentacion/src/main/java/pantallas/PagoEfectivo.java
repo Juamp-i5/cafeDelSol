@@ -28,6 +28,13 @@ public class PagoEfectivo extends javax.swing.JFrame {
     private JButton btnRegresar;
     private JButton btnAceptar;
 
+    private final int NUM_FILAS = 3;
+    private final int NUM_COLUMNAS = 2;
+    private final int ESPACIADO = 10;
+    private final int DIMENSION_BOTON_X = 200;
+    private final int DIMENSION_BOTON_Y = 80;
+    private final int BORDE = 20;
+
     /**
      * Creates new form PagoEfectivo
      */
@@ -64,8 +71,8 @@ public class PagoEfectivo extends javax.swing.JFrame {
 
     private JPanel crearPanel() {
         JPanel panelPagoEfectivoInformacion = new JPanel();
-        panelPagoEfectivoInformacion.setLayout(new GridLayout(3, 2, 10, 10));
-        panelPagoEfectivoInformacion.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        panelPagoEfectivoInformacion.setLayout(new GridLayout(NUM_FILAS, NUM_COLUMNAS, ESPACIADO, ESPACIADO));
+        panelPagoEfectivoInformacion.setBorder(BorderFactory.createEmptyBorder(BORDE, BORDE, BORDE, BORDE));
 
         panelPagoEfectivoInformacion.add(lblPrecio);
         panelPagoEfectivoInformacion.add(lblPrecioValor);
@@ -81,12 +88,24 @@ public class PagoEfectivo extends javax.swing.JFrame {
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new BorderLayout());
 
-        btnRegresar = new JButton("< - -");
-        btnRegresar.setPreferredSize(new Dimension(200, 50));
-        btnAceptar = new JButton("Terminar pedido");
-        btnAceptar.setPreferredSize(new Dimension(200, 50));
+        Font botonFont1 = new Font("Segoe UI", Font.PLAIN, 48);
+        Font botonFont2 = new Font("Segoe UI", Font.PLAIN, 24);
+
+        btnRegresar = new JButton("< ---");
+        btnRegresar.setFont(botonFont1);
+        btnAceptar = new JButton("Terminar");
+
+        btnAceptar.setFont(botonFont2);
+
+        btnRegresar.setPreferredSize(new Dimension(DIMENSION_BOTON_X, DIMENSION_BOTON_Y));
+        btnAceptar.setPreferredSize(new Dimension(DIMENSION_BOTON_X, DIMENSION_BOTON_Y));
+
+        btnRegresar.setBackground(new Color(255, 255, 51));
 
         JPanel panelVacio = new JPanel();
+        panelVacio.setPreferredSize(new Dimension(20, 20));
+
+        panelBotones.setBorder(BorderFactory.createEmptyBorder(BORDE, BORDE, BORDE, BORDE));
 
         panelBotones.add(btnRegresar, BorderLayout.WEST);
         panelBotones.add(panelVacio, BorderLayout.CENTER);
@@ -101,14 +120,17 @@ public class PagoEfectivo extends javax.swing.JFrame {
             public void insertUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
+
             @Override
             public void removeUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
+
             @Override
             public void changedUpdate(DocumentEvent e) {
                 actualizarCambio();
             }
+
             private void actualizarCambio() {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());

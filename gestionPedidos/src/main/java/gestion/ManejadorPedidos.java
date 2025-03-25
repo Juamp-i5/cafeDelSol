@@ -216,4 +216,19 @@ public class ManejadorPedidos implements IGestionPedidos {
         System.out.println("producto pedido actual");
         System.out.println(productoPedidoActual);
     }
+
+    @Override
+    public double actualizarTotal() {
+        double total = 0;
+
+        for (ProductoPedidoDTO productoPedido : pedido.getPedido()) {
+            double costoProducto = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecio()) * productoPedido.getCantidad();
+            productoPedido.setCosto(costoProducto);
+            total += costoProducto;
+        }
+        
+        pedido.setCostoTotal(total);
+        return total;
+    }
+
 }

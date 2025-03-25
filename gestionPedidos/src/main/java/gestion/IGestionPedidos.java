@@ -65,4 +65,6 @@ public interface IGestionPedidos {
     public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual);
     
     public ProductoPedidoDTO getProductoPedidoActual();
+    
+     public double actualizarTotal();
 }
