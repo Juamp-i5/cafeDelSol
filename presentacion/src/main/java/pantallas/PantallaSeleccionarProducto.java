@@ -86,11 +86,11 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
     // ONCLICK DEL PANEL
     private void productoSeleccionado(ProductoMostrarDTO producto) {
+        ControlNavegacion.gestor.agregarProducto(producto);
+
         if (modo == Modo.CREACION) {
-            ControlNavegacion.gestor.agregarProducto(producto);
             ControlNavegacion.mostrarPantallaTamanios();
         } else if (modo == Modo.EDICION) {
-            EditarProducto.actualizarProducto(producto);
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
         }
 
@@ -216,10 +216,10 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
-        } else if(modo == Modo.EDICION){
+        } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
         }
-        
+
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

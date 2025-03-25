@@ -28,20 +28,17 @@ import javax.swing.JPanel;
  * @author katia
  */
 public class EditarProducto extends javax.swing.JFrame {
-    
+
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
-    private static ProductoPedidoDTO productoPedido;
-    
     public EditarProducto(ProductoPedidoDTO productoPedido) {
-        this.productoPedido = productoPedido; // Guardamos el producto inicial
         ControlNavegacion.gestor.setProductoPedidoActual(productoPedido);
-        
+
         setTitle("Editar Producto");
         setSize(1000, 800);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         JPanel panelBotones = new JPanel(new GridLayout(2, 2, 20, 20));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
@@ -50,14 +47,14 @@ public class EditarProducto extends javax.swing.JFrame {
         btnTamanio = new JButton("Tamaño: " + productoPedido.getTamanio().getNombre());
         btnSabor = new JButton("Sabor: " + productoPedido.getSabor().getNombre());
         btnToppings = new JButton("Toppings: " + productoPedido.getTopping().getNombre());
-        
+
         JButton[] botones = {btnProducto, btnTamanio, btnSabor, btnToppings};
 
         for (JButton boton : botones) {
             boton.setPreferredSize(new Dimension(250, 50));
             boton.setFont(new Font("Arial", Font.BOLD, 16));
         }
-        
+
         btnRegresar = new JButton("←");
         btnRegresar.setPreferredSize(new Dimension(80, 40));
 
@@ -65,17 +62,17 @@ public class EditarProducto extends javax.swing.JFrame {
         panelBotones.add(btnTamanio);
         panelBotones.add(btnSabor);
         panelBotones.add(btnToppings);
-        
+
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelInferior.add(btnRegresar);
-        
+
         // Agregar acción a cada botón
         btnProducto.addActionListener(e -> abrirProductos());
         btnTamanio.addActionListener(e -> abrirTamanios());
         btnSabor.addActionListener(e -> abrirSabores());
         btnToppings.addActionListener(e -> abrirToppings());
         btnRegresar.addActionListener(e -> regresar());
-        
+
         // Agregar los paneles al Frame
         add(panelBotones, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
@@ -90,7 +87,6 @@ public class EditarProducto extends javax.swing.JFrame {
 //        productosFrame.setVisible(true);
 //        this.setVisible(false);
 //    }
-    
     private void abrirProductos() {
         dispose(); // Cierra la pantalla actual antes de abrir la nueva
         ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
@@ -102,7 +98,6 @@ public class EditarProducto extends javax.swing.JFrame {
 //        tamaniosFrame.setVisible(true);
 //        this.setVisible(false);
 //    }
-    
     private void abrirTamanios() {
         dispose();
         ControlNavegacion.mostrarPantallaTamanios(this);
@@ -114,7 +109,6 @@ public class EditarProducto extends javax.swing.JFrame {
 //        saboresFrame.setVisible(true);
 //        this.setVisible(false);
 //    }
-    
     private void abrirSabores() {
         dispose();
         ControlNavegacion.mostrarPantallaSabores(this);
@@ -126,38 +120,16 @@ public class EditarProducto extends javax.swing.JFrame {
 //        toppingsFrame.setVisible(true);
 //        this.setVisible(false);
 //    }
-
     private void abrirToppings() {
         dispose();
         ControlNavegacion.mostrarPantallaToppings(this);
     }
-    
+
     private void regresar() {
         ControlNavegacion.gestor.calcularCosto();
         ControlNavegacion.gestor.crearProductoPedido();
         this.dispose();
         ControlNavegacion.mostrarPantallaTotalDesglosado();
-    }
-
-    // Métodos para actualizar el texto de los botones según la selección del usuario
-    public static void actualizarProducto(ProductoMostrarDTO producto) {
-        productoPedido.setProducto(producto);
-//        btnProducto.setText("Producto: " + producto.getNombre());
-    }
-
-    public static void actualizarTamanio(TamanioMostrarDTO tamanio) {
-        productoPedido.setTamanio(tamanio);
-//        btnTamanio.setText("Tamaño: " + tamanio.getNombre());
-    }
-
-    public static void actualizarSabor(SaboresMostrarDTO sabor) {
-        productoPedido.setSabor(sabor);
-//        btnSabor.setText("Sabor: " + sabor.getNombre());
-    }
-
-    public static void actualizarTopping(ToppingsMostrarDTO topping) {
-        productoPedido.setTopping(topping);
-//        btnToppings.setText("Toppings: " + topping.getNombre());
     }
 
     /**
@@ -185,7 +157,6 @@ public class EditarProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
