@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 public class TotalDesglosado extends javax.swing.JFrame {
 
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
+
     /**
      * Creates new form TotalDesglosado
      */
@@ -33,19 +34,21 @@ public class TotalDesglosado extends javax.swing.JFrame {
         cargarPanelesProductosPedidos();
         ajustarScroll();
     }
-    
+
     private void ajustarScroll() {
         pnlProductosPedidos.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
     }
 
     public void cargarPanelesProductosPedidos() {
+        int posicionScroll = pnlProductosPedidos.getVerticalScrollBar().getValue();
         JPanel contenedorPanelesProductosPedidos = obtenerPanelesProductosPedidos();
         this.pnlProductosPedidos.setViewportView(contenedorPanelesProductosPedidos);
-        this.lblTotalTotal.setText(String.format("%.2f", ControlNavegacion.gestor.calcularTotal()));
+        this.lblTotalTotal.setText(String.format("%.2f", ControlNavegacion.calcularTotal()));
+        pnlProductosPedidos.getVerticalScrollBar().setValue(posicionScroll);
     }
 
     private JPanel obtenerPanelesProductosPedidos() {
-        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
 
         JPanel contenedorPanelesProductosPedidos = new JPanel();
@@ -101,7 +104,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         );
 
         if (opc == JOptionPane.YES_OPTION) {
-            ControlNavegacion.gestor.cancelarProductoPedido(productoPedido);
+            ControlNavegacion.cancelarProductoPedido(productoPedido);
 
             ControlNavegacion.mostrarPantallaProductoPedidoCancelado(this);
 
@@ -119,7 +122,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         );
 
         if (opc == JOptionPane.YES_OPTION) {
-            ControlNavegacion.gestor.cancelarPedido(ControlNavegacion.gestor.getPedido());
+            ControlNavegacion.cancelarPedido();
 
             ControlNavegacion.mostrarPantallaPedidoCancelado(this);
             this.dispose();
@@ -141,7 +144,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
     private void agregarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() < 99) {
             productoPedido.setCantidad(productoPedido.getCantidad() + 1);
-            ControlNavegacion.gestor.actualizarTotal();
+            ControlNavegacion.actualizarTotal();
             cargarPanelesProductosPedidos();
         } else {
             JOptionPane.showMessageDialog(this, "La cantidad máxima permitida es 99.", "Límite alcanzado", JOptionPane.WARNING_MESSAGE);
@@ -151,7 +154,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
     private void quitarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() != 1) {
             productoPedido.setCantidad(productoPedido.getCantidad() - 1);
-            ControlNavegacion.gestor.actualizarTotal();
+            ControlNavegacion.actualizarTotal();
             cargarPanelesProductosPedidos();
         } else {
             JOptionPane.showMessageDialog(this, "La cantidad mínima permitida es 1.", "Mínimo alcanzado", JOptionPane.WARNING_MESSAGE);
@@ -293,22 +296,22 @@ public class TotalDesglosado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
-        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-        if(listaProductosPedidos.isEmpty()){
+        if (listaProductosPedidos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             ControlNavegacion.mostrarPantallaPagoTarjeta();
             this.dispose();
         }
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
-        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-        if(listaProductosPedidos.isEmpty()){
+        if (listaProductosPedidos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-        }else {
+        } else {
             ControlNavegacion.mostrarPantallaPagoEfectivo();
             this.dispose();
         }

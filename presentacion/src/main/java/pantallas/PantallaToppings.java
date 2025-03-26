@@ -10,35 +10,32 @@ import control.Modo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 /**
  *
  * @author katia
  */
 public class PantallaToppings extends javax.swing.JFrame {
+
     private final int COLUMNAS_TABLA_TOPPINGS = 2;
     private final int PADDING_HORIZONTAL = 20;
     private final int PADDING_VERTICAL = 20;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    
+
     List<ToppingsMostrarDTO> toppings;
     private Modo modo;
     private JPanel panelConTodosLosToppings;
+
     /**
      * Creates new form Toppings
      */
@@ -56,64 +53,65 @@ public class PantallaToppings extends javax.swing.JFrame {
             panelTopping.addMouseListener(new EventosPanelTopping(topping, panelTopping));
             panelConTodosLosToppings.add(panelTopping);
         }
-            panelConTodosLosToppings.revalidate();
-            panelConTodosLosToppings.repaint();
-        
+        panelConTodosLosToppings.revalidate();
+        panelConTodosLosToppings.repaint();
+
     }
-    
-    private class EventosPanelTopping extends MouseAdapter{
+
+    private class EventosPanelTopping extends MouseAdapter {
+
         private final ToppingsMostrarDTO topping;
         private final JPanel panel;
-        
-        public EventosPanelTopping(ToppingsMostrarDTO topping, JPanel panel){
+
+        public EventosPanelTopping(ToppingsMostrarDTO topping, JPanel panel) {
             this.topping = topping;
             this.panel = panel;
         }
-        
+
         @Override
-        public void mousePressed(java.awt.event.MouseEvent evt){
+        public void mousePressed(java.awt.event.MouseEvent evt) {
             toppingSeleccionado(topping);
         }
-        
+
         @Override
-        public void mouseEntered(java.awt.event.MouseEvent evt){
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
             panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             panel.setBackground(COLOR_HOVER_PANEL);
         }
-        
+
         @Override
-        public void mouseExited(java.awt.event.MouseEvent evt){
+        public void mouseExited(java.awt.event.MouseEvent evt) {
             panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             panel.setBackground(null);
         }
     }
-    
+
     private void toppingSeleccionado(ToppingsMostrarDTO topping) {
-        ControlNavegacion.gestor.agregarTopping(topping);
+        ControlNavegacion.agregarTopping(topping);
 
         if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarAgregarTerminarPedido();
         } else if (modo == Modo.EDICION) {
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }
         this.dispose();
     }
-    
+
     private void regresar() {
-        if (modo == Modo.CREACION){
+        if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
         } else if (modo == Modo.EDICION) {
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
             this.dispose();
         }
     }
-    
+
     private void continuar() {
-        ControlNavegacion.gestor.agregarTopping(null);
-        if(modo == Modo.CREACION){
+        ControlNavegacion.agregarTopping(null);
+        if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarAgregarTerminarPedido();
-        }else if (modo == Modo.EDICION){
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
+        } else if (modo == Modo.EDICION) {
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }
         this.dispose();
     }
@@ -170,7 +168,7 @@ public class PantallaToppings extends javax.swing.JFrame {
 
         panelNavegacion.add(btnRegresar, BorderLayout.WEST);
         add(panelNavegacion, BorderLayout.SOUTH);
-        
+
         JButton btnContinuar = new JButton();
         btnContinuar.setBackground(new java.awt.Color(255, 255, 51));
         btnContinuar.setFont(new java.awt.Font("Segoe UI", 0, 24));

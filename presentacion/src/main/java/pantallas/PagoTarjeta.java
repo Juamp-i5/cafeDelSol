@@ -4,12 +4,8 @@
  */
 package pantallas;
 
-import DTOs.ProductoMostrarDTO;
-import control.ControlNavegacion;
 import DTOs.TarjetaDTO;
 import control.ControlNavegacion;
-import gestion.IGestionPedidos;
-import gestion.ManejadorPedidos;
 import java.awt.*;
 import javax.swing.*;
 
@@ -23,7 +19,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
      * Creates new form PagoTarjeta
      */
     private TarjetaDTO tarjeta;
-    
+
     final int CANTIDAD_FILAS = 4;
     final int CANTIDAD_COLUMNAS = 2;
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
@@ -35,8 +31,8 @@ public class PagoTarjeta extends javax.swing.JFrame {
     final int DIMENSION_BOTON_X = 200;
     final int DIMENSION_BOTON_Y = 80;
     final int TAMANIO_TEXTO = 24;
-    final int TAMANIO_BTN_ATRAS = 48; 
-    
+    final int TAMANIO_BTN_ATRAS = 48;
+
     private JTextField txtNumero;
     private JTextField txtBanco;
     private JTextField txtFecha;
@@ -126,7 +122,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 txtFecha.getText(),
                 new String(txtCVV.getPassword())
         );
-        if (ControlNavegacion.gestor.validarTarjetaPresentacion(tarjetaIngresada)) {
+        if (ControlNavegacion.validarTarjetaPresentacion(tarjetaIngresada)) {
             ControlNavegacion.mostrarPantallaPedidoRealizado();
             dispose();
         } else {

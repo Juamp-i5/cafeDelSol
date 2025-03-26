@@ -22,8 +22,6 @@ public interface IGestionPedidos {
 
     public PedidoDTO getPedido();
 
-    public ProductoPedidoDTO getProductoPedido();
-
     public List<ProductoMostrarDTO> cargarProductos();
 
     public void agregarProducto(ProductoMostrarDTO producto);

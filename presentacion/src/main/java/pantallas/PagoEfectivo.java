@@ -54,7 +54,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
 
     private void inicializarEtiquetasYCampos() {
         lblPrecio = new JLabel("Precio:");
-        lblPrecioValor = new JLabel(String.valueOf(ControlNavegacion.gestor.getPedido().getCostoTotal()));
+        lblPrecioValor = new JLabel(String.valueOf(ControlNavegacion.getPedido().getCostoTotal()));
         lblCantidadRecibida = new JLabel("Cantidad Recibida:");
         txtCantidadRecibida = new JTextField(0);
         lblCambio = new JLabel("Cambio:");
@@ -135,7 +135,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());
                     EfectivoDTO efectivo = new EfectivoDTO(cantidadRecibida);
-                    double cambio = ControlNavegacion.gestor.calcularCambio(efectivo);
+                    double cambio = ControlNavegacion.calcularCambio(efectivo);
                     if (cambio < 0) {
                         lblCambioValor.setText("Cantidad insuficiente");
                     } else {
@@ -163,7 +163,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());
                     EfectivoDTO efectivo = new EfectivoDTO(cantidadRecibida);
-                    double cambio = ControlNavegacion.gestor.calcularCambio(efectivo);
+                    double cambio = ControlNavegacion.calcularCambio(efectivo);
                     if (cambio >= 0) {
                         ControlNavegacion.mostrarPantallaPedidoRealizado();
                         dispose();

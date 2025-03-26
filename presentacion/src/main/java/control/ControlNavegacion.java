@@ -1,7 +1,13 @@
 package control;
 
+import DTOs.EfectivoDTO;
+import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
+import DTOs.SaboresMostrarDTO;
+import DTOs.TamanioMostrarDTO;
+import DTOs.TarjetaDTO;
+import DTOs.ToppingsMostrarDTO;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
@@ -14,7 +20,7 @@ import pantallas.*;
 
 public class ControlNavegacion {
 
-    public static IGestionPedidos gestor = new ManejadorPedidos();
+    private static IGestionPedidos gestor = new ManejadorPedidos();
     private static Stack framesVisitados = new Stack();
 
     //Encapsulacion gestor
@@ -32,6 +38,62 @@ public class ControlNavegacion {
 
     public static void agregarProductoPedidoAPedido() {
         gestor.agregarProductoPedidoAPedido();
+    }
+
+    public static void calcularCosto() {
+        gestor.calcularCosto();
+    }
+
+    public static boolean terminarPedido() {
+        return gestor.terminarPedido();
+    }
+
+    public static PedidoDTO getPedido() {
+        return gestor.getPedido();
+    }
+
+    public static double calcularCambio(EfectivoDTO efectivo) {
+        return gestor.calcularCambio(efectivo);
+    }
+
+    public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) {
+        return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+    }
+
+    public static void setProductoPedidoActual(ProductoPedidoDTO productoPedido) {
+        gestor.setProductoPedidoActual(productoPedido);
+    }
+
+    public static void crearProductoPedido() {
+        gestor.crearProductoPedido();
+    }
+
+    public static void agregarSabor(SaboresMostrarDTO sabor) {
+        gestor.agregarSabor(sabor);
+    }
+
+    public static void agregarTamanio(TamanioMostrarDTO tamanio) {
+        gestor.agregarTamanio(tamanio);
+    }
+
+    public static void agregarTopping(ToppingsMostrarDTO topping) {
+        gestor.agregarTopping(topping);
+    }
+
+    public static double calcularTotal() {
+        return gestor.calcularTotal();
+    }
+    
+    public static void cancelarProductoPedido(ProductoPedidoDTO productoPedido){
+        gestor.cancelarProductoPedido(productoPedido);
+    }
+    
+    public static boolean cancelarPedido(){
+        return gestor.cancelarPedido(getPedido());
+    }
+    
+    public static void actualizarTotal(){
+        gestor.actualizarTotal();
     }
 
     // PANTALLAS

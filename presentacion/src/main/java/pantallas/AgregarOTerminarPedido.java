@@ -87,7 +87,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     public void BtnAgregarSeleccionado() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            ControlNavegacion.gestor.calcularCosto();
+            ControlNavegacion.calcularCosto();
             ControlNavegacion.agregarProductoPedidoAPedido();
             ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
             dispose();
@@ -98,10 +98,10 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea finalizar el pedido?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
             
-            ControlNavegacion.gestor.calcularCosto();
+            ControlNavegacion.calcularCosto();
             
             ControlNavegacion.agregarProductoPedidoAPedido();
-            boolean terminado = ControlNavegacion.gestor.terminarPedido();
+            boolean terminado = ControlNavegacion.terminarPedido();
                 
             if (terminado) {
                 ControlNavegacion.mostrarPantallaTotalDesglosado();

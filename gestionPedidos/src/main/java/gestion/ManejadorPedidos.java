@@ -13,9 +13,6 @@ import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
@@ -60,11 +57,6 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public PedidoDTO getPedido() {
         return pedido;
-    }
-
-    @Override
-    public ProductoPedidoDTO getProductoPedido() {
-        return productoPedidoActual;
     }
 
     @Override

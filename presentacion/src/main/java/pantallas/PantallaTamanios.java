@@ -10,27 +10,23 @@ import control.Modo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 /**
  *
  * @author rodri
  */
 public class PantallaTamanios extends javax.swing.JFrame {
+
     private final int COLUMNAS_TABLA_TAMANIOS = 3;
     private final int PADDING_HORIZONTAL = 10;
     private final int PADDING_VERTICAL = 10;
@@ -39,7 +35,7 @@ public class PantallaTamanios extends javax.swing.JFrame {
     List<TamanioMostrarDTO> tamanios;
     private Modo modo;
     private JPanel panelConTodosLosTamanios;
-    
+
     /**
      * Creates new form Tamanios
      */
@@ -52,7 +48,7 @@ public class PantallaTamanios extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarTamanios();
     }
-    
+
     private void agregarTamanios() {
         for (TamanioMostrarDTO tamanio : tamanios) {
             JPanel panelTamanio = new PanelTamanio(tamanio);
@@ -60,27 +56,29 @@ public class PantallaTamanios extends javax.swing.JFrame {
             panelConTodosLosTamanios.add(panelTamanio);
         }
         panelConTodosLosTamanios.revalidate();
-        panelConTodosLosTamanios.repaint();        
+        panelConTodosLosTamanios.repaint();
     }
 
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
-        ControlNavegacion.gestor.agregarTamanio(tamanio);
-        if (modo == Modo.CREACION){
+        ControlNavegacion.agregarTamanio(tamanio);
+        if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarPantallaSabores(Modo.CREACION);
-        } else if (modo == Modo.EDICION){
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
+        } else if (modo == Modo.EDICION) {
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }
         this.dispose();
     }
 
     private class EventosPanelTamanio extends MouseAdapter {
+
         private final TamanioMostrarDTO tamanio;
         private final JPanel panel;
-        
+
         public EventosPanelTamanio(TamanioMostrarDTO tamanio, JPanel panel) {
             this.tamanio = tamanio;
             this.panel = panel;
         }
+
         @Override
         public void mousePressed(java.awt.event.MouseEvent evt) {
             tamanioSeleccionado(tamanio);
@@ -98,12 +96,12 @@ public class PantallaTamanios extends javax.swing.JFrame {
             panel.setBackground(null);
         }
     }
-    
+
     private void regresar() {
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
         } else if (modo == Modo.EDICION) {
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
             this.dispose();
         }
     }
@@ -159,7 +157,7 @@ public class PantallaTamanios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-    
+
     private void initComponents2() {
         setTitle("Tamaños");
         setSize(1000, 800);

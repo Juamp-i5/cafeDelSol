@@ -26,7 +26,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
     public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
-        ControlNavegacion.gestor.setProductoPedidoActual(productoPedido);
+        ControlNavegacion.setProductoPedidoActual(productoPedido);
         setTitle("Editar Producto");
         setSize(1000, 800);
         setLayout(new BorderLayout());
@@ -122,8 +122,8 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
     }
 
     private void regresar() {
-        ControlNavegacion.gestor.calcularCosto();
-        ControlNavegacion.gestor.crearProductoPedido();
+        ControlNavegacion.calcularCosto();
+        ControlNavegacion.crearProductoPedido();
         this.dispose();
         ControlNavegacion.mostrarPantallaTotalDesglosado();
     }

@@ -10,20 +10,16 @@ import control.Modo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 /**
  *
@@ -88,11 +84,11 @@ public class PantallaSabores extends javax.swing.JFrame {
     }
     
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
-        ControlNavegacion.gestor.agregarSabor(sabor);       
+        ControlNavegacion.agregarSabor(sabor);       
         if (modo == Modo.CREACION){
             ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);
         } else if (modo == Modo.EDICION){
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }
         this.dispose();
     }
@@ -101,7 +97,7 @@ public class PantallaSabores extends javax.swing.JFrame {
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
         } else if (modo == Modo.EDICION) {
-            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
             this.dispose();
         }
     }
