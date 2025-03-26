@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
  * @author norma
  */
 public class PanelProductoPedido extends javax.swing.JPanel {
-    
      private ProductoPedidoDTO productoPedido;
      
     /**
@@ -211,7 +210,6 @@ public class PanelProductoPedido extends javax.swing.JPanel {
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

@@ -31,27 +31,18 @@ import javax.swing.border.Border;
  * @author rodri
  */
 public class PantallaTamanios extends javax.swing.JFrame {
-
     private final int COLUMNAS_TABLA_TAMANIOS = 3;
     private final int PADDING_HORIZONTAL = 10;
     private final int PADDING_VERTICAL = 10;
-    private final int ANCHO_PANEL = 250;
-    private final int ALTO_PANEL = 300;
-    private final int ANCHO_IMAGEN = 250;
-    private final int ALTO_IMAGEN = 250;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    private final Border BORDE_PANEL = BorderFactory.createLineBorder(Color.GRAY, 1);
-    
+
     List<TamanioMostrarDTO> tamanios;
     private Modo modo;
     private JPanel panelConTodosLosTamanios;
     
-    //private PantallaEditarProducto editarProductoFrame;
-
     /**
      * Creates new form Tamanios
      */
-
     public PantallaTamanios(List<TamanioMostrarDTO> tamanios, Modo modo) {
         this.tamanios = tamanios;
         this.modo = modo;
@@ -61,18 +52,15 @@ public class PantallaTamanios extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         agregarTamanios();
     }
-
     
-
     private void agregarTamanios() {
         for (TamanioMostrarDTO tamanio : tamanios) {
-            JPanel panelTamanio = crearPanelTamanio(tamanio);
+            JPanel panelTamanio = new PanelTamanio(tamanio);
             panelTamanio.addMouseListener(new EventosPanelTamanio(tamanio, panelTamanio));
             panelConTodosLosTamanios.add(panelTamanio);
         }
         panelConTodosLosTamanios.revalidate();
-        panelConTodosLosTamanios.repaint();
-        
+        panelConTodosLosTamanios.repaint();        
     }
 
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
@@ -109,33 +97,6 @@ public class PantallaTamanios extends javax.swing.JFrame {
             panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             panel.setBackground(null);
         }
-    }
-    
-    private JPanel crearPanelTamanio(TamanioMostrarDTO tamanio) {
-        JPanel panelTamanio = new JPanel();
-        panelTamanio.setLayout(new BorderLayout());
-        panelTamanio.setBorder(BORDE_PANEL);
-        panelTamanio.setPreferredSize(new Dimension(ANCHO_PANEL, ALTO_PANEL));
-
-        cargarImagenTamanio(tamanio.getUrlImagen(), panelTamanio);
-        cargarNombreTamanio(tamanio.getNombre(), panelTamanio);
-
-        return panelTamanio;
-    }
-    
-    private void cargarImagenTamanio(String urlImagen, JPanel panelTamanio) {
-        JLabel lblImagen = new JLabel();
-        ImageIcon icono = new ImageIcon(urlImagen);
-        Image img = icono.getImage().getScaledInstance(ANCHO_IMAGEN, ALTO_IMAGEN, Image.SCALE_SMOOTH);
-        lblImagen.setIcon(new ImageIcon(img));
-        lblImagen.setHorizontalAlignment(JLabel.CENTER);
-
-        panelTamanio.add(lblImagen, BorderLayout.CENTER);
-    }
-    
-    private void cargarNombreTamanio(String nombre, JPanel panelTamanio) {
-        JLabel lblNombre = new JLabel(nombre, SwingConstants.CENTER);
-        panelTamanio.add(lblNombre, BorderLayout.SOUTH);
     }
     
     private void regresar() {

@@ -31,21 +31,14 @@ import javax.swing.border.Border;
  * @author katia
  */
 public class PantallaToppings extends javax.swing.JFrame {
-
     private final int COLUMNAS_TABLA_TOPPINGS = 2;
     private final int PADDING_HORIZONTAL = 20;
     private final int PADDING_VERTICAL = 20;
-    private final int ANCHO_PANEL = 250;
-    private final int ALTO_PANEL = 300;
-    private final int ANCHO_IMAGEN = 250;
-    private final int ALTO_IMAGEN = 250;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    private final Border BORDE_PANEL = BorderFactory.createLineBorder(Color.GRAY, 1);
     
     List<ToppingsMostrarDTO> toppings;
     private Modo modo;
     private JPanel panelConTodosLosToppings;
-
     /**
      * Creates new form Toppings
      */
@@ -59,11 +52,10 @@ public class PantallaToppings extends javax.swing.JFrame {
 
     private void cargarToppings() {
         for (ToppingsMostrarDTO topping : toppings) {
-            JPanel panelTopping = crearPanelTopping(topping);
+            JPanel panelTopping = new PanelTopping(topping);
             panelTopping.addMouseListener(new EventosPanelTopping(topping, panelTopping));
             panelConTodosLosToppings.add(panelTopping);
         }
-
             panelConTodosLosToppings.revalidate();
             panelConTodosLosToppings.repaint();
         
@@ -94,34 +86,6 @@ public class PantallaToppings extends javax.swing.JFrame {
             panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             panel.setBackground(null);
         }
-    }
-
-    
-    private JPanel crearPanelTopping(ToppingsMostrarDTO topping){
-        JPanel panelTopping = new JPanel();
-        panelTopping.setLayout(new BorderLayout());
-        panelTopping.setBorder(BORDE_PANEL);
-        panelTopping.setPreferredSize(new Dimension(ANCHO_PANEL, ALTO_PANEL));
-
-        cargarImagenTopping(topping.getUrlImagen(), panelTopping);
-        cargarNombreTopping(topping.getNombre(), panelTopping);
-
-        return panelTopping;
-    }
-    
-    private void cargarImagenTopping(String urlImagen, JPanel panelTopping){
-        JLabel lblImagen = new JLabel();
-        ImageIcon icono = new ImageIcon(urlImagen);
-        Image img = icono.getImage().getScaledInstance(ANCHO_IMAGEN, ALTO_IMAGEN, Image.SCALE_SMOOTH);
-        lblImagen.setIcon(new ImageIcon(img));
-        lblImagen.setHorizontalAlignment(JLabel.CENTER);
-
-        panelTopping.add(lblImagen, BorderLayout.CENTER);
-    }
-
-    private void cargarNombreTopping(String nombre, JPanel panelTopping) {
-        JLabel lblNombre = new JLabel(nombre, SwingConstants.CENTER);
-        panelTopping.add(lblNombre, BorderLayout.SOUTH);
     }
     
     private void toppingSeleccionado(ToppingsMostrarDTO topping) {
@@ -179,10 +143,8 @@ public class PantallaToppings extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
     private void initComponents2() {
         setTitle("Toppings");
         setSize(1000, 800);

@@ -5,7 +5,6 @@ import control.Modo;
 import javax.swing.JOptionPane;
 
 public class PantallaMenuPrincipal extends javax.swing.JFrame {
-
     public PantallaMenuPrincipal() {
         initComponents();
     }

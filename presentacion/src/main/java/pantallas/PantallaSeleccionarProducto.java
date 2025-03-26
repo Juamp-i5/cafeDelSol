@@ -11,12 +11,10 @@ import java.util.List;
 import javax.swing.JPanel;
 
 public class PantallaSeleccionarProducto extends javax.swing.JFrame {
-
     private final int COLUMNAS_TABLA_PRODUCTOS_CARGADOS = 3;
     private final int PADDING_HORIZONTAL_PANEL_PRODUCTO = 10;
     private final int PADDING_VERTICAL_PANEL_PRODUCTO = 10;
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
-
     private final Color COLOR_HOVER_PANEL_PRODUCTO = new Color(220, 220, 220);
 
     private List<ProductoMostrarDTO> productos;
@@ -36,32 +34,25 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
     private void cargarProductos() {
         int filas = (int) Math.ceil((double) productos.size() / COLUMNAS_TABLA_PRODUCTOS_CARGADOS);
-
         pnlProductos.setLayout(new GridLayout(filas, COLUMNAS_TABLA_PRODUCTOS_CARGADOS, PADDING_HORIZONTAL_PANEL_PRODUCTO, PADDING_VERTICAL_PANEL_PRODUCTO));
-
         for (ProductoMostrarDTO producto : productos) {
             JPanel panelProducto = new PanelProducto(producto);
-
             panelProducto.addMouseListener(new EventosPanelProducto(producto, panelProducto));
-
             pnlProductos.add(panelProducto);
         }
-
         pnlProductos.revalidate();
         pnlProductos.repaint();
     }
 
     // EVENTOS PANEL PRODUCTO
     private class EventosPanelProducto extends MouseAdapter {
-
         private final ProductoMostrarDTO producto;
         private final JPanel panel;
-
         public EventosPanelProducto(ProductoMostrarDTO producto, JPanel panel) {
             this.producto = producto;
             this.panel = panel;
         }
-
+        
         @Override
         public void mousePressed(java.awt.event.MouseEvent evt) {
             productoSeleccionado(producto);

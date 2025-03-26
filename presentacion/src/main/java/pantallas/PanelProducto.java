@@ -21,13 +21,10 @@ import javax.swing.border.Border;
  * @author rodri
  */
 public class PanelProducto extends JPanel {
-
-
-    private final int ANCHO_PANEL_PRODUCTO = 150;
+   private final int ANCHO_PANEL_PRODUCTO = 150;
     private final int ALTO_PANEL_PRODUCTO = 150;
     private final int ANCHO_IMAGEN_PRODUCTO = 160;
     private final int ALTO_IMAGEN_PRODUCTO = 100;
-
     private final Border BORDE_PANEL_PRODUCTO = BorderFactory.createLineBorder(Color.GRAY, 1);
     
     public PanelProducto(ProductoMostrarDTO producto) {

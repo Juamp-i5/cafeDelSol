@@ -30,75 +30,35 @@ import javax.swing.border.Border;
  * @author rodri
  */
 public class PantallaSabores extends javax.swing.JFrame {
-
     private final int COLUMNAS_TABLA_SABORES = 3;
     private final int PADDING_HORIZONTAL = 20;
     private final int PADDING_VERTICAL = 20;
-    private final int ANCHO_PANEL = 250;
-    private final int ALTO_PANEL = 300;
-    private final int ANCHO_IMAGEN = 150;
-    private final int ALTO_IMAGEN = 150;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    private final Border BORDE_PANEL = BorderFactory.createLineBorder(Color.GRAY, 1);
-    
     
     List<SaboresMostrarDTO> sabores;
     private Modo modo;
     private JPanel panelConTodosLosSabores;
-    //private PantallaEditarProducto editarProductoFrame;
 
     /**
      * Creates new form Sabores
      */
-
     public PantallaSabores(List<SaboresMostrarDTO> sabores, Modo modo) {
         this.sabores = sabores;
         this.modo = modo;
         initComponents2();
         setTitle("Sabores");
         cargarSabores();
-
-    }
-
-    private JPanel crearPanelSabor(SaboresMostrarDTO sabor) {
-        JPanel panelSabor = new JPanel();
-        panelSabor.setLayout(new BorderLayout());
-        panelSabor.setBorder(BORDE_PANEL);
-        panelSabor.setPreferredSize(new Dimension(ANCHO_PANEL, ALTO_PANEL));
-
-        cargarImagenSabor(sabor.getUrlImagen(), panelSabor);
-        cargarNombreSabor(sabor.getNombre(), panelSabor);
-
-        return panelSabor;
     }
     
     private void cargarSabores() {
         for (SaboresMostrarDTO sabor : sabores) {
-            JPanel panelSabor = crearPanelSabor(sabor);
+            JPanel panelSabor = new PanelSabor(sabor);
             panelSabor.addMouseListener(new EventosPanelSabor(sabor, panelSabor));
             panelConTodosLosSabores.add(panelSabor);
         }
-
         panelConTodosLosSabores.revalidate();
         panelConTodosLosSabores.repaint();
     }
-    
-    private void cargarImagenSabor(String urlImagen, JPanel panelSabor) {
-        JLabel lblImagen = new JLabel();
-        ImageIcon icono = new ImageIcon(urlImagen);
-        Image img = icono.getImage().getScaledInstance(ANCHO_IMAGEN, ALTO_IMAGEN, Image.SCALE_SMOOTH);
-        lblImagen.setIcon(new ImageIcon(img));
-        lblImagen.setHorizontalAlignment(JLabel.CENTER);
-
-        panelSabor.add(lblImagen, BorderLayout.CENTER);
-    }
-    
-    private void cargarNombreSabor(String nombre, JPanel panelSabor) {
-        JLabel lblNombre = new JLabel(nombre, SwingConstants.CENTER);
-        panelSabor.add(lblNombre, BorderLayout.SOUTH);
-    }
-    
-    
     
     private class EventosPanelSabor extends MouseAdapter {
         private final SaboresMostrarDTO sabor;
@@ -126,12 +86,9 @@ public class PantallaSabores extends javax.swing.JFrame {
             panel.setBackground(null);
         }
     }
-
-        
-
+    
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
-        ControlNavegacion.gestor.agregarSabor(sabor);
-        
+        ControlNavegacion.gestor.agregarSabor(sabor);       
         if (modo == Modo.CREACION){
             ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);
         } else if (modo == Modo.EDICION){
@@ -197,7 +154,6 @@ public class PantallaSabores extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private com.mycompany.presentacion.Presentacion presentacion1;
@@ -228,5 +184,4 @@ public class PantallaSabores extends javax.swing.JFrame {
         panelNavegacion.add(btnRegresar, BorderLayout.WEST);
         add(panelNavegacion, BorderLayout.SOUTH);
     }
-
 }

@@ -4,11 +4,7 @@
  */
 package pantallas;
 
-import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
-import DTOs.TamanioMostrarDTO;
-import DTOs.ToppingsMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
 import java.awt.BorderLayout;
@@ -16,11 +12,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -33,7 +27,6 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
 
     public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         ControlNavegacion.gestor.setProductoPedidoActual(productoPedido);
-
         setTitle("Editar Producto");
         setSize(1000, 800);
         setLayout(new BorderLayout());
@@ -52,17 +45,15 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
             btnToppings = new JButton("Toppings: Ninguno");
         }
         
-
         JButton[] botones = {btnProducto, btnTamanio, btnSabor, btnToppings};
 
         for (JButton boton : botones) {
             boton.setPreferredSize(new Dimension(250, 50));
             boton.setFont(new Font("Arial", Font.BOLD, 16));
         }
-
+        
         btnRegresar = new JButton("←");
         btnRegresar.setPreferredSize(new Dimension(80, 40));
-
         panelBotones.add(btnProducto);
         panelBotones.add(btnTamanio);
         panelBotones.add(btnSabor);

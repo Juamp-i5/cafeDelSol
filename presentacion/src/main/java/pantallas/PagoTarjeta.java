@@ -22,6 +22,8 @@ public class PagoTarjeta extends javax.swing.JFrame {
     /**
      * Creates new form PagoTarjeta
      */
+    private TarjetaDTO tarjeta;
+    
     final int CANTIDAD_FILAS = 4;
     final int CANTIDAD_COLUMNAS = 2;
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
@@ -30,15 +32,10 @@ public class PagoTarjeta extends javax.swing.JFrame {
     final int MARGEN_PANEL_IZQUIERDA = 40;
     final int MARGEN_PANEL_ABAJO = 20;
     final int MARGEN_PANEL_DERECHA = 20;
-    final int TAMANIO_TITULO = 14;
     final int DIMENSION_BOTON_X = 200;
     final int DIMENSION_BOTON_Y = 80;
     final int TAMANIO_TEXTO = 24;
-    final int TAMANIO_BTN_ATRAS = 48;
-    
-    
-
-    private TarjetaDTO tarjeta;
+    final int TAMANIO_BTN_ATRAS = 48; 
 
     public PagoTarjeta() {
         setTitle("Pago con tarjeta");
@@ -47,13 +44,6 @@ public class PagoTarjeta extends javax.swing.JFrame {
         setLocationRelativeTo(null);
 
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
-
-//        JLabel lblTitulo = new JLabel("Pago con tarjeta", SwingConstants.LEFT);
-//        lblTitulo.setForeground(Color.GRAY);
-//        lblTitulo.setFont(new Font("Arial", Font.BOLD, TAMANIO_TITULO));
-//        JPanel panelTitulo = new JPanel(new BorderLayout());
-//        panelTitulo.add(lblTitulo, BorderLayout.WEST);
-//        panelTitulo.setBackground(Color.WHITE);
 
         JPanel panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(MARGEN_PANEL_ARRIBA, MARGEN_PANEL_IZQUIERDA, MARGEN_PANEL_ABAJO, MARGEN_PANEL_DERECHA));
@@ -99,7 +89,6 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 BtnConfirmarSeleccionado(txtNumero, txtBanco, txtFecha, txtCVV);
             }
         });
-//        panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
 

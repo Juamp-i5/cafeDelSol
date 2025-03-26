@@ -28,8 +28,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     /**
      * Creates new form AgregarOTerminarPedido
      *
-     */
-    
+     */   
     final int ANCHO_FRAME_AGREGAR_TERMINAR_PEDIDO = 1000;
     final int ALTO_FRAME_AGREGAR_TERMINAR_PEDIDO = 800;
     final int TANAMNIO_SIMBOLO_AGREGAR = 30;
@@ -37,8 +36,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     final int CANTIDAD_FILAS = 1;
     final int CANTIDAD_COLUMNAS = 2;
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
-    final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10;
-    
+    final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10; 
     
     public AgregarOTerminarPedido() {
         setTitle("");
@@ -87,13 +85,10 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     }
 
     public void BtnAgregarSeleccionado() {
-
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-
             ControlNavegacion.gestor.calcularCosto();
             ControlNavegacion.agregarProductoPedidoAPedido();
-
             ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
             dispose();
         }
