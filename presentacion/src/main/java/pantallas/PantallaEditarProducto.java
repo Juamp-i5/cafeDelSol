@@ -46,7 +46,12 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
         btnProducto = new JButton("Producto: " + productoPedido.getProducto().getNombre());
         btnTamanio = new JButton("Tamaño: " + productoPedido.getTamanio().getNombre());
         btnSabor = new JButton("Sabor: " + productoPedido.getSabor().getNombre());
-        btnToppings = new JButton("Toppings: " + productoPedido.getTopping().getNombre());
+        if (productoPedido.getTopping() != null) {
+            btnToppings = new JButton("Toppings: " + productoPedido.getTopping().getNombre());
+        } else {
+            btnToppings = new JButton("Toppings: Ninguno");
+        }
+        
 
         JButton[] botones = {btnProducto, btnTamanio, btnSabor, btnToppings};
 
