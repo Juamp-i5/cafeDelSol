@@ -36,21 +36,21 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
         return List.of(
-            new ProductoMostrarDTO(1L, "Affogato", 50, "../img/affogato.jpg"),
-            new ProductoMostrarDTO(2L, "Café Americano", 40, "../img/cafeAmericano.jpg"),
-            new ProductoMostrarDTO(3L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
-            new ProductoMostrarDTO(4L, "Capuchino", 50, "../img/capuchino.jpg"),
-            new ProductoMostrarDTO(5L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
-            new ProductoMostrarDTO(6L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
-            new ProductoMostrarDTO(7L, "Espresso", 50, "../img/espresso.jpg"),
-            new ProductoMostrarDTO(8L, "Flat White", 50, "../img/flatWhite.jpg"),
-            new ProductoMostrarDTO(9L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
-            new ProductoMostrarDTO(10L, "Frappuccino", 45, "../img/frappuccino.jpg"),
-            new ProductoMostrarDTO(11L, "Latte", 55, "../img/latte.jpg"),
-            new ProductoMostrarDTO(12L, "Matcha Latte", 50, "../img/matchaLatte.jpg"),
-            new ProductoMostrarDTO(13L, "Mocaccino", 30, "../img/mocaccino.jpg"),
-            new ProductoMostrarDTO(14L, "Té Chai", 45, "../img/teChai.jpg"),
-            new ProductoMostrarDTO(15L, "Té Negro", 20, "../img/teNegro.jpg")
+                new ProductoMostrarDTO(1L, "Affogato", 50, "../img/affogato.jpg"),
+                new ProductoMostrarDTO(2L, "Café Americano", 40, "../img/cafeAmericano.jpg"),
+                new ProductoMostrarDTO(3L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
+                new ProductoMostrarDTO(4L, "Capuchino", 50, "../img/capuchino.jpg"),
+                new ProductoMostrarDTO(5L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
+                new ProductoMostrarDTO(6L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
+                new ProductoMostrarDTO(7L, "Espresso", 50, "../img/espresso.jpg"),
+                new ProductoMostrarDTO(8L, "Flat White", 50, "../img/flatWhite.jpg"),
+                new ProductoMostrarDTO(9L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
+                new ProductoMostrarDTO(10L, "Frappuccino", 45, "../img/frappuccino.jpg"),
+                new ProductoMostrarDTO(11L, "Latte", 55, "../img/latte.jpg"),
+                new ProductoMostrarDTO(12L, "Matcha Latte", 50, "../img/matchaLatte.jpg"),
+                new ProductoMostrarDTO(13L, "Mocaccino", 30, "../img/mocaccino.jpg"),
+                new ProductoMostrarDTO(14L, "Té Chai", 45, "../img/teChai.jpg"),
+                new ProductoMostrarDTO(15L, "Té Negro", 20, "../img/teNegro.jpg")
         );
     }
 
@@ -123,24 +123,35 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
-        if (tarjeta == null) {
-            return false;
-        }        
         String numeroTarjeta = tarjeta.getNumTarjeta();
-        if (numeroTarjeta == null || !numeroTarjeta.matches("\\d{16}")) {
-            return false;
-        }        
         String banco = tarjeta.getNombreBanco();
-        if (banco == null || banco.trim().isEmpty()) {
-            return false;
-        }        
         String cvv = tarjeta.getCVV();
-        if (cvv == null || !cvv.matches("\\d{3,4}")) {
-            return false;
+        String fechaExp = tarjeta.getFechaExp();
+
+        if (banco == null || banco.trim().isEmpty()
+                || numeroTarjeta == null || numeroTarjeta.trim().isEmpty()
+                || cvv == null || cvv.trim().isEmpty()
+                || fechaExp == null) {
+            throw new IllegalArgumentException("Se tiene que llenar todos los campos.");
+        }
+
+        if (tarjeta == null) {
+            throw new IllegalArgumentException("La tarjeta no puede ser nula.");
+        }
+
+        if (!numeroTarjeta.matches("\\d{16}")) {
+            throw new IllegalArgumentException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
+        }
+
+        if (!cvv.matches("\\d{3,4}")) {
+            throw new IllegalArgumentException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
+        }
+        if (!fechaExp.matches("\\d{2}/\\d{2}")) {
+            throw new IllegalArgumentException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
         }
         return true;
     }
-    
+
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) {
 
@@ -221,8 +232,8 @@ public class ManejadorPedidos implements IGestionPedidos {
             productoPedido.setCosto(costoProducto);
             total += costoProducto;
         }
-        
+
         pedido.setCostoTotal(total);
         return total;
-    }    
+    }
 }

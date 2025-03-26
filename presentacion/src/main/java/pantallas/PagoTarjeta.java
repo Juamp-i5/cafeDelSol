@@ -122,12 +122,22 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 txtFecha.getText(),
                 new String(txtCVV.getPassword())
         );
-        if (ControlNavegacion.validarTarjetaPresentacion(tarjetaIngresada)) {
-            ControlNavegacion.mostrarPantallaPedidoRealizado();
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+        try {
+            if (ControlNavegacion.validarTarjetaPresentacion(tarjetaIngresada)) {
+                ControlNavegacion.mostrarPantallaPedidoRealizado();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al procesar la tarjeta: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }
 
     /**
