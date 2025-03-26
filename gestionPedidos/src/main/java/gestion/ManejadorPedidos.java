@@ -39,21 +39,21 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
         return List.of(
-                new ProductoMostrarDTO(1L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
-                new ProductoMostrarDTO(2L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpeg"),
-                new ProductoMostrarDTO(3L, "Café Americano", 40, "../img/cafeAmericano.jpeg"),
-                new ProductoMostrarDTO(4L, "Latte", 55, "../img/latte.jpeg"),
-                new ProductoMostrarDTO(5L, "Capuchino", 50, "../img/capuchino.jpeg"),
-                new ProductoMostrarDTO(6L, "Espresso", 60, "../img/espresso.jpeg"),
-                new ProductoMostrarDTO(7L, "Té Chai", 45, "../img/teChai.jpeg"),
-                new ProductoMostrarDTO(8L, "Matcha Latte", 50, "../img/matchaLatte.jpeg"),
-                new ProductoMostrarDTO(9L, "Mocaccino", 30, "../img/mocaccino.jpeg"),
-                new ProductoMostrarDTO(10L, "Té Negro", 20, "../img/teNegro.jpeg"),
-                new ProductoMostrarDTO(11L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpeg"),
-                new ProductoMostrarDTO(12L, "Affogato", 50, "../img/affogato.jpeg"),
-                new ProductoMostrarDTO(13L, "Flat White", 50, "../img/flatWhite.jpeg"),
-                new ProductoMostrarDTO(14L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpeg"),
-                new ProductoMostrarDTO(15L, "Frappuccino", 45, "../img/frappuccino.jpeg")
+            new ProductoMostrarDTO(1L, "Affogato", 50, "../img/affogato.jpg"),
+            new ProductoMostrarDTO(2L, "Café Americano", 40, "../img/cafeAmericano.jpg"),
+            new ProductoMostrarDTO(3L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
+            new ProductoMostrarDTO(4L, "Capuchino", 50, "../img/capuchino.jpg"),
+            new ProductoMostrarDTO(5L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
+            new ProductoMostrarDTO(6L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
+            new ProductoMostrarDTO(7L, "Espresso", 50, "../img/espresso.jpg"),
+            new ProductoMostrarDTO(8L, "Flat White", 50, "../img/flatWhite.jpg"),
+            new ProductoMostrarDTO(9L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
+            new ProductoMostrarDTO(10L, "Frappuccino", 45, "../img/frappuccino.jpg"),
+            new ProductoMostrarDTO(11L, "Latte", 55, "../img/latte.jpg"),
+            new ProductoMostrarDTO(12L, "Matcha Latte", 50, "../img/matchaLatte.jpg"),
+            new ProductoMostrarDTO(13L, "Mocaccino", 30, "../img/mocaccino.jpg"),
+            new ProductoMostrarDTO(14L, "Té Chai", 45, "../img/teChai.jpg"),
+            new ProductoMostrarDTO(15L, "Té Negro", 20, "../img/teNegro.jpg")
         );
     }
 

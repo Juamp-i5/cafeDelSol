@@ -25,7 +25,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
     private final int PADDING_VERTICAL_PANEL_PRODUCTO = 10;
     private final int ANCHO_PANEL_PRODUCTO = 150;
     private final int ALTO_PANEL_PRODUCTO = 150;
-    private final int ANCHO_IMAGEN_PRODUCTO = 100;
+    private final int ANCHO_IMAGEN_PRODUCTO = 160;
     private final int ALTO_IMAGEN_PRODUCTO = 100;
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
 
