@@ -39,7 +39,6 @@ public class PantallaToppings extends javax.swing.JFrame {
     private final int ALTO_PANEL = 300;
     private final int ANCHO_IMAGEN = 250;
     private final int ALTO_IMAGEN = 250;
-
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
     private final Border BORDE_PANEL = BorderFactory.createLineBorder(Color.GRAY, 1);
     

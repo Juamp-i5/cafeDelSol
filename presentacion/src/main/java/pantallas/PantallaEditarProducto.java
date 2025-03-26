@@ -111,7 +111,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
 //    }
     private void abrirSabores() {
         dispose();
-        ControlNavegacion.mostrarPantallaSabores(this);
+        ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
     }
 
 //    private void abrirToppings() {

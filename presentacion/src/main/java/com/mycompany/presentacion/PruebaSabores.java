@@ -16,7 +16,7 @@ public class PruebaSabores {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ControlNavegacion.mostrarPantallaSabores();
+        //ControlNavegacion.mostrarPantallaSabores();
         //:D
     }
     

@@ -74,8 +74,8 @@ public class ControlNavegacion {
         framesVisitados.add(tamanios);
     }
 
-    public static void mostrarPantallaSabores() {
-        JFrame sabores = new Sabores(gestor.cargarSabores());
+    public static void mostrarPantallaSabores(Modo modo) {
+        JFrame sabores = new Sabores(gestor.cargarSabores(), modo);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
         
@@ -127,31 +127,18 @@ public class ControlNavegacion {
         framesVisitados.add(totalDesglosado);
     }
 
-//    public static void mostrarPantallaTamanios(PantallaEditarProducto editarProductoFrame) {
+//    public static void mostrarPantallaSabores(PantallaEditarProducto editarProductoFrame) {
 //        if (editarProductoFrame != null) {
 //            editarProductoFrame.dispose();
 //        }
-//        JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), editarProductoFrame);
-//        tamanios.setLocationRelativeTo(null);
-//        tamanios.setVisible(true);
+//        JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
+//        sabores.setLocationRelativeTo(null);
+//        sabores.setVisible(true);
 //        
 //        gestor.imprimirPedidoConsola();
 //
-//        framesVisitados.add(tamanios);
+//        framesVisitados.add(sabores);
 //    }
-
-    public static void mostrarPantallaSabores(PantallaEditarProducto editarProductoFrame) {
-        if (editarProductoFrame != null) {
-            editarProductoFrame.dispose();
-        }
-        JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
-        sabores.setLocationRelativeTo(null);
-        sabores.setVisible(true);
-        
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(sabores);
-    }
 
     public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);
