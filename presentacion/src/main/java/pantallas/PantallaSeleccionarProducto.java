@@ -3,34 +3,21 @@ package pantallas;
 import DTOs.ProductoMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
 
 public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
     private final int COLUMNAS_TABLA_PRODUCTOS_CARGADOS = 3;
     private final int PADDING_HORIZONTAL_PANEL_PRODUCTO = 10;
     private final int PADDING_VERTICAL_PANEL_PRODUCTO = 10;
-    private final int ANCHO_PANEL_PRODUCTO = 150;
-    private final int ALTO_PANEL_PRODUCTO = 150;
-    private final int ANCHO_IMAGEN_PRODUCTO = 160;
-    private final int ALTO_IMAGEN_PRODUCTO = 100;
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
 
     private final Color COLOR_HOVER_PANEL_PRODUCTO = new Color(220, 220, 220);
-    private final Border BORDE_PANEL_PRODUCTO = BorderFactory.createLineBorder(Color.GRAY, 1);
 
     private List<ProductoMostrarDTO> productos;
     private Modo modo;
@@ -53,7 +40,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pnlProductos.setLayout(new GridLayout(filas, COLUMNAS_TABLA_PRODUCTOS_CARGADOS, PADDING_HORIZONTAL_PANEL_PRODUCTO, PADDING_VERTICAL_PANEL_PRODUCTO));
 
         for (ProductoMostrarDTO producto : productos) {
-            JPanel panelProducto = crearPanelProducto(producto);
+            JPanel panelProducto = new PanelProducto(producto);
 
             panelProducto.addMouseListener(new EventosPanelProducto(producto, panelProducto));
 
@@ -106,34 +93,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         this.dispose();
     }
 
-    // PANEL PRODUCTO CARGADO
-    private JPanel crearPanelProducto(ProductoMostrarDTO producto) {
-        JPanel panelProducto = new JPanel();
-        panelProducto.setLayout(new BorderLayout());
-        panelProducto.setBorder(BORDE_PANEL_PRODUCTO);
-        panelProducto.setPreferredSize(new Dimension(ANCHO_PANEL_PRODUCTO, ALTO_PANEL_PRODUCTO));
-
-        cargarImagenProducto(producto.getUrlImagen(), panelProducto);
-        cargarNombreProducto(producto.getNombre(), panelProducto);
-
-        return panelProducto;
-    }
-
-    private void cargarImagenProducto(String urlImagenProducto, JPanel panelProducto) {
-        JLabel lblImagen = new JLabel();
-        ImageIcon icono = new ImageIcon(urlImagenProducto);
-        Image img = icono.getImage().getScaledInstance(ANCHO_IMAGEN_PRODUCTO, ALTO_IMAGEN_PRODUCTO, Image.SCALE_SMOOTH);
-        lblImagen.setIcon(new ImageIcon(img));
-        lblImagen.setHorizontalAlignment(JLabel.CENTER);
-
-        panelProducto.add(lblImagen, BorderLayout.CENTER);
-    }
-
-    private void cargarNombreProducto(String nombreProducto, JPanel panelProducto) {
-        JLabel lblNombre = new JLabel(nombreProducto, SwingConstants.CENTER);
-
-        panelProducto.add(lblNombre, BorderLayout.SOUTH);
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
