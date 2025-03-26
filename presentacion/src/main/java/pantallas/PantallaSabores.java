@@ -145,6 +145,7 @@ public class PantallaSabores extends javax.swing.JFrame {
             ControlNavegacion.volverPantallaAnterior();
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
+            this.dispose();
         }
     }
 
