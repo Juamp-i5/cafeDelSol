@@ -27,11 +27,11 @@ import javax.swing.JPanel;
  *
  * @author katia
  */
-public class EditarProducto extends javax.swing.JFrame {
+public class PantallaEditarProducto extends javax.swing.JFrame {
 
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
-    public EditarProducto(ProductoPedidoDTO productoPedido) {
+    public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         ControlNavegacion.gestor.setProductoPedidoActual(productoPedido);
 
         setTitle("Editar Producto");
@@ -122,7 +122,7 @@ public class EditarProducto extends javax.swing.JFrame {
 //    }
     private void abrirToppings() {
         dispose();
-        ControlNavegacion.mostrarPantallaToppings(this);
+        ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
     }
 
     private void regresar() {

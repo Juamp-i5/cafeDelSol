@@ -10,7 +10,7 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import control.ControlNavegacion;
-import pantallas.EditarProducto;
+import pantallas.PantallaEditarProducto;
 
 /**
  *
@@ -36,7 +36,7 @@ public class PruebaEditar {
         productoPedido.setTopping(topping);
 
         // Iniciar la ventana de edición del producto
-        new EditarProducto(productoPedido);
+        new PantallaEditarProducto(productoPedido);
         
     }
     

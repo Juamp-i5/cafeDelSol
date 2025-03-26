@@ -26,7 +26,7 @@ import javax.swing.SwingConstants;
 public class Tamanios extends javax.swing.JFrame {
 
     List<TamanioMostrarDTO> tamanios;
-    private EditarProducto editarProductoFrame;
+    private PantallaEditarProducto editarProductoFrame;
 
     /**
      * Creates new form Tamanios
@@ -41,7 +41,7 @@ public class Tamanios extends javax.swing.JFrame {
         agregarTamanios();
     }
 
-    public Tamanios(List<TamanioMostrarDTO> tamanios, EditarProducto editarProductoFrame) {
+    public Tamanios(List<TamanioMostrarDTO> tamanios, PantallaEditarProducto editarProductoFrame) {
         this.tamanios = tamanios;
         this.editarProductoFrame = editarProductoFrame;
         initComponents();

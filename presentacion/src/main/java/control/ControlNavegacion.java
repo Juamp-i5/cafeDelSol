@@ -84,8 +84,9 @@ public class ControlNavegacion {
         framesVisitados.add(sabores);
     }
 
-    public static void mostrarPantallaToppings() {
-        JFrame toppings = new Toppings(gestor.cargarToppings());
+    public static void mostrarPantallaToppings(Modo modo) {
+        System.out.println("Modo enviado a pantallatopp: " + modo);
+        JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
         
@@ -93,7 +94,7 @@ public class ControlNavegacion {
 
         framesVisitados.add(toppings);
     }
-
+    
     public static void mostrarAgregarTerminarPedido() {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
@@ -127,7 +128,7 @@ public class ControlNavegacion {
         framesVisitados.add(totalDesglosado);
     }
 
-    public static void mostrarPantallaTamanios(EditarProducto editarProductoFrame) {
+    public static void mostrarPantallaTamanios(PantallaEditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
         }
@@ -140,7 +141,7 @@ public class ControlNavegacion {
         framesVisitados.add(tamanios);
     }
 
-    public static void mostrarPantallaSabores(EditarProducto editarProductoFrame) {
+    public static void mostrarPantallaSabores(PantallaEditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
             editarProductoFrame.dispose();
         }
@@ -153,21 +154,21 @@ public class ControlNavegacion {
         framesVisitados.add(sabores);
     }
 
-    public static void mostrarPantallaToppings(EditarProducto editarProductoFrame) {
-        if (editarProductoFrame != null) {
-            editarProductoFrame.dispose();
-        }
-        JFrame toppings = new Toppings(gestor.cargarToppings(), editarProductoFrame);
-        toppings.setLocationRelativeTo(null);
-        toppings.setVisible(true);
-        
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(toppings);
-    }
+//    public static void mostrarPantallaToppings(PantallaEditarProducto editarProductoFrame) {
+//        if (editarProductoFrame != null) {
+//            editarProductoFrame.dispose();
+//        }
+//        JFrame toppings = new PantallaToppings(gestor.cargarToppings(), editarProductoFrame);
+//        toppings.setLocationRelativeTo(null);
+//        toppings.setVisible(true);
+//        
+//        gestor.imprimirPedidoConsola();
+//
+//        framesVisitados.add(toppings);
+//    }
 
     public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
-        JFrame editarProducto = new EditarProducto(productoPedido);
+        JFrame editarProducto = new PantallaEditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
         

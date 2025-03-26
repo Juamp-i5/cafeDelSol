@@ -6,6 +6,7 @@ package pantallas;
 
 import DTOs.SaboresMostrarDTO;
 import control.ControlNavegacion;
+import control.Modo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -25,7 +26,8 @@ import javax.swing.SwingConstants;
 public class Sabores extends javax.swing.JFrame {
 
     List<SaboresMostrarDTO> sabores;
-    private EditarProducto editarProductoFrame;
+    private Modo modo;
+    private PantallaEditarProducto editarProductoFrame;
 
     /**
      * Creates new form Sabores
@@ -41,7 +43,7 @@ public class Sabores extends javax.swing.JFrame {
 
     }
 
-    public Sabores(List<SaboresMostrarDTO> sabores, EditarProducto editarProductoFrame) {
+    public Sabores(List<SaboresMostrarDTO> sabores, PantallaEditarProducto editarProductoFrame) {
         this.sabores = sabores;
         this.editarProductoFrame = editarProductoFrame;
         initComponents();
@@ -92,7 +94,7 @@ public class Sabores extends javax.swing.JFrame {
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
 
         ControlNavegacion.gestor.agregarSabor(sabor);
-        ControlNavegacion.mostrarPantallaToppings();
+        ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);
 
         dispose();
     }
