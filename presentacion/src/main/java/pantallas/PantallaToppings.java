@@ -145,6 +145,7 @@ public class PantallaToppings extends javax.swing.JFrame {
     }
     
     private void continuar() {
+        ControlNavegacion.gestor.agregarTopping(null);
         if(modo == Modo.CREACION){
             ControlNavegacion.mostrarAgregarTerminarPedido();
         }else if (modo == Modo.EDICION){
@@ -211,8 +212,8 @@ public class PantallaToppings extends javax.swing.JFrame {
         JButton btnContinuar = new JButton();
         btnContinuar.setBackground(new java.awt.Color(255, 255, 51));
         btnContinuar.setFont(new java.awt.Font("Segoe UI", 0, 24));
-        btnContinuar.setText("Continuar");
-        btnContinuar.setPreferredSize(new java.awt.Dimension(180, 70));
+        btnContinuar.setText("Continuar sin topping");
+        btnContinuar.setPreferredSize(new java.awt.Dimension(300, 70));
         btnContinuar.addActionListener(e -> continuar());
 
         panelNavegacion.add(btnContinuar, BorderLayout.EAST);
