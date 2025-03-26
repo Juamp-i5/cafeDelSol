@@ -107,10 +107,9 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
             
             ControlNavegacion.agregarProductoPedidoAPedido();
             boolean terminado = ControlNavegacion.gestor.terminarPedido();
-
+                
             if (terminado) {
                 ControlNavegacion.mostrarPantallaTotalDesglosado();
-
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Error: No se puede finalizar un pedido vacío", "Error", JOptionPane.ERROR_MESSAGE);

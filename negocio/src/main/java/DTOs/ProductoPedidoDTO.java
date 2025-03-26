@@ -21,6 +21,13 @@ public class ProductoPedidoDTO {
         this.cantidad = 1;
     }
 
+    public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaboresMostrarDTO sabor) {
+        this.producto = producto;
+        this.tamanio = tamanio;
+        this.sabor = sabor;
+        this.cantidad = 1;
+    }
+
     public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaboresMostrarDTO sabor, ToppingsMostrarDTO topping) {
         this.producto = producto;
         this.tamanio = tamanio;

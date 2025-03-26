@@ -95,11 +95,13 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblTamaño" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblCantidadCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnQuitar" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnAgregar" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblTamaño" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCantidadCantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnQuitar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblSabor" min="-2" max="-2" attributes="0"/>

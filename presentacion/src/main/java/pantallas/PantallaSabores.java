@@ -29,7 +29,7 @@ import javax.swing.border.Border;
  *
  * @author rodri
  */
-public class Sabores extends javax.swing.JFrame {
+public class PantallaSabores extends javax.swing.JFrame {
 
     private final int COLUMNAS_TABLA_SABORES = 3;
     private final int PADDING_HORIZONTAL = 20;
@@ -51,7 +51,7 @@ public class Sabores extends javax.swing.JFrame {
      * Creates new form Sabores
      */
 
-    public Sabores(List<SaboresMostrarDTO> sabores, Modo modo) {
+    public PantallaSabores(List<SaboresMostrarDTO> sabores, Modo modo) {
         this.sabores = sabores;
         this.modo = modo;
         initComponents2();

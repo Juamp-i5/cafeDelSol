@@ -75,7 +75,7 @@ public class ControlNavegacion {
     }
 
     public static void mostrarPantallaSabores(Modo modo) {
-        JFrame sabores = new Sabores(gestor.cargarSabores(), modo);
+        JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
         
@@ -131,7 +131,7 @@ public class ControlNavegacion {
 //        if (editarProductoFrame != null) {
 //            editarProductoFrame.dispose();
 //        }
-//        JFrame sabores = new Sabores(gestor.cargarSabores(), editarProductoFrame);
+//        JFrame sabores = new PantallaSabores(gestor.cargarSabores(), editarProductoFrame);
 //        sabores.setLocationRelativeTo(null);
 //        sabores.setVisible(true);
 //        

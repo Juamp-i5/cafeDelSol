@@ -25,9 +25,9 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         this.lblNombreProducto.setText(productoPedido.getProducto().getNombre());
         this.lblTamaño.setText(productoPedido.getTamanio().getNombre());
         this.lblSabor.setText(productoPedido.getSabor().getNombre());
-        String topping = productoPedido.getTopping().getNombre();
-        if (topping != null){
-            this.lblTopping.setText(topping);
+        this.lblTopping.setText("");
+        if (productoPedido.getTopping() != null){
+            this.lblTopping.setText(productoPedido.getTopping().getNombre());
         }
         this.lblCantidadCantidad.setText(String.format("%d", productoPedido.getCantidad()));
         double costo = productoPedido.getCosto();  
@@ -184,11 +184,12 @@ public class PanelProductoPedido extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(lblCantidad)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTamaño)
-                    .addComponent(lblCantidadCantidad)
-                    .addComponent(btnQuitar)
-                    .addComponent(btnAgregar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAgregar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTamaño)
+                        .addComponent(lblCantidadCantidad)
+                        .addComponent(btnQuitar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSabor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

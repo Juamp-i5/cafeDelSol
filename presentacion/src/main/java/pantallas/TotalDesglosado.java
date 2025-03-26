@@ -7,6 +7,7 @@ package pantallas;
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
+import control.Modo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -22,6 +23,7 @@ import javax.swing.JPanel;
  */
 public class TotalDesglosado extends javax.swing.JFrame {
 
+    private final int MOVIMIENTO_SCROLL_MOUSE = 15;
     /**
      * Creates new form TotalDesglosado
      */
@@ -29,6 +31,11 @@ public class TotalDesglosado extends javax.swing.JFrame {
         initComponents();
         setSize(1000, 800);
         cargarPanelesProductosPedidos();
+        ajustarScroll();
+    }
+    
+    private void ajustarScroll() {
+        pnlProductosPedidos.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
     }
 
     public void cargarPanelesProductosPedidos() {
@@ -164,7 +171,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
     private void initComponents() {
 
         pnlProductosPedidos = new javax.swing.JScrollPane();
-        btnRegresar = new javax.swing.JButton();
+        btnAgregarOtro = new javax.swing.JButton();
         btnTarjeta = new javax.swing.JButton();
         btnEfectivo = new javax.swing.JButton();
         lblTotal = new javax.swing.JLabel();
@@ -174,12 +181,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
-        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        btnRegresar.setText("< ---");
-        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregarOtro.setBackground(new java.awt.Color(255, 255, 51));
+        btnAgregarOtro.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAgregarOtro.setText("Agregar otro Producto");
+        btnAgregarOtro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegresarActionPerformed(evt);
+                btnAgregarOtroActionPerformed(evt);
             }
         });
 
@@ -232,8 +239,8 @@ public class TotalDesglosado extends javax.swing.JFrame {
                             .addComponent(lblTotalTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 356, Short.MAX_VALUE)
+                        .addComponent(btnAgregarOtro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
                         .addComponent(btnTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -261,41 +268,56 @@ public class TotalDesglosado extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegresar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregarOtro, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        ControlNavegacion.mostrarAgregarTerminarPedido();
-        dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
+    private void btnAgregarOtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarOtroActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+            dispose();
+        }
+    }//GEN-LAST:event_btnAgregarOtroActionPerformed
 
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
         cancelarPedido();
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
 
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
-        ControlNavegacion.mostrarPagoTarjeta();
-        this.dispose();
+        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        if(listaProductosPedidos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        }else {
+            ControlNavegacion.mostrarPantallaPagoEfectivo();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
-        ControlNavegacion.mostrarPantallaPagoEfectivo();
-        this.dispose();
+        PedidoDTO pedido = ControlNavegacion.gestor.getPedido();
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        if(listaProductosPedidos.isEmpty()){
+            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        }else {
+            ControlNavegacion.mostrarPantallaPagoEfectivo();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnEfectivoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarOtro;
     private javax.swing.JButton btnCancelarPedido;
     private javax.swing.JButton btnEfectivo;
-    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnTarjeta;
     private javax.swing.JLabel lblSigno;
     private javax.swing.JLabel lblTotal;

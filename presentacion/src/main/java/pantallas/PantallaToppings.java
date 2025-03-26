@@ -142,6 +142,15 @@ public class PantallaToppings extends javax.swing.JFrame {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedido());
         }
     }
+    
+    private void continuar() {
+        if(modo == Modo.CREACION){
+            ControlNavegacion.mostrarAgregarTerminarPedido();
+        }else if (modo == Modo.EDICION){
+            ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
+        }
+        this.dispose();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -196,6 +205,16 @@ public class PantallaToppings extends javax.swing.JFrame {
         btnRegresar.addActionListener(e -> regresar());
 
         panelNavegacion.add(btnRegresar, BorderLayout.WEST);
+        add(panelNavegacion, BorderLayout.SOUTH);
+        
+        JButton btnContinuar = new JButton();
+        btnContinuar.setBackground(new java.awt.Color(255, 255, 51));
+        btnContinuar.setFont(new java.awt.Font("Segoe UI", 0, 24));
+        btnContinuar.setText("Continuar");
+        btnContinuar.setPreferredSize(new java.awt.Dimension(180, 70));
+        btnContinuar.addActionListener(e -> continuar());
+
+        panelNavegacion.add(btnContinuar, BorderLayout.EAST);
         add(panelNavegacion, BorderLayout.SOUTH);
     }
 }
