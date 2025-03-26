@@ -85,7 +85,6 @@ public class ControlNavegacion {
     }
 
     public static void mostrarPantallaToppings(Modo modo) {
-        System.out.println("Modo enviado a pantallatopp: " + modo);
         JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);

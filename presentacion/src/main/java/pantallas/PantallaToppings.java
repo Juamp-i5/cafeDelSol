@@ -64,7 +64,7 @@ public class PantallaToppings extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        JLabel lblTitulo = new JLabel("Toppings", SwingConstants.CENTER);
+        JLabel lblTitulo = new JLabel("Toppings", SwingConstants.LEFT);
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(lblTitulo, BorderLayout.NORTH);
@@ -75,8 +75,11 @@ public class PantallaToppings extends javax.swing.JFrame {
 
         // BOTON REGRESAR
         JPanel panelNavegacion = new JPanel(new BorderLayout());
-        JButton btnRegresar = new JButton("<-");
-        btnRegresar.setFont(new Font("Arial", Font.BOLD, 16));
+        JButton btnRegresar = new JButton();
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48));
+        btnRegresar.setText("<---");
+        btnRegresar.setPreferredSize(new java.awt.Dimension(180, 70));
         btnRegresar.addActionListener(e -> regresar());
 
         panelNavegacion.add(btnRegresar, BorderLayout.WEST);
@@ -151,19 +154,13 @@ public class PantallaToppings extends javax.swing.JFrame {
     }
     
     private void toppingSeleccionado(ToppingsMostrarDTO topping) {
-        System.out.println("Topping seleccionado: " + topping.getNombre());
-        System.out.println("Modo actual: " + modo);
-        
         ControlNavegacion.gestor.agregarTopping(topping);
 
         if (modo == Modo.CREACION) {
-            System.out.println("Modo CREACION: mostrando pantalla de agregar/terminar pedido.");
             ControlNavegacion.mostrarAgregarTerminarPedido();
         } else if (modo == Modo.EDICION) {
-            System.out.println("Modo EDICION: mostrando pantalla de edición.");
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
         }
-        System.out.println("Cerrando pantalla toppigns");
         this.dispose();
     }
     
