@@ -100,7 +100,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
 //    }
     private void abrirTamanios() {
         dispose();
-        ControlNavegacion.mostrarPantallaTamanios(this);
+        ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
     }
 
 //    private void abrirSabores() {

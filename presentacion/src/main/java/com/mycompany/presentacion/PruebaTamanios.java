@@ -16,7 +16,7 @@ public class PruebaTamanios {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ControlNavegacion.mostrarPantallaTamanios();
+        //ControlNavegacion.mostrarPantallaTamanios();
     }
     
 }

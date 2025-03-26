@@ -64,8 +64,8 @@ public class ControlNavegacion {
         }
     }
 
-    public static void mostrarPantallaTamanios() {
-        JFrame tamanios = new Tamanios(gestor.cargarTamanios());
+    public static void mostrarPantallaTamanios(Modo modo) {
+        JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
         
@@ -127,18 +127,18 @@ public class ControlNavegacion {
         framesVisitados.add(totalDesglosado);
     }
 
-    public static void mostrarPantallaTamanios(PantallaEditarProducto editarProductoFrame) {
-        if (editarProductoFrame != null) {
-            editarProductoFrame.dispose();
-        }
-        JFrame tamanios = new Tamanios(gestor.cargarTamanios(), editarProductoFrame);
-        tamanios.setLocationRelativeTo(null);
-        tamanios.setVisible(true);
-        
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(tamanios);
-    }
+//    public static void mostrarPantallaTamanios(PantallaEditarProducto editarProductoFrame) {
+//        if (editarProductoFrame != null) {
+//            editarProductoFrame.dispose();
+//        }
+//        JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), editarProductoFrame);
+//        tamanios.setLocationRelativeTo(null);
+//        tamanios.setVisible(true);
+//        
+//        gestor.imprimirPedidoConsola();
+//
+//        framesVisitados.add(tamanios);
+//    }
 
     public static void mostrarPantallaSabores(PantallaEditarProducto editarProductoFrame) {
         if (editarProductoFrame != null) {
@@ -152,19 +152,6 @@ public class ControlNavegacion {
 
         framesVisitados.add(sabores);
     }
-
-//    public static void mostrarPantallaToppings(PantallaEditarProducto editarProductoFrame) {
-//        if (editarProductoFrame != null) {
-//            editarProductoFrame.dispose();
-//        }
-//        JFrame toppings = new PantallaToppings(gestor.cargarToppings(), editarProductoFrame);
-//        toppings.setLocationRelativeTo(null);
-//        toppings.setVisible(true);
-//        
-//        gestor.imprimirPedidoConsola();
-//
-//        framesVisitados.add(toppings);
-//    }
 
     public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);

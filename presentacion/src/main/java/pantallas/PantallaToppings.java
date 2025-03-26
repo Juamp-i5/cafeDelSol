@@ -58,34 +58,6 @@ public class PantallaToppings extends javax.swing.JFrame {
         cargarToppings();
     }
 
-    private void initComponents2() {
-        setTitle("Toppings");
-        setSize(1000, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-
-        JLabel lblTitulo = new JLabel("Toppings", SwingConstants.LEFT);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
-        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(lblTitulo, BorderLayout.NORTH);
-
-        panelConTodosLosToppings = new JPanel();
-        panelConTodosLosToppings.setLayout(new GridLayout(0, COLUMNAS_TABLA_TOPPINGS, PADDING_HORIZONTAL, PADDING_VERTICAL));
-        add(new JScrollPane(panelConTodosLosToppings), BorderLayout.CENTER);
-
-        // BOTON REGRESAR
-        JPanel panelNavegacion = new JPanel(new BorderLayout());
-        JButton btnRegresar = new JButton();
-        btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
-        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48));
-        btnRegresar.setText("<---");
-        btnRegresar.setPreferredSize(new java.awt.Dimension(180, 70));
-        btnRegresar.addActionListener(e -> regresar());
-
-        panelNavegacion.add(btnRegresar, BorderLayout.WEST);
-        add(panelNavegacion, BorderLayout.SOUTH);
-    }
-
     private void cargarToppings() {
         for (ToppingsMostrarDTO topping : toppings) {
             JPanel panelTopping = crearPanelTopping(topping);
@@ -200,4 +172,31 @@ public class PantallaToppings extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    
+    private void initComponents2() {
+        setTitle("Toppings");
+        setSize(1000, 800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        JLabel lblTitulo = new JLabel("Selecciona tu topping", SwingConstants.LEFT);
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48));
+        lblTitulo.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(lblTitulo, BorderLayout.NORTH);
+
+        panelConTodosLosToppings = new JPanel();
+        panelConTodosLosToppings.setLayout(new GridLayout(0, COLUMNAS_TABLA_TOPPINGS, PADDING_HORIZONTAL, PADDING_VERTICAL));
+        add(new JScrollPane(panelConTodosLosToppings), BorderLayout.CENTER);
+
+        JPanel panelNavegacion = new JPanel(new BorderLayout());
+        JButton btnRegresar = new JButton();
+        btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
+        btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48));
+        btnRegresar.setText("<---");
+        btnRegresar.setPreferredSize(new java.awt.Dimension(180, 70));
+        btnRegresar.addActionListener(e -> regresar());
+
+        panelNavegacion.add(btnRegresar, BorderLayout.WEST);
+        add(panelNavegacion, BorderLayout.SOUTH);
+    }
 }

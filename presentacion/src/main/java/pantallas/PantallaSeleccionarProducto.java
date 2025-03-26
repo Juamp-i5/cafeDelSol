@@ -98,7 +98,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         ControlNavegacion.gestor.agregarProducto(producto);
 
         if (modo == Modo.CREACION) {
-            ControlNavegacion.mostrarPantallaTamanios();
+            ControlNavegacion.mostrarPantallaTamanios(Modo.CREACION);
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.gestor.getProductoPedidoActual());
         }
