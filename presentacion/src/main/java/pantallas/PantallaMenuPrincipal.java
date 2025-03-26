@@ -5,6 +5,7 @@ import control.Modo;
 import javax.swing.JOptionPane;
 
 public class PantallaMenuPrincipal extends javax.swing.JFrame {
+
     public PantallaMenuPrincipal() {
         initComponents();
     }
@@ -23,6 +24,7 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
         lblSubtitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu barista");
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
@@ -127,7 +129,7 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogOutActionPerformed
 
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
-        ControlNavegacion.gestor.iniciarPedido();
+        ControlNavegacion.iniciarPedidoNuevo();
         ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
         this.dispose();
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
