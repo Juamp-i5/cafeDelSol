@@ -27,54 +27,62 @@ public class PagoTarjeta extends javax.swing.JFrame {
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
     final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10;
     final int MARGEN_PANEL_ARRIBA = 20;
-    final int MARGEN_PANEL_IZQUIERDA = 0;
+    final int MARGEN_PANEL_IZQUIERDA = 40;
     final int MARGEN_PANEL_ABAJO = 20;
     final int MARGEN_PANEL_DERECHA = 20;
+    final int TAMANIO_TITULO = 14;
+    final int DIMENSION_BOTON_X = 200;
+    final int DIMENSION_BOTON_Y = 80;
+    final int TAMANIO_TEXTO = 24;
+    final int TAMANIO_BTN_ATRAS = 48;
+    
+    
 
     private TarjetaDTO tarjeta;
 
     public PagoTarjeta() {
-        setTitle("Datos de la tarjeta");
+        setTitle("Pago con tarjeta");
         setSize(1000, 800);
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
 
-        JLabel lblTitulo = new JLabel("Pago con tarjeta", SwingConstants.LEFT);
-        lblTitulo.setForeground(Color.GRAY);
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 14));
-        JPanel panelTitulo = new JPanel(new BorderLayout());
-        panelTitulo.add(lblTitulo, BorderLayout.WEST);
-        panelTitulo.setBackground(Color.WHITE);
+//        JLabel lblTitulo = new JLabel("Pago con tarjeta", SwingConstants.LEFT);
+//        lblTitulo.setForeground(Color.GRAY);
+//        lblTitulo.setFont(new Font("Arial", Font.BOLD, TAMANIO_TITULO));
+//        JPanel panelTitulo = new JPanel(new BorderLayout());
+//        panelTitulo.add(lblTitulo, BorderLayout.WEST);
+//        panelTitulo.setBackground(Color.WHITE);
 
         JPanel panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
-        panelFormulario.setBackground(Color.LIGHT_GRAY);
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(MARGEN_PANEL_ARRIBA, MARGEN_PANEL_IZQUIERDA, MARGEN_PANEL_ABAJO, MARGEN_PANEL_DERECHA));
 
-        panelFormulario.add(new JLabel("16 dígitos de la tarjeta"));
+        panelFormulario.add(new JLabel("16 dígitos de la tarjeta")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
         JTextField txtNumero = new JTextField();
         panelFormulario.add(txtNumero);
 
-        panelFormulario.add(new JLabel("Nombre de banco"));
+        panelFormulario.add(new JLabel("Nombre de banco")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
         JTextField txtBanco = new JTextField();
         panelFormulario.add(txtBanco);
 
-        panelFormulario.add(new JLabel("Fecha exp"));
+        panelFormulario.add(new JLabel("Fecha exp")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
         JTextField txtFecha = new JTextField();
         panelFormulario.add(txtFecha);
 
-        panelFormulario.add(new JLabel("CVV"));
+        panelFormulario.add(new JLabel("CVV")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
         JPasswordField txtCVV = new JPasswordField();
         panelFormulario.add(txtCVV);
-
+        
         JPanel panelInferior = new JPanel(new BorderLayout());
 
-        JButton btnAtras = new JButton("<-");
-        btnAtras.setBackground(Color.GRAY);
+        JButton btnAtras = new JButton("<--");
+        btnAtras.setBackground(Color.YELLOW);
+        btnAtras.setPreferredSize(new Dimension(DIMENSION_BOTON_X, DIMENSION_BOTON_Y));
+        btnAtras.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_BTN_ATRAS));
 
         JButton btnConfirmar = new JButton("Confirmar pago");
-        btnConfirmar.setBackground(Color.GRAY);
+        btnConfirmar.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
 
         panelInferior.add(btnAtras, BorderLayout.WEST);
         panelInferior.add(btnConfirmar, BorderLayout.EAST);
@@ -91,7 +99,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 BtnConfirmarSeleccionado(txtNumero, txtBanco, txtFecha, txtCVV);
             }
         });
-        panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
+//        panelPrincipal.add(panelTitulo, BorderLayout.NORTH);
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
 

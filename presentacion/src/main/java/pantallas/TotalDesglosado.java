@@ -298,7 +298,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         if(listaProductosPedidos.isEmpty()){
             JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
         }else {
-            ControlNavegacion.mostrarPagoTarjeta();
+            ControlNavegacion.mostrarPantallaPagoTarjeta();
             this.dispose();
         }
     }//GEN-LAST:event_btnTarjetaActionPerformed

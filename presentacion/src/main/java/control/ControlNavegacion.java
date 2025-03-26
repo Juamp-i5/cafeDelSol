@@ -104,7 +104,7 @@ public class ControlNavegacion {
         framesVisitados.empty();
     }
 
-    public static void mostrarPagoTarjeta() {
+    public static void mostrarPantallaPagoTarjeta() {
         JFrame pagoTarjeta = new PagoTarjeta();
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);

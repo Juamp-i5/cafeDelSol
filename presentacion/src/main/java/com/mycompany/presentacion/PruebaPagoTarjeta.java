@@ -16,7 +16,7 @@ public class PruebaPagoTarjeta {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ControlNavegacion.mostrarPagoTarjeta();
+        ControlNavegacion.mostrarPantallaPagoTarjeta();
     }
     
 }

@@ -61,8 +61,8 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         JButton btnAgregar = new JButton("+");
         JButton btnTerminar = new JButton("->");
 
-        btnAgregar.setFont(new Font("Arial", Font.BOLD, TANAMNIO_SIMBOLO_AGREGAR));
-        btnTerminar.setFont(new Font("Arial", Font.BOLD, TANAMNIO_SIMBOLO_TERMINAR));
+        btnAgregar.setFont(new Font("Segoe UI", Font.BOLD, TANAMNIO_SIMBOLO_AGREGAR));
+        btnTerminar.setFont(new Font("Segoe UI", Font.BOLD, TANAMNIO_SIMBOLO_TERMINAR));
 
         panelCentral.add(crearBotonPanel(btnAgregar, "Agregar otro producto"));
         panelCentral.add(crearBotonPanel(btnTerminar, "Terminar pedido"));
