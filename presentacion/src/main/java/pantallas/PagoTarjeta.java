@@ -36,72 +36,90 @@ public class PagoTarjeta extends javax.swing.JFrame {
     final int DIMENSION_BOTON_Y = 80;
     final int TAMANIO_TEXTO = 24;
     final int TAMANIO_BTN_ATRAS = 48; 
+    
+    private JTextField txtNumero;
+    private JTextField txtBanco;
+    private JTextField txtFecha;
+    private JPasswordField txtCVV;
+
+    private JPanel panelPrincipal;
+    private JPanel panelFormulario;
+    private JPanel panelInferior;
 
     public PagoTarjeta() {
-        setTitle("Pago con tarjeta");
+        setTitle("Pago con Tarjeta");
         setSize(1000, 800);
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        inicializarComponentes();
+    }
 
+    private void inicializarComponentes() {
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
+        panelPrincipal.add(PanelFormulario(), BorderLayout.CENTER);
+        panelPrincipal.add(PanelInferior(), BorderLayout.SOUTH);
+        setContentPane(panelPrincipal);
+    }
 
-        JPanel panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
+    private JPanel PanelFormulario() {
+        panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(MARGEN_PANEL_ARRIBA, MARGEN_PANEL_IZQUIERDA, MARGEN_PANEL_ABAJO, MARGEN_PANEL_DERECHA));
 
-        panelFormulario.add(new JLabel("16 dígitos de la tarjeta")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
-        JTextField txtNumero = new JTextField();
-        panelFormulario.add(txtNumero);
+        txtNumero = new JTextField();
+        txtBanco = new JTextField();
+        txtFecha = new JTextField();
+        txtCVV = new JPasswordField();
 
-        panelFormulario.add(new JLabel("Nombre de banco")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
-        JTextField txtBanco = new JTextField();
-        panelFormulario.add(txtBanco);
+        agregarCampoFormulario("16 dígitos de la tarjeta", txtNumero);
+        agregarCampoFormulario("Nombre de banco", txtBanco);
+        agregarCampoFormulario("Fecha exp", txtFecha);
+        agregarCampoFormulario("CVV", txtCVV);
 
-        panelFormulario.add(new JLabel("Fecha exp")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
-        JTextField txtFecha = new JTextField();
-        panelFormulario.add(txtFecha);
+        return panelFormulario;
+    }
 
-        panelFormulario.add(new JLabel("CVV")).setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
-        JPasswordField txtCVV = new JPasswordField();
-        panelFormulario.add(txtCVV);
-        
-        JPanel panelInferior = new JPanel(new BorderLayout());
+    private JPanel PanelInferior() {
+        panelInferior = new JPanel(new BorderLayout());
+        JButton btnAtras = configurarBotonAtras();
+        JButton btnConfirmar = configurarBotonConfirmar();
+        panelInferior.add(btnAtras, BorderLayout.WEST);
+        panelInferior.add(btnConfirmar, BorderLayout.EAST);
+        return panelInferior;
+    }
 
+    private JButton configurarBotonAtras() {
         JButton btnAtras = new JButton("<--");
         btnAtras.setBackground(Color.YELLOW);
         btnAtras.setPreferredSize(new Dimension(DIMENSION_BOTON_X, DIMENSION_BOTON_Y));
         btnAtras.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_BTN_ATRAS));
-
-        JButton btnConfirmar = new JButton("Confirmar pago");
-        btnConfirmar.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
-
-        panelInferior.add(btnAtras, BorderLayout.WEST);
-        panelInferior.add(btnConfirmar, BorderLayout.EAST);
-
-        btnAtras.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnAtrasSeleccionado();
-            }
-        });
-        btnConfirmar.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BtnConfirmarSeleccionado(txtNumero, txtBanco, txtFecha, txtCVV);
-            }
-        });
-        panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
-        panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
-
-        setContentPane(panelPrincipal);
+        btnAtras.addActionListener(e -> BtnAtrasSeleccionado());
+        return btnAtras;
     }
 
-    public void BtnAtrasSeleccionado() {
+    private JButton configurarBotonConfirmar() {
+        JButton btnConfirmar = new JButton("Confirmar pago");
+        btnConfirmar.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
+        btnConfirmar.addActionListener(e -> BtnConfirmarSeleccionado());
+        return btnConfirmar;
+    }
+
+    private void agregarCampoFormulario(String etiqueta, JTextField campo) {
+        JLabel label = new JLabel(etiqueta);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 24));
+        panelFormulario.add(label);
+        panelFormulario.add(campo);
+    }
+
+    private void BtnAtrasSeleccionado() {
         ControlNavegacion.volverPantallaAnterior();
         dispose();
     }
 
-    public void BtnConfirmarSeleccionado(JTextField txtNumero, JTextField txtBanco, JTextField txtFecha, JPasswordField txtCVV) {
-        System.out.println("Confirmar tarjeta");
+    private void BtnConfirmarSeleccionado() {
+        validarYProcesarPago();
+    }
+
+    private void validarYProcesarPago() {
         TarjetaDTO tarjetaIngresada = new TarjetaDTO(
                 txtNumero.getText(),
                 txtBanco.getText(),
@@ -109,9 +127,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
                 new String(txtCVV.getPassword())
         );
         if (ControlNavegacion.gestor.validarTarjetaPresentacion(tarjetaIngresada)) {
-            
             ControlNavegacion.mostrarPantallaPedidoRealizado();
-            
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);
