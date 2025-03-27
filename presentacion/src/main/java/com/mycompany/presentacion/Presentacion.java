@@ -7,7 +7,7 @@ package com.mycompany.presentacion;
 import control.ControlNavegacion;
 
 /**
- *
+ * Clase main de donde se ejecuta el sistema.
  * @author Jp
  */
 public class Presentacion {

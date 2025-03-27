@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class PantallaMenuPrincipal extends javax.swing.JFrame {
 
     /**
-     * Constructor de la clase. Inicializa los componentes de la interfaz
+     * Constructor de la clase MenuPrincipal. Inicializa los componentes de la interfaz
      * gráfica.
      */
     public PantallaMenuPrincipal() {

@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
+ * Clase que representa la pantalla de selección de tamaños.
  *
  * @author rodri
  */
@@ -31,13 +32,16 @@ public class PantallaTamanios extends javax.swing.JFrame {
     private final int PADDING_HORIZONTAL = 10;
     private final int PADDING_VERTICAL = 10;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-
     List<TamanioMostrarDTO> tamanios;
     private Modo modo;
     private JPanel panelConTodosLosTamanios;
 
     /**
-     * Creates new form Tamanios
+     * Constructor de la clase PantallaTamanios. Crea una nueva pantalla para la
+     * selección de tamaños.
+     *
+     * @param tamanios Lista de tamaños disponibles para mostrar.
+     * @param modo Modo en el que se abrirá la pantalla (CREACION o EDICION).
      */
     public PantallaTamanios(List<TamanioMostrarDTO> tamanios, Modo modo) {
         this.tamanios = tamanios;
@@ -49,6 +53,10 @@ public class PantallaTamanios extends javax.swing.JFrame {
         agregarTamanios();
     }
 
+    /**
+     * Agrega los tamaños disponibles al panel de selección. Se crean paneles
+     * individuales para cada tamaño con eventos de interacción.
+     */
     private void agregarTamanios() {
         for (TamanioMostrarDTO tamanio : tamanios) {
             JPanel panelTamanio = new PanelTamanio(tamanio);
@@ -59,6 +67,12 @@ public class PantallaTamanios extends javax.swing.JFrame {
         panelConTodosLosTamanios.repaint();
     }
 
+    /**
+     * Maneja la selección de un tamaño y redirige a la siguiente pantalla
+     * dependiendo del modo en que se encuentre la aplicación.
+     *
+     * @param tamanio El tamaño seleccionado.
+     */
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
         ControlNavegacion.agregarTamanio(tamanio);
         if (modo == Modo.CREACION) {
@@ -69,11 +83,20 @@ public class PantallaTamanios extends javax.swing.JFrame {
         this.dispose();
     }
 
+    /**
+     * Clase interna que maneja los eventos de los paneles de tamaño.
+     */
     private class EventosPanelTamanio extends MouseAdapter {
 
         private final TamanioMostrarDTO tamanio;
         private final JPanel panel;
 
+        /**
+         * Constructor de la clase de eventos del panel de tamaño.
+         *
+         * @param tamanio Tamaño asociado al panel.
+         * @param panel Panel que representa el tamaño.
+         */
         public EventosPanelTamanio(TamanioMostrarDTO tamanio, JPanel panel) {
             this.tamanio = tamanio;
             this.panel = panel;
@@ -97,6 +120,9 @@ public class PantallaTamanios extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Regresa a la pantalla anterior dependiendo del modo actual.
+     */
     private void regresar() {
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
@@ -157,7 +183,10 @@ public class PantallaTamanios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Método para inicializar componentes personalizados. Configura la
+     * estructura y apariencia de la pantalla.
+     */
     private void initComponents2() {
         setTitle("Tamaños");
         setSize(1000, 800);

@@ -4,11 +4,8 @@
  */
 package pantallas;
 
-import DTOs.ProductoPedidoDTO;
 import control.ControlNavegacion;
 import control.Modo;
-import gestion.IGestionPedidos;
-import gestion.ManejadorPedidos;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -21,14 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
+ * Clase que representa la pantalla para agregar o terminar un pedido.
  *
- * @author pablo
+ * @author Pablo
  */
 public class AgregarOTerminarPedido extends javax.swing.JFrame {
-    /**
-     * Creates new form AgregarOTerminarPedido
-     *
-     */   
+
     final int ANCHO_FRAME_AGREGAR_TERMINAR_PEDIDO = 1000;
     final int ALTO_FRAME_AGREGAR_TERMINAR_PEDIDO = 800;
     final int TANAMNIO_SIMBOLO_AGREGAR = 30;
@@ -36,8 +31,12 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
     final int CANTIDAD_FILAS = 1;
     final int CANTIDAD_COLUMNAS = 2;
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
-    final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10; 
-    
+    final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10;
+
+    /**
+     * Constructor de la clase AgregarOTerminarPedido. Configura las propiedades
+     * de la ventana y agrega los componentes necesarios.
+     */
     public AgregarOTerminarPedido() {
         setTitle("");
         setSize(ANCHO_FRAME_AGREGAR_TERMINAR_PEDIDO, ALTO_FRAME_AGREGAR_TERMINAR_PEDIDO);
@@ -48,6 +47,11 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         setVisible(true);
     }
 
+    /**
+     * Crea y configura el panel principal de la pantalla.
+     *
+     * @return Un JPanel con los botones y estructura de la pantalla.
+     */
     private JPanel crearPanelPedido() {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
@@ -84,6 +88,11 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         return panelPrincipal;
     }
 
+    /**
+     * Acción ejecutada cuando el usuario presiona el botón "Agregar otro
+     * producto". Muestra un cuadro de confirmación y, si el usuario acepta,
+     * añade un producto al pedido.
+     */
     public void BtnAgregarSeleccionado() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
@@ -94,15 +103,20 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Acción ejecutada cuando el usuario presiona el botón "Terminar pedido".
+     * Muestra un cuadro de confirmación y, si el usuario acepta, intenta
+     * finalizar el pedido.
+     */
     public void BtnTerminarSeleccionado() {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea finalizar el pedido?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
-            
+
             ControlNavegacion.calcularCosto();
-            
+
             ControlNavegacion.agregarProductoPedidoAPedido();
             boolean terminado = ControlNavegacion.terminarPedido();
-                
+
             if (terminado) {
                 ControlNavegacion.mostrarPantallaTotalDesglosado();
                 dispose();
@@ -112,6 +126,13 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Crea un panel contenedor para un botón con una etiqueta descriptiva.
+     *
+     * @param boton El botón que se agregará al panel.
+     * @param texto El texto descriptivo del botón.
+     * @return JPanel que contiene el botón y su etiqueta.
+     */
     private JPanel crearBotonPanel(JButton boton, String texto) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(boton, BorderLayout.CENTER);

@@ -10,14 +10,12 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
+ * Clase que representa la pantalla para realizar pagos con tarjeta. 
  *
  * @author pablo
  */
 public class PagoTarjeta extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PagoTarjeta
-     */
     private TarjetaDTO tarjeta;
 
     final int CANTIDAD_FILAS = 4;
@@ -42,6 +40,10 @@ public class PagoTarjeta extends javax.swing.JFrame {
     private JPanel panelFormulario;
     private JPanel panelInferior;
 
+    /**
+     * Constructor de la clase PagoTarjeta. Configura la ventana y sus
+     * componentes.
+     */
     public PagoTarjeta() {
         setTitle("Pago con Tarjeta");
         setSize(1000, 800);
@@ -50,6 +52,9 @@ public class PagoTarjeta extends javax.swing.JFrame {
         inicializarComponentes();
     }
 
+    /**
+     * Inicializa los componentes de la interfaz gráfica.
+     */
     private void inicializarComponentes() {
         JPanel panelPrincipal = new JPanel(new BorderLayout(10, 10));
         panelPrincipal.add(PanelFormulario(), BorderLayout.CENTER);
@@ -57,6 +62,11 @@ public class PagoTarjeta extends javax.swing.JFrame {
         setContentPane(panelPrincipal);
     }
 
+    /**
+     * Crea y configura el panel del formulario.
+     *
+     * @return JPanel con los campos de entrada.
+     */
     private JPanel PanelFormulario() {
         panelFormulario = new JPanel(new GridLayout(CANTIDAD_FILAS, CANTIDAD_COLUMNAS, ESPACIO_ENTRE_BOTONES_HORIZONTAL, ESPACIO_ENTRE_BOTONES_VERTICAL));
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(MARGEN_PANEL_ARRIBA, MARGEN_PANEL_IZQUIERDA, MARGEN_PANEL_ABAJO, MARGEN_PANEL_DERECHA));
@@ -74,6 +84,11 @@ public class PagoTarjeta extends javax.swing.JFrame {
         return panelFormulario;
     }
 
+    /**
+     * Crea y configura el panel inferior con los botones de acción.
+     *
+     * @return JPanel con los botones.
+     */
     private JPanel PanelInferior() {
         panelInferior = new JPanel(new BorderLayout());
         JButton btnAtras = configurarBotonAtras();
@@ -83,6 +98,11 @@ public class PagoTarjeta extends javax.swing.JFrame {
         return panelInferior;
     }
 
+    /**
+     * Configura el botón de retroceso.
+     *
+     * @return JButton con la configuración de "Atrás".
+     */
     private JButton configurarBotonAtras() {
         JButton btnAtras = new JButton("<--");
         btnAtras.setBackground(Color.YELLOW);
@@ -92,6 +112,11 @@ public class PagoTarjeta extends javax.swing.JFrame {
         return btnAtras;
     }
 
+    /**
+     * Configura el botón de confirmación de pago.
+     *
+     * @return JButton con la configuración de "Confirmar".
+     */
     private JButton configurarBotonConfirmar() {
         JButton btnConfirmar = new JButton("Confirmar pago");
         btnConfirmar.setFont(new Font("Segoe UI", Font.PLAIN, TAMANIO_TEXTO));
@@ -99,6 +124,12 @@ public class PagoTarjeta extends javax.swing.JFrame {
         return btnConfirmar;
     }
 
+    /**
+     * Agrega un campo de formulario con su etiqueta correspondiente.
+     *
+     * @param etiqueta Texto de la etiqueta.
+     * @param campo Campo de entrada de texto.
+     */
     private void agregarCampoFormulario(String etiqueta, JTextField campo) {
         JLabel label = new JLabel(etiqueta);
         label.setFont(new Font("Segoe UI", Font.PLAIN, 24));
@@ -106,15 +137,24 @@ public class PagoTarjeta extends javax.swing.JFrame {
         panelFormulario.add(campo);
     }
 
+    /**
+     * Maneja la acción de retroceder a la pantalla anterior.
+     */
     private void BtnAtrasSeleccionado() {
         ControlNavegacion.volverPantallaAnterior();
         dispose();
     }
 
+    /**
+     * Maneja la acción de confirmar el pago.
+     */
     private void BtnConfirmarSeleccionado() {
         validarYProcesarPago();
     }
 
+    /**
+     * Valida los datos ingresados y procesa el pago.
+     */
     private void validarYProcesarPago() {
         TarjetaDTO tarjetaIngresada = new TarjetaDTO(
                 txtNumero.getText(),

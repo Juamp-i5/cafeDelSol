@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
+ * Clase que representa la pantalla para editar un producto dentro de un pedido.
  *
  * @author katia
  */
@@ -25,6 +26,13 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
 
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
+    /**
+     * Constructor de la clase PantallaEditarProducto. Inicializa la ventana con
+     * los datos del producto a editar.
+     *
+     * @param productoPedido Objeto ProductoPedidoDTO con la información del
+     * producto actual.
+     */
     public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         ControlNavegacion.setProductoPedidoActual(productoPedido);
         setTitle("Editar Producto");
@@ -35,7 +43,6 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
         JPanel panelBotones = new JPanel(new GridLayout(2, 2, 20, 20));
         panelBotones.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
 
-        // Crear botones con las selecciones actuales
         btnProducto = new JButton("Producto: " + productoPedido.getProducto().getNombre());
         btnTamanio = new JButton("Tamaño: " + productoPedido.getTamanio().getNombre());
         btnSabor = new JButton("Sabor: " + productoPedido.getSabor().getNombre());
@@ -44,14 +51,14 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
         } else {
             btnToppings = new JButton("Toppings: Ninguno");
         }
-        
+
         JButton[] botones = {btnProducto, btnTamanio, btnSabor, btnToppings};
 
         for (JButton boton : botones) {
             boton.setPreferredSize(new Dimension(250, 50));
             boton.setFont(new Font("Arial", Font.BOLD, 16));
         }
-        
+
         btnRegresar = new JButton("←");
         btnRegresar.setPreferredSize(new Dimension(80, 40));
         panelBotones.add(btnProducto);
@@ -62,7 +69,6 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
         JPanel panelInferior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelInferior.add(btnRegresar);
 
-        // Agregar acción a cada botón
         btnProducto.addActionListener(e -> abrirProductos());
         btnTamanio.addActionListener(e -> abrirTamanios());
         btnSabor.addActionListener(e -> abrirSabores());
@@ -77,50 +83,42 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
         setVisible(true);
     }
 
-//    private void abrirProductos() {
-//        List<ProductoMostrarDTO> productosD = ControlNavegacion.gestor.cargarProductos();
-//        Productos productosFrame = new Productos(productosD, this);
-//        productosFrame.setVisible(true);
-//        this.setVisible(false);
-//    }
+    /**
+     * Abre la pantalla de selección de productos en modo edición.
+     */
     private void abrirProductos() {
         dispose(); // Cierra la pantalla actual antes de abrir la nueva
         ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
     }
 
-//    private void abrirTamanios() {
-//        List<TamanioMostrarDTO> tamaniosD = ControlNavegacion.gestor.cargarTamanios();
-//        Tamanios tamaniosFrame = new Tamanios(tamaniosD, this);
-//        tamaniosFrame.setVisible(true);
-//        this.setVisible(false);
-//    }
+    /**
+     * Abre la pantalla de selección de tamaños en modo edición.
+     */
     private void abrirTamanios() {
         dispose();
         ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
     }
 
-//    private void abrirSabores() {
-//        List<SaboresMostrarDTO> saboresD = ControlNavegacion.gestor.cargarSabores();
-//        Sabores saboresFrame = new Sabores(saboresD, this);
-//        saboresFrame.setVisible(true);
-//        this.setVisible(false);
-//    }
+    /**
+     * Abre la pantalla de selección de sabores en modo edición.
+     */
     private void abrirSabores() {
         dispose();
         ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
     }
 
-//    private void abrirToppings() {
-//        List<ToppingsMostrarDTO> toppingsD = ControlNavegacion.gestor.cargarToppings();
-//        Toppings toppingsFrame = new Toppings(toppingsD, this);
-//        toppingsFrame.setVisible(true);
-//        this.setVisible(false);
-//    }
+    /**
+     * Abre la pantalla de selección de toppings en modo edición.
+     */
     private void abrirToppings() {
         dispose();
         ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
     }
 
+    /**
+     * Regresa a la pantalla de total desglosado tras calcular costos y
+     * actualizar el producto pedido.
+     */
     private void regresar() {
         ControlNavegacion.calcularCosto();
         ControlNavegacion.crearProductoPedido();

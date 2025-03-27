@@ -22,21 +22,25 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
+ * Clase que representa la pantalla de selección de sabores.
  *
  * @author rodri
  */
 public class PantallaSabores extends javax.swing.JFrame {
+
     private final int COLUMNAS_TABLA_SABORES = 3;
     private final int PADDING_HORIZONTAL = 20;
     private final int PADDING_VERTICAL = 20;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    
     List<SaboresMostrarDTO> sabores;
     private Modo modo;
     private JPanel panelConTodosLosSabores;
 
     /**
-     * Creates new form Sabores
+     * Constructor de la clase PantallaSabores.
+     *
+     * @param sabores Lista de sabores disponibles para mostrar.
+     * @param modo Modo en el que se abrirá la pantalla (CREACION o EDICION).
      */
     public PantallaSabores(List<SaboresMostrarDTO> sabores, Modo modo) {
         this.sabores = sabores;
@@ -45,7 +49,10 @@ public class PantallaSabores extends javax.swing.JFrame {
         setTitle("Sabores");
         cargarSabores();
     }
-    
+
+    /**
+     * Carga los sabores en la pantalla y los agrega al panel de sabores.
+     */
     private void cargarSabores() {
         for (SaboresMostrarDTO sabor : sabores) {
             JPanel panelSabor = new PanelSabor(sabor);
@@ -55,44 +62,63 @@ public class PantallaSabores extends javax.swing.JFrame {
         panelConTodosLosSabores.revalidate();
         panelConTodosLosSabores.repaint();
     }
-    
+
+    /**
+     * Clase interna para manejar los eventos de los paneles de sabores.
+     */
     private class EventosPanelSabor extends MouseAdapter {
+
         private final SaboresMostrarDTO sabor;
         private final JPanel panel;
-        
+
+        /**
+         * Constructor de la clase EventosPanelSabor.
+         *
+         * @param sabor Objeto que representa el sabor asociado al panel.
+         * @param panel Panel que representa el sabor.
+         */
         public EventosPanelSabor(SaboresMostrarDTO sabor, JPanel panel) {
             this.sabor = sabor;
             this.panel = panel;
         }
-        
+
         @Override
         public void mousePressed(java.awt.event.MouseEvent evt) {
             saborSeleccionado(sabor);
         }
-        
+
         @Override
         public void mouseEntered(java.awt.event.MouseEvent evt) {
             panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
             panel.setBackground(COLOR_HOVER_PANEL);
         }
-        
+
         @Override
         public void mouseExited(java.awt.event.MouseEvent evt) {
             panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             panel.setBackground(null);
         }
     }
-    
+
+    /**
+     * Maneja la selección de un sabor y navega a la siguiente pantalla según el
+     * modo.
+     *
+     * @param sabor Sabor seleccionado por el usuario.
+     */
     private void saborSeleccionado(SaboresMostrarDTO sabor) {
-        ControlNavegacion.agregarSabor(sabor);       
-        if (modo == Modo.CREACION){
+        ControlNavegacion.agregarSabor(sabor);
+        if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);
-        } else if (modo == Modo.EDICION){
+        } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }
         this.dispose();
     }
-    
+
+    /**
+     * Regresa a la pantalla anterior dependiendo del modo actual.
+     */
     private void regresar() {
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();

@@ -14,6 +14,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 /**
+ * Clase que representa la pantalla para procesar pagos en efectivo.
  *
  * @author norma
  */
@@ -36,12 +37,15 @@ public class PagoEfectivo extends javax.swing.JFrame {
     private final int BORDE = 20;
 
     /**
-     * Creates new form PagoEfectivo
+     * Constructor de la clase PagoEfectivo. Inicializa la interfaz de pago.
      */
     public PagoEfectivo() {
         pagarEnEfectivo();
     }
 
+    /**
+     * Configura la ventana y los componentes principales.
+     */
     private void pagarEnEfectivo() {
         setSize(1000, 800);
         inicializarEtiquetasYCampos();
@@ -52,6 +56,9 @@ public class PagoEfectivo extends javax.swing.JFrame {
         agregarActionListeners();
     }
 
+    /**
+     * Inicializa las etiquetas y campos.
+     */
     private void inicializarEtiquetasYCampos() {
         lblPrecio = new JLabel("Precio:");
         lblPrecioValor = new JLabel(String.valueOf(ControlNavegacion.getPedido().getCostoTotal()));
@@ -61,6 +68,11 @@ public class PagoEfectivo extends javax.swing.JFrame {
         lblCambioValor = new JLabel("0.00");
     }
 
+    /**
+     * Crea y organiza el panel principal de la interfaz.
+     *
+     * @return JPanel configurado.
+     */
     private JPanel crearPanelPrincipal() {
         JPanel panelPrincipal = new JPanel();
         panelPrincipal.setLayout(new BorderLayout());
@@ -69,6 +81,11 @@ public class PagoEfectivo extends javax.swing.JFrame {
         return panelPrincipal;
     }
 
+    /**
+     * Crea el panel con la información del pago.
+     *
+     * @return JPanel con etiquetas y campos de entrada.
+     */
     private JPanel crearPanel() {
         JPanel panelPagoEfectivoInformacion = new JPanel();
         panelPagoEfectivoInformacion.setLayout(new GridLayout(NUM_FILAS, NUM_COLUMNAS, ESPACIADO, ESPACIADO));
@@ -84,6 +101,11 @@ public class PagoEfectivo extends javax.swing.JFrame {
         return panelPagoEfectivoInformacion;
     }
 
+    /**
+     * Crea el panel con los botones de acción.
+     *
+     * @return JPanel con botones de regresar y aceptar.
+     */
     private JPanel crearPanelBotones() {
         JPanel panelBotones = new JPanel();
         panelBotones.setLayout(new BorderLayout());
@@ -114,6 +136,10 @@ public class PagoEfectivo extends javax.swing.JFrame {
         return panelBotones;
     }
 
+    /**
+     * Agrega un DocumentListener al campo de entrada para calcular el cambio en
+     * tiempo real.
+     */
     private void agregarDocumentListener() {
         txtCantidadRecibida.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -131,6 +157,9 @@ public class PagoEfectivo extends javax.swing.JFrame {
                 actualizarCambio();
             }
 
+            /**
+             * Calcula y actualiza el cambio mostrado en la interfaz.
+             */
             private void actualizarCambio() {
                 try {
                     double cantidadRecibida = Double.parseDouble(txtCantidadRecibida.getText());
@@ -148,6 +177,9 @@ public class PagoEfectivo extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Agrega ActionListeners a los botones de la interfaz.
+     */
     private void agregarActionListeners() {
         btnRegresar.addActionListener(new ActionListener() {
             @Override

@@ -10,6 +10,11 @@ import java.awt.event.MouseAdapter;
 import java.util.List;
 import javax.swing.JPanel;
 
+/**
+ * Clase que representa la pantalla para seleccionar un producto.
+ * 
+ * @author Jp
+ */
 public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
     private final int COLUMNAS_TABLA_PRODUCTOS_CARGADOS = 3;
@@ -21,6 +26,12 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
     private List<ProductoMostrarDTO> productos;
     private Modo modo;
 
+    /**
+     * Constructor de la clase PantallaSeleccionarProducto.
+     * 
+     * @param productos Lista de productos a mostrar.
+     * @param modo Modo de operación (CREACION o EDICION).
+     */
     public PantallaSeleccionarProducto(List<ProductoMostrarDTO> productos, Modo modo) {
         this.productos = productos;
         this.modo = modo;
@@ -30,10 +41,16 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         ajustarScroll();
     }
 
+    /**
+     * Ajusta el incremento del scroll para mejorar la navegación.
+     */
     private void ajustarScroll() {
         scrProductos.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
     }
 
+    /**
+     * Carga los productos en el panel de selección.
+     */
     private void cargarProductos() {
         int filas = (int) Math.ceil((double) productos.size() / COLUMNAS_TABLA_PRODUCTOS_CARGADOS);
 
@@ -53,11 +70,20 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pnlProductos.repaint();
     }
 
+    /**
+     * Clase interna para manejar los eventos de los paneles de producto.
+     */
     private class EventosPanelProducto extends MouseAdapter {
 
         private final ProductoMostrarDTO producto;
         private final JPanel panel;
 
+         /**
+         * Constructor de la clase de eventos.
+         * 
+         * @param producto Producto asociado al panel.
+         * @param panel Panel del producto.
+         */
         public EventosPanelProducto(ProductoMostrarDTO producto, JPanel panel) {
             this.producto = producto;
             this.panel = panel;
@@ -81,6 +107,11 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         }
     }
 
+     /**
+     * Maneja la selección de un producto.
+     * 
+     * @param producto Producto seleccionado.
+     */
     private void productoSeleccionado(ProductoMostrarDTO producto) {
         ControlNavegacion.agregarProducto(producto);
 
@@ -176,6 +207,12 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     /**
+     * Acción cuando se hace clic en el botón "Regresar".
+     * Dependiendo del modo actual, regresa a la pantalla anterior o muestra la pantalla de edición del producto.
+     *
+     * @param evt Evento de acción generado al hacer clic en el botón.
+     */
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();

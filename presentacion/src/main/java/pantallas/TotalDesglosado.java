@@ -8,7 +8,6 @@ import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import control.Modo;
-import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -19,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
+ * Clase que representa la pantalla de total desglosado de un pedido.
  *
  * @author norma
  */
@@ -27,7 +27,11 @@ public class TotalDesglosado extends javax.swing.JFrame {
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
 
     /**
-     * Creates new form TotalDesglosado
+     * Constructor de la clase TotalDesglosado. Inicializa los componentes de la
+     * interfaz y ajusta el tamaño de la ventana.
+     *
+     * Llama a los métodos para cargar los productos del pedido y ajustar el
+     * scroll.
      */
     public TotalDesglosado() {
         initComponents();
@@ -36,10 +40,18 @@ public class TotalDesglosado extends javax.swing.JFrame {
         ajustarScroll();
     }
 
+    /**
+     * Ajusta el comportamiento del scroll vertical de los productos en el
+     * panel.
+     */
     private void ajustarScroll() {
         pnlProductosPedidos.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
     }
 
+    /**
+     * Carga los paneles de los productos pedidos y actualiza la información del
+     * total.
+     */
     public void cargarPanelesProductosPedidos() {
         int posicionScroll = pnlProductosPedidos.getVerticalScrollBar().getValue();
         JPanel contenedorPanelesProductosPedidos = obtenerPanelesProductosPedidos();
@@ -48,6 +60,11 @@ public class TotalDesglosado extends javax.swing.JFrame {
         pnlProductosPedidos.getVerticalScrollBar().setValue(posicionScroll);
     }
 
+    /**
+     * Obtiene un panel que contiene todos los productos en el pedido.
+     *
+     * @return JPanel que contiene los productos pedidos.
+     */
     private JPanel obtenerPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
@@ -64,6 +81,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
         return contenedorPanelesProductosPedidos;
     }
 
+    /**
+     * Configura los listeners para cada panel de producto (editar, cancelar,
+     * agregar cantidad, quitar cantidad).
+     *
+     * @param panelProductoPedido El panel del producto para configurar.
+     */
     private void configurarPanelProducto(PanelProductoPedido panelProductoPedido) {
         panelProductoPedido.setCancelarActionListener(new ActionListener() {
             @Override
@@ -95,6 +118,11 @@ public class TotalDesglosado extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Cancela un producto específico del pedido y actualiza la interfaz.
+     *
+     * @param productoPedido El producto a cancelar.
+     */
     private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
         int opc = JOptionPane.showConfirmDialog(
                 this,
@@ -113,7 +141,10 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }
 
-    private void cancelarPedido(){
+    /**
+     * Cancela todo el pedido y navega a la pantalla principal.
+     */
+    private void cancelarPedido() {
         int opc = JOptionPane.showConfirmDialog(
                 this,
                 "¿Deseas cancelar el pedido?",
@@ -137,11 +168,22 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Abre la pantalla para editar un producto del pedido.
+     *
+     * @param productoPedido El producto a editar.
+     */
     private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
         this.dispose();
         ControlNavegacion.mostrarPantallaEditarProducto(productoPedido);
     }
 
+    /**
+     * Incrementa la cantidad de un producto en el pedido. Si la cantidad es
+     * menor a 99, la aumenta en 1.
+     *
+     * @param productoPedido El producto a modificar.
+     */
     private void agregarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() < 99) {
             productoPedido.setCantidad(productoPedido.getCantidad() + 1);
@@ -152,6 +194,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Disminuye la cantidad de un producto en el pedido. Si la cantidad es
+     * mayor a 1, la disminuye en 1.
+     *
+     * @param productoPedido El producto a modificar.
+     */
     private void quitarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() != 1) {
             productoPedido.setCantidad(productoPedido.getCantidad() - 1);
@@ -283,6 +331,14 @@ public class TotalDesglosado extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento cuando se hace clic en el botón "Agregar Otro Producto".
+     * Muestra un mensaje de confirmación y, si se confirma, navega a la
+     * pantalla de creación de productos.
+     *
+     * @param evt el evento generado al hacer clic en el botón "Agregar Otro
+     * Producto"
+     */
     private void btnAgregarOtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarOtroActionPerformed
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
@@ -292,10 +348,24 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAgregarOtroActionPerformed
 
+    /**
+     * Maneja el evento cuando se hace clic en el botón "Cancelar Pedido".
+     * Cancela el pedido actual.
+     *
+     * @param evt el evento generado al hacer clic en el botón "Cancelar Pedido"
+     */
     private void btnCancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPedidoActionPerformed
         cancelarPedido();
     }//GEN-LAST:event_btnCancelarPedidoActionPerformed
 
+    /**
+     * Maneja el evento cuando se hace clic en el botón de pago con "Tarjeta".
+     * Si el pedido está vacío, muestra un mensaje de error. Si hay productos,
+     * navega a la pantalla de pago con tarjeta.
+     *
+     * @param evt el evento generado al hacer clic en el botón de pago con
+     * "Tarjeta"
+     */
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
@@ -307,6 +377,14 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
+    /**
+     * Maneja el evento cuando se hace clic en el botón de pago con "Efectivo".
+     * Si el pedido está vacío, muestra un mensaje de error. Si hay productos,
+     * navega a la pantalla de pago en efectivo.
+     *
+     * @param evt el evento generado al hacer clic en el botón de pago con
+     * "Efectivo"
+     */
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
         List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();

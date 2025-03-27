@@ -22,6 +22,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
 /**
+ * Clase que representa la pantalla de selección de toppings. Permite a los
+ * usuarios seleccionar toppings para un producto y realizar acciones como
+ * regresar a la pantalla anterior o continuar sin un topping.
  *
  * @author katia
  */
@@ -37,7 +40,11 @@ public class PantallaToppings extends javax.swing.JFrame {
     private JPanel panelConTodosLosToppings;
 
     /**
-     * Creates new form Toppings
+     * Constructor de la clase PantallaToppings. Inicializa los componentes de
+     * la interfaz y carga los toppings en la pantalla.
+     *
+     * @param toppings Lista de toppings a mostrar en la pantalla.
+     * @param modo Modo en el que se encuentra la pantalla (CREACION o EDICION).
      */
     public PantallaToppings(List<ToppingsMostrarDTO> toppings, Modo modo) {
         this.toppings = toppings;
@@ -47,6 +54,11 @@ public class PantallaToppings extends javax.swing.JFrame {
         cargarToppings();
     }
 
+    /**
+     * Carga y muestra todos los toppings en el panel correspondiente. Se
+     * agregan paneles individuales para cada topping y se les asigna un
+     * manejador de eventos.
+     */
     private void cargarToppings() {
         for (ToppingsMostrarDTO topping : toppings) {
             JPanel panelTopping = new PanelTopping(topping);
@@ -58,11 +70,20 @@ public class PantallaToppings extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Clase interna que maneja los eventos de los paneles de toppings.
+     */
     private class EventosPanelTopping extends MouseAdapter {
 
         private final ToppingsMostrarDTO topping;
         private final JPanel panel;
 
+        /**
+         * Constructor de la clase de eventos del panel de toppings.
+         *
+         * @param topping Topping asociado al panel.
+         * @param panel Panel que contiene el topping.
+         */
         public EventosPanelTopping(ToppingsMostrarDTO topping, JPanel panel) {
             this.topping = topping;
             this.panel = panel;
@@ -86,6 +107,13 @@ public class PantallaToppings extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método que maneja la selección de un topping. Agrega el topping
+     * seleccionado a la lista de toppings del producto actual y navega según el
+     * modo.
+     *
+     * @param topping El topping seleccionado.
+     */
     private void toppingSeleccionado(ToppingsMostrarDTO topping) {
         ControlNavegacion.agregarTopping(topping);
 
@@ -97,6 +125,10 @@ public class PantallaToppings extends javax.swing.JFrame {
         this.dispose();
     }
 
+    /**
+     * Método que maneja la acción de regresar a la pantalla anterior.
+     * Dependiendo del modo, navega hacia la pantalla de creación o edición.
+     */
     private void regresar() {
         if (modo == Modo.CREACION) {
             ControlNavegacion.volverPantallaAnterior();
@@ -106,6 +138,10 @@ public class PantallaToppings extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método que maneja la acción de continuar sin seleccionar un topping.
+     * Continúa con la acción correspondiente según el modo de la pantalla.
+     */
     private void continuar() {
         ControlNavegacion.agregarTopping(null);
         if (modo == Modo.CREACION) {
@@ -143,6 +179,10 @@ public class PantallaToppings extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+    /**
+     * Método para inicializar componentes personalizados. Configura la
+     * estructura y apariencia de la pantalla.
+     */
     private void initComponents2() {
         setTitle("Toppings");
         setSize(1000, 800);
