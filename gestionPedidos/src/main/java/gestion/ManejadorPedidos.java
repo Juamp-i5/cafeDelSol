@@ -14,15 +14,16 @@ import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import exception.GestionException;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Clase que implementa la interfaz IGestionPedidos para gestionar pedidos y
+ * productos pedidos.
  *
  * @author Jp
  */
 public class ManejadorPedidos implements IGestionPedidos {
-    
+
     private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
@@ -91,6 +92,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public void agregarTamanio(TamanioMostrarDTO tamanio) {
         productoPedidoActual.setTamanio(tamanio);
+
     }
 
     @Override
@@ -167,7 +169,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public boolean agregarProductoPedidoAPedido() throws GestionException{
+    public boolean agregarProductoPedidoAPedido() throws GestionException {
         boolean agregado = pedido.getPedido().add(productoPedidoActual);
         if (!agregado) {
             throw new GestionException("No se pudo agregar al pedido");
@@ -177,7 +179,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public boolean terminarPedido() throws GestionException{
+    public boolean terminarPedido() throws GestionException {
         if (pedido == null) {
             throw new GestionException("Error al terminar el pedido");
         }

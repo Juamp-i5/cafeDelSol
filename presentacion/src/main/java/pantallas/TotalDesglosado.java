@@ -8,6 +8,7 @@ import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import control.Modo;
+import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -112,7 +113,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
         }
     }
 
-    private void cancelarPedido() {
+    private void cancelarPedido(){
         int opc = JOptionPane.showConfirmDialog(
                 this,
                 "¿Deseas cancelar el pedido?",
