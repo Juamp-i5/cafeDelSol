@@ -8,12 +8,15 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingsMostrarDTO;
+import exception.GestionException;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
@@ -37,7 +40,11 @@ public class ControlNavegacion {
     }
 
     public static void agregarProductoPedidoAPedido() {
-        gestor.agregarProductoPedidoAPedido();
+        try {
+            gestor.agregarProductoPedidoAPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void calcularCosto() {
@@ -45,7 +52,12 @@ public class ControlNavegacion {
     }
 
     public static boolean terminarPedido() {
-        return gestor.terminarPedido();
+        try {
+            return gestor.terminarPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public static PedidoDTO getPedido() {
@@ -57,7 +69,12 @@ public class ControlNavegacion {
     }
 
     public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) {
-        return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+        try {
+            return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     public static void setProductoPedidoActual(ProductoPedidoDTO productoPedido) {
@@ -89,7 +106,12 @@ public class ControlNavegacion {
     }
     
     public static boolean cancelarPedido(){
-        return gestor.cancelarPedido(getPedido());
+        try {
+            return gestor.cancelarPedido(getPedido());
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
     
     public static void actualizarTotal(){
