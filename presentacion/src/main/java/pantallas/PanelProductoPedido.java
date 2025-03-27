@@ -8,15 +8,22 @@ import DTOs.ProductoPedidoDTO;
 import java.awt.event.ActionListener;
 
 /**
+ * Clase que representa un panel para mostrar los detalles de un producto en un
+ * pedido como el producto, tamaño, sabor, topping, cantidad y precio. Además,
+ * permite la edición de la cantidad y la cancelación de un pedido de producto.
  *
  * @author norma
  */
 public class PanelProductoPedido extends javax.swing.JPanel {
-     private ProductoPedidoDTO productoPedido;
-     
+
+    private ProductoPedidoDTO productoPedido;
+
     /**
-     * Creates new form PanelTotalDesglosado
-     * @param productoPedido
+     * Crea un nuevo panel para mostrar la información de un producto pedido en
+     * el pedido.
+     *
+     * @param productoPedido El objeto que contiene la información del producto
+     * y su pedido.
      */
     public PanelProductoPedido(ProductoPedidoDTO productoPedido) {
         initComponents();
@@ -25,34 +32,61 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         this.lblTamaño.setText(productoPedido.getTamanio().getNombre());
         this.lblSabor.setText(productoPedido.getSabor().getNombre());
         this.lblTopping.setText("");
-        if (productoPedido.getTopping() != null){
+        if (productoPedido.getTopping() != null) {
             this.lblTopping.setText(productoPedido.getTopping().getNombre());
         }
         this.lblCantidadCantidad.setText(String.format("%d", productoPedido.getCantidad()));
-        double costo = productoPedido.getCosto();  
+        double costo = productoPedido.getCosto();
         this.lblPrecio.setText(String.format("%.2f", costo));
     }
-    
-     public ProductoPedidoDTO getProductoPedido() {
+
+    /**
+     * Obtiene el objeto ProductoPedidoDTO asociado a este panel.
+     *
+     * @return El objeto ProductoPedidoDTO que contiene los detalles del
+     * producto en el pedido.
+     */
+    public ProductoPedidoDTO getProductoPedido() {
         return this.productoPedido;
     }
 
+    /**
+     * Establece el escuchador de acción para el botón de cancelar.
+     *
+     * @param listener El escuchador de acción para el botón de cancelar.
+     */
     public void setCancelarActionListener(ActionListener listener) {
         this.btnCancelar.addActionListener(listener);
     }
 
+    /**
+     * Establece el escuchador de acción para el botón de editar.
+     *
+     * @param listener El escuchador de acción para el botón de editar.
+     */
     public void setEditarActionListener(ActionListener listener) {
         this.btnEditar.addActionListener(listener);
     }
-    
+
+    /**
+     * Establece el escuchador de acción para el botón de agregar cantidad.
+     *
+     * @param listener El escuchador de acción para el botón de agregar
+     * cantidad.
+     */
     public void setAgregarCantidadActionListener(ActionListener listener) {
         this.btnAgregar.addActionListener(listener);
     }
-    
+
+    /**
+     * Establece el escuchador de acción para el botón de quitar cantidad.
+     *
+     * @param listener El escuchador de acción para el botón de quitar cantidad.
+     */
     public void setQuitarCantidadActionListener(ActionListener listener) {
         this.btnQuitar.addActionListener(listener);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,6 +241,11 @@ public class PanelProductoPedido extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción cuando se hace clic en el botón de quitar cantidad.
+     *
+     * @param evt El evento de acción del botón.
+     */
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarActionPerformed

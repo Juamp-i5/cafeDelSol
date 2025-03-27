@@ -4,8 +4,20 @@ import control.ControlNavegacion;
 import control.Modo;
 import javax.swing.JOptionPane;
 
+/**
+ * Clase que representa la pantalla principal del menú de opciones en la
+ * aplicación de barista. Contiene botones para realizar diferentes acciones
+ * como realizar un pedido, ver el historial de pedidos y revisar el estado de
+ * los pedidos.
+ *
+ * @author norma
+ */
 public class PantallaMenuPrincipal extends javax.swing.JFrame {
 
+    /**
+     * Constructor de la clase. Inicializa los componentes de la interfaz
+     * gráfica.
+     */
     public PantallaMenuPrincipal() {
         initComponents();
     }
@@ -124,20 +136,44 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Acción cuando se hace clic en el botón "Log out". Muestra un mensaje
+     * indicando que esta opción está por desarrollarse.
+     *
+     * @param evt El evento generado por el clic del botón.
+     */
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         JOptionPane.showMessageDialog(null, "Por desarrollar");
     }//GEN-LAST:event_btnLogOutActionPerformed
 
+    /**
+     * Acción cuando se hace clic en el botón "Realizar pedido". Va a la
+     * pantalla de productos y cierra la ventana actual.
+     *
+     * @param evt El evento generado por el clic del botón.
+     */
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
         ControlNavegacion.iniciarPedidoNuevo();
         ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
         this.dispose();
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 
+    /**
+     * Acción cuando se hace clic en el botón "Estado de pedidos". Muestra un
+     * mensaje indicando que esta opción está por desarrollarse.
+     *
+     * @param evt El evento generado por el clic del botón.
+     */
     private void btnEstadoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoPedidoActionPerformed
         JOptionPane.showMessageDialog(null, "Por desarrollar");
     }//GEN-LAST:event_btnEstadoPedidoActionPerformed
 
+    /**
+     * Acción cuando se hace clic en el botón "Historial de pedidos". Muestra un
+     * mensaje indicando que esta opción está por desarrollarse.
+     *
+     * @param evt El evento generado por el clic del botón.
+     */
     private void btnHistorialPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialPedidosActionPerformed
         JOptionPane.showMessageDialog(null, "Por desarrollar");
     }//GEN-LAST:event_btnHistorialPedidosActionPerformed
