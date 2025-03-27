@@ -15,6 +15,8 @@ import java.awt.Component;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
@@ -58,12 +60,13 @@ public class ControlNavegacion {
 
     /**
      * Agrega un producto pedido al pedido actual.
-     *
-     * @throws GestionException Excepción que lanzará si ocurre un error al
-     * agregar el producto pedido al pedido.
      */
-    public static void agregarProductoPedidoAPedido() throws GestionException {
-        gestor.agregarProductoPedidoAPedido();
+    public static void agregarProductoPedidoAPedido() {
+        try {
+            gestor.agregarProductoPedidoAPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -79,11 +82,14 @@ public class ControlNavegacion {
      * Termina un pedido. Da como terminado un pedido.
      *
      * @return true si el pedido se termino con éxito, false en caso contrario.
-     * @throws GestionException Excepción que lanzará si ocurre un error al dar
-     * como terminado un pedido.
      */
-    public static boolean terminarPedido() throws GestionException {
-        return gestor.terminarPedido();
+    public static boolean terminarPedido() {
+        try {
+            return gestor.terminarPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
@@ -188,11 +194,14 @@ public class ControlNavegacion {
      * Cancela el pedido actual.
      *
      * @return true si el pedido se cancelo con éxito, false en caso contrario.
-     * @throws GestionException Excepción que lanzará si ocurre un error al
-     * cancelar el pedido.
      */
-    public static boolean cancelarPedido() throws GestionException {
-        return gestor.cancelarPedido(getPedido());
+    public static boolean cancelarPedido() {
+        try {
+            return gestor.cancelarPedido(getPedido());
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     /**
