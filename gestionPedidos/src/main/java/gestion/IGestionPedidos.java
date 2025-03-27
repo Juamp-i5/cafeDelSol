@@ -12,6 +12,7 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
+import exception.GestionException;
 import java.util.List;
 
 /**
@@ -42,13 +43,13 @@ public interface IGestionPedidos {
 
     public void agregarTopping(ToppingsMostrarDTO topping);
 
-    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta);
+    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) throws GestionException;
 
-    public boolean cancelarPedido(PedidoDTO pedido);
+    public boolean cancelarPedido(PedidoDTO pedido) throws GestionException;
 
-    public boolean agregarProductoPedidoAPedido();
+    public boolean agregarProductoPedidoAPedido() throws GestionException;
 
-    public boolean terminarPedido();
+    public boolean terminarPedido() throws GestionException;
 
     public double calcularCosto();
 

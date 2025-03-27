@@ -12,14 +12,18 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
+import exception.GestionException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Jp
  */
 public class ManejadorPedidos implements IGestionPedidos {
-
+    
+    private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
 
@@ -122,7 +126,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) {
+    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) throws GestionException {
         String numeroTarjeta = tarjeta.getNumTarjeta();
         String banco = tarjeta.getNombreBanco();
         String cvv = tarjeta.getCVV();
@@ -132,53 +136,54 @@ public class ManejadorPedidos implements IGestionPedidos {
                 || numeroTarjeta == null || numeroTarjeta.trim().isEmpty()
                 || cvv == null || cvv.trim().isEmpty()
                 || fechaExp == null) {
-            throw new IllegalArgumentException("Se tiene que llenar todos los campos.");
+            throw new GestionException("Se tiene que llenar todos los campos.");
         }
 
         if (tarjeta == null) {
-            throw new IllegalArgumentException("La tarjeta no puede ser nula.");
+            throw new GestionException("La tarjeta no puede ser nula.");
         }
 
         if (!numeroTarjeta.matches("\\d{16}")) {
-            throw new IllegalArgumentException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
+            throw new GestionException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
         }
 
         if (!cvv.matches("\\d{3,4}")) {
-            throw new IllegalArgumentException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
+            throw new GestionException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
         }
         if (!fechaExp.matches("\\d{2}/\\d{2}")) {
-            throw new IllegalArgumentException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
+            throw new GestionException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
         }
         return true;
     }
 
     @Override
-    public boolean cancelarPedido(PedidoDTO pedido) {
+    public boolean cancelarPedido(PedidoDTO pedido) throws GestionException {
 
-        if (productoPedidoActual != null) {
-            productoPedidoActual = null;
+        if (productoPedidoActual == null) {
+            throw new GestionException("No hay un producto activo para cancelar.");
         }
-
+        productoPedidoActual = null;
         return true;
     }
 
     @Override
-    public boolean agregarProductoPedidoAPedido() {
+    public boolean agregarProductoPedidoAPedido() throws GestionException{
         boolean agregado = pedido.getPedido().add(productoPedidoActual);
-        if (agregado) {
-            crearProductoPedido();
+        if (!agregado) {
+            throw new GestionException("No se pudo agregar al pedido");
         }
+        crearProductoPedido();
         return agregado;
     }
 
     @Override
-    public boolean terminarPedido() {
-        if (pedido != null) {
-            pedido.setTerminado(true);
-            System.out.println("Pedido terminado con éxito");
-            return true;
+    public boolean terminarPedido() throws GestionException{
+        if (pedido == null) {
+            throw new GestionException("Error al terminar el pedido");
         }
-        return false;
+        pedido.setTerminado(true);
+        System.out.println("Pedido terminado con éxito");
+        return true;
     }
 
     @Override
