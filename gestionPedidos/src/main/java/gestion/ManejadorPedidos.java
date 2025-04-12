@@ -7,6 +7,10 @@ package gestion;
 
 import DTOs.DetallesCobroTarjetaDTO;
 import BOs.PedidoBO;
+import BOs.ProductoBO;
+import BOs.SaborBO;
+import BOs.TamanioBO;
+import BOs.ToppingBO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -19,6 +23,10 @@ import exception.GestionException;
 import interfaces.IFachadaPago;
 import exception.NegocioException;
 import interfacesBO.IPedidoBO;
+import interfacesBO.IProductoBO;
+import interfacesBO.ISaborBO;
+import interfacesBO.ITamanioBO;
+import interfacesBO.IToppingBO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,6 +47,10 @@ public class ManejadorPedidos implements IGestionPedidos {
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
     IPedidoBO pedidoBO = PedidoBO.getInstance();
+    IProductoBO productoBO = ProductoBO.getInstance();
+    ISaborBO saborBO = SaborBO.getInstance();
+    ITamanioBO tamanioBO = TamanioBO.getInstance();
+    IToppingBO toppingBO = ToppingBO.getInstance();
 
     private IFachadaPago fachadaPago;
 
@@ -74,24 +86,13 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public List<ProductoMostrarDTO> cargarProductos() {
-        return List.of(
-                new ProductoMostrarDTO("Affogato", 50, "../img/affogato.jpg"),
-                new ProductoMostrarDTO("Café Americano", 40, "../img/cafeAmericano.jpg"),
-                new ProductoMostrarDTO("Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
-                new ProductoMostrarDTO("Capuchino", 50, "../img/capuchino.jpg"),
-                new ProductoMostrarDTO("Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
-                new ProductoMostrarDTO("Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
-                new ProductoMostrarDTO("Espresso", 50, "../img/espresso.jpg"),
-                new ProductoMostrarDTO("Flat White", 50, "../img/flatWhite.jpg"),
-                new ProductoMostrarDTO("Frappe frío", 45, "../img/latteFrio.jpeg"),
-                new ProductoMostrarDTO("Frappuccino", 45, "../img/frappuccino.jpg"),
-                new ProductoMostrarDTO("Latte", 55, "../img/latte.jpg"),
-                new ProductoMostrarDTO("Matcha Latte", 50, "../img/matchaLatte.jpg"),
-                new ProductoMostrarDTO("Mocaccino", 30, "../img/mocaccino.jpg"),
-                new ProductoMostrarDTO("Té Chai", 45, "../img/teChai.jpg"),
-                new ProductoMostrarDTO("Té Negro", 20, "../img/teNegro.jpg")
-        );
+    public List<ProductoMostrarDTO> cargarProductos() throws GestionException {
+        try {
+            return productoBO.cargarProductos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionException("Error al cargar Productos");
+        }
     }
 
     @Override
@@ -116,12 +117,13 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public List<TamanioMostrarDTO> cargarTamanios() {
-        return List.of(
-                new TamanioMostrarDTO("Pequenio", "../img/tamanioPequenio.jpg", 0),
-                new TamanioMostrarDTO("Mediano", "../img/tamanioMediano.jpg", 5),
-                new TamanioMostrarDTO("Grande", "../img/tamanioGrande.jpg", 10)
-        );
+    public List<TamanioMostrarDTO> cargarTamanios() throws GestionException {
+        try {
+            return tamanioBO.cargarProductos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionException("Error al cargar Tamanios");
+        }
     }
 
     @Override
@@ -131,15 +133,13 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public List<SaboresMostrarDTO> cargarSabores() {
-        return List.of(
-                new SaboresMostrarDTO("Vainilla", "../img/saborVainilla.jpg"),
-                new SaboresMostrarDTO("Chocolate", "../img/saborChocolate.jpeg"),
-                new SaboresMostrarDTO("Moka", "../img/saborMoka.jpg"),
-                new SaboresMostrarDTO("Fresa", "../img/saborFresa.jpg"),
-                new SaboresMostrarDTO("Oreo", "../img/saborOreo.jpg"),
-                new SaboresMostrarDTO("Caramelo", "../img/saborCaramelo.jpg")
-        );
+    public List<SaboresMostrarDTO> cargarSabores() throws GestionException {
+        try {
+            return saborBO.cargarProductos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionException("Error al cargar Sabores");
+        }
     }
 
     @Override
@@ -148,13 +148,13 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public List<ToppingsMostrarDTO> cargarToppings() {
-        return List.of(
-                new ToppingsMostrarDTO("Azúcar", "../img/azucar.jpeg"),
-                new ToppingsMostrarDTO("Canela", "../img/canela.jpg"),
-                new ToppingsMostrarDTO("Nutella", "../img/nutella.jpg"),
-                new ToppingsMostrarDTO("Cajeta", "../img/cajeta.jpg")
-        );
+    public List<ToppingsMostrarDTO> cargarToppings() throws GestionException {
+        try {
+            return toppingBO.cargarProductos();
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionException("Error al cargar Sabores");
+        }
     }
 
     @Override
@@ -283,7 +283,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public PedidoDTO registrarPedido()  throws GestionException{
         try {
-            pedidoBO.registrarPedido(pedido);
+            pedidoBO.registrarPedido(pedido);return pedido;
         } catch (NegocioException ex) {
             Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }

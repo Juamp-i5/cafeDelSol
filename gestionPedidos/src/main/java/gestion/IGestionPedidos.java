@@ -36,7 +36,7 @@ public interface IGestionPedidos {
      *
      * @return La lista de productos disponibles.
      */
-    public List<ProductoMostrarDTO> cargarProductos();
+    public List<ProductoMostrarDTO> cargarProductos() throws GestionException;
 
     /**
      * Agrega un producto al producto pedido actual. Establece el producto del
@@ -61,7 +61,7 @@ public interface IGestionPedidos {
      *
      * @return La lista de tamaños disponibles.
      */
-    public List<TamanioMostrarDTO> cargarTamanios();
+    public List<TamanioMostrarDTO> cargarTamanios() throws GestionException;
 
     /**
      * Agrega un tamaño al producto pedido actual. Establece el tamaño del
@@ -76,7 +76,7 @@ public interface IGestionPedidos {
      *
      * @return La lista de sabores disponibles.
      */
-    public List<SaboresMostrarDTO> cargarSabores();
+    public List<SaboresMostrarDTO> cargarSabores() throws GestionException;
 
     /**
      * Agrega un sabor al producto pedido actual. Establece el sabor del
@@ -91,7 +91,7 @@ public interface IGestionPedidos {
      *
      * @return La lista de toppings disponibles.
      */
-    public List<ToppingsMostrarDTO> cargarToppings();
+    public List<ToppingsMostrarDTO> cargarToppings() throws GestionException;
 
     /**
      * Agrega un topping al producto pedido actual.

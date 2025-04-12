@@ -27,6 +27,18 @@ public class ProductoBO implements IProductoBO{
     IProducto productoDAO = ProductoDAOImp.getInstance();
     IProductoMapper productoMapper = ProductoMapper.getInstance();
     
+    private static ProductoBO instanceBO;
+
+    public ProductoBO() {
+    }
+
+    public static ProductoBO getInstance() {
+        if (instanceBO == null) {
+            instanceBO = new ProductoBO();
+        }
+        return instanceBO;
+    }
+    
     @Override
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
@@ -36,10 +48,10 @@ public class ProductoBO implements IProductoBO{
             
             for (Producto producto : productos) {
                 ProductoMostrarDTO productoDTO = productoMapper.aDTO(producto);
-                
+                productosDTO.add(productoDTO);
             }
             
-            
+            return productosDTO;
         } catch (persistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");

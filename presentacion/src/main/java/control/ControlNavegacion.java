@@ -231,7 +231,7 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaProductos(Modo modo) {
+    public static void mostrarPantallaProductos(Modo modo) throws GestionException {
         JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), modo);
         productos.setLocationRelativeTo(null);
         productos.setVisible(true);
@@ -248,7 +248,7 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaTamanios(Modo modo) {
+    public static void mostrarPantallaTamanios(Modo modo) throws GestionException {
         JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
         tamanios.setLocationRelativeTo(null);
         tamanios.setVisible(true);
@@ -265,7 +265,7 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaSabores(Modo modo) {
+    public static void mostrarPantallaSabores(Modo modo) throws GestionException {
         JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
         sabores.setLocationRelativeTo(null);
         sabores.setVisible(true);
@@ -282,7 +282,7 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaToppings(Modo modo) {
+    public static void mostrarPantallaToppings(Modo modo) throws GestionException {
         JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
         toppings.setLocationRelativeTo(null);
         toppings.setVisible(true);
