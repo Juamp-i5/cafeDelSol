@@ -5,8 +5,9 @@
 package control;
 
 /**
- * Clase Modo que representa el modo de operación de algunas pantallas.
- * Indica si es modo creación o edición)
+ * Clase Modo que representa el modo de operación de algunas pantallas. Indica
+ * si es modo creación o edición)
+ *
  * @author Jp
  */
 public enum Modo {
