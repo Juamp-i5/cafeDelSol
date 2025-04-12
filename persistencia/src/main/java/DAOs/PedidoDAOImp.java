@@ -4,6 +4,7 @@
  */
 package DAOs;
 
+import conexion.IConexion;
 import entidades.Pedido;
 import exception.persistenciaException;
 import interfaces.IPedido;
@@ -16,16 +17,30 @@ import java.util.List;
  */
 public class PedidoDAOImp implements IPedido {
 
-    List<Pedido> pedidos = new ArrayList<>();
+    private IConexion conexion;
+
+    public PedidoDAOImp(IConexion conexion) {
+        this.conexion = conexion;
+    }
 
     @Override
     public Pedido registrarPedido(Pedido pedido) throws persistenciaException {
-        pedidos.add(pedido);
-        
-        StringBuilder mensaje = new StringBuilder();
-        for (Pedido pedidoMostrar : pedidos) {
-            mensaje.append(pedidoMostrar.toString()).append("\n");
+        List<Pedido> pedidos = new ArrayList<>();
+
+        if (conexion.getDatabase() == null) {
+            pedidos.add(pedido);
+
+            StringBuilder mensaje = new StringBuilder();
+            for (Pedido pedidoMostrar : pedidos) {
+                mensaje.append(pedidoMostrar.toString()).append("\n");
+            }
+
+            System.out.println(mensaje.toString());
+        } else {
+            // lógica de mongo
+
         }
-        return pedido;
+
+        return pedido; 
     }
 }

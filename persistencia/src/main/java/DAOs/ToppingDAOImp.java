@@ -35,7 +35,7 @@ public class ToppingDAOImp implements ITopping {
                     new Topping(4L, "Cajeta", "../img/cajeta.jpg")
             );
         } else {
-            // lógica de Mongo
+            // lógica de mongo
         }
 
         return toppings;
