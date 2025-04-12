@@ -431,4 +431,8 @@ public class ControlNavegacion {
         );
 
     }
+    
+    public static void registrarPedido() {
+//        gestor.
+    }
 }

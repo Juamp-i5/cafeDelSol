@@ -198,6 +198,7 @@ public class PagoEfectivo extends javax.swing.JFrame {
                     double cambio = ControlNavegacion.calcularCambio(efectivo);
                     if (cambio >= 0) {
                         ControlNavegacion.mostrarPantallaPedidoRealizado();
+//                        ControlNavegacion.
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Cantidad insuficiente para completar el pago", "Error", JOptionPane.ERROR_MESSAGE);

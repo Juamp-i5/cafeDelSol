@@ -2,17 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package interfacesBO;
 
-import entidades.Pedido;
-import exception.persistenciaException;
+import DTOs.PedidoDTO;
 
 /**
  *
  * @author rodri
  */
-public interface IPedido {
+public interface IPedidoBO {
     
-    public Pedido registrarPedido (Pedido pedido) throws persistenciaException;
+    public PedidoDTO registrarPedido (PedidoDTO pedidoDTO);
     
 }

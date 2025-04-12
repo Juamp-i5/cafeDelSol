@@ -243,4 +243,11 @@ public class ManejadorPedidos implements IGestionPedidos {
         pedido.setCostoTotal(total);
         return total;
     }
+    
+    
+    //Ahoria lo hago, tiene que conectarse con su BO de Pedido
+    @Override
+    public PedidoDTO registrarPedido() {
+        return pedido;
+    }
 }

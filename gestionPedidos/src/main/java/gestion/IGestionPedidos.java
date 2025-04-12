@@ -201,4 +201,13 @@ public interface IGestionPedidos {
      * @return El costo total actualizado del pedido actual.
      */
     public double actualizarTotal();
+    
+    /**
+     * 
+     * Registar el pedido en la base de datos
+     *
+     */
+    public PedidoDTO registrarPedido();
+    
+    
 }
