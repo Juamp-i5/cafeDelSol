@@ -4,10 +4,17 @@
  */
 package interfacesMapper;
 
+import DTOs.PedidoDTO;
+import entidades.Pedido;
+import exception.NegocioException;
+
 /**
  *
  * @author rodri
  */
 public interface IPedidoMapper {
+    
+    public Pedido toEntity (PedidoDTO pedidoDTO) throws NegocioException;
+    
     
 }

@@ -23,20 +23,20 @@ public class PruebaEditar {
      */
     public static void main(String[] args) {
         // Simulamos un producto seleccionado
-        ProductoMostrarDTO producto = new ProductoMostrarDTO(1L, "Frappe frío", "../img/latteFrio.jpeg");
-        TamanioMostrarDTO tamanio = new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5);
-        SaboresMostrarDTO sabor = new SaboresMostrarDTO(3L, "Moka", "../img/saborMoka.jpg");
-        ToppingsMostrarDTO topping = new ToppingsMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg");
+//        ProductoMostrarDTO producto = new ProductoMostrarDTO(1L, "Frappe frío", "../img/latteFrio.jpeg");
+//        TamanioMostrarDTO tamanio = new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5);
+//        SaboresMostrarDTO sabor = new SaboresMostrarDTO(3L, "Moka", "../img/saborMoka.jpg");
+//        ToppingsMostrarDTO topping = new ToppingsMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg");
 
         // Crear el objeto ProductoPedidoDTO
-        ProductoPedidoDTO productoPedido = new ProductoPedidoDTO();
-        productoPedido.setProducto(producto);
-        productoPedido.setTamanio(tamanio);
-        productoPedido.setSabor(sabor);
-        productoPedido.setTopping(topping);
+//        ProductoPedidoDTO productoPedido = new ProductoPedidoDTO();
+//        productoPedido.setProducto(producto);
+//        productoPedido.setTamanio(tamanio);
+//        productoPedido.setSabor(sabor);
+//        productoPedido.setTopping(topping);
 
         // Iniciar la ventana de edición del producto
-        new PantallaEditarProducto(productoPedido);
+//        new PantallaEditarProducto(productoPedido);
         
     }
     

@@ -4,10 +4,27 @@
  */
 package mapper;
 
+import DTOs.ProductoPedidoDTO;
+import entidades.ProductoPedido;
+import exception.NegocioException;
+import interfacesMapper.IProductoPedidoMapper;
+
 /**
  *
  * @author rodri
  */
-public class ProductoPedidoMapper {
+public class ProductoPedidoMapper implements IProductoPedidoMapper{
+
+    @Override
+    public ProductoPedido toEntity(ProductoPedidoDTO productoPedidoDTO) throws NegocioException {
+        return new ProductoPedido(productoPedidoDTO., tamanio, sabor, topping)
+    }
+
+    @Override
+    public ProductoPedido toEntitySinTopping(ProductoPedidoDTO productoPedidoDTO) throws NegocioException {
+        
+    }
+    
+    
     
 }

@@ -28,6 +28,17 @@ public class Pedido {
         this.pedido = pedido;
     }
 
+    public Pedido(double costoTotal, boolean terminado) {
+        this.costoTotal = costoTotal;
+        this.terminado = terminado;
+    }
+
+    public Pedido(double costoTotal, boolean terminado, List<ProductoPedido> pedido) {
+        this.costoTotal = costoTotal;
+        this.terminado = terminado;
+        this.pedido = pedido;
+    }
+    
     public List<ProductoPedido> getPedido() {
         return pedido;
     }

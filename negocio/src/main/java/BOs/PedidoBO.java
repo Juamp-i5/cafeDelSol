@@ -4,10 +4,19 @@
  */
 package BOs;
 
+import DTOs.PedidoDTO;
+import interfacesBO.IPedidoBO;
+
 /**
  *
  * @author rodri
  */
-public class PedidoBO {
+public class PedidoBO implements IPedidoBO{
+
+    @Override
+    public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) {
+        
+    }
+    
     
 }
