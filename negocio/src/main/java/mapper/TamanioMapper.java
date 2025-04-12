@@ -14,6 +14,18 @@ import interfacesMapper.ITamanioMapper;
  */
 public class TamanioMapper implements ITamanioMapper {
 
+    private static TamanioMapper instanceMapper;
+
+    public TamanioMapper() {
+    }
+    
+    public static TamanioMapper getInstance() {
+        if (instanceMapper == null) {
+            instanceMapper = new TamanioMapper();
+        }
+        return instanceMapper;
+    }
+    
     @Override
     public TamanioMostrarDTO aDTO(Tamanio tamanio) {
         if (tamanio == null) {

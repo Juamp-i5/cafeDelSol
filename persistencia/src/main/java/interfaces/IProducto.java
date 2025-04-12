@@ -16,4 +16,6 @@ public interface IProducto {
     
     public List<Producto> buscarTodos () throws persistenciaException;
     
+    public Producto buscarPorNombre(String nombre) throws persistenciaException;
+    
 }

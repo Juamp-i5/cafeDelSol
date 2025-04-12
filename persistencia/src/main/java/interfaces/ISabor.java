@@ -16,4 +16,6 @@ public interface ISabor {
     
     public List<Sabor> buscarTodos () throws persistenciaException;
     
+    public Sabor buscarPorNombre(String nombre) throws persistenciaException;
+    
 }

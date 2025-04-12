@@ -8,8 +8,11 @@ import DTOs.EfectivoDTO;
 import java.awt.*;
 import javax.swing.*;
 import control.ControlNavegacion;
+import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -198,13 +201,15 @@ public class PagoEfectivo extends javax.swing.JFrame {
                     double cambio = ControlNavegacion.calcularCambio(efectivo);
                     if (cambio >= 0) {
                         ControlNavegacion.mostrarPantallaPedidoRealizado();
-//                        ControlNavegacion.
+                        ControlNavegacion.registrarPedido();
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Cantidad insuficiente para completar el pago", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(null, "Por favor ingrese una cantidad válida", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (GestionException ex) {
+                    JOptionPane.showMessageDialog(null, "Error al registrar pedido", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

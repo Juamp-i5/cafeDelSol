@@ -432,7 +432,7 @@ public class ControlNavegacion {
 
     }
     
-    public static void registrarPedido() {
-//        gestor.
+    public static void registrarPedido() throws GestionException {
+        gestor.registrarPedido();
     }
 }

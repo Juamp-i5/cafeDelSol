@@ -16,4 +16,6 @@ public interface ITopping {
     
     public List<Topping> buscarTodos () throws persistenciaException;
     
+    public Topping buscarPorNombre(String nombre) throws persistenciaException;
+    
 }

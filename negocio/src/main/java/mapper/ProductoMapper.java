@@ -14,6 +14,20 @@ import interfacesMapper.IProductoMapper;
  */
 public class ProductoMapper implements IProductoMapper {
 
+    private static ProductoMapper instanceMapper;
+
+    public ProductoMapper() {
+    }
+    
+    public static ProductoMapper getInstance() {
+        if (instanceMapper == null) {
+            instanceMapper = new ProductoMapper();
+        }
+        return instanceMapper;
+    }
+    
+    
+    
     @Override
     public ProductoMostrarDTO aDTO(Producto producto) {
         if (producto == null) {

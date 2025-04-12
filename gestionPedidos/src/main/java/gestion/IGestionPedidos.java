@@ -207,7 +207,7 @@ public interface IGestionPedidos {
      * Registar el pedido en la base de datos
      *
      */
-    public PedidoDTO registrarPedido();
+    public PedidoDTO registrarPedido() throws GestionException;
     
     
 }

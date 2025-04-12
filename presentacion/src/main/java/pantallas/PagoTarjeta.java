@@ -165,6 +165,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
         try {
             if (ControlNavegacion.validarTarjetaPresentacion(tarjetaIngresada)) {
                 ControlNavegacion.mostrarPantallaPedidoRealizado();
+                ControlNavegacion.registrarPedido();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);
