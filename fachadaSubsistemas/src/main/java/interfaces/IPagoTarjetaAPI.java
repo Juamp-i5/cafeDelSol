@@ -2,15 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package observers.interfaces;
+package interfaces;
 
-import DTOs.PedidoDTO;
+import DTOs.DetallesCobroTarjetaDTO;
+import pago.ResultadoPago;
 
 /**
  *
  * @author norma
  */
-public interface NuevaVentaObserver {
+public interface IPagoTarjetaAPI {
 
-    void update();
+    ResultadoPago cobrar(DetallesCobroTarjetaDTO detallesCobroTarjeta);
 }

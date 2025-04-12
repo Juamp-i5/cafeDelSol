@@ -28,7 +28,7 @@ import interfacesBO.IPedidoBO;
 
 import java.util.ArrayList;
 import java.util.List;
-import observers.interfaces.NuevaVentaObserver;
+import interfacesObservers.NuevaVentaObserver;
 
 import interfacesMapper.IPedidoMapper;
 import interfacesMapper.IProductoMapper;

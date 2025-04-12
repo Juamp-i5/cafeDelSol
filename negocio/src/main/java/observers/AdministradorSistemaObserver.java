@@ -6,7 +6,7 @@ package observers;
 
 import java.util.ArrayList;
 import java.util.List;
-import observers.interfaces.NuevaVentaObserver;
+import interfacesObservers.NuevaVentaObserver;
 
 /**
  *
