@@ -10,7 +10,6 @@ package DTOs;
  */
 public class ProductoMostrarDTO {
 
-    private Long id;
     private String nombre;
     private double precio;
     private String urlImagen;
@@ -18,25 +17,15 @@ public class ProductoMostrarDTO {
     public ProductoMostrarDTO() {
     }
 
-    public ProductoMostrarDTO(Long id, String nombre, String urlImagen) {
-        this.id = id;
+    public ProductoMostrarDTO(String nombre, String urlImagen) {
         this.nombre = nombre;
         this.urlImagen = urlImagen;
     }
 
-    public ProductoMostrarDTO(Long id, String nombre, double precio, String urlImagen) {
-        this.id = id;
+    public ProductoMostrarDTO(String nombre, double precio, String urlImagen) {
         this.nombre = nombre;
         this.precio = precio;
         this.urlImagen = urlImagen;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -65,7 +54,7 @@ public class ProductoMostrarDTO {
 
     @Override
     public String toString() {
-        return "ProductoMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
+        return "ProductoMostrarDTO{nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
     }
 
 }

@@ -4,13 +4,14 @@
  */
 package fabricaDAOs;
 
+import interfaces.IFabricaDAOs;
 import DAOs.PedidoDAOImp;
 import DAOs.ProductoDAOImp;
 import DAOs.SaborDAOImp;
 import DAOs.TamanioDAOImp;
 import DAOs.ToppingDAOImp;
 import conexion.Conexion;
-import conexion.IConexion;
+import interfaces.IConexion;
 import interfaces.IPedido;
 import interfaces.IProducto;
 import interfaces.IProductoPedido;

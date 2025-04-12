@@ -4,7 +4,7 @@
  */
 package DAOs;
 
-import conexion.IConexion;
+import interfaces.IConexion;
 import entidades.Tamanio;
 import exception.persistenciaException;
 import interfaces.ITamanio;

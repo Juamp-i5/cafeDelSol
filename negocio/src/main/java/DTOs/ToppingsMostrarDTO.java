@@ -10,21 +10,16 @@ package DTOs;
  */
 public class ToppingsMostrarDTO {
     
-    private Long id;
     private String nombre;
     private String urlImagen;
 
     public ToppingsMostrarDTO() {
     }
 
-    public ToppingsMostrarDTO(Long id, String nombre, String urlImagen) {
-        this.id = id;
+    public ToppingsMostrarDTO(String nombre, String urlImagen) {
+       
         this.nombre = nombre;
         this.urlImagen = urlImagen;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getNombre() {
@@ -33,10 +28,6 @@ public class ToppingsMostrarDTO {
 
     public String getUrlImagen() {
         return urlImagen;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setNombre(String nombre) {
@@ -49,7 +40,7 @@ public class ToppingsMostrarDTO {
 
     @Override
     public String toString() {
-        return "ToppingsMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+        return "ToppingsMostrarDTO{nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
     }
 
 }

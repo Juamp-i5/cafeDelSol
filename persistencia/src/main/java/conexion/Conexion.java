@@ -1,5 +1,6 @@
 package conexion;
 
+import interfaces.IConexion;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 

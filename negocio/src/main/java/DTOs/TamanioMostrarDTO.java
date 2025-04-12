@@ -10,7 +10,6 @@ package DTOs;
  */
 public class TamanioMostrarDTO {
     
-    private Long id;
     private String nombre;
     private String urlImagen;
     private int precio;
@@ -18,20 +17,11 @@ public class TamanioMostrarDTO {
     public TamanioMostrarDTO() {
     }
 
-    public TamanioMostrarDTO(Long id, String nombre, String urlImagen, int precio) {
-        this.id = id;
+    public TamanioMostrarDTO(String nombre, String urlImagen, int precio) {
         this.nombre = nombre;
         this.urlImagen = urlImagen;
         this.precio = precio;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    }   
 
     public String getNombre() {
         return nombre;
@@ -59,7 +49,7 @@ public class TamanioMostrarDTO {
 
     @Override
     public String toString() {
-        return "TamanioMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
+        return "TamanioMostrarDTO{nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
     }
     
     

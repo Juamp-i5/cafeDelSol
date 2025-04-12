@@ -10,25 +10,15 @@ package DTOs;
  */
 public class SaboresMostrarDTO {
     
-    private Long id;
     private String nombre;
     private String urlImagen;
 
     public SaboresMostrarDTO() {
     }
 
-    public SaboresMostrarDTO(Long id, String nombre, String urlImagen) {
-        this.id = id;
+    public SaboresMostrarDTO(String nombre, String urlImagen) {
         this.nombre = nombre;
         this.urlImagen = urlImagen;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -49,7 +39,7 @@ public class SaboresMostrarDTO {
 
     @Override
     public String toString() {
-        return "SaboresMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+        return "SaboresMostrarDTO{nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
     }
     
     
