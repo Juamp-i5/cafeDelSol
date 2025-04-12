@@ -4,6 +4,7 @@
  */
 package gestion;
 
+import DTOs.DetallesCobroTarjetaDTO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -13,8 +14,13 @@ import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import exception.GestionException;
+import interfaces.IFachadaPago;
 import java.util.List;
 import java.util.logging.Logger;
+import pago.FachadaPago;
+import pago.PagoTarjetaAPI;
+import pago.ResultadoPago;
+import pago.ValidarPago;
 
 /**
  * Clase que implementa la interfaz IGestionPedidos para gestionar pedidos y
@@ -27,6 +33,28 @@ public class ManejadorPedidos implements IGestionPedidos {
     private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
+    private IFachadaPago fachadaPago;
+
+    public ManejadorPedidos() {
+        this.fachadaPago = new FachadaPago(new PagoTarjetaAPI(), new ValidarPago());
+    }
+    
+     @Override
+    public boolean validarTarjetaPresentacion(TarjetaDTO tarjetaDTO) throws GestionException {
+        DetallesCobroTarjetaDTO detalles = new DetallesCobroTarjetaDTO();
+        detalles.setNumeroTarjeta(tarjetaDTO.getNumTarjeta());
+        detalles.setNombreBanco(tarjetaDTO.getNombreBanco());
+        detalles.setCvv(tarjetaDTO.getCVV());
+        detalles.setFechaExp(tarjetaDTO.getFechaExp());
+
+        ResultadoPago resultado = fachadaPago.procesarPago(detalles);
+
+        if (!resultado.isExito()) {
+            throw new GestionException("Pago fallido: " + resultado.getMensajeError());
+        }
+
+        return true;
+    }
 
     @Override
     public ProductoPedidoDTO getProductoPedidoActual() {
@@ -41,21 +69,21 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<ProductoMostrarDTO> cargarProductos() {
         return List.of(
-                new ProductoMostrarDTO(1L, "Affogato", 50, "../img/affogato.jpg"),
-                new ProductoMostrarDTO(2L, "Café Americano", 40, "../img/cafeAmericano.jpg"),
-                new ProductoMostrarDTO(3L, "Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
-                new ProductoMostrarDTO(4L, "Capuchino", 50, "../img/capuchino.jpg"),
-                new ProductoMostrarDTO(5L, "Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
-                new ProductoMostrarDTO(6L, "Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
-                new ProductoMostrarDTO(7L, "Espresso", 50, "../img/espresso.jpg"),
-                new ProductoMostrarDTO(8L, "Flat White", 50, "../img/flatWhite.jpg"),
-                new ProductoMostrarDTO(9L, "Frappe frío", 45, "../img/latteFrio.jpeg"),
-                new ProductoMostrarDTO(10L, "Frappuccino", 45, "../img/frappuccino.jpg"),
-                new ProductoMostrarDTO(11L, "Latte", 55, "../img/latte.jpg"),
-                new ProductoMostrarDTO(12L, "Matcha Latte", 50, "../img/matchaLatte.jpg"),
-                new ProductoMostrarDTO(13L, "Mocaccino", 30, "../img/mocaccino.jpg"),
-                new ProductoMostrarDTO(14L, "Té Chai", 45, "../img/teChai.jpg"),
-                new ProductoMostrarDTO(15L, "Té Negro", 20, "../img/teNegro.jpg")
+                new ProductoMostrarDTO("Affogato", 50, "../img/affogato.jpg"),
+                new ProductoMostrarDTO("Café Americano", 40, "../img/cafeAmericano.jpg"),
+                new ProductoMostrarDTO("Café Descafeinado", 30, "../img/cafeDescafeinado.jpg"),
+                new ProductoMostrarDTO("Capuchino", 50, "../img/capuchino.jpg"),
+                new ProductoMostrarDTO("Caramel Macchiato", 50, "../img/caramelMacchiato.jpg"),
+                new ProductoMostrarDTO("Chocolate caliente", 50, "../img/chocolateCaliente.jpg"),
+                new ProductoMostrarDTO("Espresso", 50, "../img/espresso.jpg"),
+                new ProductoMostrarDTO("Flat White", 50, "../img/flatWhite.jpg"),
+                new ProductoMostrarDTO("Frappe frío", 45, "../img/latteFrio.jpeg"),
+                new ProductoMostrarDTO("Frappuccino", 45, "../img/frappuccino.jpg"),
+                new ProductoMostrarDTO("Latte", 55, "../img/latte.jpg"),
+                new ProductoMostrarDTO("Matcha Latte", 50, "../img/matchaLatte.jpg"),
+                new ProductoMostrarDTO("Mocaccino", 30, "../img/mocaccino.jpg"),
+                new ProductoMostrarDTO("Té Chai", 45, "../img/teChai.jpg"),
+                new ProductoMostrarDTO("Té Negro", 20, "../img/teNegro.jpg")
         );
     }
 
@@ -83,9 +111,9 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<TamanioMostrarDTO> cargarTamanios() {
         return List.of(
-                new TamanioMostrarDTO(1L, "Pequenio", "../img/tamanioPequenio.jpg", 0),
-                new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5),
-                new TamanioMostrarDTO(3L, "Grande", "../img/tamanioGrande.jpg", 10)
+                new TamanioMostrarDTO("Pequenio", "../img/tamanioPequenio.jpg", 0),
+                new TamanioMostrarDTO("Mediano", "../img/tamanioMediano.jpg", 5),
+                new TamanioMostrarDTO("Grande", "../img/tamanioGrande.jpg", 10)
         );
     }
 
@@ -98,12 +126,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<SaboresMostrarDTO> cargarSabores() {
         return List.of(
-                new SaboresMostrarDTO(1L, "Vainilla", "../img/saborVainilla.jpg"),
-                new SaboresMostrarDTO(2L, "Chocolate", "../img/saborChocolate.jpeg"),
-                new SaboresMostrarDTO(3L, "Moka", "../img/saborMoka.jpg"),
-                new SaboresMostrarDTO(4L, "Fresa", "../img/saborFresa.jpg"),
-                new SaboresMostrarDTO(5L, "Oreo", "../img/saborOreo.jpg"),
-                new SaboresMostrarDTO(6L, "Caramelo", "../img/saborCaramelo.jpg")
+                new SaboresMostrarDTO("Vainilla", "../img/saborVainilla.jpg"),
+                new SaboresMostrarDTO("Chocolate", "../img/saborChocolate.jpeg"),
+                new SaboresMostrarDTO("Moka", "../img/saborMoka.jpg"),
+                new SaboresMostrarDTO("Fresa", "../img/saborFresa.jpg"),
+                new SaboresMostrarDTO("Oreo", "../img/saborOreo.jpg"),
+                new SaboresMostrarDTO("Caramelo", "../img/saborCaramelo.jpg")
         );
     }
 
@@ -115,10 +143,10 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<ToppingsMostrarDTO> cargarToppings() {
         return List.of(
-                new ToppingsMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg"),
-                new ToppingsMostrarDTO(2L, "Canela", "../img/canela.jpg"),
-                new ToppingsMostrarDTO(3L, "Nutella", "../img/nutella.jpg"),
-                new ToppingsMostrarDTO(4L, "Cajeta", "../img/cajeta.jpg")
+                new ToppingsMostrarDTO("Azúcar", "../img/azucar.jpeg"),
+                new ToppingsMostrarDTO("Canela", "../img/canela.jpg"),
+                new ToppingsMostrarDTO("Nutella", "../img/nutella.jpg"),
+                new ToppingsMostrarDTO("Cajeta", "../img/cajeta.jpg")
         );
     }
 
@@ -127,36 +155,36 @@ public class ManejadorPedidos implements IGestionPedidos {
         productoPedidoActual.setTopping(topping);
     }
 
-    @Override
-    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) throws GestionException {
-        String numeroTarjeta = tarjeta.getNumTarjeta();
-        String banco = tarjeta.getNombreBanco();
-        String cvv = tarjeta.getCVV();
-        String fechaExp = tarjeta.getFechaExp();
-
-        if (banco == null || banco.trim().isEmpty()
-                || numeroTarjeta == null || numeroTarjeta.trim().isEmpty()
-                || cvv == null || cvv.trim().isEmpty()
-                || fechaExp == null) {
-            throw new GestionException("Se tiene que llenar todos los campos.");
-        }
-
-        if (tarjeta == null) {
-            throw new GestionException("La tarjeta no puede ser nula.");
-        }
-
-        if (!numeroTarjeta.matches("\\d{16}")) {
-            throw new GestionException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
-        }
-
-        if (!cvv.matches("\\d{3,4}")) {
-            throw new GestionException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
-        }
-        if (!fechaExp.matches("\\d{2}/\\d{2}")) {
-            throw new GestionException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
-        }
-        return true;
-    }
+//    @Override
+//    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) throws GestionException {
+//        String numeroTarjeta = tarjeta.getNumTarjeta();
+//        String banco = tarjeta.getNombreBanco();
+//        String cvv = tarjeta.getCVV();
+//        String fechaExp = tarjeta.getFechaExp();
+//
+//        if (banco == null || banco.trim().isEmpty()
+//                || numeroTarjeta == null || numeroTarjeta.trim().isEmpty()
+//                || cvv == null || cvv.trim().isEmpty()
+//                || fechaExp == null) {
+//            throw new GestionException("Se tiene que llenar todos los campos.");
+//        }
+//
+//        if (tarjeta == null) {
+//            throw new GestionException("La tarjeta no puede ser nula.");
+//        }
+//
+//        if (!numeroTarjeta.matches("\\d{16}")) {
+//            throw new GestionException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
+//        }
+//
+//        if (!cvv.matches("\\d{3,4}")) {
+//            throw new GestionException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
+//        }
+//        if (!fechaExp.matches("\\d{2}/\\d{2}")) {
+//            throw new GestionException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
+//        }
+//        return true;
+//    }
 
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) throws GestionException {
@@ -243,8 +271,7 @@ public class ManejadorPedidos implements IGestionPedidos {
         pedido.setCostoTotal(total);
         return total;
     }
-    
-    
+
     //Ahoria lo hago, tiene que conectarse con su BO de Pedido
     @Override
     public PedidoDTO registrarPedido() {
