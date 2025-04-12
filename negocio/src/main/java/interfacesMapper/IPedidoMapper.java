@@ -6,7 +6,6 @@ package interfacesMapper;
 
 import DTOs.PedidoDTO;
 import entidades.Pedido;
-import exception.NegocioException;
 
 /**
  *
@@ -14,7 +13,7 @@ import exception.NegocioException;
  */
 public interface IPedidoMapper {
     
-    public Pedido toEntity (PedidoDTO pedidoDTO) throws NegocioException;
+    public Pedido toEntity (PedidoDTO pedidoDTO);
     
     
 }

@@ -5,6 +5,7 @@
 package interfacesBO;
 
 import DTOs.PedidoDTO;
+import exception.NegocioException;
 
 /**
  *
@@ -12,6 +13,6 @@ import DTOs.PedidoDTO;
  */
 public interface IPedidoBO {
     
-    public PedidoDTO registrarPedido (PedidoDTO pedidoDTO);
+    public PedidoDTO registrarPedido (PedidoDTO pedidoDTO) throws NegocioException;
     
 }

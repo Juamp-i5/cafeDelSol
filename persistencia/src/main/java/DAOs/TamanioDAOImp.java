@@ -22,6 +22,18 @@ public class TamanioDAOImp implements ITamanio {
     public TamanioDAOImp(IConexion conexion) {
         this.conexion = conexion;
     }
+    
+    private static TamanioDAOImp instanceDAO;
+
+    public TamanioDAOImp() {
+    }
+
+    public static TamanioDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new TamanioDAOImp();
+        }
+        return instanceDAO;
+    }
 
     @Override
     public List<Tamanio> buscarTodos() throws persistenciaException {
@@ -38,5 +50,18 @@ public class TamanioDAOImp implements ITamanio {
         }
 
         return tamanios;
+    }
+
+    @Override
+    public Tamanio buscarPorNombre(String nombre) throws persistenciaException {
+        List<Tamanio> tamanios = buscarTodos(); // usa tu método existente
+
+        for (Tamanio p : tamanios) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                return p;
+            }
+        }
+
+        return null; // si no lo encuentra
     }
 }

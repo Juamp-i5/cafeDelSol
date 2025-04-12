@@ -23,6 +23,19 @@ public class PedidoDAOImp implements IPedido {
         this.conexion = conexion;
     }
 
+    private static PedidoDAOImp instanceDAO;
+
+    public PedidoDAOImp() {
+    }
+
+    public static PedidoDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new PedidoDAOImp();
+        }
+        return instanceDAO;
+    }
+    
+    
     @Override
     public Pedido registrarPedido(Pedido pedido) throws persistenciaException {
         List<Pedido> pedidos = new ArrayList<>();

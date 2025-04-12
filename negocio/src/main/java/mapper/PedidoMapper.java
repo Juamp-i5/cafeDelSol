@@ -14,9 +14,22 @@ import interfacesMapper.IPedidoMapper;
  * @author rodri
  */
 public class PedidoMapper implements IPedidoMapper{
+    
+    private static PedidoMapper instanceMapper;
 
+    public PedidoMapper() {
+    }
+    
+    public static PedidoMapper getInstance() {
+        if (instanceMapper == null) {
+            instanceMapper = new PedidoMapper();
+        }
+        return instanceMapper;
+    }
+    
+    
     @Override
-    public Pedido toEntity(PedidoDTO pedidoDTO) throws NegocioException {
+    public Pedido toEntity(PedidoDTO pedidoDTO){
         return new Pedido(
                 pedidoDTO.getCostoTotal(), 
                 pedidoDTO.isTerminado()

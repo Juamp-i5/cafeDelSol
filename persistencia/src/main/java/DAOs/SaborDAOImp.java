@@ -22,6 +22,19 @@ public class SaborDAOImp implements ISabor {
     public SaborDAOImp(IConexion conexion) {
         this.conexion = conexion;
     }
+    
+    private static SaborDAOImp instanceDAO;
+
+    public SaborDAOImp() {
+    }
+
+    public static SaborDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new SaborDAOImp();
+        }
+        return instanceDAO;
+    }
+    
 
     @Override
     public List<Sabor> buscarTodos() throws persistenciaException {
@@ -41,5 +54,18 @@ public class SaborDAOImp implements ISabor {
         }
 
         return sabores;
+    }
+
+    @Override
+    public Sabor buscarPorNombre(String nombre) throws persistenciaException {
+        List<Sabor> sabores = buscarTodos(); // usa tu método existente
+
+        for (Sabor p : sabores) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                return p;
+            }
+        }
+
+        return null; // si no lo encuentra
     }
 }

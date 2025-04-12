@@ -22,6 +22,20 @@ public class ToppingDAOImp implements ITopping {
     public ToppingDAOImp(IConexion conexion) {
         this.conexion = conexion;
     }
+    
+    private static ToppingDAOImp instanceDAO;
+
+    public ToppingDAOImp() {
+    }
+
+    public static ToppingDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new ToppingDAOImp();
+        }
+        return instanceDAO;
+    }
+    
+    
 
     @Override
     public List<Topping> buscarTodos() throws persistenciaException {
@@ -39,5 +53,18 @@ public class ToppingDAOImp implements ITopping {
         }
 
         return toppings;
+    }
+
+    @Override
+    public Topping buscarPorNombre(String nombre) throws persistenciaException {
+        List<Topping> toppings = buscarTodos(); // usa tu método existente
+
+        for (Topping p : toppings) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                return p;
+            }
+        }
+
+        return null; // si no lo encuentra
     }
 }

@@ -14,6 +14,19 @@ import interfacesMapper.ISaborMapper;
  */
 public class SaborMapper implements ISaborMapper {
 
+    private static SaborMapper instanceMapper;
+
+    public SaborMapper() {
+    }
+    
+    public static SaborMapper getInstance() {
+        if (instanceMapper == null) {
+            instanceMapper = new SaborMapper();
+        }
+        return instanceMapper;
+    }
+    
+    
     @Override
     public SaboresMostrarDTO aDTO(Sabor sabor) {
         if (sabor == null) {

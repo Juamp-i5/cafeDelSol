@@ -4,7 +4,9 @@
  */
 package gestion;
 
+
 import DTOs.DetallesCobroTarjetaDTO;
+import BOs.PedidoBO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -15,7 +17,10 @@ import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import exception.GestionException;
 import interfaces.IFachadaPago;
+import exception.NegocioException;
+import interfacesBO.IPedidoBO;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import pago.FachadaPago;
 import pago.PagoTarjetaAPI;
@@ -33,6 +38,8 @@ public class ManejadorPedidos implements IGestionPedidos {
     private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
+    IPedidoBO pedidoBO = PedidoBO.getInstance();
+
     private IFachadaPago fachadaPago;
 
     public ManejadorPedidos() {
@@ -274,7 +281,13 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     //Ahoria lo hago, tiene que conectarse con su BO de Pedido
     @Override
-    public PedidoDTO registrarPedido() {
+    public PedidoDTO registrarPedido()  throws GestionException{
+        try {
+            pedidoBO.registrarPedido(pedido);
+        } catch (NegocioException ex) {
+            Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return pedido;
     }
 }

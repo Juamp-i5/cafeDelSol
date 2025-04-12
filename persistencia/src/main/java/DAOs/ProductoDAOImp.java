@@ -23,6 +23,18 @@ public class ProductoDAOImp implements IProducto {
         this.conexion = conexion;
     }
 
+    private static ProductoDAOImp instanceDAO;
+
+    public ProductoDAOImp() {
+    }
+
+    public static ProductoDAOImp getInstance() {
+        if (instanceDAO == null) {
+            instanceDAO = new ProductoDAOImp();
+        }
+        return instanceDAO;
+    }
+
     @Override
     public List<Producto> buscarTodos() throws persistenciaException {
         List<Producto> productos = new ArrayList<>();
@@ -40,6 +52,19 @@ public class ProductoDAOImp implements IProducto {
         }
 
         return productos;
+    }
+
+    @Override
+    public Producto buscarPorNombre(String nombre) throws persistenciaException {
+        List<Producto> productos = buscarTodos(); // usa tu método existente
+
+        for (Producto p : productos) {
+            if (p.getNombre().equalsIgnoreCase(nombre)) {
+                return p;
+            }
+        }
+
+        return null; // si no lo encuentra
     }
 
 }

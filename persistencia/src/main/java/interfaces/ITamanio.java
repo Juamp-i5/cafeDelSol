@@ -16,4 +16,5 @@ public interface ITamanio {
     
     public List<Tamanio> buscarTodos () throws persistenciaException;
     
+    public Tamanio buscarPorNombre(String nombre) throws persistenciaException;
 }
