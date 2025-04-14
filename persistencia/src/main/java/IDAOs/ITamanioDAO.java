@@ -2,20 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package IDAOs;
 
-import entidades.Topping;
-import exception.persistenciaException;
+import entidades.Tamanio;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
  *
  * @author rodri
  */
-public interface ITopping {
+public interface ITamanioDAO {
     
-    public List<Topping> buscarTodos () throws persistenciaException;
+    public List<Tamanio> buscarTodos () throws PersistenciaException;
     
-    public Topping buscarPorNombre(String nombre) throws persistenciaException;
-    
+    public Tamanio buscarPorNombre(String nombre) throws PersistenciaException;
 }

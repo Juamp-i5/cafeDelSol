@@ -4,12 +4,11 @@
  */
 package BOs;
 
-import DAOs.TamanioDAOImp;
+import DAOs.TamanioDAOMongo;
 import DTOs.TamanioMostrarDTO;
 import entidades.Tamanio;
 import exception.NegocioException;
-import exception.persistenciaException;
-import interfaces.ITamanio;
+import excepciones.PersistenciaException;
 import interfacesBO.ITamanioBO;
 import interfacesMapper.ITamanioMapper;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.TamanioMapper;
+import IDAOs.ITamanioDAO;
 
 /**
  *
@@ -24,7 +24,7 @@ import mapper.TamanioMapper;
  */
 public class TamanioBO implements ITamanioBO{
 
-    ITamanio tamanioDAO = TamanioDAOImp.getInstance();
+    ITamanioDAO tamanioDAO = TamanioDAOMongo.getInstance();
     ITamanioMapper productoMapper = TamanioMapper.getInstance();
 
     private static TamanioBO instanceBO;
@@ -52,7 +52,7 @@ public class TamanioBO implements ITamanioBO{
             }
 
             return tamaniosDTO;
-        } catch (persistenciaException ex) {
+        } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");
         }

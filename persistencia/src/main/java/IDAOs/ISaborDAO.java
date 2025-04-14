@@ -2,19 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package IDAOs;
 
-import entidades.Tamanio;
-import exception.persistenciaException;
+import entidades.Sabor;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
  *
  * @author rodri
  */
-public interface ITamanio {
+public interface ISaborDAO {
     
-    public List<Tamanio> buscarTodos () throws persistenciaException;
+    public List<Sabor> buscarTodos () throws PersistenciaException;
     
-    public Tamanio buscarPorNombre(String nombre) throws persistenciaException;
+    public Sabor buscarPorNombre(String nombre) throws PersistenciaException;
+    
 }

@@ -2,20 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfaces;
+package IDAOs;
 
-import entidades.Sabor;
-import exception.persistenciaException;
+import entidades.Topping;
+import excepciones.PersistenciaException;
 import java.util.List;
 
 /**
  *
  * @author rodri
  */
-public interface ISabor {
+public interface IToppingDAO {
     
-    public List<Sabor> buscarTodos () throws persistenciaException;
+    public List<Topping> buscarTodos () throws PersistenciaException;
     
-    public Sabor buscarPorNombre(String nombre) throws persistenciaException;
+    public Topping buscarPorNombre(String nombre) throws PersistenciaException;
     
 }

@@ -8,9 +8,8 @@
     <dependencies>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.11.0-beta4</version>
-            <type>jar</type>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>5.4.0</version>
         </dependency>
     </dependencies>
     <properties>

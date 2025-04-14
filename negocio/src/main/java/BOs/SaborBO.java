@@ -4,12 +4,11 @@
  */
 package BOs;
 
-import DAOs.SaborDAOImp;
+import DAOs.SaborDAOMongo;
 import DTOs.SaboresMostrarDTO;
 import entidades.Sabor;
 import exception.NegocioException;
-import exception.persistenciaException;
-import interfaces.ISabor;
+import excepciones.PersistenciaException;
 import interfacesBO.ISaborBO;
 import interfacesMapper.ISaborMapper;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.SaborMapper;
+import IDAOs.ISaborDAO;
 
 /**
  *
@@ -24,7 +24,7 @@ import mapper.SaborMapper;
  */
 public class SaborBO implements ISaborBO{
 
-    ISabor tamanioDAO = SaborDAOImp.getInstance();
+    ISaborDAO tamanioDAO = SaborDAOMongo.getInstance();
     ISaborMapper productoMapper = SaborMapper.getInstance();    
     
     private static SaborBO instanceBO;
@@ -52,7 +52,7 @@ public class SaborBO implements ISaborBO{
             }
 
             return saboresDTO;
-        } catch (persistenciaException ex) {
+        } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");
         }

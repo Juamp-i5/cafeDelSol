@@ -4,12 +4,11 @@
  */
 package BOs;
 
-import DAOs.ToppingDAOImp;
+import DAOs.ToppingDAOMongo;
 import DTOs.ToppingsMostrarDTO;
 import entidades.Topping;
 import exception.NegocioException;
-import exception.persistenciaException;
-import interfaces.ITopping;
+import excepciones.PersistenciaException;
 import interfacesBO.IToppingBO;
 import interfacesMapper.IToppingMapper;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.ToppingMapper;
+import IDAOs.IToppingDAO;
 
 /**
  *
@@ -24,7 +24,7 @@ import mapper.ToppingMapper;
  */
 public class ToppingBO implements IToppingBO{
 
-    ITopping tamanioDAO = ToppingDAOImp.getInstance();
+    IToppingDAO tamanioDAO = ToppingDAOMongo.getInstance();
     IToppingMapper productoMapper = ToppingMapper.getInstance();  
     
     private static ToppingBO instanceBO;
@@ -52,7 +52,7 @@ public class ToppingBO implements IToppingBO{
             }
 
             return toppingsDTO;
-        } catch (persistenciaException ex) {
+        } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");
         }

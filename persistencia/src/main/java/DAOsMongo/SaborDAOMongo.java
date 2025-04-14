@@ -1,43 +1,44 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package DAOs;
+package DAOsMongo;
 
-import interfaces.IConexion;
 import entidades.Sabor;
-import exception.persistenciaException;
-import interfaces.ISabor;
+import excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
+import IDAOs.ISaborDAO;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import conexionMongo.IConexionMongo;
 
 /**
  *
  * @author rodri
  */
-public class SaborDAOImp implements ISabor {
+public class SaborDAOMongo implements ISaborDAO {
 
-    private IConexion conexion;
+    //Singleton
+    private static SaborDAOMongo instancia;
+    private final IConexionMongo conexion;
+    private final MongoDatabase database;
 
-    public SaborDAOImp(IConexion conexion) {
+    private MongoCollection<Sabor> coleccion;
+    private final String NOMBRE_COLECCION = "sabores";
+
+    private SaborDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
-    }
-    
-    private static SaborDAOImp instanceDAO;
-
-    public SaborDAOImp() {
+        this.database = conexion.getDatabase();
+        this.coleccion = database.getCollection(NOMBRE_COLECCION, Sabor.class);
     }
 
-    public static SaborDAOImp getInstance() {
-        if (instanceDAO == null) {
-            instanceDAO = new SaborDAOImp();
+    public static SaborDAOMongo getInstance(IConexionMongo conexion) {
+        if (instancia == null) {
+            instancia = new SaborDAOMongo(conexion);
         }
-        return instanceDAO;
+        return instancia;
     }
-    
 
+    //Métodos de la colección
     @Override
-    public List<Sabor> buscarTodos() throws persistenciaException {
+    public List<Sabor> buscarTodos() throws PersistenciaException {
         List<Sabor> sabores = new ArrayList<>();
 
         if (conexion.getDatabase() == null) {
@@ -57,7 +58,7 @@ public class SaborDAOImp implements ISabor {
     }
 
     @Override
-    public Sabor buscarPorNombre(String nombre) throws persistenciaException {
+    public Sabor buscarPorNombre(String nombre) throws PersistenciaException {
         List<Sabor> sabores = buscarTodos(); // usa tu método existente
 
         for (Sabor p : sabores) {
