@@ -9,5 +9,5 @@ package IDAOs;
  * @author rodri
  */
 public interface IProductoPedidoDAO {
-    
+
 }

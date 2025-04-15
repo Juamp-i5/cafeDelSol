@@ -13,9 +13,9 @@ import java.util.List;
  * @author rodri
  */
 public interface IProductoDAO {
-    
-    public List<Producto> buscarTodos () throws PersistenciaException;
-    
+
+    public List<Producto> buscarTodos() throws PersistenciaException;
+
     public Producto buscarPorNombre(String nombre) throws PersistenciaException;
-    
+
 }

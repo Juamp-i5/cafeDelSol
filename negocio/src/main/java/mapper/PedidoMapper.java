@@ -6,34 +6,33 @@ package mapper;
 
 import DTOs.PedidoDTO;
 import entidades.Pedido;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import interfacesMapper.IPedidoMapper;
 
 /**
  *
  * @author rodri
  */
-public class PedidoMapper implements IPedidoMapper{
-    
+public class PedidoMapper implements IPedidoMapper {
+
     private static PedidoMapper instanceMapper;
 
     public PedidoMapper() {
     }
-    
+
     public static PedidoMapper getInstance() {
         if (instanceMapper == null) {
             instanceMapper = new PedidoMapper();
         }
         return instanceMapper;
     }
-    
-    
+
     @Override
-    public Pedido toEntity(PedidoDTO pedidoDTO){
+    public Pedido toEntity(PedidoDTO pedidoDTO) {
         return new Pedido(
-                pedidoDTO.getCostoTotal(), 
+                pedidoDTO.getCostoTotal(),
                 pedidoDTO.isTerminado()
         );
     }
-    
+
 }

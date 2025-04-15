@@ -9,7 +9,7 @@ package entidades;
  * @author rodri
  */
 public class ProductoPedido {
-    
+
     private Producto producto;
     private Tamanio tamanio;
     private Sabor sabor;
@@ -95,5 +95,5 @@ public class ProductoPedido {
                 + "  \"costo\": " + costo + "\n"
                 + "}";
     }
-    
+
 }

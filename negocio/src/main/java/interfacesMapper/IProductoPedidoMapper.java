@@ -6,15 +6,15 @@ package interfacesMapper;
 
 import DTOs.ProductoPedidoDTO;
 import entidades.ProductoPedido;
-import exception.NegocioException;
+import excepciones.NegocioException;
 
 /**
  *
  * @author rodri
  */
 public interface IProductoPedidoMapper {
-    
-    public ProductoPedido toEntity (ProductoPedidoDTO productoPedidoDTO) throws NegocioException;
-    
-    public ProductoPedido toEntitySinTopping (ProductoPedidoDTO productoPedidoDTO) throws NegocioException;
+
+    public ProductoPedido toEntity(ProductoPedidoDTO productoPedidoDTO) throws NegocioException;
+
+    public ProductoPedido toEntitySinTopping(ProductoPedidoDTO productoPedidoDTO) throws NegocioException;
 }

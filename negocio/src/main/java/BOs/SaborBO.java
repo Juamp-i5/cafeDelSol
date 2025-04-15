@@ -4,10 +4,9 @@
  */
 package BOs;
 
-import DAOs.SaborDAOMongo;
 import DTOs.SaboresMostrarDTO;
 import entidades.Sabor;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.ISaborBO;
 import interfacesMapper.ISaborMapper;
@@ -17,16 +16,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.SaborMapper;
 import IDAOs.ISaborDAO;
+import acceso.AccesoDatos;
 
 /**
  *
  * @author rodri
  */
-public class SaborBO implements ISaborBO{
+public class SaborBO implements ISaborBO {
 
-    ISaborDAO tamanioDAO = SaborDAOMongo.getInstance();
-    ISaborMapper productoMapper = SaborMapper.getInstance();    
-    
+    ISaborDAO tamanioDAO = AccesoDatos.getSaborDAO();
+    ISaborMapper productoMapper = SaborMapper.getInstance();
+
     private static SaborBO instanceBO;
 
     public SaborBO() {
@@ -38,7 +38,7 @@ public class SaborBO implements ISaborBO{
         }
         return instanceBO;
     }
-    
+
     @Override
     public List<SaboresMostrarDTO> cargarProductos() throws NegocioException {
         try {
@@ -57,5 +57,5 @@ public class SaborBO implements ISaborBO{
             throw new NegocioException("Error al cargar los productos");
         }
     }
-    
+
 }

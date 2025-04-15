@@ -13,9 +13,9 @@ import java.util.List;
  * @author rodri
  */
 public interface ISaborDAO {
-    
-    public List<Sabor> buscarTodos () throws PersistenciaException;
-    
+
+    public List<Sabor> buscarTodos() throws PersistenciaException;
+
     public Sabor buscarPorNombre(String nombre) throws PersistenciaException;
-    
+
 }

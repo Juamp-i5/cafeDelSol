@@ -13,9 +13,9 @@ import java.util.List;
  * @author rodri
  */
 public interface IToppingDAO {
-    
-    public List<Topping> buscarTodos () throws PersistenciaException;
-    
+
+    public List<Topping> buscarTodos() throws PersistenciaException;
+
     public Topping buscarPorNombre(String nombre) throws PersistenciaException;
-    
+
 }

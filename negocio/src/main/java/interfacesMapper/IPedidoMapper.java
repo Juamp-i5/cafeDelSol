@@ -12,8 +12,7 @@ import entidades.Pedido;
  * @author rodri
  */
 public interface IPedidoMapper {
-    
-    public Pedido toEntity (PedidoDTO pedidoDTO);
-    
-    
+
+    public Pedido toEntity(PedidoDTO pedidoDTO);
+
 }

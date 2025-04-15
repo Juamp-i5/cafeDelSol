@@ -9,7 +9,7 @@ package entidades;
  * @author rodri
  */
 public class Producto {
-    
+
     private Long id;
     private String nombre;
     private double precio;
@@ -67,5 +67,5 @@ public class Producto {
     public String toString() {
         return "ProductoMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
     }
-    
+
 }

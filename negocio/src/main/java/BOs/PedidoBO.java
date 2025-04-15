@@ -1,14 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BOs;
 
-import DAOs.PedidoDAOMongo;
-import DAOs.ProductoDAOMongo;
-import DAOs.SaborDAOMongo;
-import DAOs.TamanioDAOMongo;
-import DAOs.ToppingDAOMongo;
 import DTOs.PedidoDTO;
 import DTOs.ProductoPedidoDTO;
 import entidades.Pedido;
@@ -17,16 +8,12 @@ import entidades.ProductoPedido;
 import entidades.Sabor;
 import entidades.Tamanio;
 import entidades.Topping;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.IPedidoBO;
-
 import java.util.ArrayList;
-import java.util.List;
 import interfacesObservers.NuevaVentaObserver;
-
 import interfacesMapper.IPedidoMapper;
-import interfacesMapper.IProductoMapper;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +23,7 @@ import IDAOs.IProductoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import acceso.AccesoDatos;
 
 /**
  *
@@ -44,11 +32,11 @@ import IDAOs.IToppingDAO;
 public class PedidoBO implements IPedidoBO {
 
     IPedidoMapper pedidoMapper = PedidoMapper.getInstance();
-    IProductoDAO productoDAO = ProductoDAOMongo.getInstance();
-    ISaborDAO saborDAO = SaborDAOMongo.getInstance();
-    ITamanioDAO tamanioDAO = TamanioDAOMongo.getInstance();
-    IToppingDAO toppingDAO = ToppingDAOMongo.getInstance();
-    IPedidoDAO pedidoDAO = PedidoDAOMongo.getInstance();
+    IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
+    ISaborDAO saborDAO = AccesoDatos.getSaborDAO();
+    ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
+    IToppingDAO toppingDAO = AccesoDatos.getToppingDAO();
+    IPedidoDAO pedidoDAO = AccesoDatos.getPedidoDAO();
 
     private List<NuevaVentaObserver> observers = new ArrayList<>();
 
@@ -61,7 +49,7 @@ public class PedidoBO implements IPedidoBO {
             observer.update();
         }
     }
-    
+
     private static PedidoBO instanceBO;
 
     public PedidoBO() {
@@ -100,16 +88,15 @@ public class PedidoBO implements IPedidoBO {
                     pdsE.add(new ProductoPedido(producto, tamanio, sabor));
                 }
             }
-            
+
             pedido.setPedido(pdsE);
             pedidoDAO.registrarPedido(pedido);
             return pedidoDTO;
-            
+
         } catch (PersistenciaException ex) {
             Logger.getLogger(PedidoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al registrar");
         }
-        
 
     }
 

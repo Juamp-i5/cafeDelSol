@@ -18,14 +18,14 @@ public class ToppingMapper implements IToppingMapper {
 
     public ToppingMapper() {
     }
-    
+
     public static ToppingMapper getInstance() {
         if (instanceMapper == null) {
             instanceMapper = new ToppingMapper();
         }
         return instanceMapper;
     }
-    
+
     @Override
     public ToppingsMostrarDTO aDTO(Topping topping) {
         if (topping == null) {

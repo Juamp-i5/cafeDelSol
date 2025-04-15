@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BOs;
 
-import DAOs.ToppingDAOMongo;
 import DTOs.ToppingsMostrarDTO;
 import entidades.Topping;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.IToppingBO;
 import interfacesMapper.IToppingMapper;
@@ -17,16 +12,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.ToppingMapper;
 import IDAOs.IToppingDAO;
+import acceso.AccesoDatos;
 
 /**
  *
  * @author rodri
  */
-public class ToppingBO implements IToppingBO{
+public class ToppingBO implements IToppingBO {
 
-    IToppingDAO tamanioDAO = ToppingDAOMongo.getInstance();
-    IToppingMapper productoMapper = ToppingMapper.getInstance();  
-    
+    IToppingDAO tamanioDAO = AccesoDatos.getToppingDAO();
+    IToppingMapper productoMapper = ToppingMapper.getInstance();
+
     private static ToppingBO instanceBO;
 
     public ToppingBO() {
@@ -38,7 +34,7 @@ public class ToppingBO implements IToppingBO{
         }
         return instanceBO;
     }
-    
+
     @Override
     public List<ToppingsMostrarDTO> cargarProductos() throws NegocioException {
         try {
@@ -57,5 +53,5 @@ public class ToppingBO implements IToppingBO{
             throw new NegocioException("Error al cargar los productos");
         }
     }
-    
+
 }

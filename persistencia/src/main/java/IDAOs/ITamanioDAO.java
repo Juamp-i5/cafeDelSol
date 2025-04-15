@@ -13,8 +13,8 @@ import java.util.List;
  * @author rodri
  */
 public interface ITamanioDAO {
-    
-    public List<Tamanio> buscarTodos () throws PersistenciaException;
-    
+
+    public List<Tamanio> buscarTodos() throws PersistenciaException;
+
     public Tamanio buscarPorNombre(String nombre) throws PersistenciaException;
 }

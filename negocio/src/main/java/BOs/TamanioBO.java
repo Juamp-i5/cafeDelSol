@@ -4,10 +4,9 @@
  */
 package BOs;
 
-import DAOs.TamanioDAOMongo;
 import DTOs.TamanioMostrarDTO;
 import entidades.Tamanio;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.ITamanioBO;
 import interfacesMapper.ITamanioMapper;
@@ -17,14 +16,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.TamanioMapper;
 import IDAOs.ITamanioDAO;
+import acceso.AccesoDatos;
 
 /**
  *
  * @author rodri
  */
-public class TamanioBO implements ITamanioBO{
+public class TamanioBO implements ITamanioBO {
 
-    ITamanioDAO tamanioDAO = TamanioDAOMongo.getInstance();
+    ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
     ITamanioMapper productoMapper = TamanioMapper.getInstance();
 
     private static TamanioBO instanceBO;
@@ -38,7 +38,7 @@ public class TamanioBO implements ITamanioBO{
         }
         return instanceBO;
     }
-    
+
     @Override
     public List<TamanioMostrarDTO> cargarProductos() throws NegocioException {
         try {

@@ -38,7 +38,7 @@ public class Pedido {
         this.terminado = terminado;
         this.pedido = pedido;
     }
-    
+
     public List<ProductoPedido> getPedido() {
         return pedido;
     }

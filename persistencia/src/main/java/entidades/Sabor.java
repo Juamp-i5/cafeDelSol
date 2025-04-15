@@ -9,7 +9,7 @@ package entidades;
  * @author rodri
  */
 public class Sabor {
-    
+
     private Long id;
     private String nombre;
     private String urlImagen;
@@ -51,5 +51,5 @@ public class Sabor {
     public String toString() {
         return "SaboresMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
     }
-    
+
 }

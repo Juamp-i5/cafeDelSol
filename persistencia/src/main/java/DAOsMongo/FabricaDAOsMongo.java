@@ -1,9 +1,11 @@
 package DAOsMongo;
 
-import conexionMongo.ConexionMongo;
-import conexionMongo.IConexionMongo;
+import IDAOs.IFabricaDAOs;
+import conexion.ConexionMongo;
+import conexion.IConexionMongo;
 import IDAOs.IPedidoDAO;
 import IDAOs.IProductoDAO;
+import IDAOs.IProductoPedidoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
@@ -17,7 +19,7 @@ import IDAOs.IToppingDAO;
  *
  * @author Jp
  */
-public class FabricaDAOsMongo {
+public class FabricaDAOsMongo implements IFabricaDAOs {
 
     /**
      * Conexión compartida a la base de datos MongoDB. Se obtiene una sola vez a
@@ -30,7 +32,8 @@ public class FabricaDAOsMongo {
      *
      * @return Instancia de IPedidoDAO conectada a MongoDB.
      */
-    public static IPedidoDAO getPedidoDAO() {
+    @Override
+    public IPedidoDAO getPedidoDAO() {
         return PedidoDAOMongo.getInstance(conexion);
     }
 
@@ -39,8 +42,18 @@ public class FabricaDAOsMongo {
      *
      * @return Instancia de IProductoDAO conectada a MongoDB.
      */
-    public static IProductoDAO getProductoDAO() {
+    @Override
+    public IProductoDAO getProductoDAO() {
         return ProductoDAOMongo.getInstance(conexion);
+    }
+
+    /**
+     * Retorna una instancia del DAO para la entidad ProductoPedido.
+     *
+     * @return Instancia de IProductoPedidoDAO conectada a MongoDB.
+     */
+    public IProductoPedidoDAO getProductoPedidoDAO() {
+        return ProductoPedidoDAOMongo.getInstance(conexion);
     }
 
     /**
@@ -48,7 +61,8 @@ public class FabricaDAOsMongo {
      *
      * @return Instancia de ISaborDAO conectada a MongoDB.
      */
-    public static ISaborDAO getSaborDAO() {
+    @Override
+    public ISaborDAO getSaborDAO() {
         return SaborDAOMongo.getInstance(conexion);
     }
 
@@ -57,7 +71,8 @@ public class FabricaDAOsMongo {
      *
      * @return Instancia de ITamanioDAO conectada a MongoDB.
      */
-    public static ITamanioDAO getTamanioDAO() {
+    @Override
+    public ITamanioDAO getTamanioDAO() {
         return TamanioDAOMongo.getInstance(conexion);
     }
 
@@ -66,7 +81,8 @@ public class FabricaDAOsMongo {
      *
      * @return Instancia de IToppingDAO conectada a MongoDB.
      */
-    public static IToppingDAO getToppingDAO() {
+    @Override
+    public IToppingDAO getToppingDAO() {
         return ToppingDAOMongo.getInstance(conexion);
     }
 }

@@ -9,7 +9,7 @@ package entidades;
  * @author rodri
  */
 public class Tamanio {
-    
+
     private Long id;
     private String nombre;
     private String urlImagen;
@@ -61,5 +61,5 @@ public class Tamanio {
     public String toString() {
         return "TamanioMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
     }
-    
+
 }

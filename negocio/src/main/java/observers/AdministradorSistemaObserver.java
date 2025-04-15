@@ -29,7 +29,7 @@ public class AdministradorSistemaObserver implements NuevaVentaObserver {
     private boolean esStockBajo() {
         //Aqui seria la lógica para checar el bajo stock.
         //Pero como no tenemos ingredientes en este caso de uso...
-        if(cont%2 == 0){
+        if (cont % 2 == 0) {
             cont = cont + 1;
             return true;
         }

@@ -9,7 +9,7 @@ package entidades;
  * @author rodri
  */
 public class Topping {
-    
+
     private Long id;
     private String nombre;
     private String urlImagen;
@@ -51,5 +51,5 @@ public class Topping {
     public String toString() {
         return "ToppingsMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
     }
-    
+
 }

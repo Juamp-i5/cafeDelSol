@@ -4,10 +4,9 @@
  */
 package BOs;
 
-import DAOs.ProductoDAOMongo;
 import DTOs.ProductoMostrarDTO;
 import entidades.Producto;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.IProductoBO;
 import interfacesMapper.IProductoMapper;
@@ -17,16 +16,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.ProductoMapper;
 import IDAOs.IProductoDAO;
+import acceso.AccesoDatos;
 
 /**
  *
  * @author rodri
  */
-public class ProductoBO implements IProductoBO{
+public class ProductoBO implements IProductoBO {
 
-    IProductoDAO productoDAO = ProductoDAOMongo.getInstance();
+    IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
     IProductoMapper productoMapper = ProductoMapper.getInstance();
-    
+
     private static ProductoBO instanceBO;
 
     public ProductoBO() {
@@ -38,25 +38,25 @@ public class ProductoBO implements IProductoBO{
         }
         return instanceBO;
     }
-    
+
     @Override
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
-            
+
             List<Producto> productos = productoDAO.buscarTodos();
             List<ProductoMostrarDTO> productosDTO = new ArrayList<>();
-            
+
             for (Producto producto : productos) {
                 ProductoMostrarDTO productoDTO = productoMapper.aDTO(producto);
                 productosDTO.add(productoDTO);
             }
-            
+
             return productosDTO;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");
         }
-        
+
     }
-    
+
 }

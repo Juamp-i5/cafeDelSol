@@ -1,4 +1,4 @@
-package conexionMongo;
+package conexion;
 
 import com.mongodb.client.MongoDatabase;
 

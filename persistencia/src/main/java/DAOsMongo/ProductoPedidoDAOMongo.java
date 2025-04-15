@@ -3,7 +3,7 @@ package DAOsMongo;
 import IDAOs.IProductoPedidoDAO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import conexionMongo.IConexionMongo;
+import conexion.IConexionMongo;
 import entidades.ProductoPedido;
 
 public class ProductoPedidoDAOMongo implements IProductoPedidoDAO {

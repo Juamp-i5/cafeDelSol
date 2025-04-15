@@ -5,7 +5,7 @@
 package interfacesBO;
 
 import DTOs.ProductoMostrarDTO;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ import java.util.List;
  * @author rodri
  */
 public interface IProductoBO {
-    
+
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException;
-    
+
 }

@@ -30,7 +30,7 @@ public class BaristaObserver implements NuevaVentaObserver {
     private boolean esStockBajo() {
         //Aqui seria la lógica para checar el bajo stock.
         //Pero como no tenemos ingredientes en este caso de uso...
-        if(cont%2 == 0){
+        if (cont % 2 == 0) {
             cont = cont + 1;
             return true;
         }
@@ -38,7 +38,7 @@ public class BaristaObserver implements NuevaVentaObserver {
     }
 
     private void enviarAlerta(String mensaje) {
-        System.out.println("🔔 Barista: " + mensaje); 
+        System.out.println("🔔 Barista: " + mensaje);
     }
 
     public List<String> getNotificaciones() {

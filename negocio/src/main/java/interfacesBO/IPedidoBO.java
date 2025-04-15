@@ -5,14 +5,14 @@
 package interfacesBO;
 
 import DTOs.PedidoDTO;
-import exception.NegocioException;
+import excepciones.NegocioException;
 
 /**
  *
  * @author rodri
  */
 public interface IPedidoBO {
-    
-    public PedidoDTO registrarPedido (PedidoDTO pedidoDTO) throws NegocioException;
-    
+
+    public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) throws NegocioException;
+
 }

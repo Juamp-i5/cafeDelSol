@@ -1,12 +1,13 @@
-package conexionMongo;
+package conexion;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
 /**
- * Implementación de la interfaz {@link IConexionMongo} para establecer y manejar una
- * conexión con una base de datos MongoDB utilizando el patrón Singleton.
+ * Implementación de la interfaz {@link IConexionMongo} para establecer y
+ * manejar una conexión con una base de datos MongoDB utilizando el patrón
+ * Singleton.
  *
  * @author norma
  */
