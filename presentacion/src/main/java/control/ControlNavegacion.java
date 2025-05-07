@@ -483,7 +483,5 @@ public class ControlNavegacion {
         JFrame frame = new PantallaIngredienteSimulada(regreso);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
-        
-        padre.setVisible(false);
     }
 }

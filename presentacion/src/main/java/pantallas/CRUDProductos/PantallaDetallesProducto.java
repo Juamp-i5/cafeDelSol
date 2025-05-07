@@ -6,6 +6,7 @@ package pantallas.CRUDProductos;
 
 import DTOs.CRUDIngredientes.IngredienteListDTO;
 import DTOs.CRUDProductos.CategoriaProducto;
+import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
@@ -13,6 +14,7 @@ import control.ControlNavegacion;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -22,16 +24,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jp
  */
-public class PantallaRegistrarProducto extends javax.swing.JFrame {
+public class PantallaDetallesProducto extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTablaProductos;
+    private DetallesProductoDTO producto;
+    private DetallesProductoDTO productoActualizado;
 
-    private final ProductoCreateDTO PRODUCTO = new ProductoCreateDTO();
-
-    public PantallaRegistrarProducto() {
+    public PantallaDetallesProducto(DetallesProductoDTO productoDTO) {
         initComponents();
 
-        modeloTablaProductos = (DefaultTableModel) tablaProductosTable.getModel();
+        this.modeloTablaProductos = (DefaultTableModel) tablaProductosTable.getModel();
+        this.producto = productoDTO;
 
         setInitialUI();
     }
@@ -46,12 +49,11 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     }
 
     private void iniciarMapas() {
-        PRODUCTO.setPrecios(new HashMap<>());
-        PRODUCTO.setIngredientes(new HashMap<>());
+        productoActualizado.setPrecios(new HashMap<>());
+        productoActualizado.setIngredientes(new HashMap<>());
     }
 
     private void agregarIngrediente() {
-        this.setVisible(false);
         ControlNavegacion.mostrarPantallaIngrediente(this, ingredienteSeleccionado -> {
             this.setVisible(true);
             if (ingredienteSeleccionado == null) {
@@ -136,6 +138,51 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         textFieldPrecioGrande.setDocument(new PositiveDoubleDocument());
     }
 
+    private void desplegarDatosFormulario() {
+        String nombre = producto.getNombre();
+        String descripcion = producto.getDescipcion();
+        CategoriaProducto categoria = producto.getCategoria();
+        byte[] imagen = producto.getImagenData();
+        EstadoProducto estado = producto.getEstadoProducto();
+        Double precioChico = producto.getPrecios().get(TamanioProducto.CHICO);
+        Double precioMediano = producto.getPrecios().get(TamanioProducto.MEDIANO);
+        Double precioGrande = producto.getPrecios().get(TamanioProducto.GRANDE);
+
+        textFieldNombre.setText(nombre);
+        textFieldDescripcion.setText(descripcion);
+        comboBoxCategoria.setSelectedItem(categoria);
+        imagePanelProducto.setImageBytes(imagen);
+        comboBoxEstado.setSelectedItem(estado);
+        textFieldPrecioChico.setText(precioChico + "");
+        textFieldPrecioMediano.setText(precioMediano + "");
+        textFieldPrecioGrande.setText(precioGrande + "");
+
+        desplegarDatosTabla();
+    }
+
+    private void desplegarDatosTabla() {
+        Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
+
+        for (Map.Entry<IngredienteListDTO, Map<TamanioProducto, Double>> entry : ingredientes.entrySet()) {
+            IngredienteListDTO ingrediente = entry.getKey();
+            Map<TamanioProducto, Double> cantidades = entry.getValue();
+
+            String id = ingrediente.getId();
+            String nombre = ingrediente.getNombre();
+            Double cantidadChico = cantidades.get(TamanioProducto.CHICO);
+            Double cantidadMediano = cantidades.get(TamanioProducto.MEDIANO);
+            Double cantidadGrande = cantidades.get(TamanioProducto.GRANDE);
+
+            modeloTablaProductos.addRow(new Object[]{
+                id,
+                nombre,
+                cantidadChico,
+                cantidadMediano,
+                cantidadGrande
+            });
+        }
+    }
+
     private void recolectarDatosFormulario() {
         String nombre = textFieldNombre.getText().trim();
         String descripcion = textFieldDescripcion.getText().trim();
@@ -146,17 +193,17 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         Double precioMediano = Double.valueOf(textFieldPrecioMediano.getText().trim());
         Double precioGrande = Double.valueOf(textFieldPrecioGrande.getText().trim());
 
-        PRODUCTO.setNombre(nombre);
-        PRODUCTO.setCategoria(categoria);
-        PRODUCTO.setDescipcion(descripcion);
-        PRODUCTO.setEstadoProducto(estado);
-        PRODUCTO.setImagenData(imagen);
+        productoActualizado.setNombre(nombre);
+        productoActualizado.setCategoria(categoria);
+        productoActualizado.setDescipcion(descripcion);
+        productoActualizado.setEstadoProducto(estado);
+        productoActualizado.setImagenData(imagen);
 
         Map<TamanioProducto, Double> precios = new HashMap<>();
         precios.put(TamanioProducto.CHICO, precioChico);
         precios.put(TamanioProducto.MEDIANO, precioMediano);
         precios.put(TamanioProducto.GRANDE, precioGrande);
-        PRODUCTO.setPrecios(precios);
+        productoActualizado.setPrecios(precios);
 
         recolectarDatosTabla();
     }
@@ -176,7 +223,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
             ingredientes.put(new IngredienteListDTO(id), cantidades);
         }
-        PRODUCTO.setIngredientes(ingredientes);
+        productoActualizado.setIngredientes(ingredientes);
     }
 
     /**
@@ -208,7 +255,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         imagePanelProducto = new pantallas.CRUDProductos.ImagePanel();
         panelSur = new javax.swing.JPanel();
         botonVolver = new javax.swing.JButton();
-        botonRegistrarProducto = new javax.swing.JButton();
+        botonActualizarProducto = new javax.swing.JButton();
         bottomSeparator = new javax.swing.JSeparator();
         labelEstadoProducto = new javax.swing.JLabel();
         comboBoxEstado = new javax.swing.JComboBox<>();
@@ -221,7 +268,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(800, 600));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        titleLabel.setText("Registrar Producto");
+        titleLabel.setText("Detalles producto");
 
         botonAgregarIngrediente.setBackground(new java.awt.Color(0, 204, 51));
         botonAgregarIngrediente.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -321,7 +368,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
                         .addComponent(imagePanelProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelNorteLayout.createSequentialGroup()
                         .addComponent(titleLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                         .addComponent(botonEliminarIngrediente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonAgregarIngrediente)))
@@ -367,8 +414,8 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         botonVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonVolver.setText("Volver");
 
-        botonRegistrarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        botonRegistrarProducto.setText("Registrar Producto");
+        botonActualizarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonActualizarProducto.setText("Actualizar Producto");
 
         labelEstadoProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelEstadoProducto.setText("Estado");
@@ -382,12 +429,12 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSurLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botonVolver)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                 .addComponent(labelEstadoProducto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonRegistrarProducto)
+                .addComponent(botonActualizarProducto)
                 .addContainerGap())
             .addComponent(bottomSeparator, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -401,7 +448,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
                     .addGroup(panelSurLayout.createSequentialGroup()
                         .addComponent(botonVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(botonRegistrarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botonActualizarProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelSurLayout.createSequentialGroup()
                         .addComponent(labelEstadoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(3, 3, 3))
@@ -445,7 +492,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tablaProductosScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                .addComponent(tablaProductosScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -464,9 +511,9 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;
+    private javax.swing.JButton botonActualizarProducto;
     private javax.swing.JButton botonAgregarIngrediente;
     private javax.swing.JButton botonEliminarIngrediente;
-    private javax.swing.JButton botonRegistrarProducto;
     private javax.swing.JButton botonVolver;
     private javax.swing.JSeparator bottomSeparator;
     private javax.swing.JComboBox<String> comboBoxCategoria;
@@ -495,7 +542,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     public static void main(String args[]) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new PantallaRegistrarProducto().setVisible(true);
+            new PantallaDetallesProducto(null).setVisible(true);
         });
     }
 }
