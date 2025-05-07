@@ -1,5 +1,7 @@
 package control;
 
+import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -12,14 +14,17 @@ import exception.GestionException;
 import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
+import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
+import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 
 /**
  * Clase Control que maneja los métodos que se encuentran en gestionPedidos y
@@ -28,7 +33,7 @@ import pantallas.*;
  * @author norma
  */
 public class ControlNavegacion {
-
+    
     private static IGestionPedidos gestor = new ManejadorPedidos();
     private static Stack framesVisitados = new Stack();
 
@@ -118,11 +123,14 @@ public class ControlNavegacion {
      * @param tarjetaIngresada La tarjeta que representa la tarjeta a validar
      * (con la que se esta pagando).
      * @return true si la tarjeta es valida, false en caso contrario.
-     * @throws GestionException Excepción que lanzará si un campo de la tarjeta
-     * es inválido.
      */
-    public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) throws GestionException {
-        return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+    public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) {
+        try {
+            return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
@@ -220,7 +228,7 @@ public class ControlNavegacion {
         JFrame menuPrincipal = new PantallaMenuPrincipal();
         menuPrincipal.setLocationRelativeTo(null);
         menuPrincipal.setVisible(true);
-
+        
         framesVisitados.add(menuPrincipal);
     }
 
@@ -231,14 +239,19 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaProductos(Modo modo) throws GestionException {
-        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), modo);
-        productos.setLocationRelativeTo(null);
-        productos.setVisible(true);
-
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(productos);
+    public static void mostrarPantallaProductos(Modo modo) {
+        try {
+            List<ProductoMostrarDTO> productosMostrar = gestor.cargarProductos();
+            JFrame productos = new PantallaSeleccionarProducto(productosMostrar, modo);
+            productos.setLocationRelativeTo(null);
+            productos.setVisible(true);
+            
+            gestor.imprimirPedidoConsola();
+            
+            framesVisitados.add(productos);
+        } catch (GestionException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 
     /**
@@ -248,14 +261,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaTamanios(Modo modo) throws GestionException {
-        JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
-        tamanios.setLocationRelativeTo(null);
-        tamanios.setVisible(true);
-
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(tamanios);
+    public static void mostrarPantallaTamanios(Modo modo) {
+        try {
+            JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
+            tamanios.setLocationRelativeTo(null);
+            tamanios.setVisible(true);
+            
+            gestor.imprimirPedidoConsola();
+            
+            framesVisitados.add(tamanios);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -265,14 +282,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaSabores(Modo modo) throws GestionException {
-        JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
-        sabores.setLocationRelativeTo(null);
-        sabores.setVisible(true);
-
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(sabores);
+    public static void mostrarPantallaSabores(Modo modo) {
+        try {
+            JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
+            sabores.setLocationRelativeTo(null);
+            sabores.setVisible(true);
+            
+            gestor.imprimirPedidoConsola();
+            
+            framesVisitados.add(sabores);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -282,14 +303,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaToppings(Modo modo) throws GestionException {
-        JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
-        toppings.setLocationRelativeTo(null);
-        toppings.setVisible(true);
-
-        gestor.imprimirPedidoConsola();
-
-        framesVisitados.add(toppings);
+    public static void mostrarPantallaToppings(Modo modo) {
+        try {
+            JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
+            toppings.setLocationRelativeTo(null);
+            toppings.setVisible(true);
+            
+            gestor.imprimirPedidoConsola();
+            
+            framesVisitados.add(toppings);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -300,9 +325,9 @@ public class ControlNavegacion {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
-
+        
         gestor.imprimirPedidoConsola();
-
+        
         framesVisitados.empty();
     }
 
@@ -314,9 +339,9 @@ public class ControlNavegacion {
         JFrame totalDesglosado = new TotalDesglosado();
         totalDesglosado.setLocationRelativeTo(null);
         totalDesglosado.setVisible(true);
-
+        
         gestor.imprimirPedidoConsola();
-
+        
         framesVisitados.add(totalDesglosado);
     }
 
@@ -331,9 +356,9 @@ public class ControlNavegacion {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
-
+        
         gestor.imprimirPedidoConsola();
-
+        
         framesVisitados.add(editarProducto);
     }
 
@@ -345,9 +370,9 @@ public class ControlNavegacion {
         JFrame pagoEfectivo = new PagoEfectivo();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
-
+        
         gestor.imprimirPedidoConsola();
-
+        
         framesVisitados.add(pagoEfectivo);
     }
 
@@ -360,7 +385,7 @@ public class ControlNavegacion {
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);
         gestor.imprimirPedidoConsola();
-
+        
         framesVisitados.add(pagoTarjeta);
     }
 
@@ -372,7 +397,7 @@ public class ControlNavegacion {
         if (!framesVisitados.isEmpty()) {
             JFrame ventanaActual = (JFrame) framesVisitados.pop();
             ventanaActual.dispose();
-
+            
             if (!framesVisitados.isEmpty()) {
                 JFrame frameAnterior = (JFrame) framesVisitados.peek();
                 frameAnterior.setLocationRelativeTo(null);
@@ -414,7 +439,7 @@ public class ControlNavegacion {
                 "Cancelación Exitosa",
                 JOptionPane.INFORMATION_MESSAGE
         );
-
+        
     }
 
     /**
@@ -429,10 +454,36 @@ public class ControlNavegacion {
                 "Cancelación Exitosa",
                 JOptionPane.INFORMATION_MESSAGE
         );
-
+        
     }
     
-    public static void registrarPedido() throws GestionException {
-        gestor.registrarPedido();
+    public static void registrarPedido() {
+        try {
+            gestor.registrarPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //=====================================================
+    //================== CRUD PRODUCTOS ===================
+    //=====================================================
+    public static List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) {
+        try {
+            return null;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+    }
+    
+    public static void mostrarPantallaIngrediente(JFrame padre, Consumer<IngredienteListDTO> regreso) {
+        JFrame frame = new PantallaIngredienteSimulada(regreso);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        
+        padre.setVisible(false);
     }
 }

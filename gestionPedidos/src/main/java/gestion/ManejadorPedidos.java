@@ -21,7 +21,7 @@ import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
 import exception.GestionException;
 import interfaces.IFachadaPago;
-import exception.NegocioException;
+import excepciones.NegocioException;
 import interfacesBO.IPedidoBO;
 import interfacesBO.IProductoBO;
 import interfacesBO.ISaborBO;
