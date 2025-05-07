@@ -2,6 +2,9 @@ package pantallas;
 
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -154,7 +157,11 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
      */
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
         ControlNavegacion.iniciarPedidoNuevo();
-        ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+        try {
+            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+        } catch (GestionException ex) {
+            Logger.getLogger(PantallaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 

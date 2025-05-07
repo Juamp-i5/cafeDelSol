@@ -8,11 +8,14 @@ import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import control.Modo;
+import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -343,8 +346,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
 
-            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
-            dispose();
+            try {
+                ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+                dispose();
+            } catch (GestionException ex) {
+                Logger.getLogger(TotalDesglosado.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnAgregarOtroActionPerformed
 

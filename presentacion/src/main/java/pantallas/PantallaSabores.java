@@ -7,12 +7,15 @@ package pantallas;
 import DTOs.SaboresMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -84,7 +87,11 @@ public class PantallaSabores extends javax.swing.JFrame {
 
         @Override
         public void mousePressed(java.awt.event.MouseEvent evt) {
-            saborSeleccionado(sabor);
+            try {
+                saborSeleccionado(sabor);
+            } catch (GestionException ex) {
+                Logger.getLogger(PantallaSabores.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         @Override
@@ -106,7 +113,7 @@ public class PantallaSabores extends javax.swing.JFrame {
      *
      * @param sabor Sabor seleccionado por el usuario.
      */
-    private void saborSeleccionado(SaboresMostrarDTO sabor) {
+    private void saborSeleccionado(SaboresMostrarDTO sabor) throws GestionException {
         ControlNavegacion.agregarSabor(sabor);
         if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);

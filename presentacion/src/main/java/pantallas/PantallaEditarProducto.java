@@ -7,11 +7,14 @@ package pantallas;
 import DTOs.ProductoPedidoDTO;
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -88,7 +91,11 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirProductos() {
         dispose(); // Cierra la pantalla actual antes de abrir la nueva
-        ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
+        try {
+            ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
+        } catch (GestionException ex) {
+            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -96,7 +103,11 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirTamanios() {
         dispose();
-        ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
+        try {
+            ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
+        } catch (GestionException ex) {
+            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -104,7 +115,11 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirSabores() {
         dispose();
-        ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
+        try {
+            ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
+        } catch (GestionException ex) {
+            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -112,7 +127,11 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirToppings() {
         dispose();
-        ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
+        try {
+            ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
+        } catch (GestionException ex) {
+            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
