@@ -46,6 +46,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         agregarRendererTablaProductos();
         agregarEventosTablaProductos();
         iniciarMapas();
+        desplegarDatosFormulario();
     }
 
     private void iniciarMapas() {
@@ -416,6 +417,11 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
 
         botonActualizarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonActualizarProducto.setText("Actualizar Producto");
+        botonActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonActualizarProductoActionPerformed(evt);
+            }
+        });
 
         labelEstadoProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelEstadoProducto.setText("Estado");
@@ -508,6 +514,16 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     private void botonEliminarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarIngredienteActionPerformed
         quitarIngrediente();
     }//GEN-LAST:event_botonEliminarIngredienteActionPerformed
+
+    private void botonActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarProductoActionPerformed
+        recolectarDatosFormulario();
+
+        if (producto.equals(productoActualizado)) {
+            JOptionPane.showMessageDialog(null, "No cambiaste ningún dato");
+        } else {
+            ControlNavegacion.actualizarProducto(productoActualizado);
+        }
+    }//GEN-LAST:event_botonActualizarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;

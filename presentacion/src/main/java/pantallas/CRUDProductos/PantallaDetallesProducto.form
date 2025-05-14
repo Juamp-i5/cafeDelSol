@@ -358,6 +358,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Actualizar Producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonActualizarProductoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="bottomSeparator">
         </Component>

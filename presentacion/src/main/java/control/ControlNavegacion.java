@@ -2,6 +2,7 @@ package control;
 
 import DTOs.CRUDIngredientes.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
+import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
@@ -11,8 +12,11 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingsMostrarDTO;
+import excepciones.GestionCRUDProductosException;
 import exception.GestionException;
+import gestion.GestorCRUDProductos;
 import gestion.IGestionPedidos;
+import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
 import java.util.List;
@@ -39,6 +43,7 @@ import pantallas.CRUDProductos.PantallaTablaProductos;
 public class ControlNavegacion {
 
     private static IGestionPedidos gestor = new ManejadorPedidos();
+    private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -502,24 +507,47 @@ public class ControlNavegacion {
     // METODOS DE COMUNICACION CON CAPA INFERIOR
     public static List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) {
         try {
-            return null;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, e);
+            return gestorCRUDProductos.obtenerProductosFiltrados(filtroNombre, filtroCategoria);
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
     private static DetallesProductoDTO obtenerDetallesProducto(String idProducto) {
-        return null;
+        try {
+            return gestorCRUDProductos.obtenerDetallesProducto(idProducto);
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
-    public static void guardarProducto(DetallesProductoDTO productoDTO) {
-
+    public static void guardarProducto(ProductoCreateDTO productoDTO) {
+        try {
+            gestorCRUDProductos.guardarProducto(productoDTO);
+            JOptionPane.showMessageDialog(null, "Producto guardado exitosamente");
+            ControlNavegacion.mostrarPantallaTablaProductos();
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void actualizarProducto(DetallesProductoDTO productoDTO) {
-
+        try {
+            gestorCRUDProductos.actualizarProducto(productoDTO);
+            JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente");
+            ControlNavegacion.mostrarPantallaTablaProductos();
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -13,7 +13,6 @@ import control.ControlNavegacion;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
@@ -26,7 +25,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTablaProductos;
 
-    private final ProductoCreateDTO PRODUCTO = new ProductoCreateDTO();
+    private ProductoCreateDTO productoNuevo = new ProductoCreateDTO();
 
     public PantallaRegistrarProducto() {
         initComponents();
@@ -46,8 +45,8 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     }
 
     private void iniciarMapas() {
-        PRODUCTO.setPrecios(new HashMap<>());
-        PRODUCTO.setIngredientes(new HashMap<>());
+        productoNuevo.setPrecios(new HashMap<>());
+        productoNuevo.setIngredientes(new HashMap<>());
     }
 
     private void agregarIngrediente() {
@@ -145,17 +144,17 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         Double precioMediano = Double.valueOf(textFieldPrecioMediano.getText().trim());
         Double precioGrande = Double.valueOf(textFieldPrecioGrande.getText().trim());
 
-        PRODUCTO.setNombre(nombre);
-        PRODUCTO.setCategoria(categoria);
-        PRODUCTO.setDescipcion(descripcion);
-        PRODUCTO.setEstadoProducto(estado);
-        PRODUCTO.setImagenData(imagen);
+        productoNuevo.setNombre(nombre);
+        productoNuevo.setCategoria(categoria);
+        productoNuevo.setDescipcion(descripcion);
+        productoNuevo.setEstadoProducto(estado);
+        productoNuevo.setImagenData(imagen);
 
         Map<TamanioProducto, Double> precios = new HashMap<>();
         precios.put(TamanioProducto.CHICO, precioChico);
         precios.put(TamanioProducto.MEDIANO, precioMediano);
         precios.put(TamanioProducto.GRANDE, precioGrande);
-        PRODUCTO.setPrecios(precios);
+        productoNuevo.setPrecios(precios);
 
         recolectarDatosTabla();
     }
@@ -175,7 +174,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
             ingredientes.put(new IngredienteListDTO(id), cantidades);
         }
-        PRODUCTO.setIngredientes(ingredientes);
+        productoNuevo.setIngredientes(ingredientes);
     }
 
     /**
@@ -368,6 +367,11 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
         botonRegistrarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonRegistrarProducto.setText("Registrar Producto");
+        botonRegistrarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistrarProductoActionPerformed(evt);
+            }
+        });
 
         labelEstadoProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelEstadoProducto.setText("Estado");
@@ -460,6 +464,12 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     private void botonEliminarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarIngredienteActionPerformed
         quitarIngrediente();
     }//GEN-LAST:event_botonEliminarIngredienteActionPerformed
+
+    private void botonRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarProductoActionPerformed
+        recolectarDatosFormulario();
+
+        ControlNavegacion.guardarProducto(productoNuevo);
+    }//GEN-LAST:event_botonRegistrarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;
