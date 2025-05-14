@@ -1,6 +1,7 @@
 package control;
 
 import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
@@ -24,7 +25,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
+import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaIngredienteSimulada;
+import pantallas.CRUDProductos.PantallaRegistrarProducto;
+import pantallas.CRUDProductos.PantallaTablaProductos;
 
 /**
  * Clase Control que maneja los métodos que se encuentran en gestionPedidos y
@@ -33,7 +37,7 @@ import pantallas.CRUDProductos.PantallaIngredienteSimulada;
  * @author norma
  */
 public class ControlNavegacion {
-    
+
     private static IGestionPedidos gestor = new ManejadorPedidos();
     private static Stack framesVisitados = new Stack();
 
@@ -228,7 +232,7 @@ public class ControlNavegacion {
         JFrame menuPrincipal = new PantallaMenuPrincipal();
         menuPrincipal.setLocationRelativeTo(null);
         menuPrincipal.setVisible(true);
-        
+
         framesVisitados.add(menuPrincipal);
     }
 
@@ -245,9 +249,9 @@ public class ControlNavegacion {
             JFrame productos = new PantallaSeleccionarProducto(productosMostrar, modo);
             productos.setLocationRelativeTo(null);
             productos.setVisible(true);
-            
+
             gestor.imprimirPedidoConsola();
-            
+
             framesVisitados.add(productos);
         } catch (GestionException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -266,9 +270,9 @@ public class ControlNavegacion {
             JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
             tamanios.setLocationRelativeTo(null);
             tamanios.setVisible(true);
-            
+
             gestor.imprimirPedidoConsola();
-            
+
             framesVisitados.add(tamanios);
         } catch (GestionException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -287,9 +291,9 @@ public class ControlNavegacion {
             JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
             sabores.setLocationRelativeTo(null);
             sabores.setVisible(true);
-            
+
             gestor.imprimirPedidoConsola();
-            
+
             framesVisitados.add(sabores);
         } catch (GestionException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -308,9 +312,9 @@ public class ControlNavegacion {
             JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
             toppings.setLocationRelativeTo(null);
             toppings.setVisible(true);
-            
+
             gestor.imprimirPedidoConsola();
-            
+
             framesVisitados.add(toppings);
         } catch (GestionException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
@@ -325,9 +329,9 @@ public class ControlNavegacion {
         JFrame agregarTerminarPedido = new AgregarOTerminarPedido();
         agregarTerminarPedido.setLocationRelativeTo(null);
         agregarTerminarPedido.setVisible(true);
-        
+
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.empty();
     }
 
@@ -339,9 +343,9 @@ public class ControlNavegacion {
         JFrame totalDesglosado = new TotalDesglosado();
         totalDesglosado.setLocationRelativeTo(null);
         totalDesglosado.setVisible(true);
-        
+
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(totalDesglosado);
     }
 
@@ -356,9 +360,9 @@ public class ControlNavegacion {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
-        
+
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(editarProducto);
     }
 
@@ -370,9 +374,9 @@ public class ControlNavegacion {
         JFrame pagoEfectivo = new PagoEfectivo();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
-        
+
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(pagoEfectivo);
     }
 
@@ -385,7 +389,7 @@ public class ControlNavegacion {
         pagoTarjeta.setLocationRelativeTo(null);
         pagoTarjeta.setVisible(true);
         gestor.imprimirPedidoConsola();
-        
+
         framesVisitados.add(pagoTarjeta);
     }
 
@@ -397,7 +401,7 @@ public class ControlNavegacion {
         if (!framesVisitados.isEmpty()) {
             JFrame ventanaActual = (JFrame) framesVisitados.pop();
             ventanaActual.dispose();
-            
+
             if (!framesVisitados.isEmpty()) {
                 JFrame frameAnterior = (JFrame) framesVisitados.peek();
                 frameAnterior.setLocationRelativeTo(null);
@@ -439,7 +443,7 @@ public class ControlNavegacion {
                 "Cancelación Exitosa",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        
+
     }
 
     /**
@@ -454,9 +458,9 @@ public class ControlNavegacion {
                 "Cancelación Exitosa",
                 JOptionPane.INFORMATION_MESSAGE
         );
-        
+
     }
-    
+
     public static void registrarPedido() {
         try {
             gestor.registrarPedido();
@@ -468,6 +472,34 @@ public class ControlNavegacion {
     //=====================================================
     //================== CRUD PRODUCTOS ===================
     //=====================================================
+    //METODOS DE FLUJO DE PANTALLAS
+    public static void mostrarPantallaTablaProductos() {
+        JFrame frame = new PantallaTablaProductos();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaRegistrarProducto() {
+        JFrame frame = new PantallaRegistrarProducto();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaDetallesProducto(String idProducto) {
+        DetallesProductoDTO productoDTO = obtenerDetallesProducto(idProducto);
+
+        JFrame frame = new PantallaDetallesProducto(productoDTO);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteListDTO> regreso) {
+        JFrame frame = new PantallaIngredienteSimulada(regreso);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    // METODOS DE COMUNICACION CON CAPA INFERIOR
     public static List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) {
         try {
             return null;
@@ -478,10 +510,16 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
-    public static void mostrarPantallaIngrediente(JFrame padre, Consumer<IngredienteListDTO> regreso) {
-        JFrame frame = new PantallaIngredienteSimulada(regreso);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+
+    private static DetallesProductoDTO obtenerDetallesProducto(String idProducto) {
+        return null;
+    }
+
+    public static void guardarProducto(DetallesProductoDTO productoDTO) {
+
+    }
+
+    public static void actualizarProducto(DetallesProductoDTO productoDTO) {
+
     }
 }

@@ -365,7 +365,6 @@ public class PantallaTablaProductos extends javax.swing.JFrame {
             return;
         }
 
-
     }//GEN-LAST:event_botonModificarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

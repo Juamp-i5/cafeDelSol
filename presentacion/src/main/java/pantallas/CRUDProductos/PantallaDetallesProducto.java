@@ -54,11 +54,11 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     }
 
     private void agregarIngrediente() {
-        ControlNavegacion.mostrarPantallaIngrediente(this, ingredienteSeleccionado -> {
+        this.setVisible(false);
+        ControlNavegacion.mostrarPantallaIngredienteSimulada(ingredienteSeleccionado -> {
             this.setVisible(true);
-            if (ingredienteSeleccionado == null) {
-                return;
-            } else {
+
+            if (ingredienteSeleccionado != null) {
                 modeloTablaProductos.addRow(new Object[]{
                     ingredienteSeleccionado.getId(),
                     ingredienteSeleccionado.getNombre(),
