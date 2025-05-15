@@ -3,11 +3,14 @@ package pantallas;
 import DTOs.ProductoMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -116,7 +119,11 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         ControlNavegacion.agregarProducto(producto);
 
         if (modo == Modo.CREACION) {
-            ControlNavegacion.mostrarPantallaTamanios(Modo.CREACION);
+            try {
+                ControlNavegacion.mostrarPantallaTamanios(Modo.CREACION);
+            } catch (GestionException ex) {
+                Logger.getLogger(PantallaSeleccionarProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }

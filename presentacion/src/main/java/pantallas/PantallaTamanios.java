@@ -7,12 +7,15 @@ package pantallas;
 import DTOs.TamanioMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -76,7 +79,11 @@ public class PantallaTamanios extends javax.swing.JFrame {
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
         ControlNavegacion.agregarTamanio(tamanio);
         if (modo == Modo.CREACION) {
-            ControlNavegacion.mostrarPantallaSabores(Modo.CREACION);
+            try {
+                ControlNavegacion.mostrarPantallaSabores(Modo.CREACION);
+            } catch (GestionException ex) {
+                Logger.getLogger(PantallaTamanios.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }

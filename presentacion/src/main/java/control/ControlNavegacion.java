@@ -1,5 +1,8 @@
 package control;
 
+import pantallas.cubiculos.PantallaCubiculosOPedidos;
+import pantallas.cubiculos.PantallaReservar;
+import pantallas.cubiculos.PantallaMenuCubiculos;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -435,4 +438,42 @@ public class ControlNavegacion {
     public static void registrarPedido() throws GestionException {
         gestor.registrarPedido();
     }
+    
+    /**
+     * Muestra la pantalla del menú de cubiculos. Se establece en el centro de la
+     * pantalla y se marca como visible.
+     */
+    public static void mostrarPantallaMenuCubiculos() {
+        JFrame menuCubiculos = new PantallaMenuCubiculos();
+        menuCubiculos.setLocationRelativeTo(null);
+        menuCubiculos.setVisible(true);
+
+        framesVisitados.add(menuCubiculos);
+    }
+    
+    /**
+     * Muestra la pantalla para elegir si ir al menu de cubiculos o de pedidos. Se establece en el centro de la
+     * pantalla y se marca como visible.
+     */
+    public static void mostrarPantallaCubiculosOPedidos() {
+        JFrame menu = new PantallaCubiculosOPedidos();
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
+
+        framesVisitados.add(menu);
+    }
+    
+    /**
+     * Muestra la pantalla para realizar una reservación. Se establece en el centro de la
+     * pantalla y se marca como visible.
+     */
+    public static void mostrarPantallaReservar() {
+        JFrame pantallaReservar = new PantallaReservar();
+        pantallaReservar.setLocationRelativeTo(null);
+        pantallaReservar.setVisible(true);
+
+        framesVisitados.add(pantallaReservar);
+    }
+    
+    
 }
