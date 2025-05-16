@@ -1,0 +1,5 @@
+excepciones\GestionCRUDProductosException.class
+gestion\GestorCRUDProductos.class
+gestion\IGestorCRUDProductos.class
+validadores\IValidadorGestorCRUDProductos.class
+validadores\ValidadorGestorCRUDProductos.class
