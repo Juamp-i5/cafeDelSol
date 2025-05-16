@@ -5,12 +5,12 @@
 package gestion;
 
 
-import DTOs.DetallesCobroTarjetaDTO;
 import BOs.PedidoBO;
 import BOs.ProductoBO;
 import BOs.SaborBO;
 import BOs.TamanioBO;
 import BOs.ToppingBO;
+import DTOs.DetallesCobroTarjetaDTO;
 import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -19,9 +19,9 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingsMostrarDTO;
 import DTOs.TarjetaDTO;
+import excepciones.NegocioException;
 import exception.GestionException;
 import interfaces.IFachadaPago;
-import excepciones.NegocioException;
 import interfacesBO.IPedidoBO;
 import interfacesBO.IProductoBO;
 import interfacesBO.ISaborBO;
@@ -43,7 +43,7 @@ import pago.ValidarPago;
  */
 public class ManejadorPedidos implements IGestionPedidos {
 
-    private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
+//    private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
     private ProductoPedidoDTO productoPedidoActual;
     IPedidoBO pedidoBO = PedidoBO.getInstance();

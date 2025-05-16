@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/DTOs/pom.xml" />
+        <option value="$PROJECT_DIR$/negocio/pom.xml" />
+        <option value="$PROJECT_DIR$/persistencia/pom.xml" />
+        <option value="$PROJECT_DIR$/presentacion/pom.xml" />
+        <option value="$PROJECT_DIR$/gestionPedidos/pom.xml" />
+        <option value="$PROJECT_DIR$/infraestructura/pom.xml" />
+        <option value="$PROJECT_DIR$/fachadaSubsistemas/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" default="true" project-jdk-name="23" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

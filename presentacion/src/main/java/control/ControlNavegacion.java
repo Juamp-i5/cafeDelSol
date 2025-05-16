@@ -1,5 +1,9 @@
 package control;
 
+import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDProductos.DetallesProductoDTO;
+import DTOs.CRUDProductos.ProductoCreateDTO;
+import DTOs.CRUDProductos.ProductoListDTO;
 import pantallas.cubiculos.PantallaCubiculosOPedidos;
 import pantallas.cubiculos.PantallaReservar;
 import pantallas.cubiculos.PantallaMenuCubiculos;
@@ -11,18 +15,27 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingsMostrarDTO;
+import excepciones.GestionCRUDProductosException;
 import exception.GestionException;
+import gestion.GestorCRUDProductos;
 import gestion.IGestionPedidos;
+import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
+import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
+import pantallas.CRUDProductos.PantallaDetallesProducto;
+import pantallas.CRUDProductos.PantallaIngredienteSimulada;
+import pantallas.CRUDProductos.PantallaRegistrarProducto;
+import pantallas.CRUDProductos.PantallaTablaProductos;
 
 /**
  * Clase Control que maneja los métodos que se encuentran en gestionPedidos y
@@ -33,6 +46,7 @@ import pantallas.*;
 public class ControlNavegacion {
 
     private static IGestionPedidos gestor = new ManejadorPedidos();
+    private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -121,11 +135,14 @@ public class ControlNavegacion {
      * @param tarjetaIngresada La tarjeta que representa la tarjeta a validar
      * (con la que se esta pagando).
      * @return true si la tarjeta es valida, false en caso contrario.
-     * @throws GestionException Excepción que lanzará si un campo de la tarjeta
-     * es inválido.
      */
-    public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) throws GestionException {
-        return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+    public static boolean validarTarjetaPresentacion(TarjetaDTO tarjetaIngresada) {
+        try {
+            return gestor.validarTarjetaPresentacion(tarjetaIngresada);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     /**
@@ -234,14 +251,19 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaProductos(Modo modo) throws GestionException {
-        JFrame productos = new PantallaSeleccionarProducto(gestor.cargarProductos(), modo);
-        productos.setLocationRelativeTo(null);
-        productos.setVisible(true);
+    public static void mostrarPantallaProductos(Modo modo) {
+        try {
+            List<ProductoMostrarDTO> productosMostrar = gestor.cargarProductos();
+            JFrame productos = new PantallaSeleccionarProducto(productosMostrar, modo);
+            productos.setLocationRelativeTo(null);
+            productos.setVisible(true);
 
-        gestor.imprimirPedidoConsola();
+            gestor.imprimirPedidoConsola();
 
-        framesVisitados.add(productos);
+            framesVisitados.add(productos);
+        } catch (GestionException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 
     /**
@@ -251,14 +273,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaTamanios(Modo modo) throws GestionException {
-        JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
-        tamanios.setLocationRelativeTo(null);
-        tamanios.setVisible(true);
+    public static void mostrarPantallaTamanios(Modo modo) {
+        try {
+            JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
+            tamanios.setLocationRelativeTo(null);
+            tamanios.setVisible(true);
 
-        gestor.imprimirPedidoConsola();
+            gestor.imprimirPedidoConsola();
 
-        framesVisitados.add(tamanios);
+            framesVisitados.add(tamanios);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -268,14 +294,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaSabores(Modo modo) throws GestionException {
-        JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
-        sabores.setLocationRelativeTo(null);
-        sabores.setVisible(true);
+    public static void mostrarPantallaSabores(Modo modo) {
+        try {
+            JFrame sabores = new PantallaSabores(gestor.cargarSabores(), modo);
+            sabores.setLocationRelativeTo(null);
+            sabores.setVisible(true);
 
-        gestor.imprimirPedidoConsola();
+            gestor.imprimirPedidoConsola();
 
-        framesVisitados.add(sabores);
+            framesVisitados.add(sabores);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -285,14 +315,18 @@ public class ControlNavegacion {
      *
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
-    public static void mostrarPantallaToppings(Modo modo) throws GestionException {
-        JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
-        toppings.setLocationRelativeTo(null);
-        toppings.setVisible(true);
+    public static void mostrarPantallaToppings(Modo modo) {
+        try {
+            JFrame toppings = new PantallaToppings(gestor.cargarToppings(), modo);
+            toppings.setLocationRelativeTo(null);
+            toppings.setVisible(true);
 
-        gestor.imprimirPedidoConsola();
+            gestor.imprimirPedidoConsola();
 
-        framesVisitados.add(toppings);
+            framesVisitados.add(toppings);
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -435,8 +469,12 @@ public class ControlNavegacion {
 
     }
     
-    public static void registrarPedido() throws GestionException {
-        gestor.registrarPedido();
+    public static void registrarPedido() {
+        try {
+            gestor.registrarPedido();
+        } catch (GestionException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     /**
@@ -475,5 +513,80 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReservar);
     }
     
-    
+    //=====================================================
+    //================== CRUD PRODUCTOS ===================
+    //=====================================================
+    //METODOS DE FLUJO DE PANTALLAS
+    public static void mostrarPantallaTablaProductos() {
+        JFrame frame = new PantallaTablaProductos();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaRegistrarProducto() {
+        JFrame frame = new PantallaRegistrarProducto();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaDetallesProducto(String idProducto) {
+        DetallesProductoDTO productoDTO = obtenerDetallesProducto(idProducto);
+
+        JFrame frame = new PantallaDetallesProducto(productoDTO);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteListDTO> regreso) {
+        JFrame frame = new PantallaIngredienteSimulada(regreso);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+    }
+
+    // METODOS DE COMUNICACION CON CAPA INFERIOR
+    public static List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) {
+        try {
+            return gestorCRUDProductos.obtenerProductosFiltrados(filtroNombre, filtroCategoria);
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    private static DetallesProductoDTO obtenerDetallesProducto(String idProducto) {
+        try {
+            return gestorCRUDProductos.obtenerDetallesProducto(idProducto);
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static void guardarProducto(ProductoCreateDTO productoDTO) {
+        try {
+            gestorCRUDProductos.guardarProducto(productoDTO);
+            JOptionPane.showMessageDialog(null, "Producto guardado exitosamente");
+            ControlNavegacion.mostrarPantallaTablaProductos();
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void actualizarProducto(DetallesProductoDTO productoDTO) {
+        try {
+            gestorCRUDProductos.actualizarProducto(productoDTO);
+            JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente");
+            ControlNavegacion.mostrarPantallaTablaProductos();
+        } catch (GestionCRUDProductosException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -4,6 +4,9 @@
  */
 package BOs;
 
+import DTOs.CRUDProductos.DetallesProductoDTO;
+import DTOs.CRUDProductos.ProductoCreateDTO;
+import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.ProductoMostrarDTO;
 import entidades.Producto;
 import excepciones.NegocioException;
@@ -57,6 +60,26 @@ public class ProductoBO implements IProductoBO {
             throw new NegocioException("Error al cargar los productos");
         }
 
+    }
+
+    @Override
+    public List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public DetallesProductoDTO obtenerDetallesProducto(String idProducto) throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void guardarProducto(ProductoCreateDTO productoDTO) throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizarProducto(DetallesProductoDTO productoDTO) throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
