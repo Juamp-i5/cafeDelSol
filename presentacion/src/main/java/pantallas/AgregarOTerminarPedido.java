@@ -6,10 +6,13 @@ package pantallas;
 
 import control.ControlNavegacion;
 import control.Modo;
+import exception.GestionException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -98,7 +101,11 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             ControlNavegacion.calcularCosto();
             ControlNavegacion.agregarProductoPedidoAPedido();
-            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+            try {
+                ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+            } catch (GestionException ex) {
+                Logger.getLogger(AgregarOTerminarPedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
             dispose();
         }
     }
