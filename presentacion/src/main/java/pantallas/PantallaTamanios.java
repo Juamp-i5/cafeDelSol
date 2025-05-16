@@ -79,11 +79,7 @@ public class PantallaTamanios extends javax.swing.JFrame {
     private void tamanioSeleccionado(TamanioMostrarDTO tamanio) {
         ControlNavegacion.agregarTamanio(tamanio);
         if (modo == Modo.CREACION) {
-            try {
-                ControlNavegacion.mostrarPantallaSabores(Modo.CREACION);
-            } catch (GestionException ex) {
-                Logger.getLogger(PantallaTamanios.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ControlNavegacion.mostrarPantallaSabores(Modo.CREACION);
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }

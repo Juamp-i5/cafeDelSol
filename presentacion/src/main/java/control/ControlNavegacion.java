@@ -1,6 +1,6 @@
 package control;
 
-import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;

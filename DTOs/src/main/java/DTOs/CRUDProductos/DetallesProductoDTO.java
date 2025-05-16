@@ -4,7 +4,7 @@
  */
 package DTOs.CRUDProductos;
 
-import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import java.util.Map;
 
 /**

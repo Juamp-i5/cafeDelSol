@@ -91,11 +91,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirProductos() {
         dispose(); // Cierra la pantalla actual antes de abrir la nueva
-        try {
-            ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
-        } catch (GestionException ex) {
-            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ControlNavegacion.mostrarPantallaProductos(Modo.EDICION);
     }
 
     /**
@@ -103,11 +99,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirTamanios() {
         dispose();
-        try {
-            ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
-        } catch (GestionException ex) {
-            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ControlNavegacion.mostrarPantallaTamanios(Modo.EDICION);
     }
 
     /**
@@ -115,11 +107,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirSabores() {
         dispose();
-        try {
-            ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
-        } catch (GestionException ex) {
-            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ControlNavegacion.mostrarPantallaSabores(Modo.EDICION);
     }
 
     /**
@@ -127,11 +115,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      */
     private void abrirToppings() {
         dispose();
-        try {
-            ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
-        } catch (GestionException ex) {
-            Logger.getLogger(PantallaEditarProducto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ControlNavegacion.mostrarPantallaToppings(Modo.EDICION);
     }
 
     /**

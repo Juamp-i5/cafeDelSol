@@ -119,11 +119,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         ControlNavegacion.agregarProducto(producto);
 
         if (modo == Modo.CREACION) {
-            try {
-                ControlNavegacion.mostrarPantallaTamanios(Modo.CREACION);
-            } catch (GestionException ex) {
-                Logger.getLogger(PantallaSeleccionarProducto.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ControlNavegacion.mostrarPantallaTamanios(Modo.CREACION);
         } else if (modo == Modo.EDICION) {
             ControlNavegacion.mostrarPantallaEditarProducto(ControlNavegacion.getProductoPedidoActual());
         }

@@ -346,12 +346,8 @@ public class TotalDesglosado extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Desea agregar otro producto?", "Confirmación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
 
-            try {
-                ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
-                dispose();
-            } catch (GestionException ex) {
-                Logger.getLogger(TotalDesglosado.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+            dispose();
         }
     }//GEN-LAST:event_btnAgregarOtroActionPerformed
 

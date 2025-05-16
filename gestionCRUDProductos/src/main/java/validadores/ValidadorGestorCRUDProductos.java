@@ -7,7 +7,7 @@ package validadores;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
-import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import java.util.Map;
 
 /**

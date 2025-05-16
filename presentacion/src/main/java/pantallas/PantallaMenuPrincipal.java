@@ -157,11 +157,7 @@ public class PantallaMenuPrincipal extends javax.swing.JFrame {
      */
     private void btnRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarPedidoActionPerformed
         ControlNavegacion.iniciarPedidoNuevo();
-        try {
-            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
-        } catch (GestionException ex) {
-            Logger.getLogger(PantallaMenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
         this.dispose();
     }//GEN-LAST:event_btnRealizarPedidoActionPerformed
 

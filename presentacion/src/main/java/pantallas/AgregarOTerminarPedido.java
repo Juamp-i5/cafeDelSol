@@ -101,11 +101,7 @@ public class AgregarOTerminarPedido extends javax.swing.JFrame {
         if (confirmacion == JOptionPane.YES_OPTION) {
             ControlNavegacion.calcularCosto();
             ControlNavegacion.agregarProductoPedidoAPedido();
-            try {
-                ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
-            } catch (GestionException ex) {
-                Logger.getLogger(AgregarOTerminarPedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
             dispose();
         }
     }

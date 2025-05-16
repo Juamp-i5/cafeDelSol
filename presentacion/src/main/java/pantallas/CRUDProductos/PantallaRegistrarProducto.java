@@ -4,7 +4,7 @@
  */
 package pantallas.CRUDProductos;
 
-import DTOs.CRUDIngredientes.IngredienteListDTO;
+import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.CategoriaProducto;
 import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.ProductoCreateDTO;

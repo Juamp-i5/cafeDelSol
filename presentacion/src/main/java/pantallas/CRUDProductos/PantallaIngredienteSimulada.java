@@ -4,9 +4,9 @@
  */
 package pantallas.CRUDProductos;
 
-import DTOs.CRUDIngredientes.EstadoIngrediente;
-import DTOs.CRUDIngredientes.IngredienteListDTO;
-import DTOs.CRUDIngredientes.UnidadMedida;
+import DTOs.CRUDIngredientesSimulados.EstadoIngrediente;
+import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
+import DTOs.CRUDIngredientesSimulados.UnidadMedida;
 import java.util.function.Consumer;
 
 /**
