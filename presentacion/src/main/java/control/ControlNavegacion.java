@@ -1,5 +1,6 @@
 package control;
 
+import DTOs.CRUDIngredientes.IngredienteViejoDTO;
 import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
@@ -22,6 +23,7 @@ import gestion.IGestionPedidos;
 import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
@@ -36,6 +38,11 @@ import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
+import pantallas.ingredientes.PantallaAgregarIngrediente;
+import pantallas.ingredientes.PantallaBuscarIngrediente;
+import pantallas.ingredientes.PantallaEditarDetallesIngrediente;
+import pantallas.ingredientes.PantallaListaIngredientes;
+import pantallas.ingredientes.PantallaVerDetallesIngrediente;
 
 /**
  * Clase Control que maneja los métodos que se encuentran en gestionPedidos y
@@ -589,4 +596,47 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    //ingredientes pantallas
+    public static void mostrarPantallaListaIngredientes() {
+        JFrame frame = new PantallaListaIngredientes();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarPantallaVerDetallesIngrediente(String idIngrediente) {
+        IngredienteViejoDTO ingredienteDTO =obtenerDetallesIngrediente(idIngrediente);
+        
+        JFrame frame = new PantallaVerDetallesIngrediente(ingredienteDTO);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarPantallaEditarDetallesIngrediente(IngredienteViejoDTO ingrediente) {
+        JFrame frame = new PantallaEditarDetallesIngrediente(ingrediente);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarPantallaAgregarIngrediente() {
+        JFrame frame = new PantallaAgregarIngrediente();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarBuscarIngrediente() {
+        JFrame frame = new PantallaBuscarIngrediente();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    //métodos
+    public static List<IngredienteViejoDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
+        return new ArrayList();
+    }
+    
+    private static IngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
+        return new IngredienteViejoDTO();
+    }   
+    
 }
