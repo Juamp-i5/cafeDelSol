@@ -1,6 +1,6 @@
 package pantallas.ingredientes;
 
-import DTOs.CRUDIngredientes.IngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientesSimulados.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.event.ActionListener;
@@ -55,7 +55,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     }
 
     private void cargarTablaIngredientes() {
-        List<IngredienteViejoDTO> ingredientes = obtenerIngredientes();
+        List<IngredienteViejoListDTO> ingredientes = obtenerIngredientes();
 
         if (ingredientes == null || ingredientes.isEmpty()) {
             return;
@@ -63,7 +63,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
         this.modeloTablaIngredientes.setRowCount(0);
 
-        for (IngredienteViejoDTO ingrediente : ingredientes) {
+        for (IngredienteViejoListDTO ingrediente : ingredientes) {
             this.modeloTablaIngredientes.addRow(
                     new Object[]{
                         ingrediente.getId(),
@@ -77,7 +77,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
     }
 
-    private List<IngredienteViejoDTO> obtenerIngredientes() {
+    private List<IngredienteViejoListDTO> obtenerIngredientes() {
         String filtroNombre = getFiltroNombre();
         String filtroNivelStock = getFiltroNivelStock();
 

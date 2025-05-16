@@ -1,6 +1,6 @@
 package pantallas.ingredientes;
 
-import DTOs.CRUDIngredientes.IngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import control.ControlNavegacion;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PantallaListaIngredientes extends javax.swing.JFrame {
 
-    List<IngredienteViejoDTO> ingredientes;
+    List<IngredienteViejoListDTO> ingredientes;
     DefaultTableModel modeloTablaIngredientes;
     private Timer debounceTimer;
     
@@ -38,7 +38,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
 
         this.modeloTablaIngredientes.setRowCount(0);
 
-        for (IngredienteViejoDTO ingrediente : ingredientes) {
+        for (IngredienteViejoListDTO ingrediente : ingredientes) {
             this.modeloTablaIngredientes.addRow(
                     new Object[]{
                         ingrediente.getId(),
@@ -52,7 +52,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
 
     }
 
-    private List<IngredienteViejoDTO> obtenerIngredientes() {
+    private List<IngredienteViejoListDTO> obtenerIngredientes() {
         return ControlNavegacion.obtenerIngredientesFiltrados("", "");
     }
 
@@ -177,7 +177,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
             return;
         }
 
-        IngredienteViejoDTO ingredienteSeleccionado = ingredientes.get(filaSeleccionada);
+        IngredienteViejoListDTO ingredienteSeleccionado = ingredientes.get(filaSeleccionada);
 
         ControlNavegacion.mostrarPantallaVerDetallesIngrediente(ingredienteSeleccionado.getId());
         this.dispose();

@@ -1,6 +1,6 @@
 package pantallas.ingredientes;
 
-import DTOs.CRUDIngredientes.IngredienteViejoDTO;
+import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import control.ControlNavegacion;
 
 /**
@@ -9,9 +9,9 @@ import control.ControlNavegacion;
  */
 public class PantallaVerDetallesIngrediente extends javax.swing.JFrame {
 
-    IngredienteViejoDTO ingrediente;
+    DetallesIngredienteViejoDTO ingrediente;
 
-    public PantallaVerDetallesIngrediente(IngredienteViejoDTO ingrediente) {
+    public PantallaVerDetallesIngrediente(DetallesIngredienteViejoDTO ingrediente) {
         initComponents();
         this.ingrediente = ingrediente;
         cargarDetallesIngrediente();

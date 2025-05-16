@@ -1,6 +1,6 @@
 package pantallas.ingredientes;
 
-import DTOs.CRUDIngredientes.IngredienteViejoDTO;
+import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import control.ControlNavegacion;
 
 
@@ -11,13 +11,13 @@ import control.ControlNavegacion;
  */
 public class PantallaEditarDetallesIngrediente extends javax.swing.JFrame {
 
-    IngredienteViejoDTO ingrediente;
-    IngredienteViejoDTO ingredienteEditado;
+    DetallesIngredienteViejoDTO ingrediente;
+    DetallesIngredienteViejoDTO ingredienteEditado;
 
-    public PantallaEditarDetallesIngrediente(IngredienteViejoDTO ingrediente) {
+    public PantallaEditarDetallesIngrediente(DetallesIngredienteViejoDTO ingrediente) {
         initComponents();
         this.ingrediente = ingrediente;
-        this.ingredienteEditado = new IngredienteViejoDTO(ingrediente.getId(),ingrediente.getNombre(), ingrediente.getCantidadDisponible(), ingrediente.getCantidadMinima(), ingrediente.getUnidadMedida(), ingrediente.getNivelStock(), ingrediente.getProveedor());
+        this.ingredienteEditado = new DetallesIngredienteViejoDTO(ingrediente.getId(),ingrediente.getNombre(), ingrediente.getCantidadDisponible(), ingrediente.getCantidadMinima(), ingrediente.getUnidadMedida(), ingrediente.getNivelStock(), ingrediente.getProveedor());
         cargarNombreIngrediente();
         aplicarListeners();
     }

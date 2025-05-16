@@ -1,6 +1,7 @@
 package control;
 
-import DTOs.CRUDIngredientes.IngredienteViejoDTO;
+import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
@@ -605,14 +606,14 @@ public class ControlNavegacion {
     }
     
     public static void mostrarPantallaVerDetallesIngrediente(String idIngrediente) {
-        IngredienteViejoDTO ingredienteDTO =obtenerDetallesIngrediente(idIngrediente);
+        DetallesIngredienteViejoDTO ingredienteDTO =obtenerDetallesIngrediente(idIngrediente);
         
         JFrame frame = new PantallaVerDetallesIngrediente(ingredienteDTO);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     
-    public static void mostrarPantallaEditarDetallesIngrediente(IngredienteViejoDTO ingrediente) {
+    public static void mostrarPantallaEditarDetallesIngrediente(DetallesIngredienteViejoDTO ingrediente) {
         JFrame frame = new PantallaEditarDetallesIngrediente(ingrediente);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -631,12 +632,12 @@ public class ControlNavegacion {
     }
     
     //métodos
-    public static List<IngredienteViejoDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
+    public static List<IngredienteViejoListDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
         return new ArrayList();
     }
     
-    private static IngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
-        return new IngredienteViejoDTO();
+    private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
+        return new DetallesIngredienteViejoDTO();
     }   
     
 }
