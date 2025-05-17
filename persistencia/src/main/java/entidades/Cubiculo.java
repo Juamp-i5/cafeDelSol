@@ -10,36 +10,36 @@ package entidades;
  */
 public class Cubiculo {
     
-    private Long numeroCubiculo;
-    private Double precioCubiculo;
+    private String nombre;
+    private Double precioHora;
 
     public Cubiculo() {
     }
 
-    public Cubiculo(Long numeroCubiculo, Double precioCubiculo) {
-        this.numeroCubiculo = numeroCubiculo;
-        this.precioCubiculo = precioCubiculo;
+    public Cubiculo(String nombre, Double precioHora) {
+        this.nombre = nombre;
+        this.precioHora = precioHora;
     }
 
-    public Long getNumeroCubiculo() {
-        return numeroCubiculo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNumeroCubiculo(Long numeroCubiculo) {
-        this.numeroCubiculo = numeroCubiculo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Double getPrecioCubiculo() {
-        return precioCubiculo;
+    public Double getPrecioHora() {
+        return precioHora;
     }
 
-    public void setPrecioCubiculo(Double precioCubiculo) {
-        this.precioCubiculo = precioCubiculo;
+    public void setPrecioHora(Double precioHora) {
+        this.precioHora = precioHora;
     }
 
     @Override
     public String toString() {
-        return "Cubiculo{" + "numeroCubiculo=" + numeroCubiculo + ", precioCubiculo=" + precioCubiculo + '}';
+        return "Cubiculo{" + "numeroCubiculo=" + nombre + ", precioCubiculo=" + precioHora + '}';
     }
     
     

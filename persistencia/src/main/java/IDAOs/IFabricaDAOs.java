@@ -1,5 +1,9 @@
 package IDAOs;
 
+import IDAOs.cubiculos.ICancelacionDAO;
+import IDAOs.cubiculos.ICubiculoDAO;
+import IDAOs.cubiculos.IReagendaDAO;
+
 /**
  *
  * @author Jp
@@ -17,4 +21,10 @@ public interface IFabricaDAOs {
     public ITamanioDAO getTamanioDAO();
 
     public IToppingDAO getToppingDAO();
+    
+    public ICubiculoDAO getCubiculoDAO();
+    
+    public ICancelacionDAO getCancelacionDAO();
+    
+    public IReagendaDAO getReagendaDAO();
 }
