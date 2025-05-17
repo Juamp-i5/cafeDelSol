@@ -74,11 +74,11 @@ public class DetallesIngredienteViejoDTO {
         this.nivelStock = nivelStock;
     }
 
-    public String getIdProveedor() {
+    public String getNombreProveedor() {
         return nombreProveedor;
     }
 
-    public void setIdProveedor(String idProveedor) {
+    public void setNombreProveedor(String idProveedor) {
         this.nombreProveedor = idProveedor;
     }    
 
