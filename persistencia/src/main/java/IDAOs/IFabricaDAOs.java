@@ -3,6 +3,7 @@ package IDAOs;
 import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReagendaDAO;
+import IDAOs.entradas.IEntradaDAO;
 
 /**
  *
@@ -27,4 +28,6 @@ public interface IFabricaDAOs {
     public ICancelacionDAO getCancelacionDAO();
     
     public IReagendaDAO getReagendaDAO();
+    
+    public IEntradaDAO getEntradaDAO();
 }

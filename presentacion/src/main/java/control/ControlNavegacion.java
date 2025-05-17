@@ -1,5 +1,6 @@
 package control;
 
+import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
@@ -17,6 +18,9 @@ import DTOs.SaboresMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingsMostrarDTO;
+import Excepcion.GestorCRUDEntradasException;
+import Gestion.GestorCRUDEntradas;
+import Gestion.IGestorCRUDEntradas;
 import excepciones.GestionCRUDProductosException;
 import exception.GestionException;
 import gestion.GestorCRUDProductos;
@@ -24,6 +28,7 @@ import gestion.IGestionPedidos;
 import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -59,6 +64,7 @@ public class ControlNavegacion {
 
     private static IGestionPedidos gestor = new ManejadorPedidos();
     private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
+    private static IGestorCRUDEntradas gestorCRUDEntradas = GestorCRUDEntradas.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -681,4 +687,29 @@ public class ControlNavegacion {
         }
     }
     
+    public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
+        try {
+            return gestorCRUDEntradas.registrarEntrada(entrada);
+        } catch (GestorCRUDEntradasException e) {
+            System.err.println("Error de negocio al registrar entrada: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static List<EntradaViejaDTO> obtenerListaEntradasPorRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        try {
+            if (fechaInicio == null && fechaFin == null) {
+                return gestorCRUDEntradas.obtenerTodasLasEntradas();
+            } else if (fechaInicio == null) {
+                return gestorCRUDEntradas.obtenerEntradasHastaFecha(fechaFin);
+            } else if (fechaFin == null) {
+                return gestorCRUDEntradas.obtenerEntradasDesdeFecha(fechaInicio);
+            } else {
+                return gestorCRUDEntradas.obtenerListaEntradasPorRangoFechas(fechaInicio, fechaFin);
+            }
+        } catch (GestorCRUDEntradasException e) {
+            System.err.println("Error de negocio al obtener lista de entradas: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 }

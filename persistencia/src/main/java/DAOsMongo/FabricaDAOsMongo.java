@@ -3,6 +3,7 @@ package DAOsMongo;
 import DAOsMongo.cubiculos.CancelacionDAOMongo;
 import DAOsMongo.cubiculos.CubiculoDAOMongo;
 import DAOsMongo.cubiculos.ReagendaDAOMongo;
+import DAOsMongo.entradas.EntradaDAOMongo;
 import IDAOs.IFabricaDAOs;
 import conexion.ConexionMongo;
 import conexion.IConexionMongo;
@@ -15,6 +16,7 @@ import IDAOs.IToppingDAO;
 import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReagendaDAO;
+import IDAOs.entradas.IEntradaDAO;
 
 /**
  * Fábrica de DAOs estática que proporciona instancias de DAOs conectadas a
@@ -111,5 +113,10 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
     @Override
     public IReagendaDAO getReagendaDAO() {
         return ReagendaDAOMongo.getInstance(conexion);
+    }
+
+    @Override
+    public IEntradaDAO getEntradaDAO() {
+        return EntradaDAOMongo.getInstance(conexion);
     }
 }

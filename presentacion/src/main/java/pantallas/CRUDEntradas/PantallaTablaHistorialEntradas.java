@@ -59,24 +59,24 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
         modelo.setRowCount(0);
 
-//        List<EntradaViejaDTO> entradas = ControlNavegacion.obtenerListaEntradasPorRangoFecha(fechaInicio, fechaFin);
+        List<EntradaViejaDTO> entradas = ControlNavegacion.obtenerListaEntradasPorRangoFecha(fechaInicio, fechaFin);
 
-//        if (entradas == null) {
-//            JLabel lblVacio = new JLabel("No hay entradas actualmente en ese rango de fechas");
-//            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
-//            ScrollPaneHistorial.add(lblVacio);
-//        }
-//
-//        this.listaEntradas = entradas;
-//
-//        for (EntradaViejaDTO entrada : entradas) {
-//            modelo.addRow(new Object[]{
-//                entrada.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
-//                entrada.getProveedor(),
-//                entrada.getDetallesEntrada().size(),
-//                entrada.getPrecioTotal()
-//            });
-//        }
+        if (entradas == null) {
+            JLabel lblVacio = new JLabel("No hay entradas actualmente en ese rango de fechas");
+            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
+            ScrollPaneHistorial.add(lblVacio);
+        }
+
+        this.listaEntradas = entradas;
+
+        for (EntradaViejaDTO entrada : entradas) {
+            modelo.addRow(new Object[]{
+                entrada.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
+                entrada.getProveedor(),
+                entrada.getDetallesEntrada().size(),
+                entrada.getPrecioTotal()
+            });
+        }
     }
 
     private void actualizarComandasFiltradas() {

@@ -282,7 +282,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         entrada.setPrecioTotal(totalEntrada);
         entrada.setDetallesEntrada(registroNuevo);
 
-//        ControlNavegacion.registrarEntrada(entrada);
+        ControlNavegacion.registrarEntrada(entrada);
         ControlNavegacion.mostrarPantallaHistorialEntradas();
         this.dispose();
     }//GEN-LAST:event_BtnConfirmarActionPerformed
