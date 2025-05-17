@@ -4,7 +4,6 @@
  */
 package gestion;
 
-
 import BOs.PedidoBO;
 import BOs.ProductoBO;
 import BOs.SaborBO;
@@ -15,9 +14,9 @@ import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import DTOs.TarjetaDTO;
 import excepciones.NegocioException;
 import exception.GestionException;
@@ -57,8 +56,8 @@ public class ManejadorPedidos implements IGestionPedidos {
     public ManejadorPedidos() {
         this.fachadaPago = new FachadaPago(new PagoTarjetaAPI(), new ValidarPago());
     }
-    
-     @Override
+
+    @Override
     public boolean validarTarjetaPresentacion(TarjetaDTO tarjetaDTO) throws GestionException {
         DetallesCobroTarjetaDTO detalles = new DetallesCobroTarjetaDTO();
         detalles.setNumeroTarjeta(tarjetaDTO.getNumTarjeta());
@@ -133,9 +132,9 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public List<SaboresMostrarDTO> cargarSabores() throws GestionException {
+    public List<SaborMostrarDTO> cargarSabores() throws GestionException {
         try {
-            return saborBO.cargarProductos();
+            return saborBO.cargarSabores();
         } catch (NegocioException ex) {
             Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionException("Error al cargar Sabores");
@@ -143,12 +142,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public void agregarSabor(SaboresMostrarDTO sabor) {
+    public void agregarSabor(SaborMostrarDTO sabor) {
         productoPedidoActual.setSabor(sabor);
     }
 
     @Override
-    public List<ToppingsMostrarDTO> cargarToppings() throws GestionException {
+    public List<ToppingMostrarDTO> cargarToppings() throws GestionException {
         try {
             return toppingBO.cargarProductos();
         } catch (NegocioException ex) {
@@ -158,7 +157,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public void agregarTopping(ToppingsMostrarDTO topping) {
+    public void agregarTopping(ToppingMostrarDTO topping) {
         productoPedidoActual.setTopping(topping);
     }
 
@@ -192,7 +191,6 @@ public class ManejadorPedidos implements IGestionPedidos {
 //        }
 //        return true;
 //    }
-
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) throws GestionException {
 
@@ -225,7 +223,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public double calcularCosto() {
-        double costo = (productoPedidoActual.getProducto().getPrecio() + productoPedidoActual.getTamanio().getPrecio()) * productoPedidoActual.getCantidad();
+        double costo = (productoPedidoActual.getProducto().getPrecio() + productoPedidoActual.getTamanio().getPrecioAdicional()) * productoPedidoActual.getCantidad();
         productoPedidoActual.setCosto(costo);
         return productoPedidoActual.getCosto();
     }
@@ -270,7 +268,7 @@ public class ManejadorPedidos implements IGestionPedidos {
         double total = 0;
 
         for (ProductoPedidoDTO productoPedido : pedido.getPedido()) {
-            double costoProducto = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecio()) * productoPedido.getCantidad();
+            double costoProducto = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecioAdicional()) * productoPedido.getCantidad();
             productoPedido.setCosto(costoProducto);
             total += costoProducto;
         }
@@ -281,13 +279,14 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     //Ahoria lo hago, tiene que conectarse con su BO de Pedido
     @Override
-    public PedidoDTO registrarPedido()  throws GestionException{
+    public PedidoDTO registrarPedido() throws GestionException {
         try {
-            pedidoBO.registrarPedido(pedido);return pedido;
+            pedidoBO.registrarPedido(pedido);
+            return pedido;
         } catch (NegocioException ex) {
             Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         return pedido;
     }
 }

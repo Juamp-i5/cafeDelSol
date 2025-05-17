@@ -14,10 +14,10 @@ import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
 import Gestion.IGestorCRUDEntradas;
@@ -185,7 +185,7 @@ public class ControlNavegacion {
      *
      * @param sabor El sabor que se quiere agregar.
      */
-    public static void agregarSabor(SaboresMostrarDTO sabor) {
+    public static void agregarSabor(SaborMostrarDTO sabor) {
         gestor.agregarSabor(sabor);
     }
 
@@ -205,7 +205,7 @@ public class ControlNavegacion {
      * @param topping Establece el topping del parámetro como topping del
      * producto pedido.
      */
-    public static void agregarTopping(ToppingsMostrarDTO topping) {
+    public static void agregarTopping(ToppingMostrarDTO topping) {
         gestor.agregarTopping(topping);
     }
 

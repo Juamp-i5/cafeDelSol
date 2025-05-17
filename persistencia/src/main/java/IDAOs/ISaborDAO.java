@@ -4,7 +4,7 @@
  */
 package IDAOs;
 
-import entidades.Sabor;
+import DTOs.SaborDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface ISaborDAO {
 
-    public List<Sabor> buscarTodos() throws PersistenciaException;
+    public List<SaborDTO> buscarTodos() throws PersistenciaException;
 
-    public Sabor buscarPorNombre(String nombre) throws PersistenciaException;
+    public SaborDTO buscarPorNombre(String nombre) throws PersistenciaException;
 
 }

@@ -4,7 +4,7 @@
  */
 package interfacesBO;
 
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IToppingBO {
 
-    public List<ToppingsMostrarDTO> cargarProductos() throws NegocioException;
+    public List<ToppingMostrarDTO> cargarProductos() throws NegocioException;
 
 }

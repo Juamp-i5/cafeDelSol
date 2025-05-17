@@ -4,8 +4,8 @@
  */
 package mapper;
 
+import DTOs.ProductoDTO;
 import DTOs.ProductoMostrarDTO;
-import entidades.Producto;
 import interfacesMapper.IProductoMapper;
 
 /**
@@ -16,7 +16,7 @@ public class ProductoMapper implements IProductoMapper {
 
     private static ProductoMapper instanceMapper;
 
-    public ProductoMapper() {
+    private ProductoMapper() {
     }
 
     public static ProductoMapper getInstance() {
@@ -27,16 +27,17 @@ public class ProductoMapper implements IProductoMapper {
     }
 
     @Override
-    public ProductoMostrarDTO aDTO(Producto producto) {
-        if (producto == null) {
+    public ProductoMostrarDTO toProductoMostrarDTO(ProductoDTO productoDTO) {
+        if (productoDTO == null) {
             return null;
         }
 
-        ProductoMostrarDTO dto = new ProductoMostrarDTO();
-        dto.setNombre(producto.getNombre());
-        dto.setPrecio(producto.getPrecio());
-        dto.setUrlImagen(producto.getUrlImagen());
-        return dto;
+        ProductoMostrarDTO dtoMostrar = new ProductoMostrarDTO();
+        dtoMostrar.setNombre(productoDTO.getNombre());
+        dtoMostrar.setPrecio(productoDTO.getPrecioBase());
+        dtoMostrar.setImagenData(productoDTO.getImageData());
+
+        return dtoMostrar;
     }
 
 }

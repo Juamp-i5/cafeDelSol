@@ -4,7 +4,8 @@
  */
 package BOs;
 
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborDTO;
+import DTOs.SaborMostrarDTO;
 import entidades.Sabor;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -24,8 +25,8 @@ import acceso.AccesoDatos;
  */
 public class SaborBO implements ISaborBO {
 
-    ISaborDAO tamanioDAO = AccesoDatos.getSaborDAO();
-    ISaborMapper productoMapper = SaborMapper.getInstance();
+    ISaborDAO saborDAO = AccesoDatos.getSaborDAO();
+    ISaborMapper saborMapper = new SaborMapper();
 
     private static SaborBO instanceBO;
 
@@ -40,14 +41,14 @@ public class SaborBO implements ISaborBO {
     }
 
     @Override
-    public List<SaboresMostrarDTO> cargarProductos() throws NegocioException {
+    public List<SaborMostrarDTO> cargarSabores() throws NegocioException {
         try {
 
-            List<Sabor> sabores = tamanioDAO.buscarTodos();
-            List<SaboresMostrarDTO> saboresDTO = new ArrayList<>();
+            List<SaborDTO> sabores = saborDAO.buscarTodos();
+            List<SaborMostrarDTO> saboresDTO = new ArrayList<>();
 
-            for (Sabor sabor : sabores) {
-                SaboresMostrarDTO saborDTO = productoMapper.aDTO(sabor);
+            for (SaborDTO sabor : sabores) {
+                SaborMostrarDTO saborDTO = saborMapper.toSaboresMostrarDTO(sabor);
                 saboresDTO.add(saborDTO);
             }
 

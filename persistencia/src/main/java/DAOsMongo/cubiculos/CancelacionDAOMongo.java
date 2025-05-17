@@ -11,7 +11,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
 import conexion.IConexionMongo;
 import entidades.Cancelacion;
-import entidades.Reservacion;
 import excepciones.PersistenciaCubiculoEsception;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;

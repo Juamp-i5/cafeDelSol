@@ -1,6 +1,7 @@
 package BOs;
 
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingDTO;
+import DTOs.ToppingMostrarDTO;
 import entidades.Topping;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -20,8 +21,8 @@ import acceso.AccesoDatos;
  */
 public class ToppingBO implements IToppingBO {
 
-    IToppingDAO tamanioDAO = AccesoDatos.getToppingDAO();
-    IToppingMapper productoMapper = ToppingMapper.getInstance();
+    IToppingDAO toppingDAO = AccesoDatos.getToppingDAO();
+    IToppingMapper toppingMapper = new ToppingMapper();
 
     private static ToppingBO instanceBO;
 
@@ -36,14 +37,14 @@ public class ToppingBO implements IToppingBO {
     }
 
     @Override
-    public List<ToppingsMostrarDTO> cargarProductos() throws NegocioException {
+    public List<ToppingMostrarDTO> cargarProductos() throws NegocioException {
         try {
 
-            List<Topping> toppings = tamanioDAO.buscarTodos();
-            List<ToppingsMostrarDTO> toppingsDTO = new ArrayList<>();
+            List<ToppingDTO> toppings = toppingDAO.buscarTodos();
+            List<ToppingMostrarDTO> toppingsDTO = new ArrayList<>();
 
-            for (Topping topping : toppings) {
-                ToppingsMostrarDTO toppingDTO = productoMapper.aDTO(topping);
+            for (ToppingDTO topping : toppings) {
+                ToppingMostrarDTO toppingDTO = toppingMapper.toToppingsMostrarDTO(topping);
                 toppingsDTO.add(toppingDTO);
             }
 

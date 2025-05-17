@@ -4,7 +4,7 @@
  */
 package pantallas;
 
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
 import exception.GestionException;
@@ -35,7 +35,7 @@ public class PantallaSabores extends javax.swing.JFrame {
     private final int PADDING_HORIZONTAL = 20;
     private final int PADDING_VERTICAL = 20;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
-    List<SaboresMostrarDTO> sabores;
+    List<SaborMostrarDTO> sabores;
     private Modo modo;
     private JPanel panelConTodosLosSabores;
 
@@ -45,7 +45,7 @@ public class PantallaSabores extends javax.swing.JFrame {
      * @param sabores Lista de sabores disponibles para mostrar.
      * @param modo Modo en el que se abrirá la pantalla (CREACION o EDICION).
      */
-    public PantallaSabores(List<SaboresMostrarDTO> sabores, Modo modo) {
+    public PantallaSabores(List<SaborMostrarDTO> sabores, Modo modo) {
         this.sabores = sabores;
         this.modo = modo;
         initComponents2();
@@ -57,7 +57,7 @@ public class PantallaSabores extends javax.swing.JFrame {
      * Carga los sabores en la pantalla y los agrega al panel de sabores.
      */
     private void cargarSabores() {
-        for (SaboresMostrarDTO sabor : sabores) {
+        for (SaborMostrarDTO sabor : sabores) {
             JPanel panelSabor = new PanelSabor(sabor);
             panelSabor.addMouseListener(new EventosPanelSabor(sabor, panelSabor));
             panelConTodosLosSabores.add(panelSabor);
@@ -71,7 +71,7 @@ public class PantallaSabores extends javax.swing.JFrame {
      */
     private class EventosPanelSabor extends MouseAdapter {
 
-        private final SaboresMostrarDTO sabor;
+        private final SaborMostrarDTO sabor;
         private final JPanel panel;
 
         /**
@@ -80,7 +80,7 @@ public class PantallaSabores extends javax.swing.JFrame {
          * @param sabor Objeto que representa el sabor asociado al panel.
          * @param panel Panel que representa el sabor.
          */
-        public EventosPanelSabor(SaboresMostrarDTO sabor, JPanel panel) {
+        public EventosPanelSabor(SaborMostrarDTO sabor, JPanel panel) {
             this.sabor = sabor;
             this.panel = panel;
         }
@@ -113,7 +113,7 @@ public class PantallaSabores extends javax.swing.JFrame {
      *
      * @param sabor Sabor seleccionado por el usuario.
      */
-    private void saborSeleccionado(SaboresMostrarDTO sabor) throws GestionException {
+    private void saborSeleccionado(SaborMostrarDTO sabor) throws GestionException {
         ControlNavegacion.agregarSabor(sabor);
         if (modo == Modo.CREACION) {
             ControlNavegacion.mostrarPantallaToppings(Modo.CREACION);

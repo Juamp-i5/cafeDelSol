@@ -4,8 +4,8 @@
  */
 package mapper;
 
-import DTOs.SaboresMostrarDTO;
-import entidades.Sabor;
+import DTOs.SaborDTO;
+import DTOs.SaborMostrarDTO;
 import interfacesMapper.ISaborMapper;
 
 /**
@@ -14,27 +14,15 @@ import interfacesMapper.ISaborMapper;
  */
 public class SaborMapper implements ISaborMapper {
 
-    private static SaborMapper instanceMapper;
-
-    public SaborMapper() {
-    }
-
-    public static SaborMapper getInstance() {
-        if (instanceMapper == null) {
-            instanceMapper = new SaborMapper();
-        }
-        return instanceMapper;
-    }
-
     @Override
-    public SaboresMostrarDTO aDTO(Sabor sabor) {
+    public SaborMostrarDTO toSaboresMostrarDTO(SaborDTO sabor) {
         if (sabor == null) {
             return null;
         }
 
-        SaboresMostrarDTO dto = new SaboresMostrarDTO();
+        SaborMostrarDTO dto = new SaborMostrarDTO();
         dto.setNombre(sabor.getNombre());
-        dto.setUrlImagen(sabor.getUrlImagen());
+        dto.setImagenData(sabor.getImagenData());
         return dto;
     }
 }

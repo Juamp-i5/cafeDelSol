@@ -4,52 +4,43 @@
  */
 package entidades;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author rodri
  */
 public class Topping {
 
-    private Long id;
+    private ObjectId id;
     private String nombre;
-    private String urlImagen;
+    private byte[] imagenData;
 
     public Topping() {
     }
 
-    public Topping(Long id, String nombre, String urlImagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
+    public ObjectId getId() {
+        return id;
     }
 
-    public Long getId() {
-        return id;
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public byte[] getImagenData() {
+        return imagenData;
     }
 
-    @Override
-    public String toString() {
-        return "ToppingsMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
 }

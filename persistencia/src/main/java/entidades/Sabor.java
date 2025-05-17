@@ -4,30 +4,26 @@
  */
 package entidades;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author rodri
  */
 public class Sabor {
 
-    private Long id;
+    private ObjectId id;
     private String nombre;
-    private String urlImagen;
+    private byte[] imagenData;
 
     public Sabor() {
     }
 
-    public Sabor(Long id, String nombre, String urlImagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-    }
-
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -39,17 +35,12 @@ public class Sabor {
         this.nombre = nombre;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public byte[] getImagenData() {
+        return imagenData;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
-    }
-
-    @Override
-    public String toString() {
-        return "SaboresMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + '}';
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
 }

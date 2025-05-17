@@ -4,8 +4,8 @@
  */
 package mapper;
 
-import DTOs.ToppingsMostrarDTO;
-import entidades.Topping;
+import DTOs.ToppingDTO;
+import DTOs.ToppingMostrarDTO;
 import interfacesMapper.IToppingMapper;
 
 /**
@@ -14,27 +14,15 @@ import interfacesMapper.IToppingMapper;
  */
 public class ToppingMapper implements IToppingMapper {
 
-    private static ToppingMapper instanceMapper;
-
-    public ToppingMapper() {
-    }
-
-    public static ToppingMapper getInstance() {
-        if (instanceMapper == null) {
-            instanceMapper = new ToppingMapper();
-        }
-        return instanceMapper;
-    }
-
     @Override
-    public ToppingsMostrarDTO aDTO(Topping topping) {
-        if (topping == null) {
+    public ToppingMostrarDTO toToppingsMostrarDTO(ToppingDTO toppingDTO) {
+        if (toppingDTO == null) {
             return null;
         }
 
-        ToppingsMostrarDTO dto = new ToppingsMostrarDTO();
-        dto.setNombre(topping.getNombre());
-        dto.setUrlImagen(topping.getUrlImagen());
+        ToppingMostrarDTO dto = new ToppingMostrarDTO();
+        dto.setNombre(toppingDTO.getNombre());
+        dto.setImagenData(toppingDTO.getImagenData());
         return dto;
     }
 

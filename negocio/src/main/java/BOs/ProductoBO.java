@@ -7,8 +7,8 @@ package BOs;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
+import DTOs.ProductoDTO;
 import DTOs.ProductoMostrarDTO;
-import entidades.Producto;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.IProductoBO;
@@ -46,11 +46,11 @@ public class ProductoBO implements IProductoBO {
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
 
-            List<Producto> productos = productoDAO.buscarTodos();
+            List<ProductoDTO> productos = productoDAO.buscarTodosHabilitados();
             List<ProductoMostrarDTO> productosDTO = new ArrayList<>();
 
-            for (Producto producto : productos) {
-                ProductoMostrarDTO productoDTO = productoMapper.aDTO(producto);
+            for (ProductoDTO producto : productos) {
+                ProductoMostrarDTO productoDTO = productoMapper.toProductoMostrarDTO(producto);
                 productosDTO.add(productoDTO);
             }
 

@@ -5,11 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9798c1ac-024f-4b67-a279-8f91b9bea6ec" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gestionPedidos/src/main/java/gestion/ManejadorPedidos.java" beforeDir="false" afterPath="$PROJECT_DIR$/gestionPedidos/src/main/java/gestion/ManejadorPedidos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentacion/src/main/java/control/ControlNavegacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentacion/src/main/java/control/ControlNavegacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentacion/src/main/java/pantallas/PagoEfectivo.form" beforeDir="false" afterPath="$PROJECT_DIR$/presentacion/src/main/java/pantallas/PagoEfectivo.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presentacion/src/main/java/pantallas/PagoEfectivo.java" beforeDir="false" afterPath="$PROJECT_DIR$/presentacion/src/main/java/pantallas/PagoEfectivo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/BOs/ProductoBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/BOs/ProductoBO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/ProductoDAOMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/ProductoDAOMongo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/cubiculos/CancelacionDAOMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/cubiculos/CancelacionDAOMongo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/IDAOs/IProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/IDAOs/IProductoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/conexion/ConexionMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/conexion/ConexionMongo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Tamanio.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Tamanio.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,24 +22,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2wZIRH5wWnwq94X3cHxEG6A76zl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Jp/Documents/GitHub/cafeDelSol"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jp/Documents/GitHub/cafeDelSol&quot;
   }
-}]]></component>
+}</component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="9798c1ac-024f-4b67-a279-8f91b9bea6ec" name="Changes" comment="" />

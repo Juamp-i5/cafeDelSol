@@ -4,8 +4,8 @@
  */
 package mapper;
 
+import DTOs.TamanioDTO;
 import DTOs.TamanioMostrarDTO;
-import entidades.Tamanio;
 import interfacesMapper.ITamanioMapper;
 
 /**
@@ -14,28 +14,16 @@ import interfacesMapper.ITamanioMapper;
  */
 public class TamanioMapper implements ITamanioMapper {
 
-    private static TamanioMapper instanceMapper;
-
-    public TamanioMapper() {
-    }
-
-    public static TamanioMapper getInstance() {
-        if (instanceMapper == null) {
-            instanceMapper = new TamanioMapper();
-        }
-        return instanceMapper;
-    }
-
     @Override
-    public TamanioMostrarDTO aDTO(Tamanio tamanio) {
-        if (tamanio == null) {
+    public TamanioMostrarDTO toTamanioMostrarDTO(TamanioDTO tamanioDTO) {
+        if (tamanioDTO == null) {
             return null;
         }
 
         TamanioMostrarDTO dto = new TamanioMostrarDTO();
-        dto.setNombre(tamanio.getNombre());
-        dto.setUrlImagen(tamanio.getUrlImagen());
-        dto.setPrecio(tamanio.getPrecio());
+        dto.setNombre(tamanioDTO.getNombre());
+        dto.setImagenData(tamanioDTO.getImagenData());
+        dto.setPrecioAdicional(tamanioDTO.getPrecioAdicional());
         return dto;
     }
 }
