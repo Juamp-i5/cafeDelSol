@@ -24,22 +24,22 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
     @Override
     public DetalleEntrada toEntity(DetalleEntradaDTO detallesDTO) {
         DetalleEntrada detalles = new DetalleEntrada();
-//        detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
-//        detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
-//        detalles.setCantidad(detallesDTO.getCantidadIngrediente());
-//        detalles.setIdIngredientes(detalles.getIdIngredientes());
-//        detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
+        detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
+        detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
+        detalles.setCantidad(detallesDTO.getCantidadIngrediente());
+        detalles.setIngrediente(detalles.getIngrediente());
+        detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
         return detalles;
     }
 
     @Override
     public DetalleEntradaDTO todto(DetalleEntrada detalles) {
         DetalleEntradaDTO detallesDTO = new DetalleEntradaDTO();
-//        detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
-//        detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
-//        detallesDTO.setCantidadIngrediente(detalles.getCantidad());
-//        detallesDTO.setIdIngrediente(detallesDTO.getIdIngrediente());
-//        detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
+        detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
+        detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
+        detallesDTO.setCantidadIngrediente(detalles.getCantidad());
+        detallesDTO.setIngrediente(detallesDTO.getIngrediente());
+        detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
         return detallesDTO;
     }
 

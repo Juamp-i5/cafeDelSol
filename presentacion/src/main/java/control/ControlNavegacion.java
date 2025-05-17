@@ -650,10 +650,11 @@ public class ControlNavegacion {
         return new DetallesIngredienteViejoDTO();
     }   
     
+    //Pantallas Entradas  
     public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
         JFrame frame = new PantallaTablaDetallesEntrada(entrada);
         frame.setLocationRelativeTo(null);
-        frame.setVisible(true);;
+        frame.setVisible(true);
     }
 
     public static void mostrarPantallaHistorialEntradas() {
@@ -687,6 +688,7 @@ public class ControlNavegacion {
         }
     }
     
+    //Metodos
     public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
         try {
             return gestorCRUDEntradas.registrarEntrada(entrada);

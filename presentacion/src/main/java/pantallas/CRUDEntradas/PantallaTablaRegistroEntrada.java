@@ -258,9 +258,10 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             System.out.println("Tipo de precio total: " + precioTotal);
 
             DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
+            DetallesIngredienteViejoDTO ingrediente = preRegistro.getIngrediente();
             preRegistro.setNombreIngrediente(nombreIngrediente);
-//            preRegistro.(stockActual);           
-//            preRegistro.setUnidadaMedida(unidad);
+            ingrediente.setCantidadDisponible(stockActual);           
+            ingrediente.setUnidadMedida(unidad);
             
             preRegistro.setCantidadIngrediente(cantidadAgregada);
             preRegistro.setPrecioUnitario(precioUnitario);
@@ -292,12 +293,11 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             modeloTablaIngrdientes = (DefaultTableModel) jTable1.getModel();
         }
 
-// Listener para actualizar el precio total automáticamente
         modeloTablaIngrdientes.addTableModelListener(e -> {
             int row = e.getFirstRow();
             int col = e.getColumn();
 
-            if (col == 2 || col == 4) { // Si se modifica cantidad o precio unitario
+            if (col == 2 || col == 4) { 
                 try {
                     double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 2));
                     double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 4));

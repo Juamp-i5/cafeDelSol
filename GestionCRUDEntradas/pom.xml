@@ -23,4 +23,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.ejemplo.gestioncrudentradas.GestionCRUDEntradas</exec.mainClass>
     </properties>
+    <name>gestionCRUDEntradas</name>
 </project>
