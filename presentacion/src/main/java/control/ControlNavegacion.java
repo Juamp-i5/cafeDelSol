@@ -1,5 +1,6 @@
 package control;
 
+import DTOs.CRUDEntradas.EntradaViejaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
@@ -34,6 +35,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
+import pantallas.CRUDEntradas.BuscadorIngredientesSimulado;
+import pantallas.CRUDEntradas.PantallaTablaDetallesEntrada;
+import pantallas.CRUDEntradas.PantallaTablaHistorialEntradas;
+import pantallas.CRUDEntradas.PantallaTablaRegistroEntrada;
 import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
@@ -638,5 +643,42 @@ public class ControlNavegacion {
     private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
         return new DetallesIngredienteViejoDTO();
     }   
+    
+    public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
+        JFrame frame = new PantallaTablaDetallesEntrada(entrada);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);;
+    }
+
+    public static void mostrarPantallaHistorialEntradas() {
+        JFrame frame = new PantallaTablaHistorialEntradas();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    public static void mostrarPantallaRegistroEntrada() {
+        JFrame frame = new PantallaTablaRegistroEntrada();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarPantallaBuscadorIngrediente(Consumer<DetallesIngredienteViejoDTO> regreso) {
+        JFrame frame = new BuscadorIngredientesSimulado(regreso);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    public static void mostrarPantallaRealizarRegistro(Component frame) {
+        int respuesta = JOptionPane.showConfirmDialog(
+                frame,
+                "¿Deseas realizar el registro?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            //Lógica
+        }
+    }
     
 }
