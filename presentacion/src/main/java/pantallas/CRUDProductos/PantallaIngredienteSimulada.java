@@ -4,9 +4,9 @@
  */
 package pantallas.CRUDProductos;
 
-import DTOs.CRUDIngredientesSimulados.EstadoIngrediente;
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
-import DTOs.CRUDIngredientesSimulados.UnidadMedida;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
+import DTOs.CRUDIngredientes.NivelStock;
+import DTOs.CRUDIngredientes.UnidadMedida;
 import java.util.function.Consumer;
 
 /**
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  */
 public class PantallaIngredienteSimulada extends javax.swing.JFrame {
 
-    private Consumer<IngredienteListDTO> regreso;
+    private Consumer<IngredienteViejoListDTO> regreso;
 
     /**
      * Creates new form PantallaIngredienteSimulada
@@ -24,7 +24,7 @@ public class PantallaIngredienteSimulada extends javax.swing.JFrame {
         initComponents();
     }
 
-    public PantallaIngredienteSimulada(Consumer<IngredienteListDTO> regreso) {
+    public PantallaIngredienteSimulada(Consumer<IngredienteViejoListDTO> regreso) {
         initComponents();
         this.regreso = regreso;
         configurarCierre();
@@ -121,28 +121,28 @@ public class PantallaIngredienteSimulada extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteListDTO("dsadasds", "chocomil", 2.3, UnidadMedida.MILILITRO, EstadoIngrediente.HABILITADO));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "chocomil", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteListDTO("dsadasds", "leche", 2.3, UnidadMedida.MILILITRO, EstadoIngrediente.HABILITADO));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "leche", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteListDTO("dsadasds", "sanwich", 2.3, UnidadMedida.MILILITRO, EstadoIngrediente.HABILITADO));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "sanwich", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteListDTO("dsadasds", "victor", 2.3, UnidadMedida.MILILITRO, EstadoIngrediente.HABILITADO));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "victor", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton4ActionPerformed

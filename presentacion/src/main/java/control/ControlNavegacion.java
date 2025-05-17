@@ -2,7 +2,6 @@ package control;
 
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
@@ -545,7 +544,7 @@ public class ControlNavegacion {
         frame.setLocationRelativeTo(null);
     }
 
-    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteListDTO> regreso) {
+    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteViejoListDTO> regreso) {
         JFrame frame = new PantallaIngredienteSimulada(regreso);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);

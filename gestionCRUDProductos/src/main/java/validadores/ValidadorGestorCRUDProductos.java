@@ -4,10 +4,10 @@
  */
 package validadores;
 
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import java.util.Map;
 
 /**
@@ -63,7 +63,7 @@ public class ValidadorGestorCRUDProductos implements IValidadorGestorCRUDProduct
 
         // Validar ingredientes
         if (productoDTO.getIngredientes() != null) {
-            for (Map.Entry<IngredienteListDTO, Map<TamanioProducto, Double>> entry : productoDTO.getIngredientes().entrySet()) {
+            for (Map.Entry<IngredienteViejoListDTO, Map<TamanioProducto, Double>> entry : productoDTO.getIngredientes().entrySet()) {
                 if (entry.getKey() == null || entry.getKey().getId() == null || entry.getKey().getId().trim().isEmpty()) {
                     throw new IllegalArgumentException("Cada ingrediente debe tener un ID válido.");
                 }
@@ -130,7 +130,7 @@ public class ValidadorGestorCRUDProductos implements IValidadorGestorCRUDProduct
 
         // Validar ingredientes
         if (productoDTO.getIngredientes() != null) {
-            for (Map.Entry<IngredienteListDTO, Map<TamanioProducto, Double>> entry : productoDTO.getIngredientes().entrySet()) {
+            for (Map.Entry<IngredienteViejoListDTO, Map<TamanioProducto, Double>> entry : productoDTO.getIngredientes().entrySet()) {
                 if (entry.getKey() == null || entry.getKey().getId() == null || entry.getKey().getId().trim().isEmpty()) {
                     throw new IllegalArgumentException("Cada ingrediente debe tener un ID válido.");
                 }

@@ -1,7 +1,7 @@
 package pantallas.ingredientes;
 
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
-import DTOs.CRUDIngredientesSimulados.UnidadMedida;
+import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.event.ActionListener;
 import java.util.List;

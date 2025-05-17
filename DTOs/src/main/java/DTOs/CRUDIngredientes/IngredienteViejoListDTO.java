@@ -5,13 +5,18 @@ package DTOs.CRUDIngredientes;
  * @author norma
  */
 public class IngredienteViejoListDTO {
-   private String id;
+
+    private String id;
     private String nombre;
     private Double cantidadDisponible;
     private UnidadMedida unidadMedida;
     private NivelStock nivelStock;
 
     public IngredienteViejoListDTO() {
+    }
+
+    public IngredienteViejoListDTO(String id) {
+        this.id = id;
     }
 
     public IngredienteViejoListDTO(String id, String nombre, Double cantidadDisponible, UnidadMedida unidadMedida, NivelStock nivelStock) {
@@ -61,5 +66,5 @@ public class IngredienteViejoListDTO {
     public void setNivelStock(NivelStock nivelStock) {
         this.nivelStock = nivelStock;
     }
-  
+
 }

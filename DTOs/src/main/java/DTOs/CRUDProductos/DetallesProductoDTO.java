@@ -4,7 +4,7 @@
  */
 package DTOs.CRUDProductos;
 
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import java.util.Map;
 
 /**
@@ -20,12 +20,12 @@ public class DetallesProductoDTO {
     private byte[] imagenData;
     EstadoProducto estadoProducto;
     Map<TamanioProducto, Double> precios;
-    Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes;
+    Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes;
 
     public DetallesProductoDTO() {
     }
 
-    public DetallesProductoDTO(String id, String nombre, String descipcion, CategoriaProducto categoria, byte[] imagenData, EstadoProducto estadoProducto, Map<TamanioProducto, Double> precios, Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes) {
+    public DetallesProductoDTO(String id, String nombre, String descipcion, CategoriaProducto categoria, byte[] imagenData, EstadoProducto estadoProducto, Map<TamanioProducto, Double> precios, Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes) {
         this.id = id;
         this.nombre = nombre;
         this.descipcion = descipcion;
@@ -103,11 +103,11 @@ public class DetallesProductoDTO {
         this.precios = precios;
     }
 
-    public Map<IngredienteListDTO, Map<TamanioProducto, Double>> getIngredientes() {
+    public Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes) {
+    public void setIngredientes(Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes) {
         this.ingredientes = ingredientes;
     }
 
