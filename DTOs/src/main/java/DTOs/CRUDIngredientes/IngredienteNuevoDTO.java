@@ -15,18 +15,18 @@ public class IngredienteNuevoDTO {
     private Double cantidadMinima;
     private UnidadMedida unidadMedida;
     private NivelStock nivelStock;
-    private ProveedorViejoDTO proveedor;
+    private String idProveedor;
 
     public IngredienteNuevoDTO() {
     }
 
-    public IngredienteNuevoDTO(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, ProveedorViejoDTO proveedor) {
+    public IngredienteNuevoDTO(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
         this.unidadMedida = unidadMedida;
-        this.nivelStock = NivelStock.ENSTOCK;
-        this.proveedor = proveedor;
+        this.nivelStock = nivelStock;
+        this.idProveedor = idProveedor;
     }
 
     public String getNombre() {
@@ -69,17 +69,17 @@ public class IngredienteNuevoDTO {
         this.nivelStock = nivelStock;
     }
 
-    public ProveedorViejoDTO getProveedor() {
-        return proveedor;
+    public String getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setProveedor(ProveedorViejoDTO proveedor) {
-        this.proveedor = proveedor;
+    public void setIdProveedor(String idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     @Override
     public String toString() {
-        return "IngredienteNuevoDTO{" + "nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", proveedor=" + proveedor + '}';
+        return "IngredienteNuevoDTO{" + "nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
     }
     
 }

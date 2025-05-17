@@ -11,21 +11,21 @@ public class DetallesIngredienteViejoDTO {
     private Double cantidadMinima;
     private UnidadMedida unidadMedida;
     private NivelStock nivelStock;
-    private ProveedorViejoDTO proveedor;
+    private String idProveedor;
 
     public DetallesIngredienteViejoDTO() {
     }
-    
-    public DetallesIngredienteViejoDTO(String id, String nombre, Double cantidadDisponible, Double cantidadMinima,UnidadMedida unidadMedida, NivelStock nivelStock, ProveedorViejoDTO proveedor) {
+
+    public DetallesIngredienteViejoDTO(String id, String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
         this.unidadMedida = unidadMedida;
         this.nivelStock = nivelStock;
-        this.proveedor = proveedor;
+        this.idProveedor = idProveedor;
     }
-
+    
     public String getId() {
         return id;
     }
@@ -74,17 +74,17 @@ public class DetallesIngredienteViejoDTO {
         this.nivelStock = nivelStock;
     }
 
-    public ProveedorViejoDTO getProveedor() {
-        return proveedor;
+    public String getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setProveedor(ProveedorViejoDTO proveedor) {
-        this.proveedor = proveedor;
-    }
+    public void setIdProveedor(String idProveedor) {
+        this.idProveedor = idProveedor;
+    }    
 
     @Override
     public String toString() {
-        return "IngredienteViejoDTO{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", proveedor=" + proveedor + '}';
+        return "DetallesIngredienteViejoDTO{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
     }
 
     

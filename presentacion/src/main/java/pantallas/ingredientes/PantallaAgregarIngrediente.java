@@ -1,6 +1,7 @@
 package pantallas.ingredientes;
 
 import DTOs.CRUDIngredientes.IngredienteNuevoDTO;
+import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.ProveedorViejoDTO;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
@@ -55,7 +56,7 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         double cantidadDisponible;
         cantidadDisponible = Double.parseDouble(cantidadDisponibleStr);
 
-        ingredienteNuevo = new IngredienteNuevoDTO(nombre, cantidadDisponible, 1.0, unidadMedida, new ProveedorViejoDTO("1", "adel"));
+        ingredienteNuevo = new IngredienteNuevoDTO(nombre, cantidadDisponible, 1.0, unidadMedida,NivelStock.ENSTOCK ,"1");
 
         agregarNuevoIngrediente();
     }
