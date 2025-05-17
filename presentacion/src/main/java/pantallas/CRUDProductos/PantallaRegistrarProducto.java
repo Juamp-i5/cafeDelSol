@@ -4,7 +4,7 @@
  */
 package pantallas.CRUDProductos;
 
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDProductos.CategoriaProducto;
 import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.ProductoCreateDTO;
@@ -160,7 +160,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     }
 
     private void recolectarDatosTabla() {
-        Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
+        Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
         for (int i = 0; i < tablaProductosTable.getRowCount(); i++) {
             String id = tablaProductosTable.getValueAt(i, 0).toString();
             Double cantidadChico = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
@@ -172,7 +172,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             cantidades.put(TamanioProducto.MEDIANO, cantidadMediano);
             cantidades.put(TamanioProducto.GRANDE, cantidadGrande);
 
-            ingredientes.put(new IngredienteListDTO(id), cantidades);
+            ingredientes.put(new IngredienteViejoListDTO(id), cantidades);
         }
         productoNuevo.setIngredientes(ingredientes);
     }

@@ -4,7 +4,7 @@
  */
 package interfacesBO;
 
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import excepciones.NegocioException;
 import java.util.List;
 
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface ISaborBO {
 
-    public List<SaboresMostrarDTO> cargarProductos() throws NegocioException;
+    public List<SaborMostrarDTO> cargarSabores() throws NegocioException;
 
 }

@@ -4,8 +4,8 @@
  */
 package interfacesMapper;
 
+import DTOs.ProductoDTO;
 import DTOs.ProductoMostrarDTO;
-import entidades.Producto;
 
 /**
  *
@@ -13,5 +13,5 @@ import entidades.Producto;
  */
 public interface IProductoMapper {
 
-    ProductoMostrarDTO aDTO(Producto producto);
+    ProductoMostrarDTO toProductoMostrarDTO(ProductoDTO producto);
 }

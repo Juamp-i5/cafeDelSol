@@ -4,8 +4,8 @@
  */
 package BOs;
 
+import DTOs.TamanioDTO;
 import DTOs.TamanioMostrarDTO;
-import entidades.Tamanio;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
 import interfacesBO.ITamanioBO;
@@ -25,7 +25,7 @@ import acceso.AccesoDatos;
 public class TamanioBO implements ITamanioBO {
 
     ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
-    ITamanioMapper productoMapper = TamanioMapper.getInstance();
+    ITamanioMapper productoMapper = new TamanioMapper();
 
     private static TamanioBO instanceBO;
 
@@ -43,18 +43,18 @@ public class TamanioBO implements ITamanioBO {
     public List<TamanioMostrarDTO> cargarProductos() throws NegocioException {
         try {
 
-            List<Tamanio> tamanios = tamanioDAO.buscarTodos();
+            List<TamanioDTO> tamanios = tamanioDAO.buscarTodos();
             List<TamanioMostrarDTO> tamaniosDTO = new ArrayList<>();
 
-            for (Tamanio tamanio : tamanios) {
-                TamanioMostrarDTO tamanioDTO = productoMapper.aDTO(tamanio);
+            for (TamanioDTO tamanio : tamanios) {
+                TamanioMostrarDTO tamanioDTO = productoMapper.toTamanioMostrarDTO(tamanio);
                 tamaniosDTO.add(tamanioDTO);
             }
 
             return tamaniosDTO;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new NegocioException("Error al cargar los productos");
+            throw new NegocioException("Error al cargar los tamanios");
         }
 
     }

@@ -12,20 +12,15 @@ public class ProductoMostrarDTO {
 
     private String nombre;
     private double precio;
-    private String urlImagen;
+    private byte[] imagenData;
 
     public ProductoMostrarDTO() {
     }
 
-    public ProductoMostrarDTO(String nombre, String urlImagen) {
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-    }
-
-    public ProductoMostrarDTO(String nombre, double precio, String urlImagen) {
+    public ProductoMostrarDTO(String nombre, double precio, byte[] imagenData) {
         this.nombre = nombre;
         this.precio = precio;
-        this.urlImagen = urlImagen;
+        this.imagenData = imagenData;
     }
 
     public String getNombre() {
@@ -44,17 +39,12 @@ public class ProductoMostrarDTO {
         this.precio = precio;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public byte[] getImagenData() {
+        return imagenData;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
-    }
-
-    @Override
-    public String toString() {
-        return "ProductoMostrarDTO{nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
 }

@@ -7,9 +7,9 @@ package com.mycompany.presentacion;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import control.ControlNavegacion;
 //import gestion.IGestionPedidos;
 import gestion.ManejadorPedidos;
@@ -35,7 +35,7 @@ public class PruebaAgregarTerminarPerdido {
 //        producto.setNombre("Café"); // Establecer nombre del producto correctamente
 //        producto.setId(1L);
 //        
-//        SaboresMostrarDTO sabor = new SaboresMostrarDTO();
+//        SaborMostrarDTO sabor = new SaborMostrarDTO();
 //        sabor.setNombre("Fresa"); // Establecer nombre del sabor correctamente
 //        sabor.setId(1L);
 //        
@@ -43,7 +43,7 @@ public class PruebaAgregarTerminarPerdido {
 //        tamanio.setNombre("Grande"); // Establecer nombre del tamaño correctamente
 //        tamanio.setId(1L);
 //        
-//        ToppingsMostrarDTO topping = new ToppingsMostrarDTO();
+//        ToppingMostrarDTO topping = new ToppingMostrarDTO();
 //        topping.setNombre("Cajeta"); // Establecer nombre del topping correctamente
 //        
 //        topping.setId(1L);

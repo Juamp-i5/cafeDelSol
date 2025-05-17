@@ -1,7 +1,11 @@
 package BOs;
 
 import DTOs.PedidoDTO;
+import DTOs.ProductoDTO;
 import DTOs.ProductoPedidoDTO;
+import DTOs.SaborDTO;
+import DTOs.TamanioDTO;
+import DTOs.ToppingDTO;
 import entidades.Pedido;
 import entidades.Producto;
 import entidades.ProductoPedido;
@@ -64,40 +68,40 @@ public class PedidoBO implements IPedidoBO {
 
     @Override
     public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
-        try {
-            notificarObservers();
-
-            List<ProductoPedidoDTO> pds = pedidoDTO.getPedido();
-            List<ProductoPedido> pdsE = new ArrayList<>();
-            Pedido pedido = pedidoMapper.toEntity(pedidoDTO);
-
-            for (ProductoPedidoDTO pd : pds) {
-
-                Producto producto;
-                Tamanio tamanio;
-                Sabor sabor;
-                Topping topping;
-
-                producto = productoDAO.buscarPorNombre(pd.getProducto().getNombre());
-                tamanio = tamanioDAO.buscarPorNombre(pd.getTamanio().getNombre());
-                sabor = saborDAO.buscarPorNombre(pd.getSabor().getNombre());
-                if (pd.getTopping() != null) {
-                    topping = toppingDAO.buscarPorNombre(pd.getTopping().getNombre());
-                    pdsE.add(new ProductoPedido(producto, tamanio, sabor, topping));
-                } else {
-                    pdsE.add(new ProductoPedido(producto, tamanio, sabor));
-                }
-            }
-
-            pedido.setPedido(pdsE);
-            pedidoDAO.registrarPedido(pedido);
-            return pedidoDTO;
-
-        } catch (PersistenciaException ex) {
-            Logger.getLogger(PedidoBO.class.getName()).log(Level.SEVERE, null, ex);
-            throw new NegocioException("Error al registrar");
-        }
-
+//        try {
+//            notificarObservers();
+//
+//            List<ProductoPedidoDTO> pds = pedidoDTO.getPedido();
+//            List<ProductoPedido> pdsE = new ArrayList<>();
+//            Pedido pedido = pedidoMapper.toEntity(pedidoDTO);
+//
+//            for (ProductoPedidoDTO pd : pds) {
+//
+//                ProductoDTO producto;
+//                TamanioDTO tamanio;
+//                SaborDTO sabor;
+//                ToppingDTO topping;
+//
+//                producto = productoDAO.buscarPorNombre(pd.getProducto().getNombre());
+//                tamanio = tamanioDAO.buscarPorNombre(pd.getTamanio().getNombre());
+//                sabor = saborDAO.buscarPorNombre(pd.getSabor().getNombre());
+//                if (pd.getTopping() != null) {
+//                    topping = toppingDAO.buscarPorNombre(pd.getTopping().getNombre());
+//                    pdsE.add(new ProductoPedido(producto, tamanio, sabor, topping));
+//                } else {
+//                    pdsE.add(new ProductoPedido(producto, tamanio, sabor));
+//                }
+//            }
+//
+//            pedido.setPedido(pdsE);
+//            pedidoDAO.registrarPedido(pedido);
+//            return pedidoDTO;
+//
+//        } catch (PersistenciaException ex) {
+//            Logger.getLogger(PedidoBO.class.getName()).log(Level.SEVERE, null, ex);
+//            throw new NegocioException("Error al registrar");
+//        }
+        return null;
     }
 
 }

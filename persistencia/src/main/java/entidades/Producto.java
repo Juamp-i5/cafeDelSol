@@ -4,38 +4,31 @@
  */
 package entidades;
 
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author rodri
  */
 public class Producto {
 
-    private Long id;
+    private ObjectId id;
     private String nombre;
-    private double precio;
-    private String urlImagen;
+    private String categoria;
+    private double precioBase;
+    private byte[] imageData;
+    private String estado;
+    private List<Tamanio> tamanios;
 
     public Producto() {
     }
 
-    public Producto(Long id, String nombre, String urlImagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-    }
-
-    public Producto(Long id, String nombre, double precio, String urlImagen) {
-        this.id = id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.urlImagen = urlImagen;
-    }
-
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -47,25 +40,44 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public double getPrecioBase() {
+        return precioBase;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setPrecioBase(double precioBase) {
+        this.precioBase = precioBase;
     }
 
-    @Override
-    public String toString() {
-        return "ProductoMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", urlImagen=" + urlImagen + '}';
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public List<Tamanio> getTamanios() {
+        return tamanios;
+    }
+
+    public void setTamanios(List<Tamanio> tamanios) {
+        this.tamanios = tamanios;
     }
 
 }

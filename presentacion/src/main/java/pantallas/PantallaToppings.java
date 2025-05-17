@@ -4,7 +4,7 @@
  */
 package pantallas;
 
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import control.ControlNavegacion;
 import control.Modo;
 import java.awt.BorderLayout;
@@ -35,7 +35,7 @@ public class PantallaToppings extends javax.swing.JFrame {
     private final int PADDING_VERTICAL = 20;
     private final Color COLOR_HOVER_PANEL = new Color(220, 220, 220);
 
-    List<ToppingsMostrarDTO> toppings;
+    List<ToppingMostrarDTO> toppings;
     private Modo modo;
     private JPanel panelConTodosLosToppings;
 
@@ -46,7 +46,7 @@ public class PantallaToppings extends javax.swing.JFrame {
      * @param toppings Lista de toppings a mostrar en la pantalla.
      * @param modo Modo en el que se encuentra la pantalla (CREACION o EDICION).
      */
-    public PantallaToppings(List<ToppingsMostrarDTO> toppings, Modo modo) {
+    public PantallaToppings(List<ToppingMostrarDTO> toppings, Modo modo) {
         this.toppings = toppings;
         this.modo = modo;
         initComponents2();
@@ -60,7 +60,7 @@ public class PantallaToppings extends javax.swing.JFrame {
      * manejador de eventos.
      */
     private void cargarToppings() {
-        for (ToppingsMostrarDTO topping : toppings) {
+        for (ToppingMostrarDTO topping : toppings) {
             JPanel panelTopping = new PanelTopping(topping);
             panelTopping.addMouseListener(new EventosPanelTopping(topping, panelTopping));
             panelConTodosLosToppings.add(panelTopping);
@@ -75,7 +75,7 @@ public class PantallaToppings extends javax.swing.JFrame {
      */
     private class EventosPanelTopping extends MouseAdapter {
 
-        private final ToppingsMostrarDTO topping;
+        private final ToppingMostrarDTO topping;
         private final JPanel panel;
 
         /**
@@ -84,7 +84,7 @@ public class PantallaToppings extends javax.swing.JFrame {
          * @param topping Topping asociado al panel.
          * @param panel Panel que contiene el topping.
          */
-        public EventosPanelTopping(ToppingsMostrarDTO topping, JPanel panel) {
+        public EventosPanelTopping(ToppingMostrarDTO topping, JPanel panel) {
             this.topping = topping;
             this.panel = panel;
         }
@@ -114,7 +114,7 @@ public class PantallaToppings extends javax.swing.JFrame {
      *
      * @param topping El topping seleccionado.
      */
-    private void toppingSeleccionado(ToppingsMostrarDTO topping) {
+    private void toppingSeleccionado(ToppingMostrarDTO topping) {
         ControlNavegacion.agregarTopping(topping);
 
         if (modo == Modo.CREACION) {

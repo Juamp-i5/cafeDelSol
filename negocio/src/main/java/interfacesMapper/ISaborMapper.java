@@ -4,8 +4,8 @@
  */
 package interfacesMapper;
 
-import DTOs.SaboresMostrarDTO;
-import entidades.Sabor;
+import DTOs.SaborDTO;
+import DTOs.SaborMostrarDTO;
 
 /**
  *
@@ -13,5 +13,5 @@ import entidades.Sabor;
  */
 public interface ISaborMapper {
 
-    SaboresMostrarDTO aDTO(Sabor sabor);
+    public SaborMostrarDTO toSaboresMostrarDTO(SaborDTO sabor);
 }

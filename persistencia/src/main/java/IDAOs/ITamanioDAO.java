@@ -4,7 +4,7 @@
  */
 package IDAOs;
 
-import entidades.Tamanio;
+import DTOs.TamanioDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface ITamanioDAO {
 
-    public List<Tamanio> buscarTodos() throws PersistenciaException;
+    public List<TamanioDTO> buscarTodos() throws PersistenciaException;
 
-    public Tamanio buscarPorNombre(String nombre) throws PersistenciaException;
+    public TamanioDTO buscarPorNombre(String nombre) throws PersistenciaException;
 }

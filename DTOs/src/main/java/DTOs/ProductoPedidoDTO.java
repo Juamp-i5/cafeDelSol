@@ -12,8 +12,8 @@ public class ProductoPedidoDTO {
 
     private ProductoMostrarDTO producto;
     private TamanioMostrarDTO tamanio;
-    private SaboresMostrarDTO sabor;
-    private ToppingsMostrarDTO topping;
+    private SaborMostrarDTO sabor;
+    private ToppingMostrarDTO topping;
     private int cantidad = 1;
     private double costo;
 
@@ -21,14 +21,14 @@ public class ProductoPedidoDTO {
         this.cantidad = 1;
     }
 
-    public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaboresMostrarDTO sabor) {
+    public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaborMostrarDTO sabor) {
         this.producto = producto;
         this.tamanio = tamanio;
         this.sabor = sabor;
         this.cantidad = 1;
     }
 
-    public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaboresMostrarDTO sabor, ToppingsMostrarDTO topping) {
+    public ProductoPedidoDTO(ProductoMostrarDTO producto, TamanioMostrarDTO tamanio, SaborMostrarDTO sabor, ToppingMostrarDTO topping) {
         this.producto = producto;
         this.tamanio = tamanio;
         this.sabor = sabor;
@@ -52,19 +52,19 @@ public class ProductoPedidoDTO {
         this.tamanio = tamanio;
     }
 
-    public SaboresMostrarDTO getSabor() {
+    public SaborMostrarDTO getSabor() {
         return sabor;
     }
 
-    public void setSabor(SaboresMostrarDTO sabor) {
+    public void setSabor(SaborMostrarDTO sabor) {
         this.sabor = sabor;
     }
 
-    public ToppingsMostrarDTO getTopping() {
+    public ToppingMostrarDTO getTopping() {
         return topping;
     }
 
-    public void setTopping(ToppingsMostrarDTO topping) {
+    public void setTopping(ToppingMostrarDTO topping) {
         this.topping = topping;
     }
 

@@ -8,9 +8,9 @@ import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import DTOs.TarjetaDTO;
 import exception.GestionException;
 import java.util.List;
@@ -76,7 +76,7 @@ public interface IGestionPedidos {
      *
      * @return La lista de sabores disponibles.
      */
-    public List<SaboresMostrarDTO> cargarSabores() throws GestionException;
+    public List<SaborMostrarDTO> cargarSabores() throws GestionException;
 
     /**
      * Agrega un sabor al producto pedido actual. Establece el sabor del
@@ -84,14 +84,14 @@ public interface IGestionPedidos {
      *
      * @param sabor El sabor que se quiere agregar.
      */
-    public void agregarSabor(SaboresMostrarDTO sabor);
+    public void agregarSabor(SaborMostrarDTO sabor);
 
     /**
      * Carga la lista de toppings disponibles.
      *
      * @return La lista de toppings disponibles.
      */
-    public List<ToppingsMostrarDTO> cargarToppings() throws GestionException;
+    public List<ToppingMostrarDTO> cargarToppings() throws GestionException;
 
     /**
      * Agrega un topping al producto pedido actual.
@@ -99,7 +99,7 @@ public interface IGestionPedidos {
      * @param topping Establece el topping del parámetro como topping del
      * producto pedido.
      */
-    public void agregarTopping(ToppingsMostrarDTO topping);
+    public void agregarTopping(ToppingMostrarDTO topping);
 
     /**
      * Valida la información de una tarjeta de presentación.

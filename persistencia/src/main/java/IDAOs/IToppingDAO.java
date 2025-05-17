@@ -4,7 +4,7 @@
  */
 package IDAOs;
 
-import entidades.Topping;
+import DTOs.ToppingDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  */
 public interface IToppingDAO {
 
-    public List<Topping> buscarTodos() throws PersistenciaException;
+    public List<ToppingDTO> buscarTodos() throws PersistenciaException;
 
-    public Topping buscarPorNombre(String nombre) throws PersistenciaException;
+    public ToppingDTO buscarPorNombre(String nombre) throws PersistenciaException;
 
 }

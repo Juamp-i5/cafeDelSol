@@ -6,6 +6,7 @@ package entidades;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class Pedido {
 
+    private ObjectId id;
     private List<ProductoPedido> pedido = new ArrayList<>();
     private double costoTotal;
     private boolean terminado;
@@ -37,6 +39,14 @@ public class Pedido {
         this.costoTotal = costoTotal;
         this.terminado = terminado;
         this.pedido = pedido;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
     }
 
     public List<ProductoPedido> getPedido() {

@@ -6,9 +6,9 @@ package com.mycompany.presentacion;
 
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
 import control.ControlNavegacion;
 import pantallas.PantallaEditarProducto;
 
@@ -25,8 +25,8 @@ public class PruebaEditar {
         // Simulamos un producto seleccionado
 //        ProductoMostrarDTO producto = new ProductoMostrarDTO(1L, "Frappe frío", "../img/latteFrio.jpeg");
 //        TamanioMostrarDTO tamanio = new TamanioMostrarDTO(2L, "Mediano", "../img/tamanioMediano.jpg", 5);
-//        SaboresMostrarDTO sabor = new SaboresMostrarDTO(3L, "Moka", "../img/saborMoka.jpg");
-//        ToppingsMostrarDTO topping = new ToppingsMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg");
+//        SaborMostrarDTO sabor = new SaborMostrarDTO(3L, "Moka", "../img/saborMoka.jpg");
+//        ToppingMostrarDTO topping = new ToppingMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg");
 
         // Crear el objeto ProductoPedidoDTO
 //        ProductoPedidoDTO productoPedido = new ProductoPedidoDTO();

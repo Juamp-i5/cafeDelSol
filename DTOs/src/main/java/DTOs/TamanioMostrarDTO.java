@@ -9,19 +9,19 @@ package DTOs;
  * @author rodri
  */
 public class TamanioMostrarDTO {
-    
+
     private String nombre;
-    private String urlImagen;
-    private int precio;
+    private byte[] imagenData;
+    private double precioAdicional;
 
     public TamanioMostrarDTO() {
     }
 
-    public TamanioMostrarDTO(String nombre, String urlImagen, int precio) {
+    public TamanioMostrarDTO(String nombre, byte[] imagenData, double precioAdicional) {
         this.nombre = nombre;
-        this.urlImagen = urlImagen;
-        this.precio = precio;
-    }   
+        this.imagenData = imagenData;
+        this.precioAdicional = precioAdicional;
+    }
 
     public String getNombre() {
         return nombre;
@@ -31,26 +31,20 @@ public class TamanioMostrarDTO {
         this.nombre = nombre;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public byte[] getImagenData() {
+        return imagenData;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
-    public int getPrecio() {
-        return precio;
+    public double getPrecioAdicional() {
+        return precioAdicional;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setPrecioAdicional(double precioAdicional) {
+        this.precioAdicional = precioAdicional;
     }
 
-    @Override
-    public String toString() {
-        return "TamanioMostrarDTO{nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
-    }
-    
-    
 }

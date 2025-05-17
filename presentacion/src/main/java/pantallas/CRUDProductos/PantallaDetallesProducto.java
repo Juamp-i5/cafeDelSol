@@ -4,17 +4,15 @@
  */
 package pantallas.CRUDProductos;
 
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDProductos.CategoriaProducto;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.EstadoProducto;
-import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
 import control.ControlNavegacion;
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -162,10 +160,10 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     }
 
     private void desplegarDatosTabla() {
-        Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
+        Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
 
-        for (Map.Entry<IngredienteListDTO, Map<TamanioProducto, Double>> entry : ingredientes.entrySet()) {
-            IngredienteListDTO ingrediente = entry.getKey();
+        for (Map.Entry<IngredienteViejoListDTO, Map<TamanioProducto, Double>> entry : ingredientes.entrySet()) {
+            IngredienteViejoListDTO ingrediente = entry.getKey();
             Map<TamanioProducto, Double> cantidades = entry.getValue();
 
             String id = ingrediente.getId();
@@ -210,7 +208,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     }
 
     private void recolectarDatosTabla() {
-        Map<IngredienteListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
+        Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
         for (int i = 0; i < tablaProductosTable.getRowCount(); i++) {
             String id = tablaProductosTable.getValueAt(i, 0).toString();
             Double cantidadChico = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
@@ -222,7 +220,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
             cantidades.put(TamanioProducto.MEDIANO, cantidadMediano);
             cantidades.put(TamanioProducto.GRANDE, cantidadGrande);
 
-            ingredientes.put(new IngredienteListDTO(id), cantidades);
+            ingredientes.put(new IngredienteViejoListDTO(id), cantidades);
         }
         productoActualizado.setIngredientes(ingredientes);
     }

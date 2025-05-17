@@ -2,17 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package IDAOs;
+package IDAOs.cubiculos;
 
-import entidades.Reagenda;
-import entidades.Reservacion;
+import entidades.Cubiculo;
+import excepciones.PersistenciaCubiculoEsception;
+import java.util.List;
 
 /**
  *
  * @author rodri
  */
-public interface IReagendaDAO {
+public interface ICubiculoDAO {
     
-    public Reagenda agregarReagenda(Reservacion viejaReservacion, Reservacion nuevaReservacion);
-    
+    public List<Cubiculo> obtenerCubiculos() throws PersistenciaCubiculoEsception;
 }

@@ -1,8 +1,13 @@
 package conexion;
 
+import com.mongodb.ConnectionString;
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import org.bson.codecs.configuration.CodecRegistries;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
 
 /**
  * Implementación de la interfaz {@link IConexionMongo} para establecer y
@@ -27,9 +32,20 @@ public class ConexionMongo implements IConexionMongo {
      */
     private ConexionMongo() {
         try {
-            this.mongoClient = MongoClients.create(URL);
+            // Configuración del codecRegistry
+            CodecRegistry pojoCodecRegistry = CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build());
+            CodecRegistry codecRegistry = CodecRegistries.fromRegistries(MongoClientSettings.getDefaultCodecRegistry(), pojoCodecRegistry);
+
+            // Configuración del cliente con el codecRegistry
+            MongoClientSettings settings = MongoClientSettings.builder()
+                    .applyConnectionString(new ConnectionString(URL))
+                    .codecRegistry(codecRegistry)
+                    .build();
+
+            this.mongoClient = MongoClients.create(settings);
             this.mongoDatabase = mongoClient.getDatabase(DB_NAME);
 
+            // Validar conexión
             mongoDatabase.listCollectionNames().first();
             System.out.println("Conexión exitosa a MongoDB: " + DB_NAME);
         } catch (Exception e) {

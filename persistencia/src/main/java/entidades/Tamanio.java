@@ -4,32 +4,29 @@
  */
 package entidades;
 
+import java.util.List;
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author rodri
  */
 public class Tamanio {
 
-    private Long id;
+    private ObjectId id;
     private String nombre;
-    private String urlImagen;
-    private int precio;
+    private double precioAdicional;
+    private byte[] imagenData;
+    private List<Ingrediente> ingredientes;
 
     public Tamanio() {
     }
 
-    public Tamanio(Long id, String nombre, String urlImagen, int precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.urlImagen = urlImagen;
-        this.precio = precio;
-    }
-
-    public Long getId() {
+    public ObjectId getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(ObjectId id) {
         this.id = id;
     }
 
@@ -41,25 +38,28 @@ public class Tamanio {
         this.nombre = nombre;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public double getPrecioAdicional() {
+        return precioAdicional;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setPrecioAdicional(double precioAdicional) {
+        this.precioAdicional = precioAdicional;
     }
 
-    public int getPrecio() {
-        return precio;
+    public byte[] getImagenData() {
+        return imagenData;
     }
 
-    public void setPrecio(int precio) {
-        this.precio = precio;
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
-    @Override
-    public String toString() {
-        return "TamanioMostrarDTO{" + "id=" + id + ", nombre=" + nombre + ", urlImagen=" + urlImagen + ", precio=" + precio + '}';
+    public List<Ingrediente> getIngredientes() {
+        return ingredientes;
+    }
+
+    public void setIngredientes(List<Ingrediente> ingredientes) {
+        this.ingredientes = ingredientes;
     }
 
 }

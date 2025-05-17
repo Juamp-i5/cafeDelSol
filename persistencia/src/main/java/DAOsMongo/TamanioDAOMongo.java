@@ -1,13 +1,21 @@
 package DAOsMongo;
 
+import DTOs.TamanioDTO;
 import entidades.Tamanio;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
 import IDAOs.ITamanioDAO;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import conexion.IConexionMongo;
+import interfacesMappers.ITamanioMapper;
+import mappers.IngredienteMapper;
+import mappers.ProveedorMapper;
+import mappers.TamanioMapper;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -22,6 +30,8 @@ public class TamanioDAOMongo implements ITamanioDAO {
 
     private MongoCollection<Tamanio> coleccion;
     private final String NOMBRE_COLECCION = "tamanios";
+
+    private final ITamanioMapper tamanioMapper = new TamanioMapper(new IngredienteMapper(new ProveedorMapper()));
 
     private TamanioDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
@@ -38,32 +48,32 @@ public class TamanioDAOMongo implements ITamanioDAO {
 
     //Métodos de la colección
     @Override
-    public List<Tamanio> buscarTodos() throws PersistenciaException {
-        List<Tamanio> tamanios = new ArrayList<>();
-
-        if (conexion.getDatabase() == null) {
-            return List.of(
-                    new Tamanio(1L, "Pequenio", "../img/tamanioPequenio.jpg", 0),
-                    new Tamanio(2L, "Mediano", "../img/tamanioMediano.jpg", 5),
-                    new Tamanio(3L, "Grande", "../img/tamanioGrande.jpg", 10)
-            );
-        } else {
-            // lógica de mongo
+    public List<TamanioDTO> buscarTodos() throws PersistenciaException {
+        List<TamanioDTO> tamanios = new ArrayList<>();
+        try (MongoCursor<Tamanio> cursor = coleccion.find().iterator()) {
+            while (cursor.hasNext()) {
+                tamanios.add(tamanioMapper.toDTO(cursor.next()));
+            }
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar todos los productos en la base de datos", e);
         }
-
         return tamanios;
     }
 
     @Override
-    public Tamanio buscarPorNombre(String nombre) throws PersistenciaException {
-        List<Tamanio> tamanios = buscarTodos(); // usa tu método existente
-
-        for (Tamanio p : tamanios) {
-            if (p.getNombre().equalsIgnoreCase(nombre)) {
-                return p;
+    public TamanioDTO buscarPorNombre(String nombre) throws PersistenciaException {
+        List<TamanioDTO> tamanios = new ArrayList<>();
+        Bson filtro = Filters.eq("nombre", nombre);
+        try (MongoCursor<Tamanio> cursor = coleccion.find(filtro).iterator()) {
+            while (cursor.hasNext()) {
+                tamanios.add(tamanioMapper.toDTO(cursor.next()));
             }
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al consultar el tamanio por nombre en la base de datos");
         }
-
-        return null; // si no lo encuentra
+        if (tamanios.isEmpty()) {
+            return null;
+        }
+        return tamanios.get(0);
     }
 }

@@ -1,8 +1,9 @@
 package control;
 
+import DTOs.CRUDEntradas.EntradaNuevaDTO;
+import DTOs.CRUDEntradas.EntradaViejaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
-import DTOs.CRUDIngredientesSimulados.IngredienteListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
@@ -13,10 +14,13 @@ import DTOs.EfectivoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaboresMostrarDTO;
+import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
-import DTOs.ToppingsMostrarDTO;
+import DTOs.ToppingMostrarDTO;
+import Excepcion.GestorCRUDEntradasException;
+import Gestion.GestorCRUDEntradas;
+import Gestion.IGestorCRUDEntradas;
 import excepciones.GestionCRUDProductosException;
 import exception.GestionException;
 import gestion.GestorCRUDProductos;
@@ -24,6 +28,7 @@ import gestion.IGestionPedidos;
 import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
 import java.awt.Component;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -35,6 +40,10 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
+import pantallas.CRUDEntradas.BuscadorIngredientesSimulado;
+import pantallas.CRUDEntradas.PantallaTablaDetallesEntrada;
+import pantallas.CRUDEntradas.PantallaTablaHistorialEntradas;
+import pantallas.CRUDEntradas.PantallaTablaRegistroEntrada;
 import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
@@ -55,6 +64,7 @@ public class ControlNavegacion {
 
     private static IGestionPedidos gestor = new ManejadorPedidos();
     private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
+    private static IGestorCRUDEntradas gestorCRUDEntradas = GestorCRUDEntradas.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -175,7 +185,7 @@ public class ControlNavegacion {
      *
      * @param sabor El sabor que se quiere agregar.
      */
-    public static void agregarSabor(SaboresMostrarDTO sabor) {
+    public static void agregarSabor(SaborMostrarDTO sabor) {
         gestor.agregarSabor(sabor);
     }
 
@@ -195,7 +205,7 @@ public class ControlNavegacion {
      * @param topping Establece el topping del parámetro como topping del
      * producto pedido.
      */
-    public static void agregarTopping(ToppingsMostrarDTO topping) {
+    public static void agregarTopping(ToppingMostrarDTO topping) {
         gestor.agregarTopping(topping);
     }
 
@@ -545,7 +555,7 @@ public class ControlNavegacion {
         frame.setLocationRelativeTo(null);
     }
 
-    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteListDTO> regreso) {
+    public static void mostrarPantallaIngredienteSimulada(Consumer<IngredienteViejoListDTO> regreso) {
         JFrame frame = new PantallaIngredienteSimulada(regreso);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -640,4 +650,68 @@ public class ControlNavegacion {
         return new DetallesIngredienteViejoDTO();
     }   
     
+    //Pantallas Entradas  
+    public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
+        JFrame frame = new PantallaTablaDetallesEntrada(entrada);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    public static void mostrarPantallaHistorialEntradas() {
+        JFrame frame = new PantallaTablaHistorialEntradas();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    public static void mostrarPantallaRegistroEntrada() {
+        JFrame frame = new PantallaTablaRegistroEntrada();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+    
+    public static void mostrarPantallaBuscadorIngrediente(Consumer<DetallesIngredienteViejoDTO> regreso) {
+        JFrame frame = new BuscadorIngredientesSimulado(regreso);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    public static void mostrarPantallaRealizarRegistro(Component frame) {
+        int respuesta = JOptionPane.showConfirmDialog(
+                frame,
+                "¿Deseas realizar el registro?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            //Lógica
+        }
+    }
+    
+    //Metodos
+    public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
+        try {
+            return gestorCRUDEntradas.registrarEntrada(entrada);
+        } catch (GestorCRUDEntradasException e) {
+            System.err.println("Error de negocio al registrar entrada: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static List<EntradaViejaDTO> obtenerListaEntradasPorRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
+        try {
+            if (fechaInicio == null && fechaFin == null) {
+                return gestorCRUDEntradas.obtenerTodasLasEntradas();
+            } else if (fechaInicio == null) {
+                return gestorCRUDEntradas.obtenerEntradasHastaFecha(fechaFin);
+            } else if (fechaFin == null) {
+                return gestorCRUDEntradas.obtenerEntradasDesdeFecha(fechaInicio);
+            } else {
+                return gestorCRUDEntradas.obtenerListaEntradasPorRangoFechas(fechaInicio, fechaFin);
+            }
+        } catch (GestorCRUDEntradasException e) {
+            System.err.println("Error de negocio al obtener lista de entradas: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 }
