@@ -2,20 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs.cubiculos;
 
 import enumCubiculos.Estado;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import org.bson.types.ObjectId;
 
 /**
  *
  * @author rodri
  */
-public class Reservacion {
-    
-    private ObjectId id;
+public class ReservacionDTOPersistencia {
+
+    private String id;
     private Integer numReservacion;
     private String nombre;
     private String telefono;
@@ -24,20 +23,10 @@ public class Reservacion {
     private LocalTime horaFin;
     private Estado estado;
 
-    public Reservacion() {
+    public ReservacionDTOPersistencia() {
     }
 
-    public Reservacion(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
-        this.numReservacion = numReservacion;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.fechaReserva = fechaReserva;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.estado = estado;
-    }
-
-    public Reservacion(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
+    public ReservacionDTOPersistencia(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
         this.id = id;
         this.numReservacion = numReservacion;
         this.nombre = nombre;
@@ -48,11 +37,22 @@ public class Reservacion {
         this.estado = estado;
     }
 
-    public ObjectId getId() {
+    public ReservacionDTOPersistencia(String id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
+        this.id = id;
+        this.numReservacion = numReservacion;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.fechaReserva = fechaReserva;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.estado = estado;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -114,6 +114,7 @@ public class Reservacion {
 
     @Override
     public String toString() {
-        return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + '}';
-    }   
+        return "ReservacionDTOPersistencia{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + '}';
+    }
+    
 }

@@ -14,15 +14,15 @@ public class Cancelacion {
     
     private String motivo;
     private LocalDateTime fechaCancelacion;
-    private Reservacion reservacion;
+    private String numReservacion;
 
     public Cancelacion() {
     }
 
-    public Cancelacion(String motivo, LocalDateTime fechaCancelacion, Reservacion reservacion) {
+    public Cancelacion(String motivo, LocalDateTime fechaCancelacion, String numReservacion) {
         this.motivo = motivo;
         this.fechaCancelacion = fechaCancelacion;
-        this.reservacion = reservacion;
+        this.numReservacion = numReservacion;
     }
 
     public String getMotivo() {
@@ -41,17 +41,17 @@ public class Cancelacion {
         this.fechaCancelacion = fechaCancelacion;
     }
 
-    public Reservacion getReservacion() {
-        return reservacion;
+    public String getReservacion() {
+        return numReservacion;
     }
 
-    public void setReservacion(Reservacion reservacion) {
-        this.reservacion = reservacion;
+    public void setReservacion(String numReservacion) {
+        this.numReservacion = numReservacion;
     }
 
     @Override
     public String toString() {
-        return "Cancelacion{" + "motivo=" + motivo + ", fechaCancelacion=" + fechaCancelacion + ", reservacion=" + reservacion + '}';
+        return "Cancelacion{" + "motivo=" + motivo + ", fechaCancelacion=" + fechaCancelacion + ", reservacion=" + numReservacion + '}';
     }
     
     

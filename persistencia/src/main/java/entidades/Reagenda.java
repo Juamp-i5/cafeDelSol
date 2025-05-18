@@ -14,17 +14,17 @@ public class Reagenda {
     
     private String motivo;
     private LocalDateTime fechaReagenda;
-    private Reservacion viejaReservacion;
-    private Reservacion nuevaReservacion;
+    private String numReservacionVieja;
+    private String numReservacion;
 
     public Reagenda() {
     }
 
-    public Reagenda(String motivo, Reservacion viejaReservacion, Reservacion nuevaReservacion) {
+    public Reagenda(String motivo, String viejaReservacion, String nuevaReservacion) {
         this.motivo = motivo;
         this.fechaReagenda = LocalDateTime.now();
-        this.viejaReservacion = viejaReservacion;
-        this.nuevaReservacion = nuevaReservacion;
+        this.numReservacionVieja = viejaReservacion;
+        this.numReservacion = nuevaReservacion;
     }
 
     public String getMotivo() {
@@ -43,25 +43,25 @@ public class Reagenda {
         this.fechaReagenda = fechaReagenda;
     }
 
-    public Reservacion getViejaReservacion() {
-        return viejaReservacion;
+    public String getNumReservacionVieja() {
+        return numReservacionVieja;
     }
 
-    public void setViejaReservacion(Reservacion viejaReservacion) {
-        this.viejaReservacion = viejaReservacion;
+    public void setNumReservacionVieja(String numReservacionVieja) {
+        this.numReservacionVieja = numReservacionVieja;
     }
 
-    public Reservacion getNuevaReservacion() {
-        return nuevaReservacion;
+    public String getNumReservacion() {
+        return numReservacion;
     }
 
-    public void setNuevaReservacion(Reservacion nuevaReservacion) {
-        this.nuevaReservacion = nuevaReservacion;
+    public void setNumReservacion(String numReservacion) {
+        this.numReservacion = numReservacion;
     }
 
     @Override
     public String toString() {
-        return "Reagenda{" + "motivo=" + motivo + ", fechaReagenda=" + fechaReagenda + ", viejaReservacion=" + viejaReservacion + ", nuevaReservacion=" + nuevaReservacion + '}';
+        return "Reagenda{" + "motivo=" + motivo + ", fechaReagenda=" + fechaReagenda + ", viejaReservacion=" + numReservacionVieja + ", nuevaReservacion=" + numReservacion + '}';
     }
     
     

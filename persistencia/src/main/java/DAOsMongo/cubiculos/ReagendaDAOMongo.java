@@ -56,7 +56,7 @@ public class ReagendaDAOMongo implements IReagendaDAO{
     public Reagenda agregarReagenda(Reagenda reagenda) throws PersistenciaCubiculoEsception {
         try {
             InsertOneResult resultado = coleccion.insertOne(reagenda);
-
+            
             if (!resultado.wasAcknowledged()) {
                 throw new PersistenciaCubiculoEsception("La inserción no fue reconocida por el servidor.");
             }

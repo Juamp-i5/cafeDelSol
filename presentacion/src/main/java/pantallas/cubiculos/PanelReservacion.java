@@ -48,7 +48,6 @@ public class PanelReservacion extends javax.swing.JPanel {
     private void initComponents() {
 
         lblNombreCliente = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         lblFechaTxt = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         lblTopping = new javax.swing.JLabel();
@@ -59,16 +58,13 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblFechaSeparador = new javax.swing.JLabel();
         lblHoraFin = new javax.swing.JLabel();
         lblNombreCubiculo = new javax.swing.JLabel();
+        lblEstado = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lblNombreCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblNombreCliente.setText("Nombre");
-
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator1.setForeground(new java.awt.Color(153, 153, 153));
-        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         lblFechaTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblFechaTxt.setText("Fecha:");
@@ -113,6 +109,9 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblNombreCubiculo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblNombreCubiculo.setText("Cubiculo A");
 
+        lblEstado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblEstado.setText("Estado");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,43 +120,44 @@ public class PanelReservacion extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTopping)
+                        .addContainerGap(631, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblFechaTxt)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblFecha))
-                            .addComponent(lblTopping)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblFechaTxt)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblFecha))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(lblHoraTxt)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblHoraInicio)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblFechaSeparador)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblHoraFin)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblHoraTxt)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblHoraInicio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblFechaSeparador)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblHoraFin)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNombreCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                        .addComponent(lblNombreCubiculo)
-                        .addGap(118, 118, 118)))
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                                .addComponent(lblNombreCliente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNombreCubiculo)
+                                .addGap(133, 133, 133)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEstado)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(46, 46, 46))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblNombreCliente)
-                            .addComponent(lblNombreCubiculo))
+                        .addComponent(lblNombreCliente)
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFechaTxt)
@@ -167,14 +167,19 @@ public class PanelReservacion extends javax.swing.JPanel {
                             .addComponent(lblHoraTxt)
                             .addComponent(lblHoraInicio)
                             .addComponent(lblFechaSeparador)
-                            .addComponent(lblHoraFin))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTopping))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(btnIniciar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
+                            .addComponent(lblHoraFin)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblEstado)
+                                .addComponent(lblNombreCubiculo))
+                            .addGap(140, 140, 140))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnIniciar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnCancelar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTopping)
                 .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -190,7 +195,7 @@ public class PanelReservacion extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnIniciar;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblFechaSeparador;
     private javax.swing.JLabel lblFechaTxt;
