@@ -648,13 +648,13 @@ public class ControlNavegacion {
     }
 
     //métodos
-    public static List<IngredienteViejoListDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
-        return new ArrayList();
-    }
+//    public static List<IngredienteViejoListDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
+//        return new ArrayList();
+//    }
 
-    private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
-        return new DetallesIngredienteViejoDTO();
-    }
+//    private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
+//        return new DetallesIngredienteViejoDTO();
+//    }
 
     //Pantallas Entradas  
     public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
@@ -749,6 +749,28 @@ public class ControlNavegacion {
     public static List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) {
         try {
             return gestorCRUDIngredientes.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
+        try {
+            return gestorCRUDIngredientes.obtenerDetallesIngrediente(idIngrediente);
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static DetallesIngredienteViejoDTO editarIngrediente (String idIngrediente, String nuevoNombre) {
+        try {
+            return gestorCRUDIngredientes.editarIngrediente(idIngrediente, nuevoNombre);
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();

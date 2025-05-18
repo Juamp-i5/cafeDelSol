@@ -65,7 +65,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     @Override
     public boolean agregarIngrediente(IngredienteDTOPersistencia ingrediente) throws PersistenciaIngredientesException {
         try {
-            coleccion.insertOne(ingredienteMapper.toMongo(ingrediente));        
+            coleccion.insertOne(ingredienteMapper.toMongo(ingrediente));
             System.out.println("Ingrediente agregado correctamente.");
             return true;
         } catch (Exception e) {

@@ -1,6 +1,7 @@
 package pantallas.ingredientes;
 
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
+import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
     public PantallaBuscarIngrediente() {
         initComponents();
-
+        btnSeleccionar.setVisible(false);
         this.modeloTablaIngredientes = obtenerModeloTablaIngredientes();
         setupInitialUIState();
         cargarDatos();
@@ -32,13 +33,12 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     }
 
     private void setupInitialUIState() {
-        disableFilters();
         this.setLocationRelativeTo(null);
-    }
+        checkBoxNombre.setSelected(false);
+        txtNombre.setEnabled(false);
 
-    private void disableFilters() {
-        checkBoxNombre.setEnabled(false);
-        checkBoxNivelStock.setEnabled(false);
+        checkBoxNivelStock.setSelected(false);
+        comboBoxNivelStock.setEnabled(false);
     }
 
     private void cargarDatos() {
@@ -49,24 +49,19 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     private void cargarNivelesStockComboBox() {
         comboBoxNivelStock.removeAllItems();
 
-        for (UnidadMedida unidad : UnidadMedida.values()) {
-            comboBoxNivelStock.addItem(unidad.toString());
+        for (NivelStock nivelStock : NivelStock.values()) {
+            comboBoxNivelStock.addItem(nivelStock.name());
         }
     }
 
     private void cargarTablaIngredientes() {
         List<IngredienteViejoListDTO> ingredientes = obtenerIngredientes();
 
-        if (ingredientes == null || ingredientes.isEmpty()) {
-            return;
-        }
-
         this.modeloTablaIngredientes.setRowCount(0);
 
         for (IngredienteViejoListDTO ingrediente : ingredientes) {
             this.modeloTablaIngredientes.addRow(
                     new Object[]{
-                        ingrediente.getId(),
                         ingrediente.getNombre(),
                         ingrediente.getCantidadDisponible(),
                         ingrediente.getUnidadMedida(),
@@ -81,7 +76,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
         String filtroNombre = getFiltroNombre();
         String filtroNivelStock = getFiltroNivelStock();
 
-        return ControlNavegacion.obtenerIngredientesFiltrados(filtroNombre, filtroNivelStock);
+        return ControlNavegacion.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
     }
 
     private String getFiltroNombre() {

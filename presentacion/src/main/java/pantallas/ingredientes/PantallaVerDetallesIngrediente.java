@@ -22,7 +22,7 @@ public class PantallaVerDetallesIngrediente extends javax.swing.JFrame {
         txtCantidadDisponible.setText(String.format("%.2f", ingrediente.getCantidadDisponible()));
         txtCantidadMinima.setText(String.format("%.2f", ingrediente.getCantidadMinima()));
         txtEstado.setText(ingrediente.getNivelStock().toString());
-//        txtProveedor.setText(ingrediente.getProveedor().getNombre());
+        txtProveedor.setText(ingrediente.getNombreProveedor());
         txtUnidadMedida.setText(ingrediente.getUnidadMedida().toString());
     }
 
