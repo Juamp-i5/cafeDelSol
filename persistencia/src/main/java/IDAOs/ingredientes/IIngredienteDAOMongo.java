@@ -1,5 +1,6 @@
 package IDAOs.ingredientes;
 
+import DTOs.IngredienteDTO;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IngredienteViejoListDTOPersistencia;
 import entidades.Ingrediente;
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface IIngredienteDAOMongo {
     
-    public boolean agregarIngrediente(Ingrediente ingrediente) throws PersistenciaIngredientesException;
+    public boolean agregarIngrediente(IngredienteDTO ingrediente) throws PersistenciaIngredientesException;
         
     public DetallesIngredienteViejoDTOPersistencia editarIngrediente(String idIngrediente, String nombreNuevo) throws PersistenciaIngredientesException;
     

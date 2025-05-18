@@ -1,9 +1,9 @@
 package DTOs.ingredientes;
 
+import DTOs.IngredienteDTO;
 import entidades.Ingrediente;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;
-
 
 /**
  *
@@ -11,11 +11,9 @@ import java.util.List;
  */
 public interface IIngredienteMapperPersistencia {
 
-    public IngredienteViejoListDTOPersistencia toDTO(Ingrediente entidad);
-
-    public Ingrediente toMongo(IngredienteViejoListDTOPersistencia dto) throws PersistenciaIngredientesException;
+    public IngredienteViejoListDTOPersistencia toDTOIngredienteViejoListDTOPersistencia(Ingrediente entidad);
 
     public List<IngredienteViejoListDTOPersistencia> toDTOList(List<Ingrediente> entidades);
 
-    public List<Ingrediente> toMongoList(List<IngredienteViejoListDTOPersistencia> dtos) throws PersistenciaIngredientesException;
+    public Ingrediente toMongo(IngredienteDTO dto) throws PersistenciaIngredientesException;
 }

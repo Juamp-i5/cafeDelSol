@@ -13,7 +13,6 @@ import com.mongodb.client.model.Filters;
 import conexion.IConexionMongo;
 import interfacesMappers.ITamanioMapper;
 import mappers.IngredienteMapper;
-import mappers.ProveedorMapper;
 import mappers.TamanioMapper;
 import org.bson.conversions.Bson;
 
@@ -31,7 +30,7 @@ public class TamanioDAOMongo implements ITamanioDAO {
     private MongoCollection<Tamanio> coleccion;
     private final String NOMBRE_COLECCION = "tamanios";
 
-    private final ITamanioMapper tamanioMapper = new TamanioMapper(new IngredienteMapper(new ProveedorMapper()));
+    private final ITamanioMapper tamanioMapper = new TamanioMapper(new IngredienteMapper());
 
     private TamanioDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;

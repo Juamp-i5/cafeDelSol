@@ -1,11 +1,10 @@
 package DAOsMongo.ingredientes;
 
+import DTOs.IngredienteDTO;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IIngredienteMapperPersistencia;
-import DTOs.ingredientes.IProveedorMapperPersistencia;
 import DTOs.ingredientes.IngredienteMapperPersistencia;
 import DTOs.ingredientes.IngredienteViejoListDTOPersistencia;
-import DTOs.ingredientes.ProveedorMapperPersistencia;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
-import mappers.IngredienteMapper;
 import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -47,15 +45,11 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     private final MongoCollection<Ingrediente> coleccion;
     private static final String NOMBRE_COLECCION = "ingredientes";
 
-    IProveedorMapperPersistencia proveedorMapper = new ProveedorMapperPersistencia();
-    IIngredienteMapperPersistencia ingredienteMapper = new IngredienteMapperPersistencia(proveedorMapper);
-    IIngredienteMapper ingrediente2Mapper = new IngredienteMapper();
-
+    IIngredienteMapperPersistencia ingredienteMapper = new IngredienteMapperPersistencia();
 
     public IngredienteDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
 
-        // Registrar codec para POJOs
         CodecRegistry codecRegistry = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build())
@@ -73,9 +67,9 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     }
 
     @Override
-    public boolean agregarIngrediente(Ingrediente ingrediente) throws PersistenciaIngredientesException {
+    public boolean agregarIngrediente(IngredienteDTO ingrediente) throws PersistenciaIngredientesException {
         try {
-            coleccion.insertOne(ingrediente);
+            coleccion.insertOne(ingredienteMapper.toMongo(ingrediente));        
             System.out.println("Ingrediente agregado correctamente.");
             return true;
         } catch (Exception e) {

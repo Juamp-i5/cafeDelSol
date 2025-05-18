@@ -1,11 +1,13 @@
 package DAOsMongo.ingredientes;
 
+import DTOs.ProveedorDTO;
+import DTOs.ingredientes.IProveedorMapperPersistencia;
+import DTOs.ingredientes.ProveedorDTOPersistencia;
+import DTOs.ingredientes.ProveedorMapperPersistencia;
 import IDAOs.ingredientes.IProveedorDAOMongo;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.Filters;
 import conexion.IConexionMongo;
 import entidades.Proveedor;
 import excepciones.PersistenciaIngredientesException;
@@ -16,7 +18,6 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.bson.types.ObjectId;
 
 /**
  *
@@ -30,11 +31,12 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
 
     private final MongoCollection<Proveedor> coleccion;
     private static final String NOMBRE_COLECCION = "proveedores";
+    
+    IProveedorMapperPersistencia proveedorMapper = new ProveedorMapperPersistencia();
 
     public ProveedorDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
 
-        // Registrar codec para POJOs
         CodecRegistry codecRegistry = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build())
@@ -52,25 +54,11 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
     }
 
     @Override
-    public List<Proveedor> obtenerProveedores() throws PersistenciaIngredientesException {
+    public List<ProveedorDTOPersistencia> obtenerProveedores() throws PersistenciaIngredientesException {
         try {
-            return coleccion.find().into(new ArrayList<>());
+            return proveedorMapper.toDTOList(coleccion.find().into(new ArrayList<>()));
         } catch (Exception e) {
             throw new PersistenciaIngredientesException("Error al obtener proveedores", e);
-        }
-    }
-
-    @Override
-    public void agregarProveedor(Proveedor proveedor) throws PersistenciaIngredientesException {
-        try {
-            MongoCollection<Document> coleccion = database.getCollection("proveedores");
-
-            Document doc = new Document("nombre", proveedor.getNombre());
-            coleccion.insertOne(doc);
-
-            proveedor.setId(doc.getObjectId("_id"));
-        } catch (Exception e) {
-            throw new PersistenciaIngredientesException("Error al agregar el proveedor", e);
         }
     }
 

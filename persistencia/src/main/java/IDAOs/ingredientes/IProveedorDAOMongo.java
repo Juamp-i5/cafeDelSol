@@ -1,9 +1,10 @@
 package IDAOs.ingredientes;
 
-import entidades.Proveedor;
+
+import DTOs.ingredientes.ProveedorDTOPersistencia;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;
-import org.bson.types.ObjectId;
+
 
 /**
  *
@@ -11,7 +12,5 @@ import org.bson.types.ObjectId;
  */
 public interface IProveedorDAOMongo {
     
-    public List<Proveedor> obtenerProveedores() throws PersistenciaIngredientesException;
-
-    public void agregarProveedor(Proveedor proveedor) throws PersistenciaIngredientesException;
+    public List<ProveedorDTOPersistencia> obtenerProveedores() throws PersistenciaIngredientesException;
 }
