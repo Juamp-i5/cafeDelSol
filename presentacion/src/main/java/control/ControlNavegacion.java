@@ -3,7 +3,9 @@ package control;
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteNuevoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
+import DTOs.CRUDIngredientes.ProveedorViejoDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
@@ -21,12 +23,15 @@ import DTOs.ToppingMostrarDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
 import Gestion.IGestorCRUDEntradas;
+import excepciones.GestionCRUDIngredientesException;
 import excepciones.GestionCRUDProductosException;
 import exception.GestionException;
 import gestion.GestorCRUDProductos;
 import gestion.IGestionPedidos;
 import gestion.IGestorCRUDProductos;
 import gestion.ManejadorPedidos;
+import gestionIngredientes.GestorCRUDIngredientes;
+import gestionIngredientes.IGestorCRUDIngredientes;
 import java.awt.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -65,6 +70,7 @@ public class ControlNavegacion {
     private static IGestionPedidos gestor = new ManejadorPedidos();
     private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
     private static IGestorCRUDEntradas gestorCRUDEntradas = GestorCRUDEntradas.getInstance();
+    private static IGestorCRUDIngredientes gestorCRUDIngredientes = GestorCRUDIngredientes.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -714,4 +720,28 @@ public class ControlNavegacion {
             return new ArrayList<>();
         }
     }
+    
+    //ingredientes métodos
+    public static void agregarIngrediente(IngredienteNuevoDTO ingrediente) {
+        try {
+            gestorCRUDIngredientes.agregarIngrediente(ingrediente);
+            JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente");
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static List<ProveedorViejoDTO> obtenerProveedores() {
+        try {
+            return gestorCRUDIngredientes.obtenerProveedores();
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
 }

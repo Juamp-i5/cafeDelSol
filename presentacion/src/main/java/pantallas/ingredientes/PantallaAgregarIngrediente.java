@@ -1,11 +1,9 @@
 package pantallas.ingredientes;
 
 import DTOs.CRUDIngredientes.IngredienteNuevoDTO;
-import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.ProveedorViejoDTO;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -33,37 +31,38 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
             comboBoxUnidadMedida.addItem(unidad.toString());
         }
 
-        //proveedores simulados
-        List<ProveedorViejoDTO> proveedores;
-        proveedores = new ArrayList<>();
-        proveedores.add(new ProveedorViejoDTO("1", "adel"));
-        proveedores.add(new ProveedorViejoDTO("2", "fer"));
-
         comboBoxProveedor.removeAllItems();
 
+        List<ProveedorViejoDTO> proveedores = ControlNavegacion.obtenerProveedores();
         for (ProveedorViejoDTO proveedor : proveedores) {
-            comboBoxProveedor.addItem(proveedor.getNombre());
+            comboBoxProveedor.addItem(proveedor);
         }
     }
 
     private void registrarInformacionIngrediente() {
         String nombre = txtNombre.getText().trim().toLowerCase();
-        String unidadMedidaStr = (String) comboBoxUnidadMedida.getSelectedItem();
-        String proveedor = (String) comboBoxProveedor.getSelectedItem();
         String cantidadDisponibleStr = txtCantidadDisponible.getText().trim();
+        String cantidadMinimaStr = txtCantidadMinima.getText().trim();
+        String unidadMedidaStr = (String) comboBoxUnidadMedida.getSelectedItem();
+        ProveedorViejoDTO proveedor = (ProveedorViejoDTO) comboBoxProveedor.getSelectedItem();
 
         UnidadMedida unidadMedida = UnidadMedida.valueOf(unidadMedidaStr.toUpperCase());
-        double cantidadDisponible;
-        cantidadDisponible = Double.parseDouble(cantidadDisponibleStr);
 
-        ingredienteNuevo = new IngredienteNuevoDTO(nombre, cantidadDisponible, 1.0, unidadMedida,NivelStock.ENSTOCK ,"1");
+        Double cantidadDisponible = Double.parseDouble(cantidadDisponibleStr);
+        Double cantidadMinima = Double.parseDouble(cantidadMinimaStr);
+
+        ingredienteNuevo = new IngredienteNuevoDTO();
+        ingredienteNuevo.setNombre(nombre);
+        ingredienteNuevo.setCantidadDisponible(cantidadDisponible);
+        ingredienteNuevo.setCantidadMinima(cantidadMinima);
+        ingredienteNuevo.setUnidadMedida(unidadMedida);
+        ingredienteNuevo.setIdProveedor(proveedor.getId());
 
         agregarNuevoIngrediente();
     }
 
     public void agregarNuevoIngrediente() {
-        System.out.println(ingredienteNuevo);
-        JOptionPane.showMessageDialog(this, "Ingrediente agregado exitosamente.");
+        ControlNavegacion.agregarIngrediente(ingredienteNuevo);
         ControlNavegacion.mostrarPantallaListaIngredientes();
         this.dispose();
     }
@@ -110,7 +109,7 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
     private void verificarCampos() {
         String nombre = txtNombre.getText().trim();
         String unidadMedidaStr = (String) comboBoxUnidadMedida.getSelectedItem();
-        String proveedor = (String) comboBoxProveedor.getSelectedItem();
+        ProveedorViejoDTO proveedorSeleccionado = (ProveedorViejoDTO) comboBoxProveedor.getSelectedItem();
         String cantidadDisponibleStr = txtCantidadDisponible.getText().trim();
 
         if (!nombre.isEmpty() && !cantidadDisponibleStr.isEmpty() && !unidadMedidaStr.isEmpty()) {
@@ -118,9 +117,8 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         } else {
             btnGuardarIngrediente.setEnabled(false);
         }
-        
+
         //validar caracteres maximo, cantidad disponible baja, alta o letras
-        
     }
 
     /**
@@ -180,11 +178,6 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         lblNombreIngrediente.setText("Nombre de ingrediente");
 
         txtNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
 
         lblCantidadDisponible.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblCantidadDisponible.setText("Cantidad disponible");
@@ -196,7 +189,6 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         comboBoxUnidadMedida.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         comboBoxProveedor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        comboBoxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblCantidadMinima.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblCantidadMinima.setText("Cantidad mínima");
@@ -285,15 +277,11 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         registrarInformacionIngrediente();
     }//GEN-LAST:event_btnGuardarIngredienteActionPerformed
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardarIngrediente;
     private javax.swing.JButton btnVolverAtras;
-    private javax.swing.JComboBox<String> comboBoxProveedor;
+    private javax.swing.JComboBox<ProveedorViejoDTO> comboBoxProveedor;
     private javax.swing.JComboBox<String> comboBoxUnidadMedida;
     private javax.swing.JLabel lblCantidadDisponible;
     private javax.swing.JLabel lblCantidadMinima;

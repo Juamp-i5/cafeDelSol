@@ -121,28 +121,28 @@ public class PantallaIngredienteSimulada extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteViejoListDTO("dsadasds", "chocomil", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "chocomil", 2.3, UnidadMedida.MILILITROS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteViejoListDTO("dsadasds", "leche", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "leche", 2.3, UnidadMedida.MILILITROS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteViejoListDTO("dsadasds", "sanwich", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "sanwich", 2.3, UnidadMedida.MILILITROS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (regreso != null) {
-            regreso.accept(new IngredienteViejoListDTO("dsadasds", "victor", 2.3, UnidadMedida.MILILITRO, NivelStock.ENSTOCK));
+            regreso.accept(new IngredienteViejoListDTO("dsadasds", "victor", 2.3, UnidadMedida.MILILITROS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton4ActionPerformed

@@ -108,7 +108,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("fgsdfgdsf", "Leche", 0.0, 0.0, UnidadMedida.MILILITRO, NivelStock.ENSTOCK, "Proveedor"));
+            regreso.accept(new DetallesIngredienteViejoDTO("fgsdfgdsf", "Leche", 0.0, 0.0, UnidadMedida.MILILITROS, NivelStock.ENSTOCK, "Proveedor"));
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -116,7 +116,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("fsgfhdf", "Barras de chocolate", 0.0, 0.0, UnidadMedida.GRAMO, NivelStock.ENSTOCK, "Proveedor2"));
+            regreso.accept(new DetallesIngredienteViejoDTO("fsgfhdf", "Barras de chocolate", 0.0, 0.0, UnidadMedida.GRAMOS, NivelStock.ENSTOCK, "Proveedor2"));
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -124,7 +124,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("rtyjryjryj", "Galletas", 0.0, 0.0, UnidadMedida.GRAMO, NivelStock.ENSTOCK , "Proveedor3"));
+            regreso.accept(new DetallesIngredienteViejoDTO("rtyjryjryj", "Galletas", 0.0, 0.0, UnidadMedida.GRAMOS, NivelStock.ENSTOCK , "Proveedor3"));
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed

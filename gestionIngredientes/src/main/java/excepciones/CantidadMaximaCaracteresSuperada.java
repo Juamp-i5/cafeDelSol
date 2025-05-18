@@ -8,7 +8,7 @@ package excepciones;
  *
  * @author norma
  */
-public class CantidadMaximaCaracteresSuperada extends GestionIngredientesException{
+public class CantidadMaximaCaracteresSuperada extends GestionCRUDIngredientesException{
 
     public CantidadMaximaCaracteresSuperada() {
         super("El nombre del ingrediente no puede tener más de 15 carácteres");

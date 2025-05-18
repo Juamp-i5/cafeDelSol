@@ -8,13 +8,13 @@ package excepciones;
  *
  * @author norma
  */
-public class GestionIngredientesException extends Exception {
+public class GestionCRUDIngredientesException extends Exception {
 
-    public GestionIngredientesException(String message) {
+    public GestionCRUDIngredientesException(String message) {
         super(message);
     }
 
-    public GestionIngredientesException(String message, Throwable cause) {
+    public GestionCRUDIngredientesException(String message, Throwable cause) {
         super(message, cause);
     }
     

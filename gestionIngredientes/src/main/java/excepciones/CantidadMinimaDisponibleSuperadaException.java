@@ -8,7 +8,7 @@ package excepciones;
  *
  * @author norma
  */
-public class CantidadMinimaDisponibleSuperadaException extends GestionIngredientesException {
+public class CantidadMinimaDisponibleSuperadaException extends GestionCRUDIngredientesException {
 
     public CantidadMinimaDisponibleSuperadaException() {
         super("No se puede agregar un ingrediente con una cantidad disponible tan baja");

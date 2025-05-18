@@ -8,7 +8,7 @@ package excepciones;
  *
  * @author norma
  */
-public class NombreExistenteException extends GestionIngredientesException {
+public class NombreExistenteException extends GestionCRUDIngredientesException {
 
     public NombreExistenteException() {
         super("Ya existe un ingrediente ese nombre");

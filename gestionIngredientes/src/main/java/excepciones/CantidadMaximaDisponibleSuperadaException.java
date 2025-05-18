@@ -8,7 +8,7 @@ package excepciones;
  *
  * @author norma
  */
-public class CantidadMaximaDisponibleSuperadaException  extends GestionIngredientesException {
+public class CantidadMaximaDisponibleSuperadaException  extends GestionCRUDIngredientesException {
 
     public CantidadMaximaDisponibleSuperadaException() {
         super("No se puede agregar un ingrediente con una cantidad disponible tan alta");

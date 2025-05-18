@@ -38,7 +38,7 @@ public class ProveedorViejoDTO {
 
     @Override
     public String toString() {
-        return "ProveedorDTO{" + "id=" + id + ", nombre=" + nombre + '}';
+        return this.getNombre();
     }
     
 }
