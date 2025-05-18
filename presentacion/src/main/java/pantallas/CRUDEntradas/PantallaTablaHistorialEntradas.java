@@ -62,9 +62,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         List<EntradaViejaDTO> entradas = ControlNavegacion.obtenerListaEntradasPorRangoFecha(fechaInicio, fechaFin);
 
         if (entradas == null) {
-            JLabel lblVacio = new JLabel("No hay entradas actualmente en ese rango de fechas");
-            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
-            ScrollPaneHistorial.add(lblVacio);
+            JOptionPane.showMessageDialog(this, "No hay entradas actualmente en ese rango de fechas");
         }
 
         this.listaEntradas = entradas;
