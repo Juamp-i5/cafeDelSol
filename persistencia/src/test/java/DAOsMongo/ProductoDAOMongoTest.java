@@ -28,6 +28,8 @@ import org.junit.jupiter.api.DisplayName;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import enumIngredientes.NivelStock;
+import enumIngredientes.UnidadMedida;
 import org.bson.types.ObjectId;
 
 /**
@@ -118,9 +120,8 @@ public class ProductoDAOMongoTest {
             ingredienteDTO.setNombre(nombreIngrediente);
             ingredienteDTO.setCantidadDisponible(cantidadDispIng);
             ingredienteDTO.setCantidadMinima(cantidadMinIng);
-            ingredienteDTO.setUnidadMedida(unidadMedidaIng);
-            ingredienteDTO.setNivelStock("OPTIMO");
-            ingredienteDTO.setProveedor(proveedorDTO);
+            ingredienteDTO.setUnidadMedida(UnidadMedida.GRAMO);
+            ingredienteDTO.setNivelStock(NivelStock.BAJOSTOCK);
         }
 
         List<IngredienteDTO> ingredientesList = new ArrayList<>();
@@ -228,8 +229,8 @@ public class ProductoDAOMongoTest {
 
         IngredienteDTO ingredienteRecuperado = tamanioRecuperado.getIngredientes().get(0);
         assertEquals("Mezcla Chai", ingredienteRecuperado.getNombre());
-        assertNotNull(ingredienteRecuperado.getProveedor());
-        assertEquals("Especias Orientales", ingredienteRecuperado.getProveedor().getNombre());
+//        assertNotNull(ingredienteRecuperado.getProveedor());
+//        assertEquals("Especias Orientales", ingredienteRecuperado.getProveedor().getNombre());
     }
 
     @Test
@@ -265,7 +266,7 @@ public class ProductoDAOMongoTest {
         assertEquals("Grande", productoRecuperado.getTamanios().get(0).getNombre());
         assertFalse(productoRecuperado.getTamanios().get(0).getIngredientes().isEmpty());
         assertEquals("Jarabe Vainilla", productoRecuperado.getTamanios().get(0).getIngredientes().get(0).getNombre());
-        assertEquals("Saborizantes Premium", productoRecuperado.getTamanios().get(0).getIngredientes().get(0).getProveedor().getNombre());
+//        assertEquals("Saborizantes Premium", productoRecuperado.getTamanios().get(0).getIngredientes().get(0).getProveedor().getNombre());
 
     }
 
@@ -314,8 +315,8 @@ public class ProductoDAOMongoTest {
         IngredienteDTO ingAct = tamanioAct.getIngredientes().get(0);
         assertEquals("Chocolate Blanco Premium", ingAct.getNombre());
 
-        assertNotNull(ingAct.getProveedor());
-        assertEquals("Chocolates de Lujo", ingAct.getProveedor().getNombre());
+//        assertNotNull(ingAct.getProveedor());
+//        assertEquals("Chocolates de Lujo", ingAct.getProveedor().getNombre());
     }
 
     @Test

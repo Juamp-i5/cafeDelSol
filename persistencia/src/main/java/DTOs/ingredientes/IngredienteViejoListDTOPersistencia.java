@@ -1,28 +1,27 @@
-
-package entidades;
+package DTOs.ingredientes;
 
 import enumIngredientes.NivelStock;
 import enumIngredientes.UnidadMedida;
-import org.bson.types.ObjectId;
+
 
 /**
  *
  * @author Jp
  */
-public class Ingrediente {
-    
-    private ObjectId id;
+public class IngredienteViejoListDTOPersistencia {
+
+    private String id;
     private String nombre;
-    private Double cantidadDisponible;
-    private Double cantidadMinima;
+    private double cantidadDisponible;
+    private double cantidadMinima;
     private UnidadMedida unidadMedida;
     private NivelStock nivelStock;
-    private ObjectId idProveedor;
+    private String idProveedor;
 
-    public Ingrediente() {
+    public IngredienteViejoListDTOPersistencia() {
     }
 
-    public Ingrediente(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, ObjectId idProveedor) {
+    public IngredienteViejoListDTOPersistencia(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
@@ -31,11 +30,11 @@ public class Ingrediente {
         this.idProveedor = idProveedor;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -79,17 +78,17 @@ public class Ingrediente {
         this.nivelStock = nivelStock;
     }
 
-    public ObjectId getIdProveedor() {
+    public String getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(ObjectId idProveedor) {
+    public void setIdProveedor(String idProveedor) {
         this.idProveedor = idProveedor;
     }
 
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
+        return "IngredienteDTO{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
     }
       
     

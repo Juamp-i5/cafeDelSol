@@ -1,41 +1,39 @@
-
-package entidades;
+package DTOs.ingredientes;
 
 import enumIngredientes.NivelStock;
 import enumIngredientes.UnidadMedida;
-import org.bson.types.ObjectId;
 
 /**
  *
- * @author Jp
+ * @author norma
  */
-public class Ingrediente {
-    
-    private ObjectId id;
+public class DetallesIngredienteViejoDTOPersistencia {
+    private String id;
     private String nombre;
     private Double cantidadDisponible;
     private Double cantidadMinima;
     private UnidadMedida unidadMedida;
     private NivelStock nivelStock;
-    private ObjectId idProveedor;
+    private String nombreProveedor;
 
-    public Ingrediente() {
+    public DetallesIngredienteViejoDTOPersistencia() {
     }
 
-    public Ingrediente(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, ObjectId idProveedor) {
+    public DetallesIngredienteViejoDTOPersistencia(String id, String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String nombreProveedor) {
+        this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
         this.unidadMedida = unidadMedida;
         this.nivelStock = nivelStock;
-        this.idProveedor = idProveedor;
+        this.nombreProveedor = nombreProveedor;
     }
-
-    public ObjectId getId() {
+    
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -70,7 +68,7 @@ public class Ingrediente {
     public void setUnidadMedida(UnidadMedida unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
-
+    
     public NivelStock getNivelStock() {
         return nivelStock;
     }
@@ -79,18 +77,19 @@ public class Ingrediente {
         this.nivelStock = nivelStock;
     }
 
-    public ObjectId getIdProveedor() {
-        return idProveedor;
+    public String getNombreProveedor() {
+        return nombreProveedor;
     }
 
-    public void setIdProveedor(ObjectId idProveedor) {
-        this.idProveedor = idProveedor;
-    }
+    public void setNombreProveedor(String idProveedor) {
+        this.nombreProveedor = idProveedor;
+    }    
 
     @Override
     public String toString() {
-        return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
+        return "DetallesIngredienteViejoDTOPersistencia{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", nombreProveedor=" + nombreProveedor + '}';
     }
-      
+
     
+  
 }

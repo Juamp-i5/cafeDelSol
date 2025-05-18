@@ -32,7 +32,7 @@ public class ProductoDAOMongo implements IProductoDAO {
     private final MongoCollection<Producto> coleccion;
     private final String NOMBRE_COLECCION = "productos";
 
-    private final IProductoMapper productoMapper = new ProductoMapper(new TamanioMapper(new IngredienteMapper(new ProveedorMapper())));
+    private final IProductoMapper productoMapper = new ProductoMapper(new TamanioMapper(new IngredienteMapper()));
 
     private ProductoDAOMongo(IConexionMongo conexion) {
         this.database = conexion.getDatabase();

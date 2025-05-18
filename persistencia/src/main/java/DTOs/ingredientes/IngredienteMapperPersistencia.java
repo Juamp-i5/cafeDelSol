@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package mappers;
+package DTOs.ingredientes;
 
-import interfacesMappers.IProveedorMapper;
-import interfacesMappers.IIngredienteMapper;
-import DTOs.IngredienteDTO;
 import entidades.Ingrediente;
-import excepciones.PersistenciaException;
+import excepciones.PersistenciaIngredientesException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -17,30 +10,32 @@ import org.bson.types.ObjectId;
  *
  * @author Jp
  */
-public class IngredienteMapper implements IIngredienteMapper {
+public class IngredienteMapperPersistencia implements IIngredienteMapperPersistencia {
+
+    private final IProveedorMapperPersistencia proveedorMapper;
+
+    public IngredienteMapperPersistencia(IProveedorMapperPersistencia proveedorMapper) {
+        this.proveedorMapper = proveedorMapper;
+    }
 
     @Override
-    public IngredienteDTO toDTO(Ingrediente entidad) {
+    public IngredienteViejoListDTOPersistencia toDTO(Ingrediente entidad) {
         if (entidad == null) {
             return null;
         }
-        IngredienteDTO dto = new IngredienteDTO();
+        IngredienteViejoListDTOPersistencia dto = new IngredienteViejoListDTOPersistencia();
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
         dto.setNombre(entidad.getNombre());
         dto.setCantidadDisponible(entidad.getCantidadDisponible());
-        dto.setCantidadMinima(entidad.getCantidadMinima());
         dto.setUnidadMedida(entidad.getUnidadMedida());
         dto.setNivelStock(entidad.getNivelStock());
-        if (entidad.getIdProveedor() != null) {
-            dto.setIdProveedor(entidad.getIdProveedor().toHexString());
-        }
         return dto;
     }
 
     @Override
-    public Ingrediente toMongo(IngredienteDTO dto) throws PersistenciaException {
+    public Ingrediente toMongo(IngredienteViejoListDTOPersistencia dto) throws PersistenciaIngredientesException {
         if (dto == null) {
             return null;
         }
@@ -48,7 +43,7 @@ public class IngredienteMapper implements IIngredienteMapper {
         if (dto.getId() != null && ObjectId.isValid(dto.getId())) {
             entidad.setId(new ObjectId(dto.getId()));
         } else if (dto.getId() != null && !dto.getId().isEmpty() && !ObjectId.isValid(dto.getId())) {
-            throw new PersistenciaException("Error al mapear el ingredienteId de IngredienteDTO de String a ObjectId");
+            throw new PersistenciaIngredientesException("Error al mapear el ingredienteId de IngredienteDTO de String a ObjectId");
         }
         entidad.setNombre(dto.getNombre());
         entidad.setCantidadDisponible(dto.getCantidadDisponible());
@@ -58,17 +53,17 @@ public class IngredienteMapper implements IIngredienteMapper {
         if (dto.getIdProveedor() != null && ObjectId.isValid(dto.getIdProveedor())) {
             entidad.setIdProveedor(new ObjectId(dto.getIdProveedor()));
         } else if (dto.getIdProveedor() != null && !dto.getIdProveedor().isEmpty() && !ObjectId.isValid(dto.getIdProveedor())) {
-            throw new PersistenciaException("Error al mapear el ingredienteId de IngredienteDTO de String a ObjectId");
+            throw new PersistenciaIngredientesException("Error al mapear el proveedorId de IngredienteDTO de String a ObjectId");
         }
         return entidad;
     }
 
     @Override
-    public List<IngredienteDTO> toDTOList(List<Ingrediente> entidades) {
+    public List<IngredienteViejoListDTOPersistencia> toDTOList(List<Ingrediente> entidades) {
         if (entidades == null) {
             return null;
         }
-        List<IngredienteDTO> dtos = new ArrayList<>();
+        List<IngredienteViejoListDTOPersistencia> dtos = new ArrayList<>();
         for (Ingrediente entidad : entidades) {
             dtos.add(toDTO(entidad));
         }
@@ -76,15 +71,14 @@ public class IngredienteMapper implements IIngredienteMapper {
     }
 
     @Override
-    public List<Ingrediente> toMongoList(List<IngredienteDTO> dtos) throws PersistenciaException {
+    public List<Ingrediente> toMongoList(List<IngredienteViejoListDTOPersistencia> dtos) throws PersistenciaIngredientesException {
         if (dtos == null) {
             return null;
         }
         List<Ingrediente> entidades = new ArrayList<>();
-        for (IngredienteDTO dto : dtos) {
+        for (IngredienteViejoListDTOPersistencia dto : dtos) {
             entidades.add(toMongo(dto));
         }
         return entidades;
     }
-    
 }

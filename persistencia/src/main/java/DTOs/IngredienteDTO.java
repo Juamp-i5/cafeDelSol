@@ -4,6 +4,9 @@
  */
 package DTOs;
 
+import enumIngredientes.NivelStock;
+import enumIngredientes.UnidadMedida;
+
 /**
  *
  * @author Jp
@@ -14,21 +17,21 @@ public class IngredienteDTO {
     private String nombre;
     private double cantidadDisponible;
     private double cantidadMinima;
-    private String unidadMedida;
-    private String nivelStock;
-    private ProveedorDTO proveedor;
+    private UnidadMedida unidadMedida;
+    private NivelStock nivelStock;
+    private String idProveedor;
 
     public IngredienteDTO() {
     }
 
-    public IngredienteDTO(String id, String nombre, double cantidadDisponible, double cantidadMinima, String unidadMedida, String nivelStock, ProveedorDTO proveedor) {
+    public IngredienteDTO(String id, String nombre, double cantidadDisponible, double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
         this.unidadMedida = unidadMedida;
         this.nivelStock = nivelStock;
-        this.proveedor = proveedor;
+        this.idProveedor = idProveedor;
     }
 
     public String getId() {
@@ -63,28 +66,28 @@ public class IngredienteDTO {
         this.cantidadMinima = cantidadMinima;
     }
 
-    public String getUnidadMedida() {
+    public UnidadMedida getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(String unidadMedida) {
+    public void setUnidadMedida(UnidadMedida unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
-    public String getNivelStock() {
+    public NivelStock getNivelStock() {
         return nivelStock;
     }
 
-    public void setNivelStock(String nivelStock) {
+    public void setNivelStock(NivelStock nivelStock) {
         this.nivelStock = nivelStock;
     }
 
-    public ProveedorDTO getProveedor() {
-        return proveedor;
+    public String getIdProveedor() {
+        return idProveedor;
     }
 
-    public void setProveedor(ProveedorDTO proveedor) {
-        this.proveedor = proveedor;
+    public void setIdProveedor(String proveedor) {
+        this.idProveedor = proveedor;
     }
 
 }
