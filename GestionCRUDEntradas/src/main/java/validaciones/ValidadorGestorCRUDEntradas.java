@@ -24,6 +24,8 @@ public class ValidadorGestorCRUDEntradas implements IValidadorGestorEntradas {
             throw new IllegalArgumentException("La entrada no cuenta con sus detalles.");
         }else if (entrada.getPrecioTotal()==null) {
             throw new IllegalArgumentException("La entrada no cuenta con precio totsl.");
+        }else if (entrada.getProveedor()==null) {
+            throw new IllegalArgumentException("No puede haber entradas sin proveedor.");
         }
     }    
 }

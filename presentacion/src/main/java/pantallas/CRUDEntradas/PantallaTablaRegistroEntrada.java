@@ -191,105 +191,135 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void BtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfirmarActionPerformed
-        if (modeloTablaIngrdientes.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.");
-            return;
-        }
-        if (TFProveedor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.");
-            return;
-        }
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas realizar el registro?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
 
-        if (detalle == null) {
-            detalle = new DetalleEntradaDTO();
-        }
-        if (entrada == null) {
-            entrada = new EntradaNuevaDTO();
-        }
-
-        registroNuevo.clear();
-
-        double totalEntrada = 0.0;
-        double totalCantidadIngredientes = 0.0;
-
-        for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
-            String nombreIngrediente = null;
-            Object nombreObj = modeloTablaIngrdientes.getValueAt(i, 0);
-            if (nombreObj != null) {
-                nombreIngrediente = nombreObj.toString();
+        if (respuesta == JOptionPane.YES_OPTION) {
+            if (modeloTablaIngrdientes.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.");
+                return;
+            }
+            if (TFProveedor.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.");
+                return;
             }
 
-            Double stockActual = null;
-            Object stockObj = modeloTablaIngrdientes.getValueAt(i, 1);
-            if (stockObj instanceof Number) {
-                stockActual = ((Number) stockObj).doubleValue();
+            if (detalle == null) {
+                detalle = new DetalleEntradaDTO();
+            }
+            if (entrada == null) {
+                entrada = new EntradaNuevaDTO();
             }
             
-            Double cantidadAgregada = null;
-            Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 4);
-            if (cantidadObj instanceof String) {
-                try {
-                    cantidadAgregada = Double.valueOf((String) cantidadObj);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error al convertir precio unitario a Double en la fila " + i + ": " + cantidadObj);
+            registroNuevo.clear();
+
+            double totalEntrada = 0.0;
+            double totalCantidadIngredientes = 0.0;
+
+            for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
+                Double cantidadAgregada = null;
+                Double precioUnitario = null;
+                String nombreIngrediente = null;
+                Double stockActual = null;
+                Double precioTotal = 0.0;
+
+                Object nombreObj = modeloTablaIngrdientes.getValueAt(i, 0);
+                Object stockObj = modeloTablaIngrdientes.getValueAt(i, 1);
+                Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 2);
+                UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
+                Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
+
+                if (nombreObj != null) {
+                    nombreIngrediente = nombreObj.toString();
                 }
-            }
-
-            UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
-
-            Double precioUnitario = null;
-            Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
-            if (precioUnitarioObj instanceof String) {
-                try {
-                    precioUnitario = Double.valueOf((String) precioUnitarioObj);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error al convertir precio unitario a Double en la fila " + i + ": " + precioUnitarioObj);
+                if (stockObj instanceof Number) {
+                    stockActual = ((Number) stockObj).doubleValue();
                 }
-            }
 
-            Double precioTotal = null;
-            Object precioTotalObj = modeloTablaIngrdientes.getValueAt(i, 5);
-            if (precioTotalObj instanceof Number) {
-                precioTotal = ((Number) precioTotalObj).doubleValue();
-            }
+                try {
+                    if (cantidadObj instanceof String) {
+                        cantidadAgregada = Double.valueOf((String) cantidadObj);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Cantidad inválida en fila " + i);
+                    return;
+                }
 
-            System.out.println("Tipo de cantidad agregada: "+cantidadAgregada);
-            System.out.println("Tipo de precio unitario: " + precioUnitario);
-            System.out.println("Tipo de precio total: " + precioTotal);
+                try {
+                    if (precioUnitarioObj instanceof String) {
+                        precioUnitario = Double.valueOf((String) precioUnitarioObj);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + i);
+                    return;
+                }
 
-            DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
-            preRegistro.setNombreIngrediente(nombreIngrediente);            
-            preRegistro.setCantidadIngrediente(cantidadAgregada);
-            preRegistro.setPrecioUnitario(precioUnitario);
-            preRegistro.setPrecioTotal(precioTotal);
-            
-            //Obtener ingrediente por nombre
-            
-            //Sumar Stock
-            
-            //Buscar proveedor por nombre
-            
-//          preRegistro.getIngrediente().setIdProveedor(idProveedor);
-            
+                if (cantidadAgregada == null || precioUnitario == null) {
+                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + i+ "para realizar el registro");
+                    return;
+                }
+
+//                if (cantidadAgregada == null && precioUnitario != null) {
+//                    JOptionPane.showMessageDialog(this, "Ingrese la cantidad en la fila " + i + ".");
+//                    return;
+//                }
+//                if (cantidadAgregada != null && precioUnitario == null) {
+//                    JOptionPane.showMessageDialog(this, "Ingrese el precio unitario en la fila " + i + ".");
+//                    return;
+//                }
+//                if (cantidadAgregada == null && precioUnitario == null) {
+//                    JOptionPane.showMessageDialog(this, "Ingrese cantidad y precio en la fila " + i + ".");
+//                    return;
+//                }
+
+                precioTotal = cantidadAgregada * precioUnitario;
+                modeloTablaIngrdientes.setValueAt(precioTotal, i, 5);
+
+//                Object precioTotalObj = modeloTablaIngrdientes.getValueAt(i, 5);
+//                if (precioTotalObj instanceof Number) {
+//                    precioTotal = ((Number) precioTotalObj).doubleValue();
+//                }
+
+                System.out.println("Tipo de cantidad agregada: " + cantidadAgregada);
+                System.out.println("Tipo de precio unitario: " + precioUnitario);
+                System.out.println("Tipo de precio total: " + precioTotal);
+
+                DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
+                preRegistro.setNombreIngrediente(nombreIngrediente);
+                preRegistro.setCantidadIngrediente(cantidadAgregada);
+                preRegistro.setPrecioUnitario(precioUnitario);
+                preRegistro.setPrecioTotal(precioTotal);
+
+                //Obtener ingrediente por nombre
+                
+                //Sumar Stock
+                
 //          preRegistro.setIngrediente(ingrediente);
-            
-            registroNuevo.add(preRegistro);
 
-            totalEntrada += precioTotal;
-            if (cantidadAgregada != null) {
+                //Buscar proveedor por nombre
+                
+//          preRegistro.getIngrediente().setNombreProveedor(nombreProveedor);
+
+                registroNuevo.add(preRegistro);
+
+                totalEntrada += precioTotal;
                 totalCantidadIngredientes += cantidadAgregada;
             }
+
+            entrada.setFechaHora(LocalDateTime.now());
+            entrada.setProveedor(TFProveedor.getText().trim());
+            System.out.println("Total entrada: " + totalEntrada);
+            entrada.setPrecioTotal(totalEntrada);
+            entrada.setDetallesEntrada(registroNuevo);
+
+            ControlNavegacion.registrarEntrada(entrada);
+            ControlNavegacion.mostrarPantallaHistorialEntradas();
+            this.dispose();
         }
-
-        entrada.setFechaHora(LocalDateTime.now());
-        entrada.setProveedor(TFProveedor.getText().trim());
-        System.out.println("Total entrada: " + totalEntrada);
-        entrada.setPrecioTotal(totalEntrada);
-        entrada.setDetallesEntrada(registroNuevo);
-
-        ControlNavegacion.registrarEntrada(entrada);
-        ControlNavegacion.mostrarPantallaHistorialEntradas();
-        this.dispose();
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     private void BtnAgregarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarIngredienteActionPerformed
@@ -301,7 +331,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             int row = e.getFirstRow();
             int col = e.getColumn();
 
-            if (col == 2 || col == 4) { 
+            if (col == 2 || col == 4) {
                 try {
                     double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 2));
                     double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 4));
@@ -319,7 +349,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 System.out.println("No se seleccionó ningún ingrediente.");
                 return;
             }
-            
+
             boolean encontrado = false;
 
             for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {

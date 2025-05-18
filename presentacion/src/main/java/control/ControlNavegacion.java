@@ -681,19 +681,6 @@ public class ControlNavegacion {
         frame.setVisible(true);
     }
 
-    public static void mostrarPantallaRealizarRegistro(Component frame) {
-        int respuesta = JOptionPane.showConfirmDialog(
-                frame,
-                "¿Deseas realizar el registro?",
-                "Registro",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            //Lógica
-        }
-    }
-
     //Metodos
     public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
         try {
