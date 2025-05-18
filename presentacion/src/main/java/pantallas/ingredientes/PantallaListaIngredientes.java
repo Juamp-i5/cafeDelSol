@@ -16,7 +16,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
     List<IngredienteViejoListDTO> ingredientes;
     DefaultTableModel modeloTablaIngredientes;
     private Timer debounceTimer;
-    
+
     private final int DEBOUNCE_DELAY = 50;
 
     public PantallaListaIngredientes() {

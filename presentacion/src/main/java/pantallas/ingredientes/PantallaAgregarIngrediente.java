@@ -46,6 +46,11 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
         String unidadMedidaStr = (String) comboBoxUnidadMedida.getSelectedItem();
         ProveedorViejoDTO proveedor = (ProveedorViejoDTO) comboBoxProveedor.getSelectedItem();
 
+        if (nombre.isEmpty() || cantidadDisponibleStr.isEmpty() || cantidadMinimaStr.isEmpty() || unidadMedidaStr == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         UnidadMedida unidadMedida = UnidadMedida.valueOf(unidadMedidaStr.toUpperCase());
 
         Double cantidadDisponible = Double.parseDouble(cantidadDisponibleStr);
@@ -62,9 +67,11 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
     }
 
     public void agregarNuevoIngrediente() {
-        ControlNavegacion.agregarIngrediente(ingredienteNuevo);
-        ControlNavegacion.mostrarPantallaListaIngredientes();
-        this.dispose();
+        boolean exito = ControlNavegacion.agregarIngrediente(ingredienteNuevo);
+        if (exito) {
+            ControlNavegacion.mostrarPantallaListaIngredientes();
+            this.dispose();
+        }
     }
 
     private void listenerVerificarCampos() {
@@ -118,7 +125,6 @@ public class PantallaAgregarIngrediente extends javax.swing.JFrame {
             btnGuardarIngrediente.setEnabled(false);
         }
 
-        //validar caracteres maximo, cantidad disponible baja, alta o letras
     }
 
     /**

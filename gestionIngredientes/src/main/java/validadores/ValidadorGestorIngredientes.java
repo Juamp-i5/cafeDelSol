@@ -41,7 +41,7 @@ public class ValidadorGestorIngredientes implements IValidadorGestorIngredientes
         if (ingrediente.getCantidadMinima() == null) {
             throw new GestionCRUDIngredientesException("La cantidad mínima del ingrediente es obligatoria.");
         }
-        validadCantidadMinimaSuperada(ingrediente.getCantidadDisponible(), ingrediente.getUnidadMedida().toString());
+        validadCantidadMinimaSuperada(ingrediente.getCantidadMinima(), ingrediente.getUnidadMedida().toString());
         if (ingrediente.getCantidadMinima() < 0) {
             throw new GestionCRUDIngredientesException("La cantidad mínima no puede ser negativa.");
         }

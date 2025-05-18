@@ -45,13 +45,13 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
 
     @Override
     public boolean agregarIngrediente(IngredienteNuevoDTO ingrediente) throws GestionCRUDIngredientesException {
-        validador.validarAgregarIngrediente(ingrediente);
-        ingrediente.setNivelStock(ingrediente.getCantidadDisponible() < ingrediente.getCantidadMinima() ? NivelStock.BAJOSTOCK : NivelStock.ENSTOCK);
         try {
             boolean existente = ingredienteBO.obtenerIngredientePorNombre(ingrediente.getNombre().trim());
             if (existente) {
                 throw new NombreExistenteException("Ya existe un ingrediente con el nombre '" + ingrediente.getNombre() + "'.");
             }
+            validador.validarAgregarIngrediente(ingrediente);
+            ingrediente.setNivelStock(ingrediente.getCantidadDisponible() < ingrediente.getCantidadMinima() ? NivelStock.BAJOSTOCK : NivelStock.ENSTOCK);
             ingredienteBO.agregarIngrediente(ingrediente);
         } catch (NegocioException ex) {
             Logger.getLogger(GestorCRUDIngredientes.class.getName()).log(Level.SEVERE, null, ex);

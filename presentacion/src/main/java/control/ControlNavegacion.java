@@ -492,7 +492,7 @@ public class ControlNavegacion {
         );
 
     }
-    
+
     public static void registrarPedido() {
         try {
             gestor.registrarPedido();
@@ -500,10 +500,10 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
-     * Muestra la pantalla del menú de cubiculos. Se establece en el centro de la
-     * pantalla y se marca como visible.
+     * Muestra la pantalla del menú de cubiculos. Se establece en el centro de
+     * la pantalla y se marca como visible.
      */
     public static void mostrarPantallaMenuCubiculos() {
         JFrame menuCubiculos = new PantallaMenuCubiculos();
@@ -512,10 +512,10 @@ public class ControlNavegacion {
 
         framesVisitados.add(menuCubiculos);
     }
-    
+
     /**
-     * Muestra la pantalla para elegir si ir al menu de cubiculos o de pedidos. Se establece en el centro de la
-     * pantalla y se marca como visible.
+     * Muestra la pantalla para elegir si ir al menu de cubiculos o de pedidos.
+     * Se establece en el centro de la pantalla y se marca como visible.
      */
     public static void mostrarPantallaCubiculosOPedidos() {
         JFrame menu = new PantallaCubiculosOPedidos();
@@ -524,10 +524,10 @@ public class ControlNavegacion {
 
         framesVisitados.add(menu);
     }
-    
+
     /**
-     * Muestra la pantalla para realizar una reservación. Se establece en el centro de la
-     * pantalla y se marca como visible.
+     * Muestra la pantalla para realizar una reservación. Se establece en el
+     * centro de la pantalla y se marca como visible.
      */
     public static void mostrarPantallaReservar() {
         JFrame pantallaReservar = new PantallaReservar();
@@ -536,7 +536,7 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaReservar);
     }
-    
+
     //=====================================================
     //================== CRUD PRODUCTOS ===================
     //=====================================================
@@ -613,49 +613,49 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //ingredientes pantallas
     public static void mostrarPantallaListaIngredientes() {
         JFrame frame = new PantallaListaIngredientes();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     public static void mostrarPantallaVerDetallesIngrediente(String idIngrediente) {
-        DetallesIngredienteViejoDTO ingredienteDTO =obtenerDetallesIngrediente(idIngrediente);
-        
+        DetallesIngredienteViejoDTO ingredienteDTO = obtenerDetallesIngrediente(idIngrediente);
+
         JFrame frame = new PantallaVerDetallesIngrediente(ingredienteDTO);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     public static void mostrarPantallaEditarDetallesIngrediente(DetallesIngredienteViejoDTO ingrediente) {
         JFrame frame = new PantallaEditarDetallesIngrediente(ingrediente);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     public static void mostrarPantallaAgregarIngrediente() {
         JFrame frame = new PantallaAgregarIngrediente();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     public static void mostrarBuscarIngrediente() {
         JFrame frame = new PantallaBuscarIngrediente();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     //métodos
     public static List<IngredienteViejoListDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
         return new ArrayList();
     }
-    
+
     private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
         return new DetallesIngredienteViejoDTO();
-    }   
-    
+    }
+
     //Pantallas Entradas  
     public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
         JFrame frame = new PantallaTablaDetallesEntrada(entrada);
@@ -674,7 +674,7 @@ public class ControlNavegacion {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-    
+
     public static void mostrarPantallaBuscadorIngrediente(Consumer<DetallesIngredienteViejoDTO> regreso) {
         JFrame frame = new BuscadorIngredientesSimulado(regreso);
         frame.setLocationRelativeTo(null);
@@ -693,7 +693,7 @@ public class ControlNavegacion {
             //Lógica
         }
     }
-    
+
     //Metodos
     public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
         try {
@@ -720,22 +720,35 @@ public class ControlNavegacion {
             return new ArrayList<>();
         }
     }
-    
+
     //ingredientes métodos
-    public static void agregarIngrediente(IngredienteNuevoDTO ingrediente) {
+    public static boolean agregarIngrediente(IngredienteNuevoDTO ingrediente) {
         try {
             gestorCRUDIngredientes.agregarIngrediente(ingrediente);
             JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente");
+            return true;
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public static List<ProveedorViejoDTO> obtenerProveedores() {
+        try {
+            return gestorCRUDIngredientes.obtenerProveedores();
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
-    
-    public static List<ProveedorViejoDTO> obtenerProveedores() {
+
+    public static List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) {
         try {
-            return gestorCRUDIngredientes.obtenerProveedores();
+            return gestorCRUDIngredientes.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
