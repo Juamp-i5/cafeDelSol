@@ -1,7 +1,5 @@
 package DTOs.ingredientes;
 
-import enumIngredientes.NivelStock;
-import enumIngredientes.UnidadMedida;
 
 /**
  *
@@ -12,14 +10,14 @@ public class DetallesIngredienteViejoDTOPersistencia {
     private String nombre;
     private Double cantidadDisponible;
     private Double cantidadMinima;
-    private UnidadMedida unidadMedida;
-    private NivelStock nivelStock;
+    private String unidadMedida;
+    private String nivelStock;
     private String nombreProveedor;
 
     public DetallesIngredienteViejoDTOPersistencia() {
     }
 
-    public DetallesIngredienteViejoDTOPersistencia(String id, String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String nombreProveedor) {
+    public DetallesIngredienteViejoDTOPersistencia(String id, String nombre, Double cantidadDisponible, Double cantidadMinima, String unidadMedida, String nivelStock, String nombreProveedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
@@ -61,19 +59,19 @@ public class DetallesIngredienteViejoDTOPersistencia {
         this.cantidadMinima = cantidadMinima;
     }
 
-    public UnidadMedida getUnidadMedida() {
+    public String getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedida unidadMedida) {
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
     
-    public NivelStock getNivelStock() {
+    public String getNivelStock() {
         return nivelStock;
     }
 
-    public void setNivelStock(NivelStock nivelStock) {
+    public void setNivelStock(String nivelStock) {
         this.nivelStock = nivelStock;
     }
 

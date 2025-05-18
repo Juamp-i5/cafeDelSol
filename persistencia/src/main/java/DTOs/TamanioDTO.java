@@ -4,6 +4,7 @@
  */
 package DTOs;
 
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import java.util.List;
 
 /**

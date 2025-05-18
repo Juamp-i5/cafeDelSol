@@ -1,8 +1,8 @@
 package DAOsMongo.ingredientes;
 
-import DTOs.IngredienteDTOPersistencia;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IIngredienteMapperPersistencia;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import DTOs.ingredientes.IngredienteMapperPersistencia;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import com.mongodb.MongoClientSettings;
@@ -15,8 +15,6 @@ import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import conexion.IConexionMongo;
 import entidades.Ingrediente;
-import enumIngredientes.NivelStock;
-import enumIngredientes.UnidadMedida;
 import excepciones.PersistenciaIngredientesException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -98,8 +96,8 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
             dto.setNombre(resultado.getString("nombre"));
             dto.setCantidadDisponible(((Number) resultado.get("cantidadDisponible")).doubleValue());
             dto.setCantidadMinima(((Number) resultado.get("cantidadMinima")).doubleValue());
-            dto.setUnidadMedida(UnidadMedida.valueOf(resultado.getString("unidadMedida")));
-            dto.setNivelStock(NivelStock.valueOf(resultado.getString("nivelStock")));
+            dto.setUnidadMedida(resultado.getString("unidadMedida"));
+            dto.setNivelStock(resultado.getString("nivelStock"));
             Document proveedorDoc = (Document) resultado.get("detalleProveedor");
             dto.setNombreProveedor(proveedorDoc.getString("nombre"));
             return dto;
@@ -145,8 +143,8 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
                 ingrediente.setId(doc.getObjectId("_id"));
                 ingrediente.setNombre(doc.getString("nombre"));
                 ingrediente.setCantidadDisponible(((Number) doc.get("cantidadDisponible")).doubleValue());
-                ingrediente.setUnidadMedida(UnidadMedida.valueOf(doc.getString("unidadMedida")));
-                ingrediente.setNivelStock(NivelStock.valueOf(doc.getString("nivelStock")));
+                ingrediente.setUnidadMedida(doc.getString("unidadMedida"));
+                ingrediente.setNivelStock(doc.getString("nivelStock"));
                 lista.add(ingrediente);
             });
             return ingredienteMapper.toDTOList(lista);

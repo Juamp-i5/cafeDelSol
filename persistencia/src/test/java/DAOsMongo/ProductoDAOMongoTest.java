@@ -6,8 +6,8 @@ package DAOsMongo;
 
 import DTOs.ProductoDTO;
 import DTOs.TamanioDTO;
-import DTOs.IngredienteDTOPersistencia;
 import DTOs.ProveedorDTO;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import IDAOs.IProductoDAO;
 
 import conexion.IConexionMongo;
@@ -28,8 +28,6 @@ import org.junit.jupiter.api.DisplayName;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import enumIngredientes.NivelStock;
-import enumIngredientes.UnidadMedida;
 import org.bson.types.ObjectId;
 
 /**
@@ -120,8 +118,8 @@ public class ProductoDAOMongoTest {
             ingredienteDTO.setNombre(nombreIngrediente);
             ingredienteDTO.setCantidadDisponible(cantidadDispIng);
             ingredienteDTO.setCantidadMinima(cantidadMinIng);
-            ingredienteDTO.setUnidadMedida(UnidadMedida.GRAMO);
-            ingredienteDTO.setNivelStock(NivelStock.BAJOSTOCK);
+            ingredienteDTO.setUnidadMedida("");
+            ingredienteDTO.setNivelStock("");
         }
 
         List<IngredienteDTOPersistencia> ingredientesList = new ArrayList<>();

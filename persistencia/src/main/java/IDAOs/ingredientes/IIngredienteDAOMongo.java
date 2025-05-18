@@ -1,7 +1,8 @@
 package IDAOs.ingredientes;
 
-import DTOs.IngredienteDTOPersistencia;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;
 

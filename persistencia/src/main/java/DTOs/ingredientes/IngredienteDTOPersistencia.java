@@ -2,10 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DTOs;
-
-import enumIngredientes.NivelStock;
-import enumIngredientes.UnidadMedida;
+package DTOs.ingredientes;
 
 /**
  *
@@ -17,14 +14,14 @@ public class IngredienteDTOPersistencia {
     private String nombre;
     private double cantidadDisponible;
     private double cantidadMinima;
-    private UnidadMedida unidadMedida;
-    private NivelStock nivelStock;
+    private String unidadMedida;
+    private String nivelStock;
     private String idProveedor;
 
     public IngredienteDTOPersistencia() {
     }
 
-    public IngredienteDTOPersistencia(String id, String nombre, double cantidadDisponible, double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
+    public IngredienteDTOPersistencia(String id, String nombre, double cantidadDisponible, double cantidadMinima, String unidadMedida, String nivelStock, String idProveedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
@@ -66,19 +63,19 @@ public class IngredienteDTOPersistencia {
         this.cantidadMinima = cantidadMinima;
     }
 
-    public UnidadMedida getUnidadMedida() {
+    public String getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedida unidadMedida) {
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
-    public NivelStock getNivelStock() {
+    public String getNivelStock() {
         return nivelStock;
     }
 
-    public void setNivelStock(NivelStock nivelStock) {
+    public void setNivelStock(String nivelStock) {
         this.nivelStock = nivelStock;
     }
 

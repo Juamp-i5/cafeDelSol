@@ -9,6 +9,8 @@ import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
 import IDAOs.entradas.IEntradaDAO;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
+import IDAOs.ingredientes.IProveedorDAOMongo;
 
 /**
  * Clase que proporciona acceso centralizado a las implementaciones de los DAOs
@@ -87,5 +89,13 @@ public class AccesoDatos {
     
     public static IEntradaDAO getEntradaDAO(){
         return fabricaDAOs.getEntradaDAO();
+    }
+    
+    public static IIngredienteDAOMongo getIngredienteDAO() {
+        return fabricaDAOs.getIngredienteDAO();
+    }
+    
+    public static IProveedorDAOMongo getProveedorDAO() {
+        return fabricaDAOs.getProveedorDAO();
     }
 }

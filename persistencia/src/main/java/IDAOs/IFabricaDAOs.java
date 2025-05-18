@@ -4,6 +4,8 @@ import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReagendaDAO;
 import IDAOs.entradas.IEntradaDAO;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
+import IDAOs.ingredientes.IProveedorDAOMongo;
 
 /**
  *
@@ -30,4 +32,8 @@ public interface IFabricaDAOs {
     public IReagendaDAO getReagendaDAO();
     
     public IEntradaDAO getEntradaDAO();
+    
+    public IIngredienteDAOMongo getIngredienteDAO();
+
+    public IProveedorDAOMongo getProveedorDAO();
 }

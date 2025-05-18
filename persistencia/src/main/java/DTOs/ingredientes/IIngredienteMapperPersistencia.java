@@ -1,6 +1,5 @@
 package DTOs.ingredientes;
 
-import DTOs.IngredienteDTOPersistencia;
 import entidades.Ingrediente;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;

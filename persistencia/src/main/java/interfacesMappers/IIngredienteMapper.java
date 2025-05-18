@@ -4,7 +4,7 @@
  */
 package interfacesMappers;
 
-import DTOs.IngredienteDTOPersistencia;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import entidades.Ingrediente;
 import excepciones.PersistenciaException;
 import java.util.List;

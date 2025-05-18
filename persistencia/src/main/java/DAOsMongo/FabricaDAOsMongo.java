@@ -4,6 +4,8 @@ import DAOsMongo.cubiculos.CancelacionDAOMongo;
 import DAOsMongo.cubiculos.CubiculoDAOMongo;
 import DAOsMongo.cubiculos.ReagendaDAOMongo;
 import DAOsMongo.entradas.EntradaDAOMongo;
+import DAOsMongo.ingredientes.IngredienteDAOMongo;
+import DAOsMongo.ingredientes.ProveedorDAOMongo;
 import IDAOs.IFabricaDAOs;
 import conexion.ConexionMongo;
 import conexion.IConexionMongo;
@@ -17,6 +19,8 @@ import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReagendaDAO;
 import IDAOs.entradas.IEntradaDAO;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
+import IDAOs.ingredientes.IProveedorDAOMongo;
 
 /**
  * Fábrica de DAOs estática que proporciona instancias de DAOs conectadas a
@@ -118,5 +122,15 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
     @Override
     public IEntradaDAO getEntradaDAO() {
         return EntradaDAOMongo.getInstance(conexion);
+    }
+    
+    @Override
+    public IIngredienteDAOMongo getIngredienteDAO() {
+        return IngredienteDAOMongo.getInstance(conexion);
+    }
+
+    @Override
+    public IProveedorDAOMongo getProveedorDAO() {
+        return ProveedorDAOMongo.getInstance(conexion);
     }
 }

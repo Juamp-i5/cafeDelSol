@@ -1,8 +1,6 @@
 
 package entidades;
 
-import enumIngredientes.NivelStock;
-import enumIngredientes.UnidadMedida;
 import org.bson.types.ObjectId;
 
 /**
@@ -15,14 +13,14 @@ public class Ingrediente {
     private String nombre;
     private Double cantidadDisponible;
     private Double cantidadMinima;
-    private UnidadMedida unidadMedida;
-    private NivelStock nivelStock;
+    private String unidadMedida;
+    private String nivelStock;
     private ObjectId idProveedor;
 
     public Ingrediente() {
     }
 
-    public Ingrediente(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, ObjectId idProveedor) {
+    public Ingrediente(String nombre, Double cantidadDisponible, Double cantidadMinima, String unidadMedida, String nivelStock, ObjectId idProveedor) {
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
@@ -63,19 +61,19 @@ public class Ingrediente {
         this.cantidadMinima = cantidadMinima;
     }
 
-    public UnidadMedida getUnidadMedida() {
+    public String getUnidadMedida() {
         return unidadMedida;
     }
 
-    public void setUnidadMedida(UnidadMedida unidadMedida) {
+    public void setUnidadMedida(String unidadMedida) {
         this.unidadMedida = unidadMedida;
     }
 
-    public NivelStock getNivelStock() {
+    public String getNivelStock() {
         return nivelStock;
     }
 
-    public void setNivelStock(NivelStock nivelStock) {
+    public void setNivelStock(String nivelStock) {
         this.nivelStock = nivelStock;
     }
 
