@@ -12,12 +12,6 @@ import java.util.List;
 public interface IEntradaDAO {
     
     public boolean registrarEntrada(Entrada entrada) throws PersistenciaEntradasException;
-
-    public List<Entrada> obtenerListaEntradaPorRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException;
     
-    public List<Entrada> obtenerTodasLasEntradas() throws PersistenciaEntradasException;
-    
-    public List<Entrada> obtenerEntradasHastaFecha(LocalDateTime fechaFin) throws PersistenciaEntradasException;
-    
-    public List<Entrada> obtenerEntradasDesdeFecha(LocalDateTime fechaInicio) throws PersistenciaEntradasException;
+    public List<Entrada> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException;
 }

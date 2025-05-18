@@ -12,14 +12,15 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 import org.bson.conversions.Bson;
 
 /**
  *
  * @author pablo
  */
-public class EntradaDAOMongo implements IEntradaDAO  {
-    
+public class EntradaDAOMongo implements IEntradaDAO {
+
     private static EntradaDAOMongo instancia;
     private final IConexionMongo conexion;
     private final MongoDatabase database;
@@ -54,52 +55,24 @@ public class EntradaDAOMongo implements IEntradaDAO  {
     }
 
     @Override
-    public List<Entrada> obtenerTodasLasEntradas() throws PersistenciaEntradasException {
+    public List<Entrada> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException {
         try {
-            return coleccion.find().into(new ArrayList<>());
+            List<Bson> filtros = new ArrayList<>();
+
+            if (fechaInicio != null) {
+                LocalDateTime inicioDelDia = fechaInicio.toLocalDate().atStartOfDay();
+                filtros.add(Filters.gte("fechaHora", inicioDelDia));
+            }
+
+            if (fechaFin != null) {
+                LocalDateTime finDelDia = fechaFin.toLocalDate().atTime(LocalTime.MAX);
+                filtros.add(Filters.lte("fechaHora", finDelDia));
+            }
+
+            Bson filtroFinal = filtros.isEmpty() ? new Document() : Filters.and(filtros);
+            return coleccion.find(filtroFinal).into(new ArrayList<>());
         } catch (Exception e) {
-            throw new PersistenciaEntradasException("Error al obtener todas las entradas de la base de datos", e);
-        }
-    }
-
-    @Override
-    public List<Entrada> obtenerEntradasHastaFecha(LocalDateTime fechaFin) throws PersistenciaEntradasException {
-        try {
-            LocalDateTime finDelDia = LocalDateTime.of(fechaFin.toLocalDate(), LocalTime.MAX);
-            Bson filtro = Filters.lte("fechaHora", finDelDia);
-            List<Entrada> entradas = coleccion.find(filtro).into(new ArrayList<>());
-
-            return entradas;
-
-        } catch (Exception e) {
-            throw new PersistenciaEntradasException("Error al obtener entradas hasta la fecha: " + fechaFin, e);
-        }
-    }
-
-    @Override
-    public List<Entrada> obtenerEntradasDesdeFecha(LocalDateTime fechaInicio) throws PersistenciaEntradasException {
-        try {
-            LocalDateTime inicioDelDia = fechaInicio.toLocalDate().atStartOfDay();
-            Bson filtro = Filters.gte("fechaHora", inicioDelDia);
-            return coleccion.find(filtro).into(new ArrayList<>());
-        } catch (Exception e) {
-            throw new PersistenciaEntradasException("Error al obtener entradas desde la fecha: " + fechaInicio, e);
-        }
-    }
-
-    @Override
-    public List<Entrada> obtenerListaEntradaPorRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException {
-        try {
-            LocalDateTime desde = fechaInicio.toLocalDate().atStartOfDay();
-            LocalDateTime hasta = fechaFin.toLocalDate().atTime(LocalTime.MAX);
-
-            Bson filtro = Filters.and(
-                    Filters.gte("fechaHora", desde),
-                    Filters.lte("fechaHora", hasta)
-            );
-            return coleccion.find(filtro).into(new ArrayList<>());
-        } catch (Exception e) {
-            throw new PersistenciaEntradasException("Error al obtener entradas por rango de fecha", e);
+            throw new PersistenciaEntradasException("Error al obtener entradas por fechas", e);
         }
     }
 }

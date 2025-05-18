@@ -651,11 +651,9 @@ public class ControlNavegacion {
 //    public static List<IngredienteViejoListDTO> obtenerIngredientesFiltrados(String filtroNombre, String filtroNivelStock) {
 //        return new ArrayList();
 //    }
-
 //    private static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
 //        return new DetallesIngredienteViejoDTO();
 //    }
-
     //Pantallas Entradas  
     public static void mostrarPantallaDetallesEntrada(EntradaViejaDTO entrada) {
         JFrame frame = new PantallaTablaDetallesEntrada(entrada);
@@ -681,30 +679,28 @@ public class ControlNavegacion {
         frame.setVisible(true);
     }
 
-    //Metodos
+    // entradas metodos
     public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
         try {
-            return gestorCRUDEntradas.registrarEntrada(entrada);
-        } catch (GestorCRUDEntradasException e) {
-            System.err.println("Error de negocio al registrar entrada: " + e.getMessage());
+            gestorCRUDEntradas.registrarEntrada(entrada);
+            JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente");
+            return true;           
+        } catch (GestorCRUDEntradasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
     public static List<EntradaViejaDTO> obtenerListaEntradasPorRangoFecha(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         try {
-            if (fechaInicio == null && fechaFin == null) {
-                return gestorCRUDEntradas.obtenerTodasLasEntradas();
-            } else if (fechaInicio == null) {
-                return gestorCRUDEntradas.obtenerEntradasHastaFecha(fechaFin);
-            } else if (fechaFin == null) {
-                return gestorCRUDEntradas.obtenerEntradasDesdeFecha(fechaInicio);
-            } else {
-                return gestorCRUDEntradas.obtenerListaEntradasPorRangoFechas(fechaInicio, fechaFin);
-            }
-        } catch (GestorCRUDEntradasException e) {
-            System.err.println("Error de negocio al obtener lista de entradas: " + e.getMessage());
-            return new ArrayList<>();
+            return gestorCRUDEntradas.obtenerEntradasPorFechas(fechaInicio, fechaFin);
+        } catch (GestorCRUDEntradasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 
@@ -743,7 +739,7 @@ public class ControlNavegacion {
         }
         return null;
     }
-    
+
     public static DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) {
         try {
             return gestorCRUDIngredientes.obtenerDetallesIngrediente(idIngrediente);
@@ -754,8 +750,8 @@ public class ControlNavegacion {
         }
         return null;
     }
-    
-    public static DetallesIngredienteViejoDTO editarIngrediente (String idIngrediente, String nuevoNombre) {
+
+    public static DetallesIngredienteViejoDTO editarIngrediente(String idIngrediente, String nuevoNombre) {
         try {
             return gestorCRUDIngredientes.editarIngrediente(idIngrediente, nuevoNombre);
         } catch (GestionCRUDIngredientesException ex) {

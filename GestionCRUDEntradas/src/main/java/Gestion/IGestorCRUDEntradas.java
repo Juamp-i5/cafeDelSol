@@ -13,12 +13,6 @@ import java.util.List;
 public interface IGestorCRUDEntradas {
     
     public boolean registrarEntrada(EntradaNuevaDTO entrada) throws GestorCRUDEntradasException;
-
-    public List<EntradaViejaDTO> obtenerListaEntradasPorRangoFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException;
     
-    public List<EntradaViejaDTO> obtenerTodasLasEntradas() throws GestorCRUDEntradasException;
-    
-    public List<EntradaViejaDTO> obtenerEntradasHastaFecha(LocalDateTime fechaFin) throws GestorCRUDEntradasException;
-    
-    public List<EntradaViejaDTO> obtenerEntradasDesdeFecha(LocalDateTime fechaInicio) throws GestorCRUDEntradasException;
+    public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException;
 }

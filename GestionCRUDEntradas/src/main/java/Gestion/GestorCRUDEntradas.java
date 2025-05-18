@@ -4,6 +4,7 @@ import BOs.entradas.EntradaBO;
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
 import Excepcion.GestorCRUDEntradasException;
+import excepciones.NegocioException;
 import excepciones.NegocioExceptionNegocio;
 import excepciones.PersistenciaEntradasException;
 import interfacesBO.entradas.IEntradaBO;
@@ -39,50 +40,17 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
         validador.validarEntrada(entrada);
         try {
             return entradaBO.registrarEntrada(entrada);
-        } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
+        } catch (PersistenciaEntradasException | NegocioException ex) {
             Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
     }
     
     @Override
-    public List<EntradaViejaDTO> obtenerListaEntradasPorRangoFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException{
-        validador.validarFechasFiltradas(fechaFin, fechaInicio);
+    public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException{
         try {
-            return entradaBO.obtenerListaPorRangoFechas(fechaInicio, fechaFin);
-        } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
-            Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    @Override
-    public List<EntradaViejaDTO> obtenerTodasLasEntradas() throws GestorCRUDEntradasException{
-        try {
-            return entradaBO.obtenerTodasLasEntradas();
-        } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
-            Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    @Override
-    public List<EntradaViejaDTO> obtenerEntradasHastaFecha(LocalDateTime fechaFin) throws GestorCRUDEntradasException{
-        validador.validarFechasFiltradas(fechaFin, fechaFin);
-        try {
-            return entradaBO.obtenerEntradasHastaFecha(fechaFin);
-        } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
-            Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
-    @Override
-    public List<EntradaViejaDTO> obtenerEntradasDesdeFecha(LocalDateTime fechaInicio) throws GestorCRUDEntradasException{
-        validador.validarFechasFiltradas(fechaInicio, fechaInicio);
-        try {
-            return entradaBO.obtenerEntradasDesdeFecha(fechaInicio);
-        } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
+            return entradaBO.obtenerEntradasPorFechas(fechaInicio, fechaFin);
+        } catch (PersistenciaEntradasException | NegocioException ex) {
             Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
