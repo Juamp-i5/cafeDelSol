@@ -17,7 +17,7 @@ public class PantallaEditarDetallesIngrediente extends javax.swing.JFrame {
     public PantallaEditarDetallesIngrediente(DetallesIngredienteViejoDTO ingrediente) {
         initComponents();
         this.ingrediente = ingrediente;
-        this.ingredienteEditado = new DetallesIngredienteViejoDTO(ingrediente.getId(),ingrediente.getNombre(), ingrediente.getCantidadDisponible(), ingrediente.getCantidadMinima(), ingrediente.getUnidadMedida(), ingrediente.getNivelStock(), ingrediente.getIdProveedor());
+        this.ingredienteEditado = new DetallesIngredienteViejoDTO(ingrediente.getId(),ingrediente.getNombre(), ingrediente.getCantidadDisponible(), ingrediente.getCantidadMinima(), ingrediente.getUnidadMedida(), ingrediente.getNivelStock(), ingrediente.getNombreProveedor());
         cargarNombreIngrediente();
         aplicarListeners();
     }

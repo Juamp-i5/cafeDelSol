@@ -258,15 +258,21 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             System.out.println("Tipo de precio total: " + precioTotal);
 
             DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
-            DetallesIngredienteViejoDTO ingrediente = preRegistro.getIngrediente();
-            preRegistro.setNombreIngrediente(nombreIngrediente);
-            ingrediente.setCantidadDisponible(stockActual);           
-            ingrediente.setUnidadMedida(unidad);
-            
+            preRegistro.setNombreIngrediente(nombreIngrediente);            
             preRegistro.setCantidadIngrediente(cantidadAgregada);
             preRegistro.setPrecioUnitario(precioUnitario);
             preRegistro.setPrecioTotal(precioTotal);
-
+            
+            //Obtener ingrediente por nombre
+            
+            //Sumar Stock
+            
+            //Buscar proveedor por nombre
+            
+//          preRegistro.getIngrediente().setIdProveedor(idProveedor);
+            
+//          preRegistro.setIngrediente(ingrediente);
+            
             registroNuevo.add(preRegistro);
 
             totalEntrada += precioTotal;
@@ -274,8 +280,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 totalCantidadIngredientes += cantidadAgregada;
             }
         }
-
-        detalle.setCantidadIngrediente(totalCantidadIngredientes);
 
         entrada.setFechaHora(LocalDateTime.now());
         entrada.setProveedor(TFProveedor.getText().trim());
@@ -315,7 +319,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 System.out.println("No se seleccionó ningún ingrediente.");
                 return;
             }
-
+            
             boolean encontrado = false;
 
             for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {

@@ -35,14 +35,14 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
         if (entrada != null && entrada.getDetallesEntrada() != null) {
             List<DetalleEntradaDTO> registros = entrada.getDetallesEntrada();
             if (registros != null) {
-                for (DetalleEntradaDTO registro : registros) {                    
+                for (DetalleEntradaDTO registro : registros) {
                     modelo.addRow(new Object[]{
                         registro.getNombreIngrediente(),
                         null,
                         null,
                         registro.getPrecioUnitario(),
                         registro.getPrecioTotal(),
-                        null
+//                        registro.getIngrediente().getNivelStock()
                     });
                 }
             }

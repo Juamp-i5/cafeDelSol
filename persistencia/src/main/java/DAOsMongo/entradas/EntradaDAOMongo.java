@@ -25,7 +25,7 @@ public class EntradaDAOMongo implements IEntradaDAO  {
     private final MongoDatabase database;
 
     private final MongoCollection<Entrada> coleccion;
-    private final String NOMBRE_COLECCION = "entrada";
+    private final String NOMBRE_COLECCION = "RegistroEntradas";
 
     private EntradaDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;

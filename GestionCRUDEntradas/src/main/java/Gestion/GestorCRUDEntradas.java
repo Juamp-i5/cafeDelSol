@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import validaciones.IValidadorGestorEntradas;
+import validaciones.ValidadorGestorCRUDEntradas;
 
 /**
  *
@@ -22,7 +24,8 @@ import java.util.logging.Logger;
  */
 public class GestorCRUDEntradas implements IGestorCRUDEntradas{
     private static GestorCRUDEntradas instance;
-    IEntradaBO entradaBO = EntradaBO.getInstance(); 
+    private final IEntradaBO entradaBO = EntradaBO.getInstance();
+    IValidadorGestorEntradas validador = new ValidadorGestorCRUDEntradas();
 
     public GestorCRUDEntradas() {
     }
@@ -37,6 +40,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
 
     @Override
     public boolean registrarEntrada(EntradaNuevaDTO entrada) throws GestorCRUDEntradasException{
+        validador.validarEntrada(entrada);
         try {
             return entradaBO.registrarEntrada(entrada);
         } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
@@ -47,6 +51,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
     
     @Override
     public List<EntradaViejaDTO> obtenerListaEntradasPorRangoFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException{
+        validador.validarFechasFiltradas(fechaFin, fechaInicio);
         try {
             return entradaBO.obtenerListaPorRangoFechas(fechaInicio, fechaFin);
         } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
@@ -67,6 +72,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
     
     @Override
     public List<EntradaViejaDTO> obtenerEntradasHastaFecha(LocalDateTime fechaFin) throws GestorCRUDEntradasException{
+        validador.validarFechasFiltradas(fechaFin, fechaFin);
         try {
             return entradaBO.obtenerEntradasHastaFecha(fechaFin);
         } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
@@ -77,6 +83,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
     
     @Override
     public List<EntradaViejaDTO> obtenerEntradasDesdeFecha(LocalDateTime fechaInicio) throws GestorCRUDEntradasException{
+        validador.validarFechasFiltradas(fechaInicio, fechaInicio);
         try {
             return entradaBO.obtenerEntradasDesdeFecha(fechaInicio);
         } catch (PersistenciaEntradasException | NegocioExceptionNegocio ex) {
