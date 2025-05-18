@@ -21,11 +21,11 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
 
     public PantallaListaIngredientes() {
         initComponents();
-        this.modeloTablaIngredientes = obtenerModeloTablaProduictos();
+        this.modeloTablaIngredientes = obtenerModeloTablaIngredientes();
         cargarTablaIngredientes();
     }
 
-    private DefaultTableModel obtenerModeloTablaProduictos() {
+    private DefaultTableModel obtenerModeloTablaIngredientes() {
         return (DefaultTableModel) this.tablaIngredientes.getModel();
     }
 
@@ -41,7 +41,6 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
         for (IngredienteViejoListDTO ingrediente : ingredientes) {
             this.modeloTablaIngredientes.addRow(
                     new Object[]{
-                        ingrediente.getId(),
                         ingrediente.getNombre(),
                         ingrediente.getCantidadDisponible(),
                         ingrediente.getUnidadMedida(),
@@ -53,7 +52,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
     }
 
     private List<IngredienteViejoListDTO> obtenerIngredientes() {
-        return ControlNavegacion.obtenerIngredientesFiltrados("", "");
+        return ControlNavegacion.buscarIngredientesPorFiltros("", "");
     }
 
     @SuppressWarnings("unchecked")
@@ -81,14 +80,14 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
 
         tablaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Cantidad disponible", "Unidad de medida", "Estado"
+                "Nombre", "Cantidad disponible", "Unidad de medida", "Estado"
             }
         ));
         scrollPanelListaIngredientes.setViewportView(tablaIngredientes);
