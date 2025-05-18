@@ -1,6 +1,6 @@
 package DTOs.ingredientes;
 
-import DTOs.IngredienteDTO;
+import DTOs.IngredienteDTOPersistencia;
 import entidades.Ingrediente;
 import excepciones.PersistenciaIngredientesException;
 import java.util.ArrayList;
@@ -17,11 +17,11 @@ public class IngredienteMapperPersistencia implements IIngredienteMapperPersiste
     }
 
     @Override
-    public IngredienteViejoListDTOPersistencia toDTOIngredienteViejoListDTOPersistencia(Ingrediente entidad) {
+    public IngredienteDTOPersistencia toDTOIngredienteViejoListDTOPersistencia(Ingrediente entidad) {
         if (entidad == null) {
             return null;
         }
-        IngredienteViejoListDTOPersistencia dto = new IngredienteViejoListDTOPersistencia();
+        IngredienteDTOPersistencia dto = new IngredienteDTOPersistencia();
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
@@ -33,11 +33,11 @@ public class IngredienteMapperPersistencia implements IIngredienteMapperPersiste
     }
 
     @Override
-    public List<IngredienteViejoListDTOPersistencia> toDTOList(List<Ingrediente> entidades) {
+    public List<IngredienteDTOPersistencia> toDTOList(List<Ingrediente> entidades) {
         if (entidades == null) {
             return null;
         }
-        List<IngredienteViejoListDTOPersistencia> dtos = new ArrayList<>();
+        List<IngredienteDTOPersistencia> dtos = new ArrayList<>();
         for (Ingrediente entidad : entidades) {
             dtos.add(toDTOIngredienteViejoListDTOPersistencia(entidad));
         }
@@ -45,7 +45,7 @@ public class IngredienteMapperPersistencia implements IIngredienteMapperPersiste
     }
 
     @Override
-    public Ingrediente toMongo(IngredienteDTO dto) throws PersistenciaIngredientesException {
+    public Ingrediente toMongo(IngredienteDTOPersistencia dto) throws PersistenciaIngredientesException {
         if (dto == null) {
             return null;
         }

@@ -1,9 +1,7 @@
 package IDAOs.ingredientes;
 
-import DTOs.IngredienteDTO;
+import DTOs.IngredienteDTOPersistencia;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
-import DTOs.ingredientes.IngredienteViejoListDTOPersistencia;
-import entidades.Ingrediente;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;
 
@@ -13,11 +11,11 @@ import java.util.List;
  */
 public interface IIngredienteDAOMongo {
     
-    public boolean agregarIngrediente(IngredienteDTO ingrediente) throws PersistenciaIngredientesException;
+    public boolean agregarIngrediente(IngredienteDTOPersistencia ingrediente) throws PersistenciaIngredientesException;
         
     public DetallesIngredienteViejoDTOPersistencia editarIngrediente(String idIngrediente, String nombreNuevo) throws PersistenciaIngredientesException;
     
-    public List<IngredienteViejoListDTOPersistencia> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws PersistenciaIngredientesException;
+    public List<IngredienteDTOPersistencia> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws PersistenciaIngredientesException;
     
     public DetallesIngredienteViejoDTOPersistencia obtenerDetallesIngrediente(String idIngrediente) throws PersistenciaIngredientesException;
         

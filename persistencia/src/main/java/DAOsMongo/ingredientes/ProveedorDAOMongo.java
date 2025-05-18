@@ -13,7 +13,6 @@ import entidades.Proveedor;
 import excepciones.PersistenciaIngredientesException;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.Document;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;

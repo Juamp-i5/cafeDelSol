@@ -6,7 +6,7 @@ package DAOsMongo;
 
 import DTOs.ProductoDTO;
 import DTOs.TamanioDTO;
-import DTOs.IngredienteDTO;
+import DTOs.IngredienteDTOPersistencia;
 import DTOs.ProveedorDTO;
 import IDAOs.IProductoDAO;
 
@@ -114,9 +114,9 @@ public class ProductoDAOMongoTest {
         }
 
         // Crear IngredienteDTO
-        IngredienteDTO ingredienteDTO = null;
+        IngredienteDTOPersistencia ingredienteDTO = null;
         if (nombreIngrediente != null) {
-            ingredienteDTO = new IngredienteDTO();
+            ingredienteDTO = new IngredienteDTOPersistencia();
             ingredienteDTO.setNombre(nombreIngrediente);
             ingredienteDTO.setCantidadDisponible(cantidadDispIng);
             ingredienteDTO.setCantidadMinima(cantidadMinIng);
@@ -124,7 +124,7 @@ public class ProductoDAOMongoTest {
             ingredienteDTO.setNivelStock(NivelStock.BAJOSTOCK);
         }
 
-        List<IngredienteDTO> ingredientesList = new ArrayList<>();
+        List<IngredienteDTOPersistencia> ingredientesList = new ArrayList<>();
         if (ingredienteDTO != null) {
             ingredientesList.add(ingredienteDTO);
         }
@@ -227,7 +227,7 @@ public class ProductoDAOMongoTest {
         assertFalse(tamanioRecuperado.getIngredientes().isEmpty(), "La lista de ingredientes del tamaño no debería estar vacía.");
         assertEquals(1, tamanioRecuperado.getIngredientes().size());
 
-        IngredienteDTO ingredienteRecuperado = tamanioRecuperado.getIngredientes().get(0);
+        IngredienteDTOPersistencia ingredienteRecuperado = tamanioRecuperado.getIngredientes().get(0);
         assertEquals("Mezcla Chai", ingredienteRecuperado.getNombre());
 //        assertNotNull(ingredienteRecuperado.getProveedor());
 //        assertEquals("Especias Orientales", ingredienteRecuperado.getProveedor().getNombre());
@@ -312,7 +312,7 @@ public class ProductoDAOMongoTest {
 
         assertNotNull(tamanioAct.getIngredientes());
         assertFalse(tamanioAct.getIngredientes().isEmpty());
-        IngredienteDTO ingAct = tamanioAct.getIngredientes().get(0);
+        IngredienteDTOPersistencia ingAct = tamanioAct.getIngredientes().get(0);
         assertEquals("Chocolate Blanco Premium", ingAct.getNombre());
 
 //        assertNotNull(ingAct.getProveedor());

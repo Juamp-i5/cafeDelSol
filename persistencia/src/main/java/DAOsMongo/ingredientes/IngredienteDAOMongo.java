@@ -1,10 +1,9 @@
 package DAOsMongo.ingredientes;
 
-import DTOs.IngredienteDTO;
+import DTOs.IngredienteDTOPersistencia;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IIngredienteMapperPersistencia;
 import DTOs.ingredientes.IngredienteMapperPersistencia;
-import DTOs.ingredientes.IngredienteViejoListDTOPersistencia;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
@@ -19,7 +18,6 @@ import entidades.Ingrediente;
 import enumIngredientes.NivelStock;
 import enumIngredientes.UnidadMedida;
 import excepciones.PersistenciaIngredientesException;
-import interfacesMappers.IIngredienteMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,7 +65,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     }
 
     @Override
-    public boolean agregarIngrediente(IngredienteDTO ingrediente) throws PersistenciaIngredientesException {
+    public boolean agregarIngrediente(IngredienteDTOPersistencia ingrediente) throws PersistenciaIngredientesException {
         try {
             coleccion.insertOne(ingredienteMapper.toMongo(ingrediente));        
             System.out.println("Ingrediente agregado correctamente.");
@@ -127,7 +125,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     }
 
     @Override
-    public List<IngredienteViejoListDTOPersistencia> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws PersistenciaIngredientesException {
+    public List<IngredienteDTOPersistencia> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws PersistenciaIngredientesException {
         try {
             List<Bson> filtros = new ArrayList<>();
             if (filtroNombre != null && !filtroNombre.isEmpty()) {

@@ -1,14 +1,17 @@
-package DTOs.ingredientes;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package DTOs;
 
 import enumIngredientes.NivelStock;
 import enumIngredientes.UnidadMedida;
-
 
 /**
  *
  * @author Jp
  */
-public class IngredienteViejoListDTOPersistencia {
+public class IngredienteDTOPersistencia {
 
     private String id;
     private String nombre;
@@ -18,10 +21,11 @@ public class IngredienteViejoListDTOPersistencia {
     private NivelStock nivelStock;
     private String idProveedor;
 
-    public IngredienteViejoListDTOPersistencia() {
+    public IngredienteDTOPersistencia() {
     }
 
-    public IngredienteViejoListDTOPersistencia(String nombre, Double cantidadDisponible, Double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
+    public IngredienteDTOPersistencia(String id, String nombre, double cantidadDisponible, double cantidadMinima, UnidadMedida unidadMedida, NivelStock nivelStock, String idProveedor) {
+        this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
         this.cantidadMinima = cantidadMinima;
@@ -46,19 +50,19 @@ public class IngredienteViejoListDTOPersistencia {
         this.nombre = nombre;
     }
 
-    public Double getCantidadDisponible() {
+    public double getCantidadDisponible() {
         return cantidadDisponible;
     }
 
-    public void setCantidadDisponible(Double cantidadDisponible) {
+    public void setCantidadDisponible(double cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
     }
 
-    public Double getCantidadMinima() {
+    public double getCantidadMinima() {
         return cantidadMinima;
     }
 
-    public void setCantidadMinima(Double cantidadMinima) {
+    public void setCantidadMinima(double cantidadMinima) {
         this.cantidadMinima = cantidadMinima;
     }
 
@@ -82,14 +86,8 @@ public class IngredienteViejoListDTOPersistencia {
         return idProveedor;
     }
 
-    public void setIdProveedor(String idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdProveedor(String proveedor) {
+        this.idProveedor = proveedor;
     }
 
-    @Override
-    public String toString() {
-        return "IngredienteDTO{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
-    }
-      
-    
 }

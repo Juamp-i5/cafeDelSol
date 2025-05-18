@@ -16,12 +16,12 @@ public class TamanioDTO {
     private String nombre;
     private double precioAdicional;
     private byte[] imagenData;
-    private List<IngredienteDTO> ingredientes;
+    private List<IngredienteDTOPersistencia> ingredientes;
 
     public TamanioDTO() {
     }
 
-    public TamanioDTO(String id, String nombre, double precioAdicional, byte[] imagenData, List<IngredienteDTO> ingredientes) {
+    public TamanioDTO(String id, String nombre, double precioAdicional, byte[] imagenData, List<IngredienteDTOPersistencia> ingredientes) {
         this.id = id;
         this.nombre = nombre;
         this.precioAdicional = precioAdicional;
@@ -61,11 +61,11 @@ public class TamanioDTO {
         this.imagenData = imagenData;
     }
 
-    public List<IngredienteDTO> getIngredientes() {
+    public List<IngredienteDTOPersistencia> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(List<IngredienteDTO> ingredientes) {
+    public void setIngredientes(List<IngredienteDTOPersistencia> ingredientes) {
         this.ingredientes = ingredientes;
     }
 

@@ -6,7 +6,7 @@ package mappers;
 
 import interfacesMappers.IProveedorMapper;
 import interfacesMappers.IIngredienteMapper;
-import DTOs.IngredienteDTO;
+import DTOs.IngredienteDTOPersistencia;
 import entidades.Ingrediente;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import org.bson.types.ObjectId;
 public class IngredienteMapper implements IIngredienteMapper {
 
     @Override
-    public IngredienteDTO toDTO(Ingrediente entidad) {
+    public IngredienteDTOPersistencia toDTO(Ingrediente entidad) {
         if (entidad == null) {
             return null;
         }
-        IngredienteDTO dto = new IngredienteDTO();
+        IngredienteDTOPersistencia dto = new IngredienteDTOPersistencia();
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
@@ -40,7 +40,7 @@ public class IngredienteMapper implements IIngredienteMapper {
     }
 
     @Override
-    public Ingrediente toMongo(IngredienteDTO dto) throws PersistenciaException {
+    public Ingrediente toMongo(IngredienteDTOPersistencia dto) throws PersistenciaException {
         if (dto == null) {
             return null;
         }
@@ -64,11 +64,11 @@ public class IngredienteMapper implements IIngredienteMapper {
     }
 
     @Override
-    public List<IngredienteDTO> toDTOList(List<Ingrediente> entidades) {
+    public List<IngredienteDTOPersistencia> toDTOList(List<Ingrediente> entidades) {
         if (entidades == null) {
             return null;
         }
-        List<IngredienteDTO> dtos = new ArrayList<>();
+        List<IngredienteDTOPersistencia> dtos = new ArrayList<>();
         for (Ingrediente entidad : entidades) {
             dtos.add(toDTO(entidad));
         }
@@ -76,12 +76,12 @@ public class IngredienteMapper implements IIngredienteMapper {
     }
 
     @Override
-    public List<Ingrediente> toMongoList(List<IngredienteDTO> dtos) throws PersistenciaException {
+    public List<Ingrediente> toMongoList(List<IngredienteDTOPersistencia> dtos) throws PersistenciaException {
         if (dtos == null) {
             return null;
         }
         List<Ingrediente> entidades = new ArrayList<>();
-        for (IngredienteDTO dto : dtos) {
+        for (IngredienteDTOPersistencia dto : dtos) {
             entidades.add(toMongo(dto));
         }
         return entidades;
