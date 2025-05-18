@@ -35,16 +35,16 @@ public class IngredienteBO implements IIngredienteBO{
         }
         return instanceBO;
     }
-    
+
     @Override
-    public boolean agregarIngrediente(IngredienteNuevoDTO ingredienteDTO) throws NegocioException { 
+    public boolean agregarIngrediente(IngredienteNuevoDTO ingredienteDTO) throws NegocioException {
         try {
             return ingredienteDAO.agregarIngrediente(ingredienteMapper.toDTOPersistencia(ingredienteDTO));
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al agregar el ingrediente.");
         }
     }
-    
+
     @Override
     public DetallesIngredienteViejoDTO editarIngrediente(String idIngrediente, String nombreNuevo) throws NegocioException {
         try {
@@ -52,13 +52,13 @@ public class IngredienteBO implements IIngredienteBO{
             return ingredienteMapper.toDTOIngredienteDetalles(ingrediente);
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al editar el ingrediente.");
-        } 
+        }
     }
 
     @Override
-    public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, NivelStock filtroNivelStock) throws NegocioException {
+    public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws NegocioException {
         try {
-            List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNombre);
+            List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
             return ingredienteMapper.toDTOIngredienteList(ingredientes);
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al buscar los ingredientes por filtros.");
@@ -101,5 +101,5 @@ public class IngredienteBO implements IIngredienteBO{
             throw new NegocioException("Error al obtener el ingrediente por nombre.");
         }
     }
-    
+
 }

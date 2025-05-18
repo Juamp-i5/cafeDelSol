@@ -48,22 +48,13 @@ public class IngredienteMapperPersistencia implements IIngredienteMapperPersiste
         if (dto == null) {
             return null;
         }
-        Ingrediente entidad = new Ingrediente();
-        if (dto.getId() != null && ObjectId.isValid(dto.getId())) {
-            entidad.setId(new ObjectId(dto.getId()));
-        } else if (dto.getId() != null && !dto.getId().isEmpty() && !ObjectId.isValid(dto.getId())) {
-            throw new PersistenciaIngredientesException("Error al mapear el ingredienteId de IngredienteDTO de String a ObjectId");
-        }
+        Ingrediente entidad = new Ingrediente();   
         entidad.setNombre(dto.getNombre());
         entidad.setCantidadDisponible(dto.getCantidadDisponible());
         entidad.setCantidadMinima(dto.getCantidadMinima());
         entidad.setUnidadMedida(dto.getUnidadMedida());
         entidad.setNivelStock(dto.getNivelStock());
-        if (dto.getIdProveedor() != null && ObjectId.isValid(dto.getIdProveedor())) {
-            entidad.setIdProveedor(new ObjectId(dto.getIdProveedor()));
-        } else if (dto.getIdProveedor() != null && !dto.getIdProveedor().isEmpty() && !ObjectId.isValid(dto.getIdProveedor())) {
-            throw new PersistenciaIngredientesException("Error al mapear el ingredienteId de IngredienteDTO de String a ObjectId");
-        }
+        entidad.setIdProveedor(new ObjectId(dto.getIdProveedor()));
         return entidad;
     }
 }

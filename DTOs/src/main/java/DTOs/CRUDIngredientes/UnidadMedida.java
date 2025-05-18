@@ -9,19 +9,19 @@ package DTOs.CRUDIngredientes;
  * @author norma
  */
 public enum UnidadMedida {
-    GRAMO,
-    UNIDAD,
-    MILILITRO;
+    GRAMOS,
+    UNIDADES,
+    MILILITROS;
     
     @Override
     public String toString() {
         switch (this) {
-            case GRAMO:
-                return "Gramo";
-            case UNIDAD:
-                return "Unidad";
-            case MILILITRO:
-                return "Mililitro";
+            case GRAMOS:
+                return "GRAMOS";
+            case UNIDADES:
+                return "UNIDADES";
+            case MILILITROS:
+                return "MILILITROS";
             default:
                 return "";
         }

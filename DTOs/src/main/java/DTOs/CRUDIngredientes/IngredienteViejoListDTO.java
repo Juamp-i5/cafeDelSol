@@ -67,4 +67,9 @@ public class IngredienteViejoListDTO {
         this.nivelStock = nivelStock;
     }
 
+    @Override
+    public String toString() {
+        return "IngredienteViejoListDTO{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + '}';
+    }
+
 }

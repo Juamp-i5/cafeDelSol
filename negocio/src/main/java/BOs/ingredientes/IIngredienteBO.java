@@ -18,7 +18,7 @@ public interface IIngredienteBO {
         
     public DetallesIngredienteViejoDTO editarIngrediente(String idIngrediente, String nombreNuevo) throws NegocioException;
     
-    public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, NivelStock filtroNivelStock) throws NegocioException;
+    public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws NegocioException;
     
     public DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) throws NegocioException;
     

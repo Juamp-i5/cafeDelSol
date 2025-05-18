@@ -16,9 +16,9 @@ public enum NivelStock {
     public String toString() {
         switch (this) {
             case ENSTOCK:
-                return "En stock";
+                return "ENSTOCK";
             case BAJOSTOCK:
-                return "Bajo stock";
+                return "BAJOSTOCK";
             default:
                 return "";
         }
