@@ -545,6 +545,14 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaReservar);
     }
+    
+    public static void mostrarPantallaGestionInventario() {
+        JFrame gestionInventario = new PantallaMenuGestionInventario();
+        gestionInventario.setLocationRelativeTo(null);
+        gestionInventario.setVisible(true);
+
+        framesVisitados.add(gestionInventario);
+    }
 
     //=====================================================
     //================== CRUD PRODUCTOS ===================

@@ -68,7 +68,7 @@
               <Component id="sepArriba" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="lblSubtitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnHistorialPedidos" alignment="3" min="-2" pref="350" max="-2" attributes="0"/>
                   <Component id="btnEstadoPedido" alignment="3" min="-2" pref="350" max="-2" attributes="0"/>
