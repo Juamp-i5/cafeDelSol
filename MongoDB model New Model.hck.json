@@ -13,7 +13,11 @@
           "GUID": "0dc98c4d-eb5b-4375-95ee-033d734a1fd9",
           "primaryKey": true,
           "required": true,
-          "error": {}
+          "error": {},
+          "childRelationships": [
+            "595dcbc4-b164-463e-98da-5a5cba8d5a15",
+            "e9188e18-bb46-43af-8edd-8f193d7d0bee"
+          ]
         },
         {
           "name": "nombre",
@@ -57,74 +61,85 @@
           "name": "tamanios",
           "hackoladeMeta": {},
           "isActivated": true,
-          "type": "document",
+          "type": "array",
           "properties": [
             {
-              "name": "tamanioId",
               "hackoladeMeta": {},
               "isActivated": true,
-              "type": "objectId",
-              "GUID": "ed15c9bc-32f7-43e3-a32f-3da7577a0613",
-              "required": true,
-              "error": {},
-              "foreignCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-              "foreignField": [
-                "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-                "f003a062-91e5-4e76-a109-9508c83e7e49"
-              ],
-              "relationshipType": "Foreign Key",
-              "parentRelationship": "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d"
-            },
-            {
-              "name": "ingredientes",
-              "hackoladeMeta": {},
-              "isActivated": true,
-              "type": "array",
+              "type": "document",
               "properties": [
                 {
+                  "name": "tamanioId",
                   "hackoladeMeta": {},
                   "isActivated": true,
-                  "type": "document",
+                  "type": "objectId",
+                  "GUID": "ed15c9bc-32f7-43e3-a32f-3da7577a0613",
+                  "required": true,
+                  "error": {},
+                  "foreignCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+                  "foreignField": [
+                    "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+                    "f003a062-91e5-4e76-a109-9508c83e7e49"
+                  ],
+                  "relationshipType": "Foreign Key",
+                  "parentRelationship": "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d"
+                },
+                {
+                  "name": "ingredientes",
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "array",
                   "properties": [
                     {
-                      "name": "ingredienteId",
                       "hackoladeMeta": {},
                       "isActivated": true,
-                      "type": "objectId",
-                      "GUID": "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750",
-                      "required": true,
-                      "error": {},
-                      "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-                      "foreignField": [
-                        "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-                        "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+                      "type": "document",
+                      "properties": [
+                        {
+                          "name": "ingredienteId",
+                          "hackoladeMeta": {},
+                          "isActivated": true,
+                          "type": "objectId",
+                          "GUID": "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750",
+                          "required": true,
+                          "error": {},
+                          "relationshipType": "Foreign Key",
+                          "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+                          "foreignField": [
+                            "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+                            "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+                          ],
+                          "parentRelationship": "e9188e18-bb46-43af-8edd-8f193d7d0bee"
+                        },
+                        {
+                          "hackoladeMeta": {},
+                          "isActivated": true,
+                          "type": "numeric",
+                          "GUID": "ee474bc1-b9b4-43c0-bc2e-2180bb594f6f",
+                          "name": "cantidad",
+                          "required": true,
+                          "error": {}
+                        }
                       ],
-                      "relationshipType": "Foreign Key",
-                      "parentRelationship": "e9188e18-bb46-43af-8edd-8f193d7d0bee"
-                    },
-                    {
-                      "hackoladeMeta": {},
-                      "isActivated": true,
-                      "type": "numeric",
-                      "GUID": "ee474bc1-b9b4-43c0-bc2e-2180bb594f6f",
-                      "name": "cantidad",
-                      "required": true,
-                      "error": {}
+                      "additionalProperties": false,
+                      "GUID": "e6a3ae1b-5560-4eff-9825-69ddd8a7d73c",
+                      "arrayItem": true
                     }
                   ],
-                  "additionalProperties": false,
-                  "GUID": "e6a3ae1b-5560-4eff-9825-69ddd8a7d73c",
-                  "arrayItem": true
+                  "additionalItems": true,
+                  "GUID": "e0a64980-5ef0-4078-b3da-c96829cf8a81",
+                  "required": true,
+                  "error": {}
                 }
               ],
-              "additionalItems": true,
-              "GUID": "e0a64980-5ef0-4078-b3da-c96829cf8a81",
-              "required": true,
+              "additionalProperties": false,
+              "GUID": "2a8e0387-2c93-4a43-bbed-44616a28f05c",
+              "arrayItem": true,
               "error": {}
             }
           ],
-          "additionalProperties": false,
-          "GUID": "2a8e0387-2c93-4a43-bbed-44616a28f05c",
+          "additionalItems": true,
+          "GUID": "c1084734-baf7-47ac-9a24-bc42b2922319",
           "required": true,
           "error": {}
         }
@@ -163,7 +178,8 @@
           "required": true,
           "error": {},
           "childRelationships": [
-            "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d"
+            "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d",
+            "2fbcb4de-1363-4746-8ffa-c736d5439d80"
           ]
         },
         {
@@ -216,9 +232,9 @@
           "type": "objectId",
           "GUID": "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed",
           "childRelationships": [
-            "e9188e18-bb46-43af-8edd-8f193d7d0bee",
             "5bebf718-c697-4577-ba89-4f9af80ff242",
-            "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66"
+            "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
+            "e9188e18-bb46-43af-8edd-8f193d7d0bee"
           ],
           "primaryKey": true,
           "required": true,
@@ -279,12 +295,12 @@
           "GUID": "dc061a4d-f51d-403d-ba7b-f13e1e057f5a",
           "required": true,
           "error": {},
+          "relationshipType": "Foreign Key",
           "foreignCollection": "05a6e0d7-2d8c-40ba-b454-e826901afece",
           "foreignField": [
             "05a6e0d7-2d8c-40ba-b454-e826901afece",
             "fad3c3b4-cf12-475c-bdfc-ad04b305e095"
           ],
-          "relationshipType": "Foreign Key",
           "parentRelationship": "98f578a6-4bce-4c7e-bd16-b5511b0e1b34"
         }
       ],
@@ -318,12 +334,13 @@
           "isActivated": true,
           "type": "objectId",
           "GUID": "fad3c3b4-cf12-475c-bdfc-ad04b305e095",
-          "childRelationships": [
-            "98f578a6-4bce-4c7e-bd16-b5511b0e1b34"
-          ],
           "primaryKey": true,
           "required": true,
-          "error": {}
+          "error": {},
+          "childRelationships": [
+            "98f578a6-4bce-4c7e-bd16-b5511b0e1b34",
+            "5f509869-d34b-4247-8625-020a15f673f2"
+          ]
         },
         {
           "name": "nombre",
@@ -400,7 +417,7 @@
                         "0dc98c4d-eb5b-4375-95ee-033d734a1fd9"
                       ],
                       "relationshipType": "Foreign Key",
-                      "parentRelationship": "ed61dd5e-cd53-49a5-aa67-9f79578bf9c5"
+                      "parentRelationship": "595dcbc4-b164-463e-98da-5a5cba8d5a15"
                     },
                     {
                       "name": "nombre",
@@ -518,14 +535,14 @@
                       "type": "objectId",
                       "GUID": "9dc1aefb-7710-4c05-98a0-d38ba934c8ca",
                       "foreignCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+                      "required": true,
+                      "error": {},
                       "foreignField": [
                         "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
                         "f003a062-91e5-4e76-a109-9508c83e7e49"
                       ],
                       "relationshipType": "Foreign Key",
-                      "parentRelationship": "03ab659f-45ae-45be-9f0f-b732c0f0daae",
-                      "required": true,
-                      "error": {}
+                      "parentRelationship": "2fbcb4de-1363-4746-8ffa-c736d5439d80"
                     },
                     {
                       "name": "nombre",
@@ -881,14 +898,14 @@
           "name": "_id",
           "hackoladeMeta": {},
           "isActivated": true,
-          "type": "string",
+          "type": "objectId",
+          "error": {},
+          "primaryKey": true,
+          "required": true,
           "GUID": "1b2648e5-d639-4263-8bfe-4886da3640c4",
           "childRelationships": [
             "618e87d9-a8af-44ca-b764-bf312f8e132b"
-          ],
-          "required": true,
-          "primaryKey": true,
-          "error": {}
+          ]
         },
         {
           "name": "nombre",
@@ -906,7 +923,7 @@
           "type": "binary",
           "primaryKey": false,
           "GUID": "ce560237-5632-4364-8620-a33a113a340c",
-          "required": true,
+          "required": false,
           "error": {}
         }
       ],
@@ -963,7 +980,7 @@
           "type": "binary",
           "primaryKey": false,
           "GUID": "3b9f74a9-f918-4fea-8a0b-c3abf8ea2995",
-          "required": true,
+          "required": false,
           "error": {}
         }
       ],
@@ -1020,13 +1037,22 @@
           "error": {}
         },
         {
-          "name": "proveedor",
+          "name": "proveedorId",
           "hackoladeMeta": {},
           "isActivated": true,
-          "type": "string",
-          "GUID": "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6",
+          "type": "objectId",
+          "error": {
+            "name": false
+          },
           "required": true,
-          "error": {}
+          "GUID": "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6",
+          "foreignCollection": "05a6e0d7-2d8c-40ba-b454-e826901afece",
+          "foreignField": [
+            "05a6e0d7-2d8c-40ba-b454-e826901afece",
+            "fad3c3b4-cf12-475c-bdfc-ad04b305e095"
+          ],
+          "relationshipType": "Foreign Key",
+          "parentRelationship": "5f509869-d34b-4247-8625-020a15f673f2"
         },
         {
           "name": "detallesEntrada",
@@ -1096,9 +1122,8 @@
           ],
           "additionalItems": true,
           "GUID": "b6554b9f-efff-4c5f-8286-e3c35e0a1246",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -1270,7 +1295,7 @@
               ],
               "relationshipType": "Foreign Key",
               "parentRelationship": "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9",
-              "required": true,
+              "required": false,
               "error": {}
             },
             {
@@ -1291,9 +1316,8 @@
               "type": "date",
               "primaryKey": false,
               "GUID": "4bf2728e-2f46-411d-bc77-d25cc661d01e",
-              "error": {
-                "name": false
-              }
+              "required": true,
+              "error": {}
             }
           ],
           "additionalProperties": false,
@@ -1437,17 +1461,12 @@
           "name": "idIngrediente",
           "hackoladeMeta": {},
           "isActivated": true,
-          "type": "string",
-          "GUID": "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f",
-          "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-          "foreignField": [
-            "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-            "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
-          ],
-          "relationshipType": "Foreign Key",
-          "parentRelationship": "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
+          "type": "objectId",
+          "error": {},
           "required": true,
-          "error": {}
+          "GUID": "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f",
+          "parentRelationship": "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
+          "relationshipType": "Foreign Key"
         }
       ],
       "definitions": {
@@ -1519,7 +1538,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "98f578a6-4bce-4c7e-bd16-b5511b0e1b34",
       "parentCollection": "05a6e0d7-2d8c-40ba-b454-e826901afece",
       "childCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
@@ -1532,20 +1551,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1829.8423270394244,
-            "y": 1113.5369308157697
+            "x": 2354.791109679505,
+            "y": 2051.285714285711
           },
           {
-            "x": 1945.0089937060911,
-            "y": 1113.5369308157697
+            "x": 2393.1196811080695,
+            "y": 2051.285714285711
           },
           {
-            "x": 1945.0089937060911,
-            "y": 1113.3702641491031
+            "x": 2393.1196811080695,
+            "y": 2051.2333333333304
           },
           {
-            "x": 2060.1756603727576,
-            "y": 1113.3702641491031
+            "x": 2431.448252536634,
+            "y": 2051.2333333333304
           }
         ],
         "sides": [
@@ -1567,12 +1586,13 @@
       "childField": [
         [
           "39498ea1-e312-485c-a5e6-a235131f18a1",
+          "c1084734-baf7-47ac-9a24-bc42b2922319",
           "2a8e0387-2c93-4a43-bbed-44616a28f05c",
           "ed15c9bc-32f7-43e3-a32f-3da7577a0613"
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d",
       "parentCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
       "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
@@ -1585,20 +1605,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1332.1940745027841,
-            "y": 1223.9439206692086
+            "x": 1971.1666666666665,
+            "y": 2159.906989853438
           },
           {
-            "x": 1390.0182007711041,
-            "y": 1223.9439206692086
+            "x": 2046.074126268322,
+            "y": 2159.906989853438
           },
           {
-            "x": 1390.0182007711041,
-            "y": 1362.0369308157697
+            "x": 2046.074126268322,
+            "y": 2405.6666666666597
           },
           {
-            "x": 1447.8423270394244,
-            "y": 1362.0369308157697
+            "x": 2120.9815858699776,
+            "y": 2405.6666666666597
           }
         ],
         "sides": [
@@ -1620,6 +1640,7 @@
       "childField": [
         [
           "39498ea1-e312-485c-a5e6-a235131f18a1",
+          "c1084734-baf7-47ac-9a24-bc42b2922319",
           "2a8e0387-2c93-4a43-bbed-44616a28f05c",
           "e0a64980-5ef0-4078-b3da-c96829cf8a81",
           "e6a3ae1b-5560-4eff-9825-69ddd8a7d73c",
@@ -1627,7 +1648,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "e9188e18-bb46-43af-8edd-8f193d7d0bee",
       "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
       "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
@@ -1640,20 +1661,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1332.1940745027841,
-            "y": 1185.4439206692086
+            "x": 1971.1666666666665,
+            "y": 2076.906989853438
           },
           {
-            "x": 1443.0182007711041,
-            "y": 1185.4439206692086
+            "x": 2024.9788881730858,
+            "y": 2076.906989853438
           },
           {
-            "x": 1443.0182007711041,
-            "y": 1140.0369308157697
+            "x": 2024.9788881730858,
+            "y": 2077.785714285711
           },
           {
-            "x": 1553.8423270394244,
-            "y": 1140.0369308157697
+            "x": 2078.791109679505,
+            "y": 2077.785714285711
           }
         ],
         "sides": [
@@ -1679,7 +1700,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "eef1e222-1243-4055-bf45-a5d6ae714574",
       "parentCollection": "15d909f0-afee-4a78-bf50-8e32eaeea203",
       "childCollection": "63072521-a3df-4f6b-9edf-3cb4c170e609",
@@ -1692,20 +1713,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1324.8423270394244,
-            "y": 1858.2869308157697
+            "x": 1955.3149192033056,
+            "y": 2824.666666666666
           },
           {
-            "x": 1560.4931840512527,
-            "y": 1858.2869308157697
+            "x": 2037.6324428817943,
+            "y": 2824.666666666666
           },
           {
-            "x": 1560.4931840512527,
-            "y": 1822.0069726631718
+            "x": 2037.6324428817943,
+            "y": 2824.13670851407
           },
           {
-            "x": 1796.144041063081,
-            "y": 1822.0069726631718
+            "x": 2119.949966560283,
+            "y": 2824.13670851407
           }
         ],
         "sides": [
@@ -1734,7 +1755,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "618e87d9-a8af-44ca-b764-bf312f8e132b",
       "parentCollection": "209cd22e-b1a0-49b3-beeb-4aecbbc7da1d",
       "childCollection": "63072521-a3df-4f6b-9edf-3cb4c170e609",
@@ -1747,20 +1768,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1324.8423270394244,
-            "y": 1535.7869308157697
+            "x": 1955.3149192033056,
+            "y": 2566.666666666666
           },
           {
-            "x": 1390.659688933449,
-            "y": 1535.7869308157697
+            "x": 2037.1322810973263,
+            "y": 2566.666666666666
           },
           {
-            "x": 1390.659688933449,
-            "y": 1467.6569984595144
+            "x": 2037.1322810973263,
+            "y": 2564.4534009770796
           },
           {
-            "x": 1456.4770508274735,
-            "y": 1467.6569984595144
+            "x": 2118.949642991347,
+            "y": 2564.4534009770796
           }
         ],
         "sides": [
@@ -1789,7 +1810,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "c8d7b131-7d20-4268-afeb-0c1c99e529d4",
       "parentCollection": "fa7ae686-9175-4181-b527-b3e035e571c8",
       "childCollection": "63072521-a3df-4f6b-9edf-3cb4c170e609",
@@ -1802,20 +1823,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1324.8423270394244,
-            "y": 1697.0369308157697
+            "x": 1955.3149192033056,
+            "y": 2695.666666666666
           },
           {
-            "x": 1399.9838152017676,
-            "y": 1697.0369308157697
+            "x": 2036.4564073656509,
+            "y": 2695.666666666666
           },
           {
-            "x": 1399.9838152017676,
-            "y": 1695.8261078168925
+            "x": 2036.4564073656509,
+            "y": 2692.6225103344595
           },
           {
-            "x": 1475.1253033641108,
-            "y": 1695.8261078168925
+            "x": 2117.597895527996,
+            "y": 2692.6225103344595
           }
         ],
         "sides": [
@@ -1843,7 +1864,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "5bebf718-c697-4577-ba89-4f9af80ff242",
       "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
       "childCollection": "609907e5-1e34-4125-9f6b-93227c1f73be",
@@ -1856,24 +1877,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1896.722364461505,
-            "y": 1278.905849190024
+            "x": 2390.694956625397,
+            "y": 2279.535585040911
           },
           {
-            "x": 1896.722364461505,
-            "y": 1249.221390002897
+            "x": 2216.791109679505,
+            "y": 2279.535585040911
           },
           {
-            "x": 1691.8423270394244,
-            "y": 1249.221390002897
-          },
-          {
-            "x": 1691.8423270394244,
-            "y": 1219.5369308157697
+            "x": 2216.791109679505,
+            "y": 2157.285714285711
           }
         ],
         "sides": [
-          "top",
+          "left",
           "bottom"
         ]
       }
@@ -1895,7 +1912,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "b20a7d9a-f832-4953-aee5-9c3fb2ede047",
       "parentCollection": "15d909f0-afee-4a78-bf50-8e32eaeea203",
       "childCollection": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
@@ -1908,20 +1925,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2129.432824033037,
-            "y": 1767.852542897693
+            "x": 2487.905416196916,
+            "y": 2823.482278748589
           },
           {
-            "x": 2081.788432548059,
-            "y": 1767.852542897693
+            "x": 2422.9276913786,
+            "y": 2823.482278748589
           },
           {
-            "x": 2081.788432548059,
-            "y": 1822.0069726631718
+            "x": 2422.9276913786,
+            "y": 2824.13670851407
           },
           {
-            "x": 2034.144041063081,
-            "y": 1822.0069726631718
+            "x": 2357.949966560283,
+            "y": 2824.13670851407
           }
         ],
         "sides": [
@@ -1948,7 +1965,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "0..1",
       "GUID": "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9",
       "parentCollection": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
       "childCollection": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
@@ -1961,24 +1978,24 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2272.432824033037,
-            "y": 1660.852542897693
+            "x": 2678.5720828635826,
+            "y": 2662.982278748589
           },
           {
-            "x": 2272.432824033037,
-            "y": 1635.852542897693
+            "x": 2678.5720828635826,
+            "y": 2637.982278748589
           },
           {
-            "x": 2440.432824033037,
-            "y": 1635.852542897693
+            "x": 2798.905416196916,
+            "y": 2637.982278748589
           },
           {
-            "x": 2440.432824033037,
-            "y": 1821.352542897693
+            "x": 2798.905416196916,
+            "y": 2823.482278748589
           },
           {
-            "x": 2415.432824033037,
-            "y": 1821.352542897693
+            "x": 2773.905416196916,
+            "y": 2823.482278748589
           }
         ],
         "sides": [
@@ -2004,7 +2021,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "d3915346-9242-4653-a0ce-c29e2a491249",
       "parentCollection": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
       "childCollection": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
@@ -2017,20 +2034,24 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2129.432824033037,
-            "y": 1874.852542897693
+            "x": 2583.2387495302496,
+            "y": 2662.982278748589
           },
           {
-            "x": 2012.9106754047007,
-            "y": 1874.852542897693
+            "x": 2583.2387495302496,
+            "y": 2624.887295659525
           },
           {
-            "x": 2012.9106754047007,
-            "y": 1613.9959100528988
+            "x": 2583.3832675685817,
+            "y": 2624.887295659525
+          },
+          {
+            "x": 2583.3832675685817,
+            "y": 2586.792312570461
           }
         ],
         "sides": [
-          "left",
+          "top",
           "bottom"
         ]
       }
@@ -2052,7 +2073,7 @@
         ]
       ],
       "isActivated": true,
-      "childCardinality": "1",
+      "childCardinality": "n",
       "GUID": "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
       "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
       "childCollection": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
@@ -2065,25 +2086,187 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2170.666666666664,
-            "y": 1264.166666666668
+            "x": 2732.872592163876,
+            "y": 2104.429735850886
           },
           {
-            "x": 2000.2544968530442,
-            "y": 1264.166666666668
+            "x": 2543.8318509216906,
+            "y": 2104.429735850886
           },
           {
-            "x": 2000.2544968530442,
-            "y": 1166.5369308157697
+            "x": 2543.8318509216906,
+            "y": 2104.285714285711
           },
           {
-            "x": 1829.8423270394244,
-            "y": 1166.5369308157697
+            "x": 2354.791109679505,
+            "y": 2104.285714285711
           }
         ],
         "sides": [
           "left",
           "right"
+        ]
+      }
+    },
+    {
+      "name": "fk_tamanios._id_to_pedidos.productos.[0].tamanio.tamanioId",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+          "f003a062-91e5-4e76-a109-9508c83e7e49"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "63072521-a3df-4f6b-9edf-3cb4c170e609",
+          "9f4922ef-9ad7-40a3-abe9-38aed4aef504",
+          "56d157d3-b5eb-49db-ba04-e6898e515e9f",
+          "91bdd09a-700d-4f49-ac2b-9a8474dfeecb",
+          "9dc1aefb-7710-4c05-98a0-d38ba934c8ca"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "n",
+      "GUID": "2fbcb4de-1363-4746-8ffa-c736d5439d80",
+      "parentCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+      "childCollection": "63072521-a3df-4f6b-9edf-3cb4c170e609",
+      "hackoladeStyles": {
+        "GUID": "c733b0d0-b6b9-4be8-934e-1a1854840b28",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1955.3149192033056,
+            "y": 2437.666666666666
+          },
+          {
+            "x": 2038.1482525366416,
+            "y": 2437.666666666666
+          },
+          {
+            "x": 2038.1482525366416,
+            "y": 2434.6666666666597
+          },
+          {
+            "x": 2120.9815858699776,
+            "y": 2434.6666666666597
+          }
+        ],
+        "sides": [
+          "right",
+          "left"
+        ]
+      }
+    },
+    {
+      "name": "fk_productos._id_to_pedidos.productos.[0].producto.productoId",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "39498ea1-e312-485c-a5e6-a235131f18a1",
+          "0dc98c4d-eb5b-4375-95ee-033d734a1fd9"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "63072521-a3df-4f6b-9edf-3cb4c170e609",
+          "9f4922ef-9ad7-40a3-abe9-38aed4aef504",
+          "56d157d3-b5eb-49db-ba04-e6898e515e9f",
+          "d21485e9-c185-4c1b-966c-e1aa6db327f6",
+          "6c5a5998-1747-4e94-80ce-1bc369ed808e"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "n",
+      "GUID": "595dcbc4-b164-463e-98da-5a5cba8d5a15",
+      "parentCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
+      "childCollection": "63072521-a3df-4f6b-9edf-3cb4c170e609",
+      "hackoladeStyles": {
+        "GUID": "363b3063-0b7b-4520-8e6d-3a87c4af4e75",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1817.8149192033056,
+            "y": 2308.666666666666
+          },
+          {
+            "x": 1817.8149192033056,
+            "y": 2275.786828260052
+          },
+          {
+            "x": 1817.1666666666665,
+            "y": 2275.786828260052
+          },
+          {
+            "x": 1817.1666666666665,
+            "y": 2242.906989853438
+          }
+        ],
+        "sides": [
+          "top",
+          "bottom"
+        ]
+      }
+    },
+    {
+      "name": "fk_proveedores._id_to_entradas.proveedorId",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "05a6e0d7-2d8c-40ba-b454-e826901afece",
+          "fad3c3b4-cf12-475c-bdfc-ad04b305e095"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "609907e5-1e34-4125-9f6b-93227c1f73be",
+          "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "n",
+      "GUID": "5f509869-d34b-4247-8625-020a15f673f2",
+      "parentCollection": "05a6e0d7-2d8c-40ba-b454-e826901afece",
+      "childCollection": "609907e5-1e34-4125-9f6b-93227c1f73be",
+      "hackoladeStyles": {
+        "GUID": "988f1c74-965f-4e3a-b306-d25c598d40df",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 2527.194956625397,
+            "y": 2173.035585040911
+          },
+          {
+            "x": 2527.194956625397,
+            "y": 2129.3844591871207
+          },
+          {
+            "x": 2527.448252536634,
+            "y": 2129.3844591871207
+          },
+          {
+            "x": 2527.448252536634,
+            "y": 2085.7333333333304
+          }
+        ],
+        "sides": [
+          "top",
+          "bottom"
         ]
       }
     }
@@ -2099,11 +2282,6 @@
     "f5bcd051-8122-4e00-8cfe-d5f53a373ceb": "tamanios",
     "98d880ca-b1dc-406a-ab9f-1c925246fdb6": "nombre",
     "9e9a941e-82db-41d9-b8e8-6bc101805e28": "imagenData",
-    "2a8e0387-2c93-4a43-bbed-44616a28f05c": "tamanios",
-    "e0a64980-5ef0-4078-b3da-c96829cf8a81": "ingredientes",
-    "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750": "ingredienteId",
-    "ee474bc1-b9b4-43c0-bc2e-2180bb594f6f": "cantidad",
-    "ed15c9bc-32f7-43e3-a32f-3da7577a0613": "tamanioId",
     "0dc98c4d-eb5b-4375-95ee-033d734a1fd9": "_id",
     "a71d1f24-0cba-49eb-8d49-b7cdb779061c": "ingredientes",
     "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed": "_id",
@@ -2176,7 +2354,7 @@
     "5f8b71ce-e114-4990-a191-00f855770157": "_id",
     "5d1956d1-ccaf-4684-9703-936389b0500c": "fechaHora",
     "e682c4fa-2b6d-439d-ac2f-d875214439f4": "precioTotal",
-    "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6": "proveedor",
+    "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6": "proveedorId",
     "b6554b9f-efff-4c5f-8286-e3c35e0a1246": "detallesEntrada",
     "29201c78-e514-4979-94d4-8ea422f0446e": "cantidad",
     "6e944ea3-0345-4921-8b12-90431ca6633d": "precioUnitario",
@@ -2213,7 +2391,11 @@
     "7d73e991-e40c-425a-b971-8b59d03230ed": "motivo",
     "5c9efd4a-f89f-4078-b720-d903811bec18": "cantidad",
     "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f": "idIngrediente",
-    "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66": "fk_ingredientes._id_to_Salidas.idIngrediente"
+    "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66": "fk_ingredientes._id_to_Salidas.idIngrediente",
+    "2fbcb4de-1363-4746-8ffa-c736d5439d80": "fk_tamanios._id_to_pedidos.productos.[0].tamanio.tamanioId",
+    "595dcbc4-b164-463e-98da-5a5cba8d5a15": "fk_productos._id_to_pedidos.productos.[0].producto.productoId",
+    "c1084734-baf7-47ac-9a24-bc42b2922319": "tamanios",
+    "5f509869-d34b-4247-8625-020a15f673f2": "fk_proveedores._id_to_entradas.proveedorId"
   },
   "definitions": {
     "type": "definitions",
@@ -2238,7 +2420,7 @@
   "creationTS": "2025-05-18T23:33:01.278Z",
   "GUID": "cbac6318-07db-469c-9973-e7ebbbc9bcdf",
   "isLineageEnabled": false,
-  "lastModifTS": "2025-05-19T03:29:48.191Z",
+  "lastModifTS": "2025-05-19T04:30:59.679Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -2254,96 +2436,96 @@
         "erd": [
           {
             "GUID": "39498ea1-e312-485c-a5e6-a235131f18a1",
-            "x": 1044.1940745027841,
-            "y": 1069.9439206692086,
-            "width": 288,
-            "height": 231,
+            "x": 1663.1666666666665,
+            "y": 1993.906989853438,
+            "width": 308,
+            "height": 249,
             "color": {}
           },
           {
             "GUID": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-            "x": 1447.8423270394244,
-            "y": 1318.5369308157697,
+            "x": 2120.9815858699776,
+            "y": 2376.6666666666597,
             "width": 240,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-            "x": 1553.8423270394244,
-            "y": 1060.5369308157697,
+            "x": 2078.791109679505,
+            "y": 1998.285714285711,
             "width": 276,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "05a6e0d7-2d8c-40ba-b454-e826901afece",
-            "x": 2060.1756603727576,
-            "y": 1078.8702641491031,
+            "x": 2431.448252536634,
+            "y": 2016.7333333333304,
             "width": 192,
             "height": 69,
             "color": {}
           },
           {
             "GUID": "63072521-a3df-4f6b-9edf-3cb4c170e609",
-            "x": 1049.8423270394244,
-            "y": 1374.5369308157697,
+            "x": 1680.3149192033056,
+            "y": 2308.666666666666,
             "width": 275,
             "height": 645,
             "color": {}
           },
           {
             "GUID": "15d909f0-afee-4a78-bf50-8e32eaeea203",
-            "x": 1796.144041063081,
-            "y": 1742.5069726631718,
+            "x": 2119.949966560283,
+            "y": 2744.63670851407,
             "width": 238,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "209cd22e-b1a0-49b3-beeb-4aecbbc7da1d",
-            "x": 1456.4770508274735,
-            "y": 1424.1569984595144,
+            "x": 2118.949642991347,
+            "y": 2520.9534009770796,
             "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "fa7ae686-9175-4181-b527-b3e035e571c8",
-            "x": 1475.1253033641108,
-            "y": 1652.3261078168925,
+            "x": 2117.597895527996,
+            "y": 2649.1225103344595,
             "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "609907e5-1e34-4125-9f6b-93227c1f73be",
-            "x": 1760.222364461505,
-            "y": 1278.905849190024,
+            "x": 2390.694956625397,
+            "y": 2173.035585040911,
             "width": 273,
             "height": 213,
             "color": {}
           },
           {
             "GUID": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
-            "x": 2129.432824033037,
-            "y": 1660.852542897693,
+            "x": 2487.905416196916,
+            "y": 2662.982278748589,
             "width": 286,
             "height": 321,
             "color": {}
           },
           {
             "GUID": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
-            "x": 1904.9106754047007,
-            "y": 1526.9959100528988,
+            "x": 2475.3832675685817,
+            "y": 2499.792312570461,
             "width": 216,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
-            "x": 2170.666666666664,
-            "y": 1202.666666666668,
+            "x": 2732.872592163876,
+            "y": 2042.9297358508861,
             "width": 227,
             "height": 123,
             "color": {}
@@ -2357,8 +2539,8 @@
         },
         "buckets": [
           {
-            "x": 1004.1940745027841,
-            "y": 1020.5369308157697,
+            "x": 1623.1666666666665,
+            "y": 1953.906989853438,
             "GUID": "65890915-e77b-4a9e-a1e6-4ca5d317812a"
           }
         ],
