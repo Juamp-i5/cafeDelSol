@@ -7,6 +7,7 @@ package DTOs.cubiculos;
 import entidades.Reservacion;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -18,14 +19,15 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
     }
 
     @Override
-    public ReservacionDTOPersistencia toDTO(Reservacion entidad){
+    public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad){
         if (entidad == null) {
             return null;
         }
-        ReservacionDTOPersistencia dto = new ReservacionDTOPersistencia();
+        ReservacionDTOCompletaPersistencia dto = new ReservacionDTOCompletaPersistencia();
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
+        
         dto.setNumReservacion(entidad.getNumReservacion());
         dto.setNombre(entidad.getNombre());
         dto.setTelefono(entidad.getTelefono());
@@ -33,15 +35,21 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         dto.setHoraInicio(entidad.getHoraInicio());
         dto.setHoraFin(entidad.getHoraFin());
         dto.setEstado(entidad.getEstado());
+        dto.setIdCubiculo(entidad.getIdCubiculo().toHexString());
+        dto.setNombreCubiculo(entidad.getNombreCubiculo());
+        dto.setPrecioHora(entidad.getPrecioHora());
+        dto.setPrecioReservacion(entidad.getPrecioReservacion());
+        
         return dto;
     }
 
     @Override
-    public Reservacion toMongo(ReservacionDTOPersistencia dto){
+    public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto){
         if (dto == null) {
             return null;
         }
         Reservacion entidad = new Reservacion();
+        
         entidad.setNumReservacion(dto.getNumReservacion());
         entidad.setNombre(dto.getNombre());
         entidad.setTelefono(dto.getTelefono());
@@ -49,15 +57,20 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         entidad.setHoraInicio(dto.getHoraInicio());
         entidad.setHoraFin(dto.getHoraFin());
         entidad.setEstado(dto.getEstado());
+        entidad.setIdCubiculo(new ObjectId(dto.getIdCubiculo()));
+        entidad.setNombreCubiculo(dto.getNombreCubiculo());
+        entidad.setPrecioHora(dto.getPrecioHora());
+        entidad.setPrecioReservacion(dto.getPrecioReservacion());
+        
         return entidad;
     }
 
     @Override
-    public List<ReservacionDTOPersistencia> toDTOList(List<Reservacion> entidades) {
+    public List<ReservacionDTOCompletaPersistencia> toDTOList(List<Reservacion> entidades) {
         if (entidades == null) {
             return null;
         }
-        List<ReservacionDTOPersistencia> dtos = new ArrayList<>();
+        List<ReservacionDTOCompletaPersistencia> dtos = new ArrayList<>();
         for (Reservacion entidad : entidades) {
             dtos.add(toDTO(entidad));
         }

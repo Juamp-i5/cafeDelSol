@@ -4,6 +4,8 @@
  */
 package IDAOs.cubiculos;
 
+import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
+import DTOs.cubiculos.CubiculoDTO;
 import entidades.Cubiculo;
 import excepciones.PersistenciaCubiculoEsception;
 import java.util.List;
@@ -14,5 +16,7 @@ import java.util.List;
  */
 public interface ICubiculoDAO {
     
-    public List<Cubiculo> obtenerCubiculos() throws PersistenciaCubiculoEsception;
+    public List<String> obtenerCubiculos() throws PersistenciaCubiculoEsception;
+    
+    public CubiculoCompletoDTOPersistencia obtenerPorNombre(String nombre) throws PersistenciaCubiculoEsception;
 }

@@ -4,6 +4,7 @@
  */
 package DTOs.cubiculos;
 
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -11,29 +12,29 @@ import java.time.LocalTime;
  *
  * @author rodri
  */
-public class ReservacionNuevaDTO {
+public class ReservacionCompletaDTO {
     
+    private Integer numReservacion;
     private String nombre;
     private String telefono;
     private String nombreCubiculo;
     private LocalDate fechaReserva;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+    
+    private String idCubiculo;
     private Double precioHora;
     private Double precioReservacion;
 
-    public ReservacionNuevaDTO() {
+    public ReservacionCompletaDTO() {
     }
 
-    public ReservacionNuevaDTO(String nombre, String telefono, String nombreCubiculo, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Double precioHora, Double precioReservacion) {
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.nombreCubiculo = nombreCubiculo;
-        this.fechaReserva = fechaReserva;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.precioHora = precioHora;
-        this.precioReservacion = precioReservacion;
+    public Integer getNumReservacion() {
+        return numReservacion;
+    }
+
+    public void setNumReservacion(Integer numReservacion) {
+        this.numReservacion = numReservacion;
     }
 
     public String getNombre() {
@@ -84,6 +85,14 @@ public class ReservacionNuevaDTO {
         this.horaFin = horaFin;
     }
 
+    public String getIdCubiculo() {
+        return idCubiculo;
+    }
+
+    public void setIdCubiculo(String idCubiculo) {
+        this.idCubiculo = idCubiculo;
+    }
+
     public Double getPrecioHora() {
         return precioHora;
     }
@@ -102,8 +111,10 @@ public class ReservacionNuevaDTO {
 
     @Override
     public String toString() {
-        return "ReservacionNuevaDTO{" + "nombre=" + nombre + ", telefono=" + telefono + ", nombreCubiculo=" + nombreCubiculo + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + '}';
+        return "ReservacionCompletaDTO{" + "numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", nombreCubiculo=" + nombreCubiculo + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", idCubiculo=" + idCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + '}';
     }
+    
+    
     
     
 }

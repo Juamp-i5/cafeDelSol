@@ -4,10 +4,14 @@
  */
 package DAOsMongo.cubiculos;
 
+import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
+import DTOs.cubiculos.CubiculoMapperPersistencia;
+import DTOs.cubiculos.ICubiculoMapperPersistencia;
 import IDAOs.cubiculos.ICubiculoDAO;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import conexion.IConexionMongo;
 import entidades.Cubiculo;
 import excepciones.PersistenciaCubiculoEsception;
@@ -17,6 +21,7 @@ import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.bson.conversions.Bson;
 
 /**
  *
@@ -29,7 +34,8 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
     private final MongoDatabase database;
     private final MongoCollection<Cubiculo> coleccion;
     private static final String NOMBRE_COLECCION = "cubiculos";
-
+    
+    ICubiculoMapperPersistencia cubiculoMapper = new CubiculoMapperPersistencia();
     
     // Constructor con la conexion y codec para POJOs
     public CubiculoDAOMongo(IConexionMongo conexion) {
@@ -54,11 +60,30 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
     }
 
     @Override
-    public List<Cubiculo> obtenerCubiculos() throws PersistenciaCubiculoEsception {
+    public List<String> obtenerCubiculos() throws PersistenciaCubiculoEsception {
         try {
-            return coleccion.find().into(new ArrayList<>());
+            List<Cubiculo> entidades = coleccion.find().into(new ArrayList<>());
+            List<String> lista = new ArrayList<>();
+            
+            for (Cubiculo entidad : entidades) {
+                lista.add(entidad.getNombre());
+            }
+            return lista;
         } catch (Exception e) {
             throw new PersistenciaCubiculoEsception("Error al cargar los cubículos: " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public CubiculoCompletoDTOPersistencia obtenerPorNombre(String nombre) throws PersistenciaCubiculoEsception {
+        try {
+            Bson filtro = Filters.eq("nombre", nombre);
+            Cubiculo entidad = coleccion.find(filtro).first();
+            CubiculoCompletoDTOPersistencia dto = cubiculoMapper.toDTO(entidad);
+            return dto;
+
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al buscar reservación por número: " + e.getMessage(), e);
         }
     }
 }

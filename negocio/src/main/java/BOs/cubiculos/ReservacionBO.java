@@ -7,15 +7,55 @@ package BOs.cubiculos;
 import BOs.ingredientes.IIngredienteMapper;
 import BOs.ingredientes.IngredienteBO;
 import BOs.ingredientes.IngredienteMapper;
+import DTOs.cubiculos.ReservacionCompletaDTO;
+import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
+import DTOs.cubiculos.ReservacionNuevaDTO;
+import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import acceso.AccesoDatos;
+import enumCubiculos.Estado;
+import excepciones.NegocioCubiculoException;
+import excepciones.PersistenciaCubiculoEsception;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author rodri
  */
-public class ReservacionBO {
+public class ReservacionBO implements IReservacionBO{
 
     IReservacionDAO reservacionDAO = AccesoDatos.getReservacionDAO();
+    IReservacionMapper mapperReservacion = new ReservacionMapper();
+    
+    private static ReservacionBO instanceBO;
+
+    public ReservacionBO() {
+    }
+
+    public static ReservacionBO getInstance() {
+        if (instanceBO == null) {
+            instanceBO = new ReservacionBO();
+        }
+        return instanceBO;
+    }
+
+    @Override
+    public Integer agregarReservacion(ReservacionCompletaDTO reservacion) throws NegocioCubiculoException {
+        ReservacionDTOCompletaPersistencia dtoPers = mapperReservacion.toDTOPersistencia(reservacion);
+        dtoPers.setEstado(Estado.PENDIENTE);
+        
+        try {
+            reservacionDAO.agregarReservacion(dtoPers);
+            return dtoPers.getNumReservacion();
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al insertar una reservación nueva");
+        }
+        
+    }
+    
+    
+
 }

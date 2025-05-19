@@ -20,20 +20,27 @@ import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingMostrarDTO;
+import DTOs.cubiculos.EfectivoDTOCubiculo;
+import DTOs.cubiculos.ReservacionNuevaDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
 import Gestion.IGestorCRUDEntradas;
 import excepciones.GestionCRUDIngredientesException;
 import excepciones.GestionCRUDProductosException;
+import excepciones.GestionCubiculosException;
 import exception.GestionException;
 import gestion.GestorCRUDProductos;
+import gestion.GestorCubiculos;
 import gestion.IGestionPedidos;
 import gestion.IGestorCRUDProductos;
+import gestion.IGestorCubiculos;
 import gestion.ManejadorPedidos;
 import gestionIngredientes.GestorCRUDIngredientes;
 import gestionIngredientes.IGestorCRUDIngredientes;
 import java.awt.Component;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -53,6 +60,7 @@ import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
+import pantallas.cubiculos.PagoEfectivoCubiculos;
 import pantallas.ingredientes.PantallaAgregarIngrediente;
 import pantallas.ingredientes.PantallaBuscarIngrediente;
 import pantallas.ingredientes.PantallaEditarDetallesIngrediente;
@@ -71,6 +79,7 @@ public class ControlNavegacion {
     private static IGestorCRUDProductos gestorCRUDProductos = GestorCRUDProductos.getInstance();
     private static IGestorCRUDEntradas gestorCRUDEntradas = GestorCRUDEntradas.getInstance();
     private static IGestorCRUDIngredientes gestorCRUDIngredientes = GestorCRUDIngredientes.getInstance();
+    private static IGestorCubiculos gestorCubiculos = GestorCubiculos.getInstance();
     private static Stack framesVisitados = new Stack();
 
     /**
@@ -684,7 +693,7 @@ public class ControlNavegacion {
         try {
             gestorCRUDEntradas.registrarEntrada(entrada);
             JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente");
-            return true;           
+            return true;
         } catch (GestorCRUDEntradasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
@@ -762,4 +771,71 @@ public class ControlNavegacion {
         return null;
     }
 
+    //=====================================================
+    //==================== CUBICULOS ======================
+    //=====================================================
+    public static List<String> obtenerCubiculos() {
+        try {
+            return gestorCubiculos.obtenerCubiculos();
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static Double obtenerPrecioCubiculo(String nombre) {
+        try {
+            return gestorCubiculos.obtenerPorNombre(nombre).getPrecioHora();
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public static Double calcularPrecioReservacion(LocalTime inicio, LocalTime fin, Double precioPorHora) {
+        long minutos = ChronoUnit.MINUTES.between(inicio, fin);
+        double horas = minutos / 60.0;
+
+        return horas * precioPorHora;
+    }
+    
+    public static ReservacionNuevaDTO getReservacionNueva(){
+        return gestorCubiculos.getReservacionNueva();
+    }
+    
+    public static void setReservacionNueva(ReservacionNuevaDTO reservacionNueva){
+        gestorCubiculos.setReservacionNueva(reservacionNueva);
+    }
+    
+    public static void mostrarPantallaPagoEfCubiculo(){
+        JFrame pagoEfectivo = new PagoEfectivoCubiculos();
+        pagoEfectivo.setLocationRelativeTo(null);
+        pagoEfectivo.setVisible(true);
+
+        framesVisitados.add(pagoEfectivo);
+    }
+    
+    public static double calcularCambioCubiculo(EfectivoDTOCubiculo efectivo) {
+        return gestorCubiculos.calcularCambio(efectivo);
+    }
+    
+    public static void mostrarPantallaReservacionExitosa() {
+        JOptionPane.showMessageDialog(null, "Reservación exitosa");
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                ControlNavegacion.mostrarPantallaMenuPrincipal();
+            }
+        }, 1000);
+    }
+    
+    public static Integer realizarReservacion(){
+        try {
+            return gestorCubiculos.realizarReservacion();
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
 }

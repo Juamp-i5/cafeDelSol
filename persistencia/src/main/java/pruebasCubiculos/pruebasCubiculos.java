@@ -5,6 +5,7 @@
 package pruebasCubiculos;
 
 import DAOsMongo.FabricaDAOsMongo;
+import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
 import IDAOs.IFabricaDAOs;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
@@ -24,19 +25,18 @@ public class pruebasCubiculos {
 
         try {
             // Obtener cubículos desde la base de datos
-            List<Cubiculo> cubiculos = cubiculoDAO.obtenerCubiculos();
+            List<String> cubiculos = cubiculoDAO.obtenerCubiculos();
 
             // Mostrar resultados
             System.out.println("Cubículos disponibles:");
-            for (Cubiculo cubiculo : cubiculos) {
-                System.out.println("- " + cubiculo.getNombre() + " | $" + cubiculo.getPrecioHora() + " por hora");
+            for (String cubiculo : cubiculos) {
+                System.out.println(cubiculo);
             }
             
             System.out.println("-----");
             
-            Integer numero = contadorDAO.encontrarActualizar();
-            System.out.println(numero);
-            
+            CubiculoCompletoDTOPersistencia dto = cubiculoDAO.obtenerPorNombre("Cubículo A");
+            System.out.println(dto);
             
         } catch (Exception e) {
             System.out.println("Ocurrió un error al obtener los cubículos: " + e.getMessage());

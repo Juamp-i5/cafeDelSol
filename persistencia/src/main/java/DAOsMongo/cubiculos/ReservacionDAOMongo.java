@@ -4,17 +4,14 @@
  */
 package DAOsMongo.cubiculos;
 
-import DTOs.cubiculos.CancelacionDTOPersistencia;
 import DTOs.cubiculos.IReservacionMapperPersistencia;
-import DTOs.cubiculos.ReagendaDTOPersistencia;
-import DTOs.cubiculos.ReservacionDTOPersistencia;
+import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
 import DTOs.cubiculos.ReservacionMapperPersistencia;
 import IDAOs.cubiculos.IReservacionDAO;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import conexion.IConexionMongo;
@@ -70,7 +67,7 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     }
 
     @Override
-    public ReservacionDTOPersistencia agregarReservacion(ReservacionDTOPersistencia reservacion) throws PersistenciaCubiculoEsception {
+    public ReservacionDTOCompletaPersistencia agregarReservacion(ReservacionDTOCompletaPersistencia reservacion) throws PersistenciaCubiculoEsception {
         try {
             coleccion.insertOne(reservacionMapper.toMongo(reservacion));
             System.out.println("Reservación creada correctamente.");
@@ -101,11 +98,11 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     }
 
     @Override
-    public ReservacionDTOPersistencia buscarPorId(Integer id) throws PersistenciaCubiculoEsception {
+    public ReservacionDTOCompletaPersistencia buscarPorId(Integer id) throws PersistenciaCubiculoEsception {
         try {
             Bson filtro = Filters.eq("numReservacion", id);
             Reservacion entidad = coleccion.find(filtro).first();
-            ReservacionDTOPersistencia dto = reservacionMapper.toDTO(entidad);
+            ReservacionDTOCompletaPersistencia dto = reservacionMapper.toDTO(entidad);
             return dto;
 
         } catch (Exception e) {
@@ -114,11 +111,11 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     }
 
     @Override
-    public List<ReservacionDTOPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception {
+    public List<ReservacionDTOCompletaPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception {
         try {
             Bson filtro = new Document();
 
-            List<ReservacionDTOPersistencia> listaDTO;
+            List<ReservacionDTOCompletaPersistencia> listaDTO;
 
             if (fechaInicio != null && fechaFin != null) {
                 filtro = Filters.and(

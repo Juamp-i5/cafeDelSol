@@ -4,16 +4,12 @@
  */
 package IDAOs.cubiculos;
 
-import DTOs.cubiculos.CancelacionDTOPersistencia;
-import DTOs.cubiculos.ReagendaDTOPersistencia;
-import DTOs.cubiculos.ReservacionDTOPersistencia;
-import entidades.Reservacion;
+import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
 import enumCubiculos.Estado;
 import excepciones.PersistenciaCubiculoEsception;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.bson.conversions.Bson;
 
 /**
  *
@@ -21,13 +17,13 @@ import org.bson.conversions.Bson;
  */
 public interface IReservacionDAO {
     
-    public ReservacionDTOPersistencia agregarReservacion(ReservacionDTOPersistencia reservacion) throws PersistenciaCubiculoEsception;
+    public ReservacionDTOCompletaPersistencia agregarReservacion(ReservacionDTOCompletaPersistencia reservacion) throws PersistenciaCubiculoEsception;
     
     public boolean actualizarEstadoReservacion(Integer numReservacion, Estado estado) throws PersistenciaCubiculoEsception;
     
-    public ReservacionDTOPersistencia buscarPorId(Integer numReservacion) throws PersistenciaCubiculoEsception;
+    public ReservacionDTOCompletaPersistencia buscarPorId(Integer numReservacion) throws PersistenciaCubiculoEsception;
     
-    public List<ReservacionDTOPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception;
+    public List<ReservacionDTOCompletaPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception;
 
     public boolean cancelacionReservacion(Integer numReservacion, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
     

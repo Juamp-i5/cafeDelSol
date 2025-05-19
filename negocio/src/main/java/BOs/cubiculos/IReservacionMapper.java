@@ -5,17 +5,14 @@
 package BOs.cubiculos;
 
 import DTOs.cubiculos.ReservacionCompletaDTO;
-import DTOs.cubiculos.ReservacionNuevaDTO;
-import excepciones.NegocioCubiculoException;
+import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
 
 /**
  *
  * @author rodri
  */
-public interface IReservacionBO {
+public interface IReservacionMapper {
     
-    public Integer agregarReservacion (ReservacionCompletaDTO reservacion) throws NegocioCubiculoException;
-    
-    
+    public ReservacionDTOCompletaPersistencia toDTOPersistencia(ReservacionCompletaDTO dtoNuevo);
     
 }

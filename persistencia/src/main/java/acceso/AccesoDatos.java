@@ -8,6 +8,8 @@ import IDAOs.IProductoPedidoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.cubiculos.IContadorReservaciones;
+import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
@@ -104,5 +106,12 @@ public class AccesoDatos {
         return fabricaDAOs.getReservacionDAO();
     }
     
+    public static ICubiculoDAO getCubiculoDAO() {
+        return fabricaDAOs.getCubiculoDAO();
+    }
+    
+    public static IContadorReservaciones getContador() {
+        return fabricaDAOs.getContadorReservaciones();
+    }
     
 }

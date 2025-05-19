@@ -2,20 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs.cubiculos;
 
 import enumCubiculos.Estado;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import org.bson.types.ObjectId;
 
 /**
  *
  * @author rodri
  */
-public class Reservacion {
-    
-    private ObjectId id;
+public class ReservacionDTOCompletaPersistencia {
+
+    private String id;
     private Integer numReservacion;
     private String nombre;
     private String telefono;
@@ -23,16 +22,15 @@ public class Reservacion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
-    private ObjectId idCubiculo;
+    private String idCubiculo;
     private String nombreCubiculo;
     private Double precioHora;
     private Double precioReservacion;
-    
 
-    public Reservacion() {
+    public ReservacionDTOCompletaPersistencia() {
     }
 
-    public Reservacion(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion) {
+    public ReservacionDTOCompletaPersistencia(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion) {
         this.numReservacion = numReservacion;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -46,7 +44,7 @@ public class Reservacion {
         this.precioReservacion = precioReservacion;
     }
 
-    public Reservacion(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion) {
+    public ReservacionDTOCompletaPersistencia(String id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion) {
         this.id = id;
         this.numReservacion = numReservacion;
         this.nombre = nombre;
@@ -59,14 +57,6 @@ public class Reservacion {
         this.nombreCubiculo = nombreCubiculo;
         this.precioHora = precioHora;
         this.precioReservacion = precioReservacion;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public Integer getNumReservacion() {
@@ -125,11 +115,11 @@ public class Reservacion {
         this.estado = estado;
     }
 
-    public ObjectId getIdCubiculo() {
+    public String getIdCubiculo() {
         return idCubiculo;
     }
 
-    public void setIdCubiculo(ObjectId idCubiculo) {
+    public void setIdCubiculo(String idCubiculo) {
         this.idCubiculo = idCubiculo;
     }
 
@@ -157,13 +147,17 @@ public class Reservacion {
         this.precioReservacion = precioReservacion;
     }
 
-    @Override
-    public String toString() {
-        return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + '}';
+    public String getId() {
+        return id;
     }
 
-    
-    
-    
-    
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "ReservacionDTOCompletaPersistencia{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + '}';
+    }
+
 }

@@ -13,10 +13,10 @@ import java.util.List;
  */
 public interface IReservacionMapperPersistencia {
 
-    public ReservacionDTOPersistencia toDTO(Reservacion entidad);
+    public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad);
 
-    public Reservacion toMongo(ReservacionDTOPersistencia dto);
+    public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto);
     
-    public List<ReservacionDTOPersistencia> toDTOList(List<Reservacion> entidades);
+    public List<ReservacionDTOCompletaPersistencia> toDTOList(List<Reservacion> entidades);
 
 }

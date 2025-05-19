@@ -4,7 +4,13 @@
  */
 package pantallas.cubiculos;
 
+import DTOs.cubiculos.ReservacionNuevaDTO;
 import control.ControlNavegacion;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,12 +18,73 @@ import control.ControlNavegacion;
  */
 public class PantallaReservar extends javax.swing.JFrame {
 
+    private Double precioHora;
+    private Double precioTotal;
+    private ReservacionNuevaDTO reservacionNueva;
+
     /**
      * Creates new form PantallaReservar
      */
     public PantallaReservar() {
         initComponents();
-        btnReservar.setEnabled(false);
+        cargarComboBox();
+    }
+
+    private void cargarComboBox() {
+        jComboBox1.removeAllItems();
+
+        List<String> listaCubiculos = ControlNavegacion.obtenerCubiculos();
+        for (String cubiculo : listaCubiculos) {
+            jComboBox1.addItem(cubiculo);
+        }
+    }
+
+    private void crearReservacion() {
+
+        if (jTextFieldNombre.getText().isEmpty() || jTextFieldNombre.getText().isBlank() || jTextFieldTelefono.getText().isEmpty()
+                || jComboBox1.getSelectedItem() == null || fechaPicker.getDate() == null || horaInicioPicker.getTime() == null
+                || horaFinPicker.getTime() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String nombre = jTextFieldNombre.getText();
+        String telefono = jTextFieldTelefono.getText();
+        String cubiculo = (String) jComboBox1.getSelectedItem();
+        LocalDate fecha = fechaPicker.getDate();
+        LocalTime horaInicio = horaInicioPicker.getTime();
+        LocalTime horaFin = horaFinPicker.getTime();
+        precioHora = ControlNavegacion.obtenerPrecioCubiculo(cubiculo);
+        precioTotal = ControlNavegacion.calcularPrecioReservacion(horaInicio, horaFin, precioHora);
+        
+        reservacionNueva = new ReservacionNuevaDTO();
+        reservacionNueva.setNombre(nombre);
+        reservacionNueva.setTelefono(telefono);
+        reservacionNueva.setNombreCubiculo(cubiculo);
+        reservacionNueva.setFechaReserva(fecha);
+        reservacionNueva.setHoraInicio(horaInicio);
+        reservacionNueva.setHoraFin(horaFin);
+        reservacionNueva.setPrecioHora(precioHora);
+        reservacionNueva.setPrecioReservacion(precioTotal);
+
+    }
+    
+    public void guardarReservacionEfectivo(){
+        crearReservacion();
+        if (reservacionNueva != null) {
+            ControlNavegacion.setReservacionNueva(reservacionNueva);
+            ControlNavegacion.mostrarPantallaPagoEfCubiculo();
+            this.dispose();
+        }
+    }
+    
+    public void guardarReservacionTarjeta(){
+        crearReservacion();
+        if(reservacionNueva != null) {
+            ControlNavegacion.setReservacionNueva(reservacionNueva);
+            ControlNavegacion.mostrarPantallaPagoTarjeta();
+            this.dispose();
+        }
     }
 
     /**
@@ -39,13 +106,16 @@ public class PantallaReservar extends javax.swing.JFrame {
         jLabelHoraInicio = new javax.swing.JLabel();
         jLabelTelefono = new javax.swing.JLabel();
         jLabelHoraFin = new javax.swing.JLabel();
+        jTextFieldTelefono = new javax.swing.JTextField();
         jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldNombre1 = new javax.swing.JTextField();
-        timePicker1 = new com.github.lgooddatepicker.components.TimePicker();
-        timePicker2 = new com.github.lgooddatepicker.components.TimePicker();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
-        btnReservar = new javax.swing.JButton();
+        horaInicioPicker = new com.github.lgooddatepicker.components.TimePicker();
+        horaFinPicker = new com.github.lgooddatepicker.components.TimePicker();
+        fechaPicker = new com.github.lgooddatepicker.components.DatePicker();
+        btnPagoEfectivo = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabelPrecio = new javax.swing.JLabel();
+        jTextFieldPrecio = new javax.swing.JTextField();
+        btnPagoTarjeta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,68 +151,95 @@ public class PantallaReservar extends javax.swing.JFrame {
         jLabelHoraFin.setText("Hora Fin");
         jLabelHoraFin.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
+        jTextFieldTelefono.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
         jTextFieldNombre.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jTextFieldNombre1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        horaInicioPicker.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        timePicker1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        horaFinPicker.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        timePicker2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        fechaPicker.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        datePicker1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
-        btnReservar.setText("Reservar");
-        btnReservar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnReservar.setMaximumSize(new java.awt.Dimension(120, 70));
-        btnReservar.setMinimumSize(new java.awt.Dimension(120, 70));
-        btnReservar.setPreferredSize(new java.awt.Dimension(120, 70));
-        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+        btnPagoEfectivo.setText("Efectivo");
+        btnPagoEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnPagoEfectivo.setMaximumSize(new java.awt.Dimension(120, 70));
+        btnPagoEfectivo.setMinimumSize(new java.awt.Dimension(120, 70));
+        btnPagoEfectivo.setPreferredSize(new java.awt.Dimension(120, 70));
+        btnPagoEfectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservarActionPerformed(evt);
+                btnPagoEfectivoActionPerformed(evt);
             }
         });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabelPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabelPrecio.setText("Precio");
+
+        jTextFieldPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+
+        btnPagoTarjeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnPagoTarjeta.setText("Tarjeta");
+        btnPagoTarjeta.setMaximumSize(new java.awt.Dimension(120, 70));
+        btnPagoTarjeta.setMinimumSize(new java.awt.Dimension(120, 70));
+        btnPagoTarjeta.setPreferredSize(new java.awt.Dimension(120, 70));
+        btnPagoTarjeta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPagoTarjetaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(lblTitulo))
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1064, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(lblTitulo))
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 1064, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPagoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPagoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(309, 309, 309)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelFecha)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelTelefono)
+                                .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabelHoraFin)
+                            .addComponent(jLabelCubiculo)
+                            .addComponent(jLabelHoraInicio)
+                            .addComponent(jLabelPrecio))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(horaInicioPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(horaFinPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fechaPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldPrecio))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(309, 309, 309)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelFecha)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabelTelefono)
-                        .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabelHoraFin)
-                    .addComponent(jLabelCubiculo)
-                    .addComponent(jLabelHoraInicio))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextFieldNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,11 +250,11 @@ public class PantallaReservar extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNombre))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTelefono))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -165,24 +262,29 @@ public class PantallaReservar extends javax.swing.JFrame {
                     .addComponent(jComboBox1))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(fechaPicker, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabelFecha)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaInicioPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelHoraInicio, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(timePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaFinPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelHoraFin))
-                .addGap(131, 131, 131)
+                .addGap(75, 75, 75)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextFieldPrecio)
+                    .addComponent(jLabelPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnPagoEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPagoTarjeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -193,27 +295,39 @@ public class PantallaReservar extends javax.swing.JFrame {
         ControlNavegacion.volverPantallaAnterior();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
+    private void btnPagoEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoEfectivoActionPerformed
+        guardarReservacionEfectivo();
+    }//GEN-LAST:event_btnPagoEfectivoActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnReservarActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void btnPagoTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagoTarjetaActionPerformed
+        guardarReservacionTarjeta();
+    }//GEN-LAST:event_btnPagoTarjetaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReservar;
+    private javax.swing.JButton btnPagoEfectivo;
+    private javax.swing.JButton btnPagoTarjeta;
     private javax.swing.JButton btnVolver;
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.github.lgooddatepicker.components.DatePicker fechaPicker;
+    private com.github.lgooddatepicker.components.TimePicker horaFinPicker;
+    private com.github.lgooddatepicker.components.TimePicker horaInicioPicker;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelCubiculo;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelHoraFin;
     private javax.swing.JLabel jLabelHoraInicio;
     private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelPrecio;
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldNombre1;
+    private javax.swing.JTextField jTextFieldPrecio;
+    private javax.swing.JTextField jTextFieldTelefono;
     private javax.swing.JLabel lblTitulo;
-    private com.github.lgooddatepicker.components.TimePicker timePicker1;
-    private com.github.lgooddatepicker.components.TimePicker timePicker2;
     // End of variables declaration//GEN-END:variables
+
 }

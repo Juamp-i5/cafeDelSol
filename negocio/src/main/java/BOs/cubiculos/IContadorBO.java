@@ -4,18 +4,14 @@
  */
 package BOs.cubiculos;
 
-import DTOs.cubiculos.ReservacionCompletaDTO;
-import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.NegocioCubiculoException;
 
 /**
  *
  * @author rodri
  */
-public interface IReservacionBO {
+public interface IContadorBO {
     
-    public Integer agregarReservacion (ReservacionCompletaDTO reservacion) throws NegocioCubiculoException;
-    
-    
+    public Integer obtenerContador() throws NegocioCubiculoException;
     
 }
