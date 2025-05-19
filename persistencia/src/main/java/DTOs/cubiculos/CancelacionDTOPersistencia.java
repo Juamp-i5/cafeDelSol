@@ -2,21 +2,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs.cubiculos;
 
 import enumCubiculos.Estado;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import org.bson.types.ObjectId;
 
 /**
  *
  * @author rodri
  */
-public class Reagenda {
+public class CancelacionDTOPersistencia {
     
-    private ObjectId id;
+    private String id;
     private Integer numReservacion;
     private String nombre;
     private String telefono;
@@ -26,13 +25,12 @@ public class Reagenda {
     private Estado estado;
     
     private String motivo;
-    private LocalDateTime fechaReagenda;
-    private Integer numReservacionNuevo;
-    
-    public Reagenda() {
+    private LocalDateTime fechaCancelacion;
+
+    public CancelacionDTOPersistencia() {
     }
 
-    public Reagenda(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String motivo, LocalDateTime fechaCancelacion, Integer numReservacionNuevo) {
+    public CancelacionDTOPersistencia(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String motivo, LocalDateTime fechaCancelacion) {
         this.numReservacion = numReservacion;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -41,11 +39,10 @@ public class Reagenda {
         this.horaFin = horaFin;
         this.estado = estado;
         this.motivo = motivo;
-        this.fechaReagenda = fechaCancelacion;
-        this.numReservacionNuevo = numReservacionNuevo;
+        this.fechaCancelacion = fechaCancelacion;
     }
 
-    public Reagenda(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String motivo, LocalDateTime fechaCancelacion, Integer numReservacionNuevo) {
+    public CancelacionDTOPersistencia(String id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String motivo, LocalDateTime fechaCancelacion) {
         this.id = id;
         this.numReservacion = numReservacion;
         this.nombre = nombre;
@@ -55,15 +52,14 @@ public class Reagenda {
         this.horaFin = horaFin;
         this.estado = estado;
         this.motivo = motivo;
-        this.fechaReagenda = fechaCancelacion;
-        this.numReservacionNuevo = numReservacionNuevo;
+        this.fechaCancelacion = fechaCancelacion;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -131,24 +127,16 @@ public class Reagenda {
         this.motivo = motivo;
     }
 
-    public LocalDateTime getFechaReagenda() {
-        return fechaReagenda;
+    public LocalDateTime getFechaCancelacion() {
+        return fechaCancelacion;
     }
 
-    public void setFechaReagenda(LocalDateTime fechaReagenda) {
-        this.fechaReagenda = fechaReagenda;
-    }
-
-    public Integer getNumReservacionNuevo() {
-        return numReservacionNuevo;
-    }
-
-    public void setNumReservacionNuevo(Integer numReservacionNuevo) {
-        this.numReservacionNuevo = numReservacionNuevo;
+    public void setFechaCancelacion(LocalDateTime fechaCancelacion) {
+        this.fechaCancelacion = fechaCancelacion;
     }
 
     @Override
     public String toString() {
-        return "Reagenda{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", motivo=" + motivo + ", fechaCancelacion=" + fechaReagenda + ", numReservacionNuevo=" + numReservacionNuevo + '}';
+        return "CancelacionDTOPersistencia{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", motivo=" + motivo + ", fechaCancelacion=" + fechaCancelacion + '}';
     }
 }

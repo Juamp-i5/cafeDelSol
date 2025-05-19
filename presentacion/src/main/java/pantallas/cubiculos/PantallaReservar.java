@@ -17,6 +17,7 @@ public class PantallaReservar extends javax.swing.JFrame {
      */
     public PantallaReservar() {
         initComponents();
+        btnReservar.setEnabled(false);
     }
 
     /**

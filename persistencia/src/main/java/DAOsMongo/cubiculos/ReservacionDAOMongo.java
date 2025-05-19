@@ -4,7 +4,9 @@
  */
 package DAOsMongo.cubiculos;
 
+import DTOs.cubiculos.CancelacionDTOPersistencia;
 import DTOs.cubiculos.IReservacionMapperPersistencia;
+import DTOs.cubiculos.ReagendaDTOPersistencia;
 import DTOs.cubiculos.ReservacionDTOPersistencia;
 import DTOs.cubiculos.ReservacionMapperPersistencia;
 import IDAOs.cubiculos.IReservacionDAO;
@@ -12,6 +14,7 @@ import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import conexion.IConexionMongo;
@@ -19,6 +22,7 @@ import entidades.Reservacion;
 import enumCubiculos.Estado;
 import excepciones.PersistenciaCubiculoEsception;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,18 +101,13 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     }
 
     @Override
-    public List<ReservacionDTOPersistencia> buscarTodasReservaciones() throws PersistenciaCubiculoEsception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ReservacionDTOPersistencia buscarPorId(Long id) throws PersistenciaCubiculoEsception {
-        try{
+    public ReservacionDTOPersistencia buscarPorId(Integer id) throws PersistenciaCubiculoEsception {
+        try {
             Bson filtro = Filters.eq("numReservacion", id);
             Reservacion entidad = coleccion.find(filtro).first();
             ReservacionDTOPersistencia dto = reservacionMapper.toDTO(entidad);
             return dto;
-            
+
         } catch (Exception e) {
             throw new PersistenciaCubiculoEsception("Error al buscar reservación por número: " + e.getMessage(), e);
         }
@@ -137,6 +136,51 @@ public class ReservacionDAOMongo implements IReservacionDAO {
             return listaDTO;
         } catch (Exception e) {
             throw new PersistenciaCubiculoEsception("Error al buscar reservaciones por rango de fechas", e);
+        }
+    }
+
+    @Override
+    public boolean cancelacionReservacion(Integer numReservacion, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
+        try {
+            Bson filtro = Filters.eq("numReservacion", numReservacion);
+
+            Bson actualizacion = Updates.combine(
+                    Updates.set("motivo", motivo),
+                    Updates.set("fechaHora", fechaHora)
+            );
+
+            UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
+
+            if (resultado.getMatchedCount() == 0) {
+                throw new PersistenciaCubiculoEsception("No se encontró la reservación.");
+            }
+
+            return resultado.wasAcknowledged();
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al cancelar la reservacion", e);
+        }
+    }
+
+    @Override
+    public boolean reagendaReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
+        try {
+            Bson filtro = Filters.eq("numReservacion", numReservacion);
+
+            Bson actualizacion = Updates.combine(
+                    Updates.set("numReservacionNuevo", numReservacionNuevo),
+                    Updates.set("motivo", motivo),
+                    Updates.set("fechaHora", fechaHora)
+            );
+
+            UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
+
+            if (resultado.getMatchedCount() == 0) {
+                throw new PersistenciaCubiculoEsception("No se encontró la reservación original.");
+            }
+
+            return resultado.wasAcknowledged();
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al actualizar los datos de reagenda", e);
         }
     }
 
