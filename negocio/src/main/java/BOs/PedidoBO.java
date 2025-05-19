@@ -1,11 +1,11 @@
 package BOs;
 
 import DTOs.PedidoDTO;
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import DTOs.ProductoPedidoDTO;
-import DTOs.SaborDTO;
-import DTOs.TamanioDTO;
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaSaborDTO;
+import DTOs.PersistenciaTamanioDTO;
+import DTOs.PersistenciaToppingDTO;
 import entidades.Pedido;
 import entidades.Producto;
 import entidades.ProductoPedido;
@@ -77,10 +77,10 @@ public class PedidoBO implements IPedidoBO {
 //
 //            for (ProductoPedidoDTO pd : pds) {
 //
-//                ProductoDTO producto;
-//                TamanioDTO tamanio;
-//                SaborDTO sabor;
-//                ToppingDTO topping;
+//                PersistenciaProductoDTO producto;
+//                PersistenciaTamanioDTO tamanio;
+//                PersistenciaSaborDTO sabor;
+//                PersistenciaToppingDTO topping;
 //
 //                producto = productoDAO.buscarPorNombre(pd.getProducto().getNombre());
 //                tamanio = tamanioDAO.buscarPorNombre(pd.getTamanio().getNombre());

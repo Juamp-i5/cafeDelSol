@@ -4,13 +4,11 @@
  */
 package mappers;
 
-import interfacesMappers.ITamanioMapper;
 import interfacesMappers.IProductoMapper;
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import entidades.Producto;
-import excepciones.PersistenciaException;
-import java.util.ArrayList;
-import java.util.List;
+import interfacesMappers.IProductoTamanioMapper;
+import java.util.stream.Collectors;
 import org.bson.types.ObjectId;
 
 /**
@@ -19,75 +17,58 @@ import org.bson.types.ObjectId;
  */
 public class ProductoMapper implements IProductoMapper {
 
-    private final ITamanioMapper tamanioMapper;
+    private final IProductoTamanioMapper productoTamanioMapper;
 
-    public ProductoMapper(ITamanioMapper tamanioMapper) {
-        this.tamanioMapper = tamanioMapper;
+    public ProductoMapper(IProductoTamanioMapper productoTamanioMapper) {
+        this.productoTamanioMapper = productoTamanioMapper;
     }
 
     @Override
-    public ProductoDTO toDTO(Producto entidad) {
-        if (entidad == null) {
+    public PersistenciaProductoDTO toDTO(Producto producto) {
+        if (producto == null) {
             return null;
         }
-        ProductoDTO dto = new ProductoDTO();
-        if (entidad.getId() != null) {
-            dto.setId(entidad.getId().toHexString());
-        }
-        dto.setNombre(entidad.getNombre());
-        dto.setCategoria(entidad.getCategoria());
-        dto.setPrecioBase(entidad.getPrecioBase());
-        dto.setImageData(entidad.getImageData());
-        dto.setEstado(entidad.getEstado());
-        if (entidad.getTamanios() != null) {
-            dto.setTamanios(this.tamanioMapper.toDTOList(entidad.getTamanios()));
+        PersistenciaProductoDTO dto = new PersistenciaProductoDTO();
+        dto.setId(producto.getId() != null ? producto.getId().toHexString() : null);
+        dto.setNombre(producto.getNombre());
+        dto.setDescripcion(producto.getDescripcion());
+        dto.setCategoria(producto.getCategoria());
+        dto.setEstado(producto.getEstado());
+        dto.setPrecioBase(producto.getPrecioBase());
+        dto.setImageData(producto.getImageData());
+        if (producto.getTamanios() != null) {
+            dto.setTamanios(
+                    producto.getTamanios().stream()
+                            .map(productoTamanioMapper::toDTO)
+                            .collect(Collectors.toList())
+            );
         }
         return dto;
     }
 
     @Override
-    public Producto toMongo(ProductoDTO dto) throws PersistenciaException {
+    public Producto toEntity(PersistenciaProductoDTO dto) {
         if (dto == null) {
             return null;
         }
-        Producto entidad = new Producto();
+        Producto producto = new Producto();
         if (dto.getId() != null && ObjectId.isValid(dto.getId())) {
-            entidad.setId(new ObjectId(dto.getId()));
-        } else if (dto.getId() != null && !dto.getId().isEmpty() && !ObjectId.isValid(dto.getId())) {
-            throw new PersistenciaException("Error al mapear el id de ProductoDTO de String a ObjectId");
+            producto.setId(new ObjectId(dto.getId()));
         }
-        entidad.setNombre(dto.getNombre());
-        entidad.setCategoria(dto.getCategoria());
-        entidad.setPrecioBase(dto.getPrecioBase());
-        entidad.setImageData(dto.getImageData());
-        entidad.setEstado(dto.getEstado());
+        producto.setNombre(dto.getNombre());
+        producto.setDescripcion(dto.getDescripcion());
+        producto.setCategoria(dto.getCategoria());
+        producto.setEstado(dto.getEstado());
+        producto.setPrecioBase(dto.getPrecioBase());
+        producto.setImageData(dto.getImageData());
         if (dto.getTamanios() != null) {
-            entidad.setTamanios(this.tamanioMapper.toMongoList(dto.getTamanios()));
+            producto.setTamanios(
+                    dto.getTamanios().stream()
+                            .map(productoTamanioMapper::toEntity)
+                            .collect(Collectors.toList())
+            );
         }
-        return entidad;
+        return producto;
     }
 
-    @Override
-    public List<ProductoDTO> toDTOList(List<Producto> entidades) {
-        if (entidades == null) {
-            return null;
-        }
-        List<ProductoDTO> dtos = new ArrayList<>();
-        for (Producto entidad : entidades) {
-            dtos.add(toDTO(entidad));
-        }
-        return dtos;
-    }
-
-    @Override
-    public List<Producto> toMongoList(List<ProductoDTO> dtos) throws PersistenciaException {
-        if (dtos == null) {
-            return null;
-        }
-        List<Producto> entidades = new ArrayList<>();
-        for (ProductoDTO dto : dtos) {
-            entidades.add(toMongo(dto));
-        }
-        return entidades;
-    }
 }

@@ -5,7 +5,7 @@
 package mappers;
 
 import interfacesMappers.IProveedorMapper;
-import DTOs.ProveedorDTO;
+import DTOs.PersistenciaProveedorDTO;
 import entidades.Proveedor;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ import org.bson.types.ObjectId;
 public class ProveedorMapper implements IProveedorMapper {
 
     @Override
-    public ProveedorDTO toDTO(Proveedor entidadMongo) {
+    public PersistenciaProveedorDTO toDTO(Proveedor entidadMongo) {
         if (entidadMongo == null) {
             return null;
         }
-        ProveedorDTO dto = new ProveedorDTO();
+        PersistenciaProveedorDTO dto = new PersistenciaProveedorDTO();
         if (entidadMongo.getId() != null) {
             dto.setId(entidadMongo.getId().toHexString());
         }
@@ -32,7 +32,7 @@ public class ProveedorMapper implements IProveedorMapper {
     }
 
     @Override
-    public Proveedor toMongo(ProveedorDTO dto) throws PersistenciaException {
+    public Proveedor toMongo(PersistenciaProveedorDTO dto) throws PersistenciaException {
         if (dto == null) {
             return null;
         }
@@ -47,11 +47,11 @@ public class ProveedorMapper implements IProveedorMapper {
     }
 
     @Override
-    public List<ProveedorDTO> toDTOList(List<Proveedor> entidadesMongo) {
+    public List<PersistenciaProveedorDTO> toDTOList(List<Proveedor> entidadesMongo) {
         if (entidadesMongo == null) {
             return null;
         }
-        List<ProveedorDTO> proveedores = new ArrayList<>();
+        List<PersistenciaProveedorDTO> proveedores = new ArrayList<>();
         for (Proveedor entidadMongo : entidadesMongo) {
             proveedores.add(toDTO(entidadMongo));
         }
@@ -59,12 +59,12 @@ public class ProveedorMapper implements IProveedorMapper {
     }
 
     @Override
-    public List<Proveedor> toMongoList(List<ProveedorDTO> dtos) throws PersistenciaException {
+    public List<Proveedor> toMongoList(List<PersistenciaProveedorDTO> dtos) throws PersistenciaException {
         if (dtos == null) {
             return null;
         }
         List<Proveedor> proveedores = new ArrayList<>();
-        for (ProveedorDTO dto : dtos) {
+        for (PersistenciaProveedorDTO dto : dtos) {
             proveedores.add(toMongo(dto));
         }
         return proveedores;

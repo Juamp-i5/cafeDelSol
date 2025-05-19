@@ -1,6 +1,6 @@
 package DAOsMongo.ingredientes;
 
-import DTOs.ProveedorDTO;
+import DTOs.PersistenciaProveedorDTO;
 import DTOs.ingredientes.IProveedorMapperPersistencia;
 import DTOs.ingredientes.ProveedorDTOPersistencia;
 import DTOs.ingredientes.ProveedorMapperPersistencia;

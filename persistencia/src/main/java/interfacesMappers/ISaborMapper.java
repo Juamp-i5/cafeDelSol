@@ -4,9 +4,8 @@
  */
 package interfacesMappers;
 
-import DTOs.SaborDTO;
+import DTOs.PersistenciaSaborDTO;
 import entidades.Sabor;
-import excepciones.PersistenciaException;
 
 /**
  *
@@ -14,7 +13,7 @@ import excepciones.PersistenciaException;
  */
 public interface ISaborMapper {
 
-    public SaborDTO toDTO(Sabor sabor);
+    public PersistenciaSaborDTO toDTO(Sabor sabor);
 
-    public Sabor toEntity(SaborDTO saborDto) throws PersistenciaException;
+    public Sabor toEntity(PersistenciaSaborDTO saborDto);
 }

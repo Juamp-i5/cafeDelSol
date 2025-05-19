@@ -1,6 +1,6 @@
 package DAOsMongo;
 
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import entidades.Producto;
 import excepciones.PersistenciaException;
 import java.util.ArrayList;
@@ -12,12 +12,9 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
 import conexion.IConexionMongo;
 import interfacesMappers.IProductoMapper;
-import mappers.IngredienteMapper;
-import mappers.ProductoMapper;
-import mappers.ProveedorMapper;
-import mappers.TamanioMapper;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+import utils.DependencyInjectors;
 
 /**
  *
@@ -32,7 +29,7 @@ public class ProductoDAOMongo implements IProductoDAO {
     private final MongoCollection<Producto> coleccion;
     private final String NOMBRE_COLECCION = "productos";
 
-    private final IProductoMapper productoMapper = new ProductoMapper(new TamanioMapper(new IngredienteMapper()));
+    private final IProductoMapper productoMapper = DependencyInjectors.getInstancia().getProductoMapper();
 
     private ProductoDAOMongo(IConexionMongo conexion) {
         this.database = conexion.getDatabase();
@@ -48,8 +45,8 @@ public class ProductoDAOMongo implements IProductoDAO {
 
     //Métodos de la coleccion
     @Override
-    public List<ProductoDTO> buscarTodos() throws PersistenciaException {
-        List<ProductoDTO> productos = new ArrayList<>();
+    public List<PersistenciaProductoDTO> buscarTodos() throws PersistenciaException {
+        List<PersistenciaProductoDTO> productos = new ArrayList<>();
         try (MongoCursor<Producto> cursor = coleccion.find().iterator()) {
             while (cursor.hasNext()) {
                 productos.add(productoMapper.toDTO(cursor.next()));
@@ -61,8 +58,8 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public List<ProductoDTO> buscarTodosHabilitados() throws PersistenciaException {
-        List<ProductoDTO> productos = new ArrayList<>();
+    public List<PersistenciaProductoDTO> buscarTodosHabilitados() throws PersistenciaException {
+        List<PersistenciaProductoDTO> productos = new ArrayList<>();
         Bson filtro = Filters.eq("estado", "HABILITADO");
         try (MongoCursor<Producto> cursor = coleccion.find(filtro).iterator()) {
             while (cursor.hasNext()) {
@@ -75,8 +72,8 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public List<ProductoDTO> buscarPorNombreYCategoria(String filtroNombre, String filtroCategoria) throws PersistenciaException {
-        List<ProductoDTO> productos = new ArrayList<>();
+    public List<PersistenciaProductoDTO> buscarPorNombreYCategoria(String filtroNombre, String filtroCategoria) throws PersistenciaException {
+        List<PersistenciaProductoDTO> productos = new ArrayList<>();
         Bson filtro = Filters.and(
                 Filters.regex("nombre", filtroNombre, "i"),
                 Filters.eq("categoria", filtroCategoria)
@@ -92,8 +89,8 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public ProductoDTO buscarPorId(String id) throws PersistenciaException {
-        List<ProductoDTO> productos = new ArrayList<>();
+    public PersistenciaProductoDTO buscarPorId(String id) throws PersistenciaException {
+        List<PersistenciaProductoDTO> productos = new ArrayList<>();
         ObjectId objectId = new ObjectId(id);
         Bson filtro = Filters.eq("_id", objectId);
         try (MongoCursor<Producto> cursor = coleccion.find(filtro).iterator()) {
@@ -110,8 +107,8 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public ProductoDTO buscarPorNombre(String nombre) throws PersistenciaException {
-        List<ProductoDTO> productos = new ArrayList<>();
+    public PersistenciaProductoDTO buscarPorNombre(String nombre) throws PersistenciaException {
+        List<PersistenciaProductoDTO> productos = new ArrayList<>();
         Bson filtro = Filters.eq("nombre", nombre);
         try (MongoCursor<Producto> cursor = coleccion.find(filtro).iterator()) {
             while (cursor.hasNext()) {
@@ -127,25 +124,25 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public void guardarProducto(ProductoDTO producto) throws PersistenciaException {
+    public void guardarProducto(PersistenciaProductoDTO producto) throws PersistenciaException {
         if (producto == null) {
             throw new PersistenciaException("Error al guardar el producto en la base de datos, el producto no puede ser nulo");
         }
 
         try {
-            coleccion.insertOne(productoMapper.toMongo(producto));
-        } catch (PersistenciaException e) {
+            coleccion.insertOne(productoMapper.toEntity(producto));
+        } catch (Exception e) {
             throw new PersistenciaException("Error al guardar el producto en la base de datos", e);
         }
     }
 
     @Override
-    public void actualizarProducto(ProductoDTO producto) throws PersistenciaException {
+    public void actualizarProducto(PersistenciaProductoDTO producto) throws PersistenciaException {
         ObjectId objectId = new ObjectId(producto.getId());
         Bson filtro = Filters.eq("_id", objectId);
         try {
-            coleccion.replaceOne(filtro, productoMapper.toMongo(producto));
-        } catch (PersistenciaException e) {
+            coleccion.replaceOne(filtro, productoMapper.toEntity(producto));
+        } catch (Exception e) {
             throw new PersistenciaException("Error al actualizar el producto en la base de datos", e);
         }
     }

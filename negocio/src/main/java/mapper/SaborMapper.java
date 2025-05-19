@@ -4,7 +4,7 @@
  */
 package mapper;
 
-import DTOs.SaborDTO;
+import DTOs.PersistenciaSaborDTO;
 import DTOs.SaborMostrarDTO;
 import interfacesMapper.ISaborMapper;
 
@@ -15,7 +15,7 @@ import interfacesMapper.ISaborMapper;
 public class SaborMapper implements ISaborMapper {
 
     @Override
-    public SaborMostrarDTO toSaboresMostrarDTO(SaborDTO sabor) {
+    public SaborMostrarDTO toSaboresMostrarDTO(PersistenciaSaborDTO sabor) {
         if (sabor == null) {
             return null;
         }

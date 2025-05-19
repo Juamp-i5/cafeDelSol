@@ -4,7 +4,7 @@
  */
 package BOs;
 
-import DTOs.TamanioDTO;
+import DTOs.PersistenciaTamanioDTO;
 import DTOs.TamanioMostrarDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -43,10 +43,10 @@ public class TamanioBO implements ITamanioBO {
     public List<TamanioMostrarDTO> cargarProductos() throws NegocioException {
         try {
 
-            List<TamanioDTO> tamanios = tamanioDAO.buscarTodos();
+            List<PersistenciaTamanioDTO> tamanios = tamanioDAO.buscarTodos();
             List<TamanioMostrarDTO> tamaniosDTO = new ArrayList<>();
 
-            for (TamanioDTO tamanio : tamanios) {
+            for (PersistenciaTamanioDTO tamanio : tamanios) {
                 TamanioMostrarDTO tamanioDTO = productoMapper.toTamanioMostrarDTO(tamanio);
                 tamaniosDTO.add(tamanioDTO);
             }

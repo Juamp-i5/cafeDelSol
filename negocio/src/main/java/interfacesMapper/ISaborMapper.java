@@ -4,7 +4,7 @@
  */
 package interfacesMapper;
 
-import DTOs.SaborDTO;
+import DTOs.PersistenciaSaborDTO;
 import DTOs.SaborMostrarDTO;
 
 /**
@@ -13,5 +13,5 @@ import DTOs.SaborMostrarDTO;
  */
 public interface ISaborMapper {
 
-    public SaborMostrarDTO toSaboresMostrarDTO(SaborDTO sabor);
+    public SaborMostrarDTO toSaboresMostrarDTO(PersistenciaSaborDTO sabor);
 }

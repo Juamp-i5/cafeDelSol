@@ -6,8 +6,6 @@ package interfacesMappers;
 
 import DTOs.ingredientes.IngredienteDTOPersistencia;
 import entidades.Ingrediente;
-import excepciones.PersistenciaException;
-import java.util.List;
 
 /**
  *
@@ -17,9 +15,6 @@ public interface IIngredienteMapper {
 
     public IngredienteDTOPersistencia toDTO(Ingrediente entidad);
 
-    public Ingrediente toMongo(IngredienteDTOPersistencia dto) throws PersistenciaException;
+    public Ingrediente toEntity(IngredienteDTOPersistencia dto);
 
-    public List<IngredienteDTOPersistencia> toDTOList(List<Ingrediente> entidades);
-
-    public List<Ingrediente> toMongoList(List<IngredienteDTOPersistencia> dtos) throws PersistenciaException;
 }

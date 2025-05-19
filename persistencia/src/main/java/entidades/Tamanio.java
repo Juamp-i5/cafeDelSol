@@ -4,7 +4,6 @@
  */
 package entidades;
 
-import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -17,7 +16,6 @@ public class Tamanio {
     private String nombre;
     private double precioAdicional;
     private byte[] imagenData;
-    private List<Ingrediente> ingredientes;
 
     public Tamanio() {
     }
@@ -52,14 +50,6 @@ public class Tamanio {
 
     public void setImagenData(byte[] imagenData) {
         this.imagenData = imagenData;
-    }
-
-    public List<Ingrediente> getIngredientes() {
-        return ingredientes;
-    }
-
-    public void setIngredientes(List<Ingrediente> ingredientes) {
-        this.ingredientes = ingredientes;
     }
 
 }

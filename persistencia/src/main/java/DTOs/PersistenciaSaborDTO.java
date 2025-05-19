@@ -8,17 +8,19 @@ package DTOs;
  *
  * @author Jp
  */
-public class ProveedorDTO {
+public class PersistenciaSaborDTO {
 
     private String id;
     private String nombre;
+    private byte[] imagenData;
 
-    public ProveedorDTO() {
+    public PersistenciaSaborDTO() {
     }
 
-    public ProveedorDTO(String id, String nombre) {
+    public PersistenciaSaborDTO(String id, String nombre, byte[] imagenData) {
         this.id = id;
         this.nombre = nombre;
+        this.imagenData = imagenData;
     }
 
     public String getId() {
@@ -35,6 +37,14 @@ public class ProveedorDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public byte[] getImagenData() {
+        return imagenData;
+    }
+
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
 }

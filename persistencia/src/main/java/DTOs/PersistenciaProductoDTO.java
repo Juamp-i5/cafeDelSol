@@ -10,26 +10,28 @@ import java.util.List;
  *
  * @author Jp
  */
-public class ProductoDTO {
+public class PersistenciaProductoDTO {
 
     private String id;
     private String nombre;
+    private String descripcion;
     private String categoria;
+    private String estado;
     private double precioBase;
     private byte[] imageData;
-    private String estado;
-    private List<TamanioDTO> tamanios;
+    private List<PersistenciaProductoTamanioDTO> tamanios;
 
-    public ProductoDTO() {
+    public PersistenciaProductoDTO() {
     }
 
-    public ProductoDTO(String id, String nombre, String categoria, double precioBase, byte[] imageData, String estado, List<TamanioDTO> tamanios) {
+    public PersistenciaProductoDTO(String id, String nombre, String descripcion, String categoria, String estado, double precioBase, byte[] imageData, List<PersistenciaProductoTamanioDTO> tamanios) {
         this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.categoria = categoria;
+        this.estado = estado;
         this.precioBase = precioBase;
         this.imageData = imageData;
-        this.estado = estado;
         this.tamanios = tamanios;
     }
 
@@ -49,12 +51,28 @@ public class ProductoDTO {
         this.nombre = nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public double getPrecioBase() {
@@ -73,19 +91,11 @@ public class ProductoDTO {
         this.imageData = imageData;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public List<TamanioDTO> getTamanios() {
+    public List<PersistenciaProductoTamanioDTO> getTamanios() {
         return tamanios;
     }
 
-    public void setTamanios(List<TamanioDTO> tamanios) {
+    public void setTamanios(List<PersistenciaProductoTamanioDTO> tamanios) {
         this.tamanios = tamanios;
     }
 

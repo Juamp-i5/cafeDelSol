@@ -15,11 +15,12 @@ public class Producto {
 
     private ObjectId id;
     private String nombre;
+    private String descripcion;
     private String categoria;
+    private String estado;
     private double precioBase;
     private byte[] imageData;
-    private String estado;
-    private List<Tamanio> tamanios;
+    private List<ProductoTamanio> tamanios;
 
     public Producto() {
     }
@@ -40,12 +41,28 @@ public class Producto {
         this.nombre = nombre;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public double getPrecioBase() {
@@ -64,19 +81,11 @@ public class Producto {
         this.imageData = imageData;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public List<Tamanio> getTamanios() {
+    public List<ProductoTamanio> getTamanios() {
         return tamanios;
     }
 
-    public void setTamanios(List<Tamanio> tamanios) {
+    public void setTamanios(List<ProductoTamanio> tamanios) {
         this.tamanios = tamanios;
     }
 

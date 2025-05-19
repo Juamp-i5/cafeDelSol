@@ -4,7 +4,7 @@
  */
 package BOs;
 
-import DTOs.SaborDTO;
+import DTOs.PersistenciaSaborDTO;
 import DTOs.SaborMostrarDTO;
 import entidades.Sabor;
 import excepciones.NegocioException;
@@ -44,10 +44,10 @@ public class SaborBO implements ISaborBO {
     public List<SaborMostrarDTO> cargarSabores() throws NegocioException {
         try {
 
-            List<SaborDTO> sabores = saborDAO.buscarTodos();
+            List<PersistenciaSaborDTO> sabores = saborDAO.buscarTodos();
             List<SaborMostrarDTO> saboresDTO = new ArrayList<>();
 
-            for (SaborDTO sabor : sabores) {
+            for (PersistenciaSaborDTO sabor : sabores) {
                 SaborMostrarDTO saborDTO = saborMapper.toSaboresMostrarDTO(sabor);
                 saboresDTO.add(saborDTO);
             }

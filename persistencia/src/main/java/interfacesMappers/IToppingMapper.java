@@ -4,9 +4,8 @@
  */
 package interfacesMappers;
 
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaToppingDTO;
 import entidades.Topping;
-import excepciones.PersistenciaException;
 
 /**
  *
@@ -14,7 +13,7 @@ import excepciones.PersistenciaException;
  */
 public interface IToppingMapper {
 
-    public ToppingDTO toDTO(Topping topping);
+    public PersistenciaToppingDTO toDTO(Topping topping);
 
-    public Topping toEntity(ToppingDTO toppingDto) throws PersistenciaException;
+    public Topping toEntity(PersistenciaToppingDTO toppingDto);
 }

@@ -4,7 +4,7 @@
  */
 package IDAOs;
 
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import excepciones.PersistenciaException;
 import java.util.List;
 
@@ -14,17 +14,17 @@ import java.util.List;
  */
 public interface IProductoDAO {
 
-    public List<ProductoDTO> buscarTodos() throws PersistenciaException;
+    public List<PersistenciaProductoDTO> buscarTodos() throws PersistenciaException;
 
-    public List<ProductoDTO> buscarTodosHabilitados() throws PersistenciaException;
+    public List<PersistenciaProductoDTO> buscarTodosHabilitados() throws PersistenciaException;
 
-    public List<ProductoDTO> buscarPorNombreYCategoria(String filtroNombre, String filtroCategoria) throws PersistenciaException;
+    public List<PersistenciaProductoDTO> buscarPorNombreYCategoria(String filtroNombre, String filtroCategoria) throws PersistenciaException;
 
-    public ProductoDTO buscarPorId(String id) throws PersistenciaException;
+    public PersistenciaProductoDTO buscarPorId(String id) throws PersistenciaException;
 
-    public ProductoDTO buscarPorNombre(String nombre) throws PersistenciaException;
+    public PersistenciaProductoDTO buscarPorNombre(String nombre) throws PersistenciaException;
 
-    public void guardarProducto(ProductoDTO producto) throws PersistenciaException;
+    public void guardarProducto(PersistenciaProductoDTO producto) throws PersistenciaException;
 
-    public void actualizarProducto(ProductoDTO producto) throws PersistenciaException;
+    public void actualizarProducto(PersistenciaProductoDTO producto) throws PersistenciaException;
 }

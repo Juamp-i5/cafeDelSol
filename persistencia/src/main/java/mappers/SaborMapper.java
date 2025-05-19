@@ -4,7 +4,7 @@
  */
 package mappers;
 
-import DTOs.SaborDTO;
+import DTOs.PersistenciaSaborDTO;
 import entidades.Sabor;
 import excepciones.PersistenciaException;
 import interfacesMappers.ISaborMapper;
@@ -17,11 +17,11 @@ import org.bson.types.ObjectId;
 public class SaborMapper implements ISaborMapper {
 
     @Override
-    public SaborDTO toDTO(Sabor sabor) {
+    public PersistenciaSaborDTO toDTO(Sabor sabor) {
         if (sabor == null) {
             return null;
         }
-        SaborDTO dto = new SaborDTO();
+        PersistenciaSaborDTO dto = new PersistenciaSaborDTO();
         if (sabor.getId() != null) {
             dto.setId(sabor.getId().toHexString());
         }
@@ -31,15 +31,13 @@ public class SaborMapper implements ISaborMapper {
     }
 
     @Override
-    public Sabor toEntity(SaborDTO saborDTO) throws PersistenciaException {
+    public Sabor toEntity(PersistenciaSaborDTO saborDTO) {
         if (saborDTO == null) {
             return null;
         }
         Sabor sabor = new Sabor();
         if (saborDTO.getId() != null && ObjectId.isValid(saborDTO.getId())) {
             sabor.setId(new ObjectId(saborDTO.getId()));
-        } else {
-            throw new PersistenciaException("Error al mappear el id de saborDTO de String a ObjectId");
         }
         sabor.setNombre(saborDTO.getNombre());
         sabor.setImagenData(saborDTO.getImagenData());

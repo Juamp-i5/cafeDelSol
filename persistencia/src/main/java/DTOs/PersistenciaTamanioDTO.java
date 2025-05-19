@@ -8,18 +8,20 @@ package DTOs;
  *
  * @author Jp
  */
-public class SaborDTO {
+public class PersistenciaTamanioDTO {
 
     private String id;
     private String nombre;
+    private double precioAdicional;
     private byte[] imagenData;
 
-    public SaborDTO() {
+    public PersistenciaTamanioDTO() {
     }
 
-    public SaborDTO(String id, String nombre, byte[] imagenData) {
+    public PersistenciaTamanioDTO(String id, String nombre, double precioAdicional, byte[] imagenData) {
         this.id = id;
         this.nombre = nombre;
+        this.precioAdicional = precioAdicional;
         this.imagenData = imagenData;
     }
 
@@ -37,6 +39,14 @@ public class SaborDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public double getPrecioAdicional() {
+        return precioAdicional;
+    }
+
+    public void setPrecioAdicional(double precioAdicional) {
+        this.precioAdicional = precioAdicional;
     }
 
     public byte[] getImagenData() {

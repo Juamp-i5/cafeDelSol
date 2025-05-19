@@ -4,7 +4,7 @@
  */
 package mapper;
 
-import DTOs.TamanioDTO;
+import DTOs.PersistenciaTamanioDTO;
 import DTOs.TamanioMostrarDTO;
 import interfacesMapper.ITamanioMapper;
 
@@ -15,7 +15,7 @@ import interfacesMapper.ITamanioMapper;
 public class TamanioMapper implements ITamanioMapper {
 
     @Override
-    public TamanioMostrarDTO toTamanioMostrarDTO(TamanioDTO tamanioDTO) {
+    public TamanioMostrarDTO toTamanioMostrarDTO(PersistenciaTamanioDTO tamanioDTO) {
         if (tamanioDTO == null) {
             return null;
         }

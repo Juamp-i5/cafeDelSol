@@ -4,10 +4,8 @@
  */
 package interfacesMappers;
 
-import DTOs.TamanioDTO;
+import DTOs.PersistenciaTamanioDTO;
 import entidades.Tamanio;
-import excepciones.PersistenciaException;
-import java.util.List;
 
 /**
  *
@@ -15,11 +13,8 @@ import java.util.List;
  */
 public interface ITamanioMapper {
 
-    public TamanioDTO toDTO(Tamanio entidad);
+    public PersistenciaTamanioDTO toDTO(Tamanio entidad);
 
-    public Tamanio toMongo(TamanioDTO dto) throws PersistenciaException;
+    public Tamanio toEntity(PersistenciaTamanioDTO dto);
 
-    public List<TamanioDTO> toDTOList(List<Tamanio> entidades);
-
-    public List<Tamanio> toMongoList(List<TamanioDTO> dtos) throws PersistenciaException;
 }

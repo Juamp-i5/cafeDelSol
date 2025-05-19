@@ -4,7 +4,7 @@
  */
 package mapper;
 
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaToppingDTO;
 import DTOs.ToppingMostrarDTO;
 import interfacesMapper.IToppingMapper;
 
@@ -15,7 +15,7 @@ import interfacesMapper.IToppingMapper;
 public class ToppingMapper implements IToppingMapper {
 
     @Override
-    public ToppingMostrarDTO toToppingsMostrarDTO(ToppingDTO toppingDTO) {
+    public ToppingMostrarDTO toToppingsMostrarDTO(PersistenciaToppingDTO toppingDTO) {
         if (toppingDTO == null) {
             return null;
         }

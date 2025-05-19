@@ -7,7 +7,7 @@ package BOs;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import DTOs.ProductoMostrarDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -20,6 +20,8 @@ import java.util.logging.Logger;
 import mapper.ProductoMapper;
 import IDAOs.IProductoDAO;
 import acceso.AccesoDatos;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -45,11 +47,10 @@ public class ProductoBO implements IProductoBO {
     @Override
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
-
-            List<ProductoDTO> productos = productoDAO.buscarTodosHabilitados();
+            List<PersistenciaProductoDTO> productos = productoDAO.buscarTodosHabilitados();
             List<ProductoMostrarDTO> productosDTO = new ArrayList<>();
 
-            for (ProductoDTO producto : productos) {
+            for (PersistenciaProductoDTO producto : productos) {
                 ProductoMostrarDTO productoDTO = productoMapper.toProductoMostrarDTO(producto);
                 productosDTO.add(productoDTO);
             }
@@ -64,7 +65,24 @@ public class ProductoBO implements IProductoBO {
 
     @Override
     public List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<PersistenciaProductoDTO> productos;
+        try {
+            productos = productoDAO.buscarPorNombreYCategoria(filtroNombre, filtroCategoria);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al consultar los productos filtrados: " + e.getMessage(), e);
+        }
+        if (productos == null) {
+            productos = new ArrayList<>();
+        }
+        try {
+            List<ProductoListDTO> resultado = productos.stream()
+                    .map(productoMapper::toProductoListDTO)
+                    .filter(dto -> dto != null)
+                    .collect(Collectors.toList());
+            return resultado;
+        } catch (Exception e) {
+            throw new NegocioException("Error al procesar los datos de los productos filtrados", e);
+        }
     }
 
     @Override

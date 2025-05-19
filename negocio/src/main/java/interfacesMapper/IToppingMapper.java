@@ -4,7 +4,7 @@
  */
 package interfacesMapper;
 
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaToppingDTO;
 import DTOs.ToppingMostrarDTO;
 
 /**
@@ -13,5 +13,5 @@ import DTOs.ToppingMostrarDTO;
  */
 public interface IToppingMapper {
 
-    ToppingMostrarDTO toToppingsMostrarDTO(ToppingDTO topping);
+    ToppingMostrarDTO toToppingsMostrarDTO(PersistenciaToppingDTO topping);
 }

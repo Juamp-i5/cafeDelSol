@@ -9,7 +9,6 @@ package DTOs.CRUDProductos;
  * @author Jp
  */
 public enum CategoriaProducto {
-    LIQUIDO,
-    SOLIDO,
-    GASEOSO
+    BEBIDASFRIAS,
+    BEBIDASCALIENTES
 }

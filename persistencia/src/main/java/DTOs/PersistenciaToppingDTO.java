@@ -2,32 +2,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
-
-import org.bson.types.ObjectId;
+package DTOs;
 
 /**
  *
  * @author Jp
  */
-public class Proveedor {
+public class PersistenciaToppingDTO {
 
-    private ObjectId id;
+    private String id;
     private String nombre;
+    private byte[] imagenData;
 
-    public Proveedor() {
+    public PersistenciaToppingDTO() {
     }
 
-    public Proveedor(ObjectId id, String nombre) {
+    public PersistenciaToppingDTO(String id, String nombre, byte[] imagenData) {
         this.id = id;
         this.nombre = nombre;
+        this.imagenData = imagenData;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -37,6 +37,14 @@ public class Proveedor {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public byte[] getImagenData() {
+        return imagenData;
+    }
+
+    public void setImagenData(byte[] imagenData) {
+        this.imagenData = imagenData;
     }
 
 }

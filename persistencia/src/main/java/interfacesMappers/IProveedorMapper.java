@@ -4,7 +4,7 @@
  */
 package interfacesMappers;
 
-import DTOs.ProveedorDTO;
+import DTOs.PersistenciaProveedorDTO;
 import entidades.Proveedor;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
  */
 public interface IProveedorMapper {
 
-    public ProveedorDTO toDTO(Proveedor entidadMongo);
+    public PersistenciaProveedorDTO toDTO(Proveedor entidadMongo);
 
-    public Proveedor toMongo(ProveedorDTO dto) throws PersistenciaException;
+    public Proveedor toMongo(PersistenciaProveedorDTO dto) throws PersistenciaException;
 
-    public List<ProveedorDTO> toDTOList(List<Proveedor> entidadesMongo);
+    public List<PersistenciaProveedorDTO> toDTOList(List<Proveedor> entidadesMongo);
 
-    public List<Proveedor> toMongoList(List<ProveedorDTO> dtos) throws PersistenciaException;
+    public List<Proveedor> toMongoList(List<PersistenciaProveedorDTO> dtos) throws PersistenciaException;
 }

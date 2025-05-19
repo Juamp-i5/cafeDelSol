@@ -4,9 +4,8 @@
  */
 package mappers;
 
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaToppingDTO;
 import entidades.Topping;
-import excepciones.PersistenciaException;
 import interfacesMappers.IToppingMapper;
 import org.bson.types.ObjectId;
 
@@ -17,11 +16,11 @@ import org.bson.types.ObjectId;
 public class ToppingMapper implements IToppingMapper {
 
     @Override
-    public ToppingDTO toDTO(Topping topping) {
+    public PersistenciaToppingDTO toDTO(Topping topping) {
         if (topping == null) {
             return null;
         }
-        ToppingDTO dto = new ToppingDTO();
+        PersistenciaToppingDTO dto = new PersistenciaToppingDTO();
         if (topping.getId() != null) {
             dto.setId(topping.getId().toHexString());
         }
@@ -31,15 +30,13 @@ public class ToppingMapper implements IToppingMapper {
     }
 
     @Override
-    public Topping toEntity(ToppingDTO toppingDTO) throws PersistenciaException {
+    public Topping toEntity(PersistenciaToppingDTO toppingDTO) {
         if (toppingDTO == null) {
             return null;
         }
         Topping topping = new Topping();
         if (toppingDTO.getId() != null && ObjectId.isValid(toppingDTO.getId())) {
             topping.setId(new ObjectId(toppingDTO.getId()));
-        } else {
-            throw new PersistenciaException("Error al mapear el id de toppingDTO de String a ObjectId");
         }
         topping.setNombre(toppingDTO.getNombre());
         topping.setImagenData(toppingDTO.getImagenData());

@@ -4,10 +4,8 @@
  */
 package interfacesMappers;
 
-import DTOs.ProductoDTO;
+import DTOs.PersistenciaProductoDTO;
 import entidades.Producto;
-import excepciones.PersistenciaException;
-import java.util.List;
 
 /**
  *
@@ -15,11 +13,8 @@ import java.util.List;
  */
 public interface IProductoMapper {
 
-    public ProductoDTO toDTO(Producto entidad);
+    public PersistenciaProductoDTO toDTO(Producto entidad);
 
-    public Producto toMongo(ProductoDTO dto) throws PersistenciaException;
+    public Producto toEntity(PersistenciaProductoDTO dto);
 
-    public List<ProductoDTO> toDTOList(List<Producto> entidades);
-
-    public List<Producto> toMongoList(List<ProductoDTO> dtos) throws PersistenciaException;
 }

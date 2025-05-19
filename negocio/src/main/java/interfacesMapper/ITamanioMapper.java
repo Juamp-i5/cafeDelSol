@@ -4,7 +4,7 @@
  */
 package interfacesMapper;
 
-import DTOs.TamanioDTO;
+import DTOs.PersistenciaTamanioDTO;
 import DTOs.TamanioMostrarDTO;
 
 /**
@@ -13,5 +13,5 @@ import DTOs.TamanioMostrarDTO;
  */
 public interface ITamanioMapper {
 
-    TamanioMostrarDTO toTamanioMostrarDTO(TamanioDTO tamanioDTO);
+    TamanioMostrarDTO toTamanioMostrarDTO(PersistenciaTamanioDTO tamanioDTO);
 }

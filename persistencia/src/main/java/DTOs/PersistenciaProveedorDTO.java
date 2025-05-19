@@ -8,19 +8,17 @@ package DTOs;
  *
  * @author Jp
  */
-public class ToppingDTO {
+public class PersistenciaProveedorDTO {
 
     private String id;
     private String nombre;
-    private byte[] imagenData;
 
-    public ToppingDTO() {
+    public PersistenciaProveedorDTO() {
     }
 
-    public ToppingDTO(String id, String nombre, byte[] imagenData) {
+    public PersistenciaProveedorDTO(String id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.imagenData = imagenData;
     }
 
     public String getId() {
@@ -37,14 +35,6 @@ public class ToppingDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public byte[] getImagenData() {
-        return imagenData;
-    }
-
-    public void setImagenData(byte[] imagenData) {
-        this.imagenData = imagenData;
     }
 
 }

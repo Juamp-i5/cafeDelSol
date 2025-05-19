@@ -1,4 +1,3 @@
-
 package entidades;
 
 import org.bson.types.ObjectId;
@@ -8,7 +7,7 @@ import org.bson.types.ObjectId;
  * @author Jp
  */
 public class Ingrediente {
-    
+
     private ObjectId id;
     private String nombre;
     private Double cantidadDisponible;
@@ -89,6 +88,5 @@ public class Ingrediente {
     public String toString() {
         return "Ingrediente{" + "id=" + id + ", nombre=" + nombre + ", cantidadDisponible=" + cantidadDisponible + ", cantidadMinima=" + cantidadMinima + ", unidadMedida=" + unidadMedida + ", nivelStock=" + nivelStock + ", idProveedor=" + idProveedor + '}';
     }
-      
-    
+
 }

@@ -1,6 +1,6 @@
 package BOs;
 
-import DTOs.ToppingDTO;
+import DTOs.PersistenciaToppingDTO;
 import DTOs.ToppingMostrarDTO;
 import entidades.Topping;
 import excepciones.NegocioException;
@@ -40,10 +40,10 @@ public class ToppingBO implements IToppingBO {
     public List<ToppingMostrarDTO> cargarProductos() throws NegocioException {
         try {
 
-            List<ToppingDTO> toppings = toppingDAO.buscarTodos();
+            List<PersistenciaToppingDTO> toppings = toppingDAO.buscarTodos();
             List<ToppingMostrarDTO> toppingsDTO = new ArrayList<>();
 
-            for (ToppingDTO topping : toppings) {
+            for (PersistenciaToppingDTO topping : toppings) {
                 ToppingMostrarDTO toppingDTO = toppingMapper.toToppingsMostrarDTO(topping);
                 toppingsDTO.add(toppingDTO);
             }
