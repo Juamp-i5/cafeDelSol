@@ -26,21 +26,6 @@ public class ProveedorMapperPersistencia implements IProveedorMapperPersistencia
     }
 
     @Override
-    public Proveedor toMongo(ProveedorDTOPersistencia dto) throws PersistenciaIngredientesException {
-        if (dto == null) {
-            return null;
-        }
-        Proveedor entidadMongo = new Proveedor();
-        if (dto.getId() != null && ObjectId.isValid(dto.getId())) {
-            entidadMongo.setId(new ObjectId(dto.getId()));
-        } else if (dto.getId() != null && !dto.getId().isEmpty() && !ObjectId.isValid(dto.getId())) {
-            throw new PersistenciaIngredientesException("Error al mappear el id de Producto de tipo String a tipo ObjectId");
-        }
-        entidadMongo.setNombre(dto.getNombre());
-        return entidadMongo;
-    }
-
-    @Override
     public List<ProveedorDTOPersistencia> toDTOList(List<Proveedor> entidadesMongo) {
         if (entidadesMongo == null) {
             return null;
@@ -52,15 +37,4 @@ public class ProveedorMapperPersistencia implements IProveedorMapperPersistencia
         return proveedores;
     }
 
-    @Override
-    public List<Proveedor> toMongoList(List<ProveedorDTOPersistencia> dtos) throws PersistenciaIngredientesException {
-        if (dtos == null) {
-            return null;
-        }
-        List<Proveedor> proveedores = new ArrayList<>();
-        for (ProveedorDTOPersistencia dto : dtos) {
-            proveedores.add(toMongo(dto));
-        }
-        return proveedores;
-    }
 }

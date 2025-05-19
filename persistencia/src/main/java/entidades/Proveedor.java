@@ -17,6 +17,11 @@ public class Proveedor {
 
     public Proveedor() {
     }
+    
+    public Proveedor(ObjectId id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
 
     public ObjectId getId() {
         return id;
