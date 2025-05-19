@@ -217,7 +217,8 @@
           "GUID": "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed",
           "childRelationships": [
             "e9188e18-bb46-43af-8edd-8f193d7d0bee",
-            "5bebf718-c697-4577-ba89-4f9af80ff242"
+            "5bebf718-c697-4577-ba89-4f9af80ff242",
+            "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66"
           ],
           "primaryKey": true,
           "required": true,
@@ -239,6 +240,7 @@
           "type": "numeric",
           "GUID": "b1abb1d1-6880-42ea-8215-8f609fa52527",
           "required": true,
+          "mode": "double",
           "error": {}
         },
         {
@@ -248,6 +250,7 @@
           "type": "numeric",
           "GUID": "a74a83a3-6984-469a-ba92-e9c6f9a53513",
           "required": true,
+          "mode": "double",
           "error": {}
         },
         {
@@ -777,14 +780,14 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "b9d87948-76a6-4eb4-a9c7-77d727b42399",
           "childRelationships": [
             "eef1e222-1243-4055-bf45-a5d6ae714574",
             "b20a7d9a-f832-4953-aee5-9c3fb2ede047"
-          ]
+          ],
+          "primaryKey": true,
+          "required": true,
+          "error": {}
         },
         {
           "name": "nombresPila",
@@ -792,9 +795,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "079be59c-764f-46af-b2e9-7c61a4885fc2",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "apellidoPaterno",
@@ -802,9 +804,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "a3de9601-49f3-4e0b-8898-b2fca09825cd",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "apellidoMaterno",
@@ -824,11 +825,10 @@
           "isActivated": true,
           "type": "string",
           "GUID": "ce75396f-636e-4d4c-a11e-3bf120ab74a1",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "usuario",
@@ -836,11 +836,10 @@
           "isActivated": true,
           "type": "string",
           "GUID": "3fe5ec03-3689-498b-93a1-36943a9653ec",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "contrasenia",
@@ -848,11 +847,10 @@
           "isActivated": true,
           "type": "string",
           "GUID": "367cfbe7-dc6c-414c-b299-d25b519cf808",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -885,12 +883,12 @@
           "isActivated": true,
           "type": "string",
           "GUID": "1b2648e5-d639-4263-8bfe-4886da3640c4",
-          "error": {
-            "name": false
-          },
           "childRelationships": [
             "618e87d9-a8af-44ca-b764-bf312f8e132b"
-          ]
+          ],
+          "required": true,
+          "primaryKey": true,
+          "error": {}
         },
         {
           "name": "nombre",
@@ -898,9 +896,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "c697a3b1-fb6c-4f6a-98b3-c95c2d7f8b37",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "imagenData",
@@ -908,10 +905,9 @@
           "isActivated": true,
           "type": "binary",
           "primaryKey": false,
-          "error": {
-            "name": false
-          },
-          "GUID": "ce560237-5632-4364-8620-a33a113a340c"
+          "GUID": "ce560237-5632-4364-8620-a33a113a340c",
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -943,13 +939,13 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "c7d1e5fe-d09c-4572-a97e-16f40c7c09f1",
           "childRelationships": [
             "c8d7b131-7d20-4268-afeb-0c1c99e529d4"
-          ]
+          ],
+          "required": true,
+          "primaryKey": true,
+          "error": {}
         },
         {
           "name": "nombre",
@@ -957,9 +953,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "9825cc39-bc64-44b1-b2de-0575f850bc78",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "imagenData",
@@ -967,10 +962,9 @@
           "isActivated": true,
           "type": "binary",
           "primaryKey": false,
-          "error": {
-            "name": false
-          },
-          "GUID": "3b9f74a9-f918-4fea-8a0b-c3abf8ea2995"
+          "GUID": "3b9f74a9-f918-4fea-8a0b-c3abf8ea2995",
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -1002,10 +996,9 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
-          "GUID": "5f8b71ce-e114-4990-a191-00f855770157"
+          "GUID": "5f8b71ce-e114-4990-a191-00f855770157",
+          "primaryKey": true,
+          "error": {}
         },
         {
           "name": "fechaHora",
@@ -1013,30 +1006,27 @@
           "isActivated": true,
           "type": "date",
           "primaryKey": false,
-          "error": {
-            "name": false
-          },
-          "GUID": "5d1956d1-ccaf-4684-9703-936389b0500c"
+          "GUID": "5d1956d1-ccaf-4684-9703-936389b0500c",
+          "required": true,
+          "error": {}
         },
         {
           "name": "precioTotal",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "numeric",
-          "error": {
-            "name": false
-          },
-          "GUID": "e682c4fa-2b6d-439d-ac2f-d875214439f4"
+          "GUID": "e682c4fa-2b6d-439d-ac2f-d875214439f4",
+          "required": true,
+          "error": {}
         },
         {
           "name": "proveedor",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "string",
-          "error": {
-            "name": false
-          },
-          "GUID": "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6"
+          "GUID": "2d9b8b88-1d9d-409f-b35b-ad4ca0c182f6",
+          "required": true,
+          "error": {}
         },
         {
           "name": "detallesEntrada",
@@ -1055,52 +1045,48 @@
                   "isActivated": true,
                   "type": "objectId",
                   "GUID": "56c0019b-769f-4ab5-af47-34c461101569",
-                  "error": {
-                    "name": false
-                  },
                   "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
                   "foreignField": [
                     "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
                     "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
                   ],
                   "relationshipType": "Foreign Key",
-                  "parentRelationship": "5bebf718-c697-4577-ba89-4f9af80ff242"
+                  "parentRelationship": "5bebf718-c697-4577-ba89-4f9af80ff242",
+                  "required": true,
+                  "error": {}
                 },
                 {
                   "name": "cantidad",
                   "hackoladeMeta": {},
                   "isActivated": true,
                   "type": "numeric",
-                  "error": {
-                    "name": false
-                  },
                   "GUID": "29201c78-e514-4979-94d4-8ea422f0446e",
                   "foreignCollection": "",
-                  "foreignField": []
+                  "foreignField": [],
+                  "required": true,
+                  "error": {}
                 },
                 {
                   "name": "precioUnitario",
                   "hackoladeMeta": {},
                   "isActivated": true,
                   "type": "numeric",
-                  "error": {
-                    "name": false
-                  },
                   "GUID": "6e944ea3-0345-4921-8b12-90431ca6633d",
                   "foreignCollection": "",
-                  "foreignField": []
+                  "foreignField": [],
+                  "required": true,
+                  "error": {}
                 },
                 {
                   "name": "subtotal",
                   "hackoladeMeta": {},
                   "isActivated": true,
                   "type": "numeric",
-                  "error": {
-                    "name": false
-                  },
                   "GUID": "2421570c-5032-4628-8258-95a41af84279",
                   "foreignCollection": "",
-                  "foreignField": []
+                  "foreignField": [],
+                  "required": true,
+                  "error": {}
                 }
               ],
               "additionalProperties": false,
@@ -1144,22 +1130,19 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "5301e9df-203f-4297-ac98-e2fbfb740733",
           "childRelationships": [
             "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9"
-          ]
+          ],
+          "required": true,
+          "primaryKey": true,
+          "error": {}
         },
         {
           "name": "administradorId",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "c2e8102d-cfdd-45d6-98f9-807e8c126962",
           "foreignCollection": "15d909f0-afee-4a78-bf50-8e32eaeea203",
           "foreignField": [
@@ -1167,7 +1150,9 @@
             "b9d87948-76a6-4eb4-a9c7-77d727b42399"
           ],
           "relationshipType": "Foreign Key",
-          "parentRelationship": "b20a7d9a-f832-4953-aee5-9c3fb2ede047"
+          "parentRelationship": "b20a7d9a-f832-4953-aee5-9c3fb2ede047",
+          "required": true,
+          "error": {}
         },
         {
           "name": "nombreCliente",
@@ -1175,9 +1160,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "e4ca4bf3-c894-44a9-947f-3345a786f2bd",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "fecha",
@@ -1185,10 +1169,9 @@
           "isActivated": true,
           "type": "date",
           "primaryKey": false,
-          "error": {
-            "name": false
-          },
-          "GUID": "b0686ab0-7f26-472f-9ef1-0a15d3a590fa"
+          "GUID": "b0686ab0-7f26-472f-9ef1-0a15d3a590fa",
+          "required": true,
+          "error": {}
         },
         {
           "name": "horaInicio",
@@ -1196,11 +1179,10 @@
           "isActivated": true,
           "type": "string",
           "GUID": "db4c9ce0-953c-4f55-802e-6eaf98aeab56",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "horaFin",
@@ -1208,20 +1190,16 @@
           "isActivated": true,
           "type": "string",
           "GUID": "209c7395-6f97-43bd-ba57-de67342849ce",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "cubiculoId",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "9d9965d8-c824-410a-9aa3-ee81602e988b",
           "foreignCollection": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
           "foreignField": [
@@ -1229,7 +1207,9 @@
             "125aa719-887a-4160-b757-08d96dbafe41"
           ],
           "relationshipType": "Foreign Key",
-          "parentRelationship": "d3915346-9242-4653-a0ce-c29e2a491249"
+          "parentRelationship": "d3915346-9242-4653-a0ce-c29e2a491249",
+          "required": true,
+          "error": {}
         },
         {
           "name": "cubiculoNombre",
@@ -1237,33 +1217,30 @@
           "isActivated": true,
           "type": "string",
           "GUID": "62448f20-9d91-4232-b036-0a84360639df",
-          "error": {
-            "name": false
-          },
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "precioHora",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "numeric",
-          "error": {
-            "name": false
-          },
-          "GUID": "49f0936f-2b8f-4b2b-99a0-bf05ad5fb9d1"
+          "GUID": "49f0936f-2b8f-4b2b-99a0-bf05ad5fb9d1",
+          "required": true,
+          "error": {}
         },
         {
           "name": "total",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "numeric",
-          "error": {
-            "name": false
-          },
           "GUID": "56a05727-e478-47cb-83b1-33af7b09c272",
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         },
         {
           "name": "estado",
@@ -1271,9 +1248,8 @@
           "isActivated": true,
           "type": "string",
           "GUID": "0aa2c000-e4a5-4d0c-99b3-257271c40c64",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "movimiento",
@@ -1286,9 +1262,6 @@
               "hackoladeMeta": {},
               "isActivated": true,
               "type": "objectId",
-              "error": {
-                "name": false
-              },
               "GUID": "d6000b57-b9fc-4dec-8504-7ed98db22656",
               "foreignCollection": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
               "foreignField": [
@@ -1296,7 +1269,9 @@
                 "5301e9df-203f-4297-ac98-e2fbfb740733"
               ],
               "relationshipType": "Foreign Key",
-              "parentRelationship": "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9"
+              "parentRelationship": "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9",
+              "required": true,
+              "error": {}
             },
             {
               "name": "motivo",
@@ -1304,11 +1279,10 @@
               "isActivated": true,
               "type": "string",
               "GUID": "9852984d-4b25-4c56-a644-b107b2187b5c",
-              "error": {
-                "name": false
-              },
               "foreignCollection": "",
-              "foreignField": []
+              "foreignField": [],
+              "required": true,
+              "error": {}
             },
             {
               "name": "fechaMovimiento",
@@ -1334,12 +1308,11 @@
           "isActivated": true,
           "type": "date",
           "primaryKey": false,
-          "error": {
-            "name": false
-          },
           "GUID": "c879e571-d73d-46b0-907d-36839fc05fe2",
           "foreignCollection": "",
-          "foreignField": []
+          "foreignField": [],
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -1371,13 +1344,13 @@
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "objectId",
-          "error": {
-            "name": false
-          },
           "GUID": "125aa719-887a-4160-b757-08d96dbafe41",
           "childRelationships": [
             "d3915346-9242-4653-a0ce-c29e2a491249"
-          ]
+          ],
+          "required": true,
+          "primaryKey": true,
+          "error": {}
         },
         {
           "name": "nombre",
@@ -1385,19 +1358,17 @@
           "isActivated": true,
           "type": "string",
           "GUID": "cded29f0-7d26-4a26-a4b5-882a8642751a",
-          "error": {
-            "name": false
-          }
+          "required": true,
+          "error": {}
         },
         {
           "name": "precioHora",
           "hackoladeMeta": {},
           "isActivated": true,
           "type": "numeric",
-          "error": {
-            "name": false
-          },
-          "GUID": "96af8d65-009d-4169-b669-13e0ef7aaa53"
+          "GUID": "96af8d65-009d-4169-b669-13e0ef7aaa53",
+          "required": true,
+          "error": {}
         }
       ],
       "definitions": {
@@ -1419,6 +1390,85 @@
       },
       "GUID": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
       "bucketId": "65890915-e77b-4a9e-a1e6-4ca5d317812a"
+    },
+    {
+      "collectionName": "salidas",
+      "type": "object",
+      "properties": [
+        {
+          "name": "_id",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "objectId",
+          "GUID": "c05f0ff3-8ecb-406e-bd29-1ea84f7c4d71",
+          "primaryKey": true,
+          "required": true,
+          "error": {}
+        },
+        {
+          "name": "fecha",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "77afda7c-9aee-4da3-81fc-4036ff77287a",
+          "format": "date",
+          "required": true,
+          "error": {}
+        },
+        {
+          "name": "motivo",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "7d73e991-e40c-425a-b971-8b59d03230ed",
+          "required": true,
+          "error": {}
+        },
+        {
+          "name": "cantidad",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "numeric",
+          "GUID": "5c9efd4a-f89f-4078-b720-d903811bec18",
+          "required": true,
+          "error": {}
+        },
+        {
+          "name": "idIngrediente",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "string",
+          "GUID": "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f",
+          "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+          "foreignField": [
+            "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+            "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+          ],
+          "relationshipType": "Foreign Key",
+          "parentRelationship": "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
+          "required": true,
+          "error": {}
+        }
+      ],
+      "definitions": {
+        "type": "definitions",
+        "properties": [],
+        "GUID": "f459a93e-b3d6-4b54-9a72-447990d272eb"
+      },
+      "isActivated": true,
+      "additionalProperties": false,
+      "validationLevel": "Off",
+      "validationAction": "Warn",
+      "storageEngineName": "WiredTiger",
+      "collectionUsers": [],
+      "indexes": [],
+      "collation": {},
+      "sharding": {
+        "unique": true,
+        "collation": "null"
+      },
+      "GUID": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
+      "bucketId": "65890915-e77b-4a9e-a1e6-4ca5d317812a"
     }
   ],
   "buckets": [
@@ -1436,7 +1486,8 @@
         "fa7ae686-9175-4181-b527-b3e035e571c8",
         "609907e5-1e34-4125-9f6b-93227c1f73be",
         "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
-        "081dc445-949d-4d2e-98ad-5a5da677d2d1"
+        "081dc445-949d-4d2e-98ad-5a5da677d2d1",
+        "d85cfdd2-770a-4a36-873a-4a907ea2d6a3"
       ],
       "backgroundColor": {
         "r": 216,
@@ -1481,20 +1532,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1847.8423270394244,
-            "y": 1125.5369308157697
+            "x": 1829.8423270394244,
+            "y": 1113.5369308157697
           },
           {
-            "x": 1971.3423270394242,
-            "y": 1125.5369308157697
+            "x": 1945.0089937060911,
+            "y": 1113.5369308157697
           },
           {
-            "x": 1971.3423270394242,
-            "y": 1152.0369308157697
+            "x": 1945.0089937060911,
+            "y": 1113.3702641491031
           },
           {
-            "x": 2094.842327039424,
-            "y": 1152.0369308157697
+            "x": 2060.1756603727576,
+            "y": 1113.3702641491031
           }
         ],
         "sides": [
@@ -1534,20 +1585,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1364.1940745027841,
-            "y": 1235.9439206692086
+            "x": 1332.1940745027841,
+            "y": 1223.9439206692086
           },
           {
-            "x": 1422.0182007711041,
-            "y": 1235.9439206692086
+            "x": 1390.0182007711041,
+            "y": 1223.9439206692086
           },
           {
-            "x": 1422.0182007711041,
-            "y": 1374.0369308157697
+            "x": 1390.0182007711041,
+            "y": 1362.0369308157697
           },
           {
-            "x": 1479.8423270394244,
-            "y": 1374.0369308157697
+            "x": 1447.8423270394244,
+            "y": 1362.0369308157697
           }
         ],
         "sides": [
@@ -1589,20 +1640,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1364.1940745027841,
-            "y": 1158.9439206692086
+            "x": 1332.1940745027841,
+            "y": 1185.4439206692086
           },
           {
-            "x": 1475.0182007711041,
-            "y": 1158.9439206692086
+            "x": 1443.0182007711041,
+            "y": 1185.4439206692086
           },
           {
-            "x": 1475.0182007711041,
-            "y": 1152.0369308157697
+            "x": 1443.0182007711041,
+            "y": 1140.0369308157697
           },
           {
-            "x": 1585.8423270394244,
-            "y": 1152.0369308157697
+            "x": 1553.8423270394244,
+            "y": 1140.0369308157697
           }
         ],
         "sides": [
@@ -1641,20 +1692,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1356.8423270394244,
-            "y": 1709.0369308157697
+            "x": 1324.8423270394244,
+            "y": 1858.2869308157697
           },
           {
-            "x": 1592.4931840512527,
-            "y": 1709.0369308157697
+            "x": 1560.4931840512527,
+            "y": 1858.2869308157697
           },
           {
-            "x": 1592.4931840512527,
-            "y": 1834.0069726631718
+            "x": 1560.4931840512527,
+            "y": 1822.0069726631718
           },
           {
-            "x": 1828.144041063081,
-            "y": 1834.0069726631718
+            "x": 1796.144041063081,
+            "y": 1822.0069726631718
           }
         ],
         "sides": [
@@ -1696,20 +1747,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1356.8423270394244,
-            "y": 1547.7869308157697
+            "x": 1324.8423270394244,
+            "y": 1535.7869308157697
           },
           {
-            "x": 1422.659688933449,
-            "y": 1547.7869308157697
+            "x": 1390.659688933449,
+            "y": 1535.7869308157697
           },
           {
-            "x": 1422.659688933449,
-            "y": 1479.6569984595144
+            "x": 1390.659688933449,
+            "y": 1467.6569984595144
           },
           {
-            "x": 1488.4770508274735,
-            "y": 1479.6569984595144
+            "x": 1456.4770508274735,
+            "y": 1467.6569984595144
           }
         ],
         "sides": [
@@ -1751,20 +1802,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1356.8423270394244,
-            "y": 1709.0369308157697
+            "x": 1324.8423270394244,
+            "y": 1697.0369308157697
           },
           {
-            "x": 1431.9838152017676,
-            "y": 1709.0369308157697
+            "x": 1399.9838152017676,
+            "y": 1697.0369308157697
           },
           {
-            "x": 1431.9838152017676,
-            "y": 1707.8261078168925
+            "x": 1399.9838152017676,
+            "y": 1695.8261078168925
           },
           {
-            "x": 1507.1253033641108,
-            "y": 1707.8261078168925
+            "x": 1475.1253033641108,
+            "y": 1695.8261078168925
           }
         ],
         "sides": [
@@ -1805,25 +1856,25 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1946.8890311281712,
-            "y": 1360.0725158566909
+            "x": 1896.722364461505,
+            "y": 1278.905849190024
           },
           {
-            "x": 1897.3656790837977,
-            "y": 1360.0725158566909
+            "x": 1896.722364461505,
+            "y": 1249.221390002897
           },
           {
-            "x": 1897.3656790837977,
-            "y": 1178.5369308157697
+            "x": 1691.8423270394244,
+            "y": 1249.221390002897
           },
           {
-            "x": 1847.8423270394244,
-            "y": 1178.5369308157697
+            "x": 1691.8423270394244,
+            "y": 1219.5369308157697
           }
         ],
         "sides": [
-          "left",
-          "right"
+          "top",
+          "bottom"
         ]
       }
     },
@@ -1857,20 +1908,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2161.432824033037,
-            "y": 1779.852542897693
+            "x": 2129.432824033037,
+            "y": 1767.852542897693
           },
           {
-            "x": 2101.288432548059,
-            "y": 1779.852542897693
+            "x": 2081.788432548059,
+            "y": 1767.852542897693
           },
           {
-            "x": 2101.288432548059,
-            "y": 1834.0069726631718
+            "x": 2081.788432548059,
+            "y": 1822.0069726631718
           },
           {
-            "x": 2041.144041063081,
-            "y": 1834.0069726631718
+            "x": 2034.144041063081,
+            "y": 1822.0069726631718
           }
         ],
         "sides": [
@@ -1910,24 +1961,24 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2291.932824033037,
-            "y": 1672.852542897693
+            "x": 2272.432824033037,
+            "y": 1660.852542897693
           },
           {
-            "x": 2291.932824033037,
-            "y": 1647.852542897693
+            "x": 2272.432824033037,
+            "y": 1635.852542897693
           },
           {
-            "x": 2447.432824033037,
-            "y": 1647.852542897693
+            "x": 2440.432824033037,
+            "y": 1635.852542897693
           },
           {
-            "x": 2447.432824033037,
-            "y": 1833.352542897693
+            "x": 2440.432824033037,
+            "y": 1821.352542897693
           },
           {
-            "x": 2422.432824033037,
-            "y": 1833.352542897693
+            "x": 2415.432824033037,
+            "y": 1821.352542897693
           }
         ],
         "sides": [
@@ -1966,21 +2017,73 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2161.432824033037,
-            "y": 1886.852542897693
+            "x": 2129.432824033037,
+            "y": 1874.852542897693
           },
           {
-            "x": 2032.4106754047007,
-            "y": 1886.852542897693
+            "x": 2012.9106754047007,
+            "y": 1874.852542897693
           },
           {
-            "x": 2032.4106754047007,
-            "y": 1625.9959100528988
+            "x": 2012.9106754047007,
+            "y": 1613.9959100528988
           }
         ],
         "sides": [
           "left",
           "bottom"
+        ]
+      }
+    },
+    {
+      "name": "fk_ingredientes._id_to_Salidas.idIngrediente",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+          "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
+          "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "1",
+      "GUID": "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
+      "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+      "childCollection": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
+      "hackoladeStyles": {
+        "GUID": "4ae13dc4-5007-4dd7-9fee-4d8ffbaaa2a2",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 2170.666666666664,
+            "y": 1264.166666666668
+          },
+          {
+            "x": 2000.2544968530442,
+            "y": 1264.166666666668
+          },
+          {
+            "x": 2000.2544968530442,
+            "y": 1166.5369308157697
+          },
+          {
+            "x": 1829.8423270394244,
+            "y": 1166.5369308157697
+          }
+        ],
+        "sides": [
+          "left",
+          "right"
         ]
       }
     }
@@ -2103,7 +2206,14 @@
     "4bf2728e-2f46-411d-bc77-d25cc661d01e": "fechaMovimiento",
     "d6000b57-b9fc-4dec-8504-7ed98db22656": "nuevaReservacionId",
     "6bb49e0f-b4b0-4eee-8f3e-9a42b6fba2a9": "fk_reservaciones._id_to_reservaciones.movimiento.nuevaReservacionId",
-    "d3915346-9242-4653-a0ce-c29e2a491249": "fk_cubiculos._id_to_reservaciones.cubiculoId"
+    "d3915346-9242-4653-a0ce-c29e2a491249": "fk_cubiculos._id_to_reservaciones.cubiculoId",
+    "d85cfdd2-770a-4a36-873a-4a907ea2d6a3": "salidas",
+    "c05f0ff3-8ecb-406e-bd29-1ea84f7c4d71": "_id",
+    "77afda7c-9aee-4da3-81fc-4036ff77287a": "fecha",
+    "7d73e991-e40c-425a-b971-8b59d03230ed": "motivo",
+    "5c9efd4a-f89f-4078-b720-d903811bec18": "cantidad",
+    "8b37aa65-8257-4fa8-8bcc-1b7d74a6180f": "idIngrediente",
+    "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66": "fk_ingredientes._id_to_Salidas.idIngrediente"
   },
   "definitions": {
     "type": "definitions",
@@ -2128,7 +2238,7 @@
   "creationTS": "2025-05-18T23:33:01.278Z",
   "GUID": "cbac6318-07db-469c-9973-e7ebbbc9bcdf",
   "isLineageEnabled": false,
-  "lastModifTS": "2025-05-19T03:12:29.714Z",
+  "lastModifTS": "2025-05-19T03:29:48.191Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -2144,90 +2254,98 @@
         "erd": [
           {
             "GUID": "39498ea1-e312-485c-a5e6-a235131f18a1",
-            "x": 1076.1940745027841,
-            "y": 1081.9439206692086,
+            "x": 1044.1940745027841,
+            "y": 1069.9439206692086,
             "width": 288,
             "height": 231,
             "color": {}
           },
           {
             "GUID": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-            "x": 1479.8423270394244,
-            "y": 1330.5369308157697,
+            "x": 1447.8423270394244,
+            "y": 1318.5369308157697,
             "width": 240,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-            "x": 1585.8423270394244,
-            "y": 1072.5369308157697,
-            "width": 262,
+            "x": 1553.8423270394244,
+            "y": 1060.5369308157697,
+            "width": 276,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "05a6e0d7-2d8c-40ba-b454-e826901afece",
-            "x": 2094.842327039424,
-            "y": 1117.5369308157697,
+            "x": 2060.1756603727576,
+            "y": 1078.8702641491031,
             "width": 192,
             "height": 69,
             "color": {}
           },
           {
             "GUID": "63072521-a3df-4f6b-9edf-3cb4c170e609",
-            "x": 1081.8423270394244,
-            "y": 1386.5369308157697,
+            "x": 1049.8423270394244,
+            "y": 1374.5369308157697,
             "width": 275,
             "height": 645,
             "color": {}
           },
           {
             "GUID": "15d909f0-afee-4a78-bf50-8e32eaeea203",
-            "x": 1828.144041063081,
-            "y": 1754.5069726631718,
-            "width": 213,
+            "x": 1796.144041063081,
+            "y": 1742.5069726631718,
+            "width": 238,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "209cd22e-b1a0-49b3-beeb-4aecbbc7da1d",
-            "x": 1488.4770508274735,
-            "y": 1436.1569984595144,
-            "width": 188,
+            "x": 1456.4770508274735,
+            "y": 1424.1569984595144,
+            "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "fa7ae686-9175-4181-b527-b3e035e571c8",
-            "x": 1507.1253033641108,
-            "y": 1664.3261078168925,
-            "width": 188,
+            "x": 1475.1253033641108,
+            "y": 1652.3261078168925,
+            "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "609907e5-1e34-4125-9f6b-93227c1f73be",
-            "x": 1946.8890311281712,
-            "y": 1253.5725158566909,
-            "width": 249,
+            "x": 1760.222364461505,
+            "y": 1278.905849190024,
+            "width": 273,
             "height": 213,
             "color": {}
           },
           {
             "GUID": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
-            "x": 2161.432824033037,
-            "y": 1672.852542897693,
-            "width": 261,
+            "x": 2129.432824033037,
+            "y": 1660.852542897693,
+            "width": 286,
             "height": 321,
             "color": {}
           },
           {
             "GUID": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
-            "x": 1936.9106754047007,
-            "y": 1538.9959100528988,
-            "width": 191,
+            "x": 1904.9106754047007,
+            "y": 1526.9959100528988,
+            "width": 216,
             "height": 87,
+            "color": {}
+          },
+          {
+            "GUID": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
+            "x": 2170.666666666664,
+            "y": 1202.666666666668,
+            "width": 227,
+            "height": 123,
             "color": {}
           }
         ],
@@ -2239,13 +2357,13 @@
         },
         "buckets": [
           {
-            "x": 1036.1940745027841,
-            "y": 1032.5369308157697,
+            "x": 1004.1940745027841,
+            "y": 1020.5369308157697,
             "GUID": "65890915-e77b-4a9e-a1e6-4ca5d317812a"
           }
         ],
         "collapsedNodes": [],
-        "activeRelationship": "65890915-e77b-4a9e-a1e6-4ca5d317812a",
+        "activeRelationship": "",
         "activeRelationshipFields": {
           "childField": [],
           "parentField": []
