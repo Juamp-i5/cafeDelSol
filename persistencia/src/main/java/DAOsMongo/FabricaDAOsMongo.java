@@ -4,6 +4,7 @@ import DAOsMongo.cubiculos.CancelacionDAOMongo;
 import DAOsMongo.cubiculos.ContadorReservacionesDAOMongo;
 import DAOsMongo.cubiculos.CubiculoDAOMongo;
 import DAOsMongo.cubiculos.ReagendaDAOMongo;
+import DAOsMongo.cubiculos.ReservacionDAOMongo;
 import DAOsMongo.entradas.EntradaDAOMongo;
 import DAOsMongo.ingredientes.IngredienteDAOMongo;
 import DAOsMongo.ingredientes.ProveedorDAOMongo;
@@ -20,6 +21,7 @@ import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReagendaDAO;
+import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import IDAOs.ingredientes.IProveedorDAOMongo;
@@ -139,6 +141,11 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
     @Override
     public IProveedorDAOMongo getProveedorDAO() {
         return ProveedorDAOMongo.getInstance(conexion);
+    }
+
+    @Override
+    public IReservacionDAO getReservacionDAO() {
+        return ReservacionDAOMongo.getInstance(conexion);
     }
 
 }

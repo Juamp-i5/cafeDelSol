@@ -23,11 +23,15 @@ public class Reservacion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
+    private ObjectId idCubiculo;
+    private String nombreCubiculo;
+    private Double precioHora;
+    
 
     public Reservacion() {
     }
 
-    public Reservacion(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
+    public Reservacion(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora) {
         this.numReservacion = numReservacion;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -35,9 +39,12 @@ public class Reservacion {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.estado = estado;
+        this.idCubiculo = idCubiculo;
+        this.nombreCubiculo = nombreCubiculo;
+        this.precioHora = precioHora;
     }
 
-    public Reservacion(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado) {
+    public Reservacion(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora) {
         this.id = id;
         this.numReservacion = numReservacion;
         this.nombre = nombre;
@@ -46,6 +53,9 @@ public class Reservacion {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.estado = estado;
+        this.idCubiculo = idCubiculo;
+        this.nombreCubiculo = nombreCubiculo;
+        this.precioHora = precioHora;
     }
 
     public ObjectId getId() {
@@ -112,8 +122,35 @@ public class Reservacion {
         this.estado = estado;
     }
 
+    public ObjectId getIdCubiculo() {
+        return idCubiculo;
+    }
+
+    public void setIdCubiculo(ObjectId idCubiculo) {
+        this.idCubiculo = idCubiculo;
+    }
+
+    public String getNombreCubiculo() {
+        return nombreCubiculo;
+    }
+
+    public void setNombreCubiculo(String nombreCubiculo) {
+        this.nombreCubiculo = nombreCubiculo;
+    }
+
+    public Double getPrecioHora() {
+        return precioHora;
+    }
+
+    public void setPrecioHora(Double precioHora) {
+        this.precioHora = precioHora;
+    }
+
     @Override
     public String toString() {
-        return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + '}';
-    }   
+        return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + '}';
+    }
+    
+    
+    
 }
