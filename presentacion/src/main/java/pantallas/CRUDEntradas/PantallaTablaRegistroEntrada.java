@@ -5,10 +5,15 @@ import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,7 +34,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
      */
     public PantallaTablaRegistroEntrada() {
         initComponents();
-        modeloTablaIngrdientes = (DefaultTableModel) jTable1.getModel();
+        inicializarTabla();
     }
 
     private double parseDoubleSafely(Object value) {
@@ -47,6 +52,54 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             }
         }
         return 0.0;
+    }
+
+    public void inicializarTabla() {
+        if (modeloTablaIngrdientes == null) {
+            modeloTablaIngrdientes = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return column == 2 || column == 4;
+                }
+            };
+
+            modeloTablaIngrdientes.addColumn("Nombre");
+            modeloTablaIngrdientes.addColumn("Stock actual");
+            modeloTablaIngrdientes.addColumn("Cantidad agregada");
+            modeloTablaIngrdientes.addColumn("Unidad de medida");
+            modeloTablaIngrdientes.addColumn("Precio unitario");
+            modeloTablaIngrdientes.addColumn("Precio total");
+            modeloTablaIngrdientes.addColumn("Estado");
+
+            jTable1.setModel(modeloTablaIngrdientes);
+
+            jTable1.getColumnModel().getColumn(2).setCellRenderer(new PlaceholderRenderer("Ingrese cantidad"));
+            jTable1.getColumnModel().getColumn(4).setCellRenderer(new PlaceholderRenderer("Ingrese precio"));
+        }
+    }
+
+    public class PlaceholderRenderer extends DefaultTableCellRenderer {
+
+        private final String placeholder;
+        private boolean isEditing = false;
+
+        public PlaceholderRenderer(String placeholder) {
+            this.placeholder = placeholder;
+            setForeground(Color.GRAY);
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            if (!isEditing && (value == null || value.toString().isEmpty() || value.equals(placeholder))) {
+                label.setText(placeholder);
+                label.setForeground(Color.GRAY);
+            } else {
+                label.setForeground(table.getForeground());
+            }
+            return label;
+        }
     }
 
     /**
@@ -214,7 +267,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             if (entrada == null) {
                 entrada = new EntradaNuevaDTO();
             }
-            
+
             registroNuevo.clear();
 
             double totalEntrada = 0.0;
@@ -245,7 +298,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                         cantidadAgregada = Double.valueOf((String) cantidadObj);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Cantidad inválida en fila " + i);
+                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida en fila " + i);
                     return;
                 }
 
@@ -259,30 +312,12 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 }
 
                 if (cantidadAgregada == null || precioUnitario == null) {
-                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + i+ "para realizar el registro");
+                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + i + " para realizar el registro");
                     return;
                 }
 
-//                if (cantidadAgregada == null && precioUnitario != null) {
-//                    JOptionPane.showMessageDialog(this, "Ingrese la cantidad en la fila " + i + ".");
-//                    return;
-//                }
-//                if (cantidadAgregada != null && precioUnitario == null) {
-//                    JOptionPane.showMessageDialog(this, "Ingrese el precio unitario en la fila " + i + ".");
-//                    return;
-//                }
-//                if (cantidadAgregada == null && precioUnitario == null) {
-//                    JOptionPane.showMessageDialog(this, "Ingrese cantidad y precio en la fila " + i + ".");
-//                    return;
-//                }
-
                 precioTotal = cantidadAgregada * precioUnitario;
                 modeloTablaIngrdientes.setValueAt(precioTotal, i, 5);
-
-//                Object precioTotalObj = modeloTablaIngrdientes.getValueAt(i, 5);
-//                if (precioTotalObj instanceof Number) {
-//                    precioTotal = ((Number) precioTotalObj).doubleValue();
-//                }
 
                 System.out.println("Tipo de cantidad agregada: " + cantidadAgregada);
                 System.out.println("Tipo de precio unitario: " + precioUnitario);
@@ -323,23 +358,29 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     private void BtnAgregarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarIngredienteActionPerformed
-        if (modeloTablaIngrdientes == null) {
-            modeloTablaIngrdientes = (DefaultTableModel) jTable1.getModel();
-        }
-
         modeloTablaIngrdientes.addTableModelListener(e -> {
-            int row = e.getFirstRow();
+            int fila = e.getFirstRow();
             int col = e.getColumn();
 
             if (col == 2 || col == 4) {
                 try {
-                    double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 2));
-                    double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(row, 4));
-                    double total = cantidad * precioUnitario;
+                    double valor = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, col));
 
-                    modeloTablaIngrdientes.setValueAt(total, row, 5);
-                } catch (Exception ex) {
-                    System.out.println("Error al calcular el precio total: " + ex.getMessage());
+                    if (valor < 0) {
+                        JOptionPane.showMessageDialog(this, "No se permiten valores negativos en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error de validación", JOptionPane.ERROR_MESSAGE);
+                        modeloTablaIngrdientes.setValueAt(0.0, fila, col);
+                    }
+
+                    if (col == 2 || col == 4) {
+                        double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 2));
+                        double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 4));
+                        double total = cantidad * precioUnitario;
+                        modeloTablaIngrdientes.setValueAt(total, fila, 5);
+                    }
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error de formato", JOptionPane.ERROR_MESSAGE);
+                    modeloTablaIngrdientes.setValueAt(null, fila, col);
                 }
             }
         });
@@ -373,7 +414,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                     null,
                     ingredienteNuevo.getUnidadMedida(),
                     null,
-                    null,
+                    0.0,
                     ingredienteNuevo.getNivelStock()
                 });
             }
