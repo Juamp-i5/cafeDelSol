@@ -6,17 +6,15 @@ package BOs.entradas;
 
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
+import DTOs.entradas.EntradaViejaDTOPersistencia;
 import IDAOs.entradas.IEntradaDAO;
 import acceso.AccesoDatos;
 import entidades.Entrada;
 import excepciones.NegocioException;
 import excepciones.NegocioExceptionNegocio;
 import excepciones.PersistenciaEntradasException;
-import interfacesBO.entradas.IEntradaBO;
-import interfacesMapper.IEntradaMapper;
 import java.time.LocalDateTime;
 import java.util.List;
-import mapper.EntradaMapper;
 
 /**
  *
@@ -38,7 +36,7 @@ public class EntradaBO implements IEntradaBO {
     @Override
     public boolean registrarEntrada(EntradaNuevaDTO entrada) throws PersistenciaEntradasException, NegocioException {
         try {
-            return entradaDAO.registrarEntrada(entradaMapper.toEntityNuevo(entrada));
+            return entradaDAO.registrarEntrada(entradaMapper.toDtoNuevoPersistencia(entrada));
         } catch (PersistenciaEntradasException e) {
             throw new NegocioException("Error al registrar la entrada", e);
         }

@@ -1,9 +1,8 @@
-package interfacesBO.entradas;
+package BOs.entradas;
 
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
 import excepciones.NegocioException;
-import excepciones.NegocioExceptionNegocio;
 import excepciones.PersistenciaEntradasException;
 import java.time.LocalDateTime;
 import java.util.List;

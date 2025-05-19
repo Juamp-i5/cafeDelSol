@@ -7,7 +7,7 @@ import Excepcion.GestorCRUDEntradasException;
 import excepciones.NegocioException;
 import excepciones.NegocioExceptionNegocio;
 import excepciones.PersistenciaEntradasException;
-import interfacesBO.entradas.IEntradaBO;
+import BOs.entradas.IEntradaBO;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;

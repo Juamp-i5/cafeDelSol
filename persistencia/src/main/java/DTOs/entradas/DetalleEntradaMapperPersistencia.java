@@ -1,8 +1,6 @@
-package mapper;
+package DTOs.entradas;
 
-import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import entidades.DetalleEntrada;
-import interfacesMapper.IDetalleEntradaMapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,19 +8,19 @@ import java.util.List;
  *
  * @author pablo
  */
-public class DetalleEntradaMapper implements IDetalleEntradaMapper {
+public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPersistencia {
 
-    private static DetalleEntradaMapper instanceMapper;
+    private static DetalleEntradaMapperPersistencia instanceMapper;
 
-    public static DetalleEntradaMapper getInstance() {
+    public static DetalleEntradaMapperPersistencia getInstance() {
         if (instanceMapper == null) {
-            instanceMapper = new DetalleEntradaMapper();
+            instanceMapper = new DetalleEntradaMapperPersistencia();
         }
         return instanceMapper;
     }
 
     @Override
-    public DetalleEntrada toEntity(DetalleEntradaDTO detallesDTO) {
+    public DetalleEntrada toEntity(DetalleEntradaDTOPersistencia detallesDTO) {
         DetalleEntrada detalles = new DetalleEntrada();
         detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
         detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
@@ -33,8 +31,8 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
     }
 
     @Override
-    public DetalleEntradaDTO todto(DetalleEntrada detalles) {
-        DetalleEntradaDTO detallesDTO = new DetalleEntradaDTO();
+    public DetalleEntradaDTOPersistencia todto(DetalleEntrada detalles) {
+        DetalleEntradaDTOPersistencia detallesDTO = new DetalleEntradaDTOPersistencia();
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
         detallesDTO.setCantidadIngrediente(detalles.getCantidad());
@@ -44,17 +42,17 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
     }
 
     @Override
-    public List<DetalleEntrada> toEntityList(List<DetalleEntradaDTO> detallesDTOList) {
+    public List<DetalleEntrada> toEntityList(List<DetalleEntradaDTOPersistencia> detallesDTOList) {
         List<DetalleEntrada> detallesList = new ArrayList<>();
-        for (DetalleEntradaDTO dto : detallesDTOList) {
+        for (DetalleEntradaDTOPersistencia dto : detallesDTOList) {
             detallesList.add(toEntity(dto));
         }
         return detallesList;
     }
 
     @Override
-    public List<DetalleEntradaDTO> todtoList(List<DetalleEntrada> detallesList) {
-        List<DetalleEntradaDTO> detallesDTOList = new ArrayList<>();
+    public List<DetalleEntradaDTOPersistencia> todtoList(List<DetalleEntrada> detallesList) {
+        List<DetalleEntradaDTOPersistencia> detallesDTOList = new ArrayList<>();
         for (DetalleEntrada detalle : detallesList) {
             detallesDTOList.add(todto(detalle));
         }

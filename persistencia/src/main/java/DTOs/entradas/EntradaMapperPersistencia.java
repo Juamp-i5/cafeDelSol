@@ -1,10 +1,6 @@
-package mapper;
+package DTOs.entradas;
 
-import DTOs.CRUDEntradas.EntradaNuevaDTO;
-import DTOs.CRUDEntradas.EntradaViejaDTO;
 import entidades.Entrada;
-import interfacesMapper.IDetalleEntradaMapper;
-import interfacesMapper.IEntradaMapper;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,21 +8,21 @@ import java.util.List;
  *
  * @author pablo
  */
-public class EntradaMapper implements IEntradaMapper {
+public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
 
-    IDetalleEntradaMapper detalleEntradaMapper = DetalleEntradaMapper.getInstance();
-    private static EntradaMapper instanceMapper;
+    IDetalleEntradaMapperPersistencia detalleEntradaMapper = DetalleEntradaMapperPersistencia.getInstance();
+    private static EntradaMapperPersistencia instanceMapper;
 
-    public static EntradaMapper getInstance() {
+    public static EntradaMapperPersistencia getInstance() {
         if (instanceMapper == null) {
-            instanceMapper = new EntradaMapper();
+            instanceMapper = new EntradaMapperPersistencia();
         }
         return instanceMapper;
     }
 
     //--------------------------Nuevo----------------------------------------
     @Override
-    public Entrada toEntityNuevo(EntradaNuevaDTO entradaDTO) {
+    public Entrada toEntityNuevo(EntradaNuevaDTOPersistencia entradaDTO) {
         Entrada entrada = new Entrada();
         entrada.setProveedor(entradaDTO.getProveedor());
         entrada.setFechaHora(entradaDTO.getFechaHora());   
@@ -36,8 +32,8 @@ public class EntradaMapper implements IEntradaMapper {
     }
 
     @Override
-    public EntradaNuevaDTO todtoNuevo(Entrada entrada) {
-        EntradaNuevaDTO entradaDTO = new EntradaNuevaDTO();
+    public EntradaNuevaDTOPersistencia todtoNuevo(Entrada entrada) {
+        EntradaNuevaDTOPersistencia entradaDTO = new EntradaNuevaDTOPersistencia();
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());
@@ -47,9 +43,9 @@ public class EntradaMapper implements IEntradaMapper {
 
     //Listas
     @Override
-    public List<Entrada> toEntityNuevoList(List<EntradaNuevaDTO> entradasDTO) {
+    public List<Entrada> toEntityNuevoList(List<EntradaNuevaDTOPersistencia> entradasDTO) {
         List<Entrada> entradas = new ArrayList<>();
-        for (EntradaNuevaDTO entradasdto : entradasDTO) {
+        for (EntradaNuevaDTOPersistencia entradasdto : entradasDTO) {
             Entrada entrada = new Entrada();
             entrada.setFechaHora(entradasdto.getFechaHora());
             entrada.setProveedor(entradasdto.getProveedor());
@@ -61,10 +57,10 @@ public class EntradaMapper implements IEntradaMapper {
     }
 
     @Override
-    public List<EntradaNuevaDTO> todtoNuevoList(List<Entrada> entradas) {
-        List<EntradaNuevaDTO> entradasDTO = new ArrayList<>();
+    public List<EntradaNuevaDTOPersistencia> todtoNuevoList(List<Entrada> entradas) {
+        List<EntradaNuevaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (Entrada entrada : entradas) {
-            EntradaNuevaDTO entradadto = new EntradaNuevaDTO();
+            EntradaNuevaDTOPersistencia entradadto = new EntradaNuevaDTOPersistencia();
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());
@@ -76,7 +72,7 @@ public class EntradaMapper implements IEntradaMapper {
 
     //--------------------------Viejo----------------------------------------
     @Override
-    public Entrada toEntityViejo(EntradaViejaDTO entradaDTO) {
+    public Entrada toEntityViejo(EntradaViejaDTOPersistencia entradaDTO) {
         Entrada entrada = new Entrada();
         entrada.setFechaHora(entradaDTO.getFechaHora());
         entrada.setProveedor(entradaDTO.getProveedor());
@@ -86,8 +82,8 @@ public class EntradaMapper implements IEntradaMapper {
     }
 
     @Override
-    public EntradaViejaDTO todtoViejo(Entrada entrada) {
-        EntradaViejaDTO entradaDTO = new EntradaViejaDTO();
+    public EntradaViejaDTOPersistencia todtoViejo(Entrada entrada) {
+        EntradaViejaDTOPersistencia entradaDTO = new EntradaViejaDTOPersistencia();
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());
@@ -97,9 +93,9 @@ public class EntradaMapper implements IEntradaMapper {
 
     //Listas
     @Override
-    public List<Entrada> toEntityViejoList(List<EntradaViejaDTO> entradasDTO) {
+    public List<Entrada> toEntityViejoList(List<EntradaViejaDTOPersistencia> entradasDTO) {
         List<Entrada> entradas = new ArrayList<>();
-        for (EntradaViejaDTO entradasdto : entradasDTO) {
+        for (EntradaViejaDTOPersistencia entradasdto : entradasDTO) {
             Entrada entrada = new Entrada();
             entrada.setFechaHora(entradasdto.getFechaHora());
             entrada.setProveedor(entradasdto.getProveedor());
@@ -111,10 +107,10 @@ public class EntradaMapper implements IEntradaMapper {
     }
 
     @Override
-    public List<EntradaViejaDTO> todtoViejoList(List<Entrada> entradas) {
-        List<EntradaViejaDTO> entradasDTO = new ArrayList<>();
+    public List<EntradaViejaDTOPersistencia> todtoViejoList(List<Entrada> entradas) {
+        List<EntradaViejaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (Entrada entrada : entradas) {
-            EntradaViejaDTO entradadto = new EntradaViejaDTO();
+            EntradaViejaDTOPersistencia entradadto = new EntradaViejaDTOPersistencia();
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());

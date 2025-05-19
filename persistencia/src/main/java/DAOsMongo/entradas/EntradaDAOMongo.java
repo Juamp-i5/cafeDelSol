@@ -1,5 +1,8 @@
 package DAOsMongo.entradas;
 
+import DTOs.entradas.EntradaMapperPersistencia;
+import DTOs.entradas.EntradaNuevaDTOPersistencia;
+import DTOs.entradas.EntradaViejaDTOPersistencia;
 import IDAOs.entradas.IEntradaDAO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import DTOs.entradas.IEntradaMapperPersistencia;
 
 /**
  *
@@ -34,6 +38,8 @@ public class EntradaDAOMongo implements IEntradaDAO {
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Entrada.class);
     }
 
+    IEntradaMapperPersistencia entradaMapper = new EntradaMapperPersistencia();
+
     public static EntradaDAOMongo getInstance(IConexionMongo conexion) {
         if (instancia == null) {
             instancia = new EntradaDAOMongo(conexion);
@@ -42,9 +48,9 @@ public class EntradaDAOMongo implements IEntradaDAO {
     }
 
     @Override
-    public boolean registrarEntrada(Entrada entrada) throws PersistenciaEntradasException {
+    public boolean registrarEntrada(EntradaNuevaDTOPersistencia entrada) throws PersistenciaEntradasException {
         try {
-            InsertOneResult resultado = coleccion.insertOne(entrada);
+            InsertOneResult resultado = coleccion.insertOne(entradaMapper.toEntityNuevo(entrada));
             if (!resultado.wasAcknowledged()) {
                 throw new PersistenciaEntradasException("La inserción no fue reconocida por el servidor.");
             }
@@ -55,22 +61,20 @@ public class EntradaDAOMongo implements IEntradaDAO {
     }
 
     @Override
-    public List<Entrada> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException {
+    public List<EntradaViejaDTOPersistencia> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException {
         try {
             List<Bson> filtros = new ArrayList<>();
-
             if (fechaInicio != null) {
                 LocalDateTime inicioDelDia = fechaInicio.toLocalDate().atStartOfDay();
                 filtros.add(Filters.gte("fechaHora", inicioDelDia));
             }
-
             if (fechaFin != null) {
                 LocalDateTime finDelDia = fechaFin.toLocalDate().atTime(LocalTime.MAX);
                 filtros.add(Filters.lte("fechaHora", finDelDia));
             }
-
             Bson filtroFinal = filtros.isEmpty() ? new Document() : Filters.and(filtros);
-            return coleccion.find(filtroFinal).into(new ArrayList<>());
+            List<Entrada> documentos = coleccion.find(filtroFinal).into(new ArrayList<>());
+            return entradaMapper.todtoViejoList(documentos);
         } catch (Exception e) {
             throw new PersistenciaEntradasException("Error al obtener entradas por fechas", e);
         }

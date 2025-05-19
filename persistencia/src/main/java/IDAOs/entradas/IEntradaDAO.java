@@ -1,6 +1,7 @@
 package IDAOs.entradas;
 
-import entidades.Entrada;
+import DTOs.entradas.EntradaNuevaDTOPersistencia;
+import DTOs.entradas.EntradaViejaDTOPersistencia;
 import excepciones.PersistenciaEntradasException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public interface IEntradaDAO {
     
-    public boolean registrarEntrada(Entrada entrada) throws PersistenciaEntradasException;
+    public boolean registrarEntrada(EntradaNuevaDTOPersistencia entrada) throws PersistenciaEntradasException;
     
-    public List<Entrada> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException;
+    public List<EntradaViejaDTOPersistencia> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException;
 }
