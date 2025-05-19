@@ -156,9 +156,8 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     @Override
     public boolean aumentarStock(String idIngrediente, Double cantidad) throws PersistenciaIngredientesException {
         try {
-            MongoCollection<Document> coleccionDocumentos = database.getCollection("ingredientes");
-            Document doc = coleccionDocumentos.find(Filters.eq("_id", new ObjectId(idIngrediente))).first();
-            double cantidadActual = ((Number) doc.get("cantidadDisponible")).doubleValue();
+            Ingrediente ingrediente = coleccion.find(Filters.eq("_id", new ObjectId(idIngrediente))).first();
+            double cantidadActual = ingrediente.getCantidadDisponible();
             double nuevaCantidad = cantidadActual + cantidad;
             coleccion.updateOne(Filters.eq("_id", new ObjectId(idIngrediente)), Updates.set("cantidadDisponible", nuevaCantidad));
             actualizarNivelStock(idIngrediente);
@@ -171,9 +170,8 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     @Override
     public boolean reducirStock(String idIngrediente, Double cantidad) throws PersistenciaIngredientesException {
         try {
-            MongoCollection<Document> coleccionDocumentos = database.getCollection("ingredientes");
-            Document doc = coleccionDocumentos.find(Filters.eq("_id", new ObjectId(idIngrediente))).first();
-            double cantidadActual = ((Number) doc.get("cantidadDisponible")).doubleValue();
+            Ingrediente ingrediente = coleccion.find(Filters.eq("_id", new ObjectId(idIngrediente))).first();
+            double cantidadActual = ingrediente.getCantidadDisponible();
             double nuevaCantidad = cantidadActual - cantidad;
             if (nuevaCantidad < 0) {
                 throw new PersistenciaIngredientesException("No se puede reducir stock: cantidad insuficiente.");
@@ -182,23 +180,18 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
             actualizarNivelStock(idIngrediente);
             return true;
         } catch (Exception e) {
-            throw new PersistenciaIngredientesException("Error al aumentar stock: " + e.getMessage(), e);
+            throw new PersistenciaIngredientesException("Error al reducir stock: " + e.getMessage(), e);
         }
     }
 
     @Override
     public void actualizarNivelStock(String idIngrediente) throws PersistenciaIngredientesException {
         try {
-            MongoCollection<Document> coleccionDocumentos = database.getCollection("ingredientes");
-            ObjectId oid = new ObjectId(idIngrediente);
-            Document doc = coleccionDocumentos.find(Filters.eq("_id", oid)).first();
-            if (doc == null) {
-                throw new PersistenciaIngredientesException("Ingrediente no encontrado con id: " + idIngrediente);
-            }
-            double cantidadDisponible = ((Number) doc.get("cantidadDisponible")).doubleValue();
-            double cantidadMinima = ((Number) doc.get("cantidadMinima")).doubleValue();
+            Ingrediente ingrediente = coleccion.find(Filters.eq("_id", new ObjectId(idIngrediente))).first();
+            double cantidadDisponible = ingrediente.getCantidadDisponible();
+            double cantidadMinima = ingrediente.getCantidadMinima();
             String nuevoNivelStock = cantidadDisponible < cantidadMinima ? "BAJOSTOCK" : "ENSTOCK";
-            coleccion.updateOne(Filters.eq("_id", oid), Updates.set("nivelStock", nuevoNivelStock));
+            coleccion.updateOne(Filters.eq("_id", new ObjectId(idIngrediente)), Updates.set("nivelStock", nuevoNivelStock));
         } catch (Exception e) {
             throw new PersistenciaIngredientesException("Error al actualizar nivel de stock: " + e.getMessage(), e);
         }
@@ -208,8 +201,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     public boolean obtenerIngredientePorNombre(String nombre) throws PersistenciaIngredientesException {
         try {
             Bson filtro = Filters.regex("nombre", "^" + Pattern.quote(nombre) + "$", "i");
-            MongoCollection<Document> coleccionDocumentos = database.getCollection("ingredientes");
-            Document resultado = coleccionDocumentos.find(filtro).first();
+            Ingrediente resultado = coleccion.find(filtro).first();
             return resultado != null;
         } catch (Exception e) {
             throw new PersistenciaIngredientesException("Error al buscar ingrediente por nombre: " + e.getMessage(), e);
