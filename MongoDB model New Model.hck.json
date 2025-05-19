@@ -766,6 +766,18 @@
           "GUID": "4d5c3916-7205-4a63-a298-dbfbf883661a",
           "required": true,
           "error": {}
+        },
+        {
+          "name": "fechaHora",
+          "hackoladeMeta": {},
+          "isActivated": true,
+          "type": "date",
+          "primaryKey": false,
+          "error": {
+            "name": false
+          },
+          "required": true,
+          "GUID": "baaa7572-9a98-4960-a86e-0fe1d10a08f1"
         }
       ],
       "definitions": {
@@ -1221,31 +1233,49 @@
           "error": {}
         },
         {
-          "name": "cubiculoId",
+          "name": "cubiculo",
           "hackoladeMeta": {},
           "isActivated": true,
-          "type": "objectId",
-          "GUID": "9d9965d8-c824-410a-9aa3-ee81602e988b",
-          "foreignCollection": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
-          "foreignField": [
-            "081dc445-949d-4d2e-98ad-5a5da677d2d1",
-            "125aa719-887a-4160-b757-08d96dbafe41"
+          "type": "document",
+          "properties": [
+            {
+              "name": "cubiculoId",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "objectId",
+              "GUID": "9d9965d8-c824-410a-9aa3-ee81602e988b",
+              "foreignCollection": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
+              "foreignField": [
+                "081dc445-949d-4d2e-98ad-5a5da677d2d1",
+                "125aa719-887a-4160-b757-08d96dbafe41"
+              ],
+              "relationshipType": "Foreign Key",
+              "parentRelationship": "d3915346-9242-4653-a0ce-c29e2a491249",
+              "required": true,
+              "error": {}
+            },
+            {
+              "name": "nombre",
+              "hackoladeMeta": {},
+              "isActivated": true,
+              "type": "string",
+              "GUID": "62448f20-9d91-4232-b036-0a84360639df",
+              "foreignCollection": "",
+              "foreignField": [],
+              "required": true,
+              "error": {
+                "name": false
+              }
+            }
           ],
-          "relationshipType": "Foreign Key",
+          "additionalProperties": false,
+          "error": {
+            "name": false
+          },
+          "required": true,
+          "GUID": "8637f7c4-4d0a-40fd-957b-2057ab965fed",
           "parentRelationship": "d3915346-9242-4653-a0ce-c29e2a491249",
-          "required": true,
-          "error": {}
-        },
-        {
-          "name": "cubiculoNombre",
-          "hackoladeMeta": {},
-          "isActivated": true,
-          "type": "string",
-          "GUID": "62448f20-9d91-4232-b036-0a84360639df",
-          "foreignCollection": "",
-          "foreignField": [],
-          "required": true,
-          "error": {}
+          "relationshipType": "Foreign Key"
         },
         {
           "name": "precioHora",
@@ -1606,11 +1636,11 @@
         "shape": [
           {
             "x": 1971.1666666666665,
-            "y": 2159.906989853438
+            "y": 2118.406989853438
           },
           {
             "x": 2046.074126268322,
-            "y": 2159.906989853438
+            "y": 2118.406989853438
           },
           {
             "x": 2046.074126268322,
@@ -1714,11 +1744,11 @@
         "shape": [
           {
             "x": 1955.3149192033056,
-            "y": 2824.666666666666
+            "y": 2639.166666666666
           },
           {
             "x": 2037.6324428817943,
-            "y": 2824.666666666666
+            "y": 2639.166666666666
           },
           {
             "x": 2037.6324428817943,
@@ -1769,11 +1799,11 @@
         "shape": [
           {
             "x": 1955.3149192033056,
-            "y": 2566.666666666666
+            "y": 2572.866666666666
           },
           {
             "x": 2037.1322810973263,
-            "y": 2566.666666666666
+            "y": 2572.866666666666
           },
           {
             "x": 2037.1322810973263,
@@ -1824,11 +1854,11 @@
         "shape": [
           {
             "x": 1955.3149192033056,
-            "y": 2695.666666666666
+            "y": 2705.4666666666662
           },
           {
             "x": 2036.4564073656509,
-            "y": 2695.666666666666
+            "y": 2705.4666666666662
           },
           {
             "x": 2036.4564073656509,
@@ -1926,11 +1956,11 @@
         "shape": [
           {
             "x": 2487.905416196916,
-            "y": 2823.482278748589
+            "y": 2831.482278748589
           },
           {
             "x": 2422.9276913786,
-            "y": 2823.482278748589
+            "y": 2831.482278748589
           },
           {
             "x": 2422.9276913786,
@@ -1979,23 +2009,23 @@
         "shape": [
           {
             "x": 2678.5720828635826,
-            "y": 2662.982278748589
+            "y": 2661.982278748589
           },
           {
             "x": 2678.5720828635826,
-            "y": 2637.982278748589
+            "y": 2636.982278748589
           },
           {
             "x": 2798.905416196916,
-            "y": 2637.982278748589
+            "y": 2636.982278748589
           },
           {
             "x": 2798.905416196916,
-            "y": 2823.482278748589
+            "y": 2831.482278748589
           },
           {
             "x": 2773.905416196916,
-            "y": 2823.482278748589
+            "y": 2831.482278748589
           }
         ],
         "sides": [
@@ -2017,6 +2047,7 @@
       "childField": [
         [
           "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
+          "8637f7c4-4d0a-40fd-957b-2057ab965fed",
           "9d9965d8-c824-410a-9aa3-ee81602e988b"
         ]
       ],
@@ -2035,15 +2066,15 @@
         "shape": [
           {
             "x": 2583.2387495302496,
-            "y": 2662.982278748589
+            "y": 2661.982278748589
           },
           {
             "x": 2583.2387495302496,
-            "y": 2624.887295659525
+            "y": 2624.387295659525
           },
           {
             "x": 2583.3832675685817,
-            "y": 2624.887295659525
+            "y": 2624.387295659525
           },
           {
             "x": 2583.3832675685817,
@@ -2142,11 +2173,11 @@
         "shape": [
           {
             "x": 1955.3149192033056,
-            "y": 2437.666666666666
+            "y": 2440.266666666666
           },
           {
             "x": 2038.1482525366416,
-            "y": 2437.666666666666
+            "y": 2440.266666666666
           },
           {
             "x": 2038.1482525366416,
@@ -2197,15 +2228,15 @@
         "shape": [
           {
             "x": 1817.8149192033056,
-            "y": 2308.666666666666
+            "y": 2307.666666666666
           },
           {
             "x": 1817.8149192033056,
-            "y": 2275.786828260052
+            "y": 2275.286828260052
           },
           {
             "x": 1817.1666666666665,
-            "y": 2275.786828260052
+            "y": 2275.286828260052
           },
           {
             "x": 1817.1666666666665,
@@ -2373,8 +2404,6 @@
     "125aa719-887a-4160-b757-08d96dbafe41": "_id",
     "cded29f0-7d26-4a26-a4b5-882a8642751a": "nombre",
     "96af8d65-009d-4169-b669-13e0ef7aaa53": "precioHora",
-    "9d9965d8-c824-410a-9aa3-ee81602e988b": "cubiculoId",
-    "62448f20-9d91-4232-b036-0a84360639df": "cubiculoNombre",
     "49f0936f-2b8f-4b2b-99a0-bf05ad5fb9d1": "precioHora",
     "56a05727-e478-47cb-83b1-33af7b09c272": "total",
     "c879e571-d73d-46b0-907d-36839fc05fe2": "creadaEn",
@@ -2395,7 +2424,11 @@
     "2fbcb4de-1363-4746-8ffa-c736d5439d80": "fk_tamanios._id_to_pedidos.productos.[0].tamanio.tamanioId",
     "595dcbc4-b164-463e-98da-5a5cba8d5a15": "fk_productos._id_to_pedidos.productos.[0].producto.productoId",
     "c1084734-baf7-47ac-9a24-bc42b2922319": "tamanios",
-    "5f509869-d34b-4247-8625-020a15f673f2": "fk_proveedores._id_to_entradas.proveedorId"
+    "5f509869-d34b-4247-8625-020a15f673f2": "fk_proveedores._id_to_entradas.proveedorId",
+    "baaa7572-9a98-4960-a86e-0fe1d10a08f1": "fechaHora",
+    "8637f7c4-4d0a-40fd-957b-2057ab965fed": "cubiculo",
+    "9d9965d8-c824-410a-9aa3-ee81602e988b": "cubiculoId",
+    "62448f20-9d91-4232-b036-0a84360639df": "nombre"
   },
   "definitions": {
     "type": "definitions",
@@ -2420,7 +2453,7 @@
   "creationTS": "2025-05-18T23:33:01.278Z",
   "GUID": "cbac6318-07db-469c-9973-e7ebbbc9bcdf",
   "isLineageEnabled": false,
-  "lastModifTS": "2025-05-19T04:30:59.679Z",
+  "lastModifTS": "2025-05-19T05:36:13.896Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -2469,9 +2502,9 @@
           {
             "GUID": "63072521-a3df-4f6b-9edf-3cb4c170e609",
             "x": 1680.3149192033056,
-            "y": 2308.666666666666,
+            "y": 2307.666666666666,
             "width": 275,
-            "height": 645,
+            "height": 663,
             "color": {}
           },
           {
@@ -2509,9 +2542,9 @@
           {
             "GUID": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
             "x": 2487.905416196916,
-            "y": 2662.982278748589,
+            "y": 2661.982278748589,
             "width": 286,
-            "height": 321,
+            "height": 339,
             "color": {}
           },
           {
