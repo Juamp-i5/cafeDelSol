@@ -17,19 +17,5 @@ import acceso.AccesoDatos;
  */
 public class ReservacionBO {
 
-    IReservacionDAO reservacionDAO = AccesoDatos.get
-    IIngredienteMapper ingredienteMapper = IngredienteMapper.getInstance();
-
-    private static IngredienteBO instanceBO;
-
-    public IngredienteBO() {
-    }
-
-    public static IngredienteBO getInstance() {
-        if (instanceBO == null) {
-            instanceBO = new IngredienteBO();
-        }
-        return instanceBO;
-    }
-
+    IReservacionDAO reservacionDAO = AccesoDatos.getReservacionDAO();
 }

@@ -8,6 +8,7 @@ import IDAOs.IProductoPedidoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import IDAOs.ingredientes.IProveedorDAOMongo;
@@ -98,4 +99,10 @@ public class AccesoDatos {
     public static IProveedorDAOMongo getProveedorDAO() {
         return fabricaDAOs.getProveedorDAO();
     }
+    
+    public static IReservacionDAO getReservacionDAO() {
+        return fabricaDAOs.getReservacionDAO();
+    }
+    
+    
 }
