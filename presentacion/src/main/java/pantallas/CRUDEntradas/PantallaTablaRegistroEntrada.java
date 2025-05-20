@@ -103,7 +103,12 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }
 
     private boolean esNumeroValido(String texto) {
-        return texto != null && texto.matches("\\d+(\\.\\d+)?"); // Uno o más dígitos, seguido opcionalmente de un punto y más dígitos
+        return texto != null && texto.matches("\\d+(\\.\\d+)?");
+    }
+
+    private boolean esProveedorNumerico(String proveedor) {
+        return proveedor != null
+                && !proveedor.matches("\\d+");
     }
 
     /**
@@ -268,6 +273,17 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 return;
             }
 
+            if (TFProveedor.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+                TFProveedor.setText(null);
+                return;
+            }
+
+            if (!esProveedorNumerico(TFProveedor.getText().trim())) {
+                JOptionPane.showMessageDialog(this,"El nombre del proveedor no puede ser numérico.","Error",JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
+
             if (detalle == null) {
                 detalle = new DetalleEntradaDTO();
             }
@@ -294,12 +310,12 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
 
                 if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
-                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 if (precioUnitarioObj instanceof String precioStr && !precioStr.trim().isEmpty() && !esNumeroValido(precioStr)) {
-                    JOptionPane.showMessageDialog(this, "Precio unitario inválido (solo números) en fila " + (i + 1), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Precio unitario inválido (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -315,7 +331,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                         cantidadAgregada = Double.valueOf(string);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida en fila " + (i+1), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -324,12 +340,17 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                         precioUnitario = Double.valueOf(string);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + (i+1), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
                 if (cantidadAgregada == null || precioUnitario == null) {
-                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + (i+1) + " para realizar el registro", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + (i + 1) + " para realizar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (cantidadAgregada <= 0) {
+                    JOptionPane.showMessageDialog(this, "La cantidad agregada no puede ser cero en la fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -370,6 +391,13 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     private void BtnAgregarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarIngredienteActionPerformed
+        String proveedor = TFProveedor.getText().trim();
+        if (proveedor.length() > 50) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+            TFProveedor.setText(null);
+            return;
+        }
+
         modeloTablaIngrdientes.addTableModelListener(e -> {
             int fila = e.getFirstRow();
             int col = e.getColumn();
@@ -389,12 +417,16 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                         modeloTablaIngrdientes.setValueAt(null, fila, col);
                     }
 
-                    if (col == 2 || col == 4) {
-                        double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 2));
-                        double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 4));
-                        double total = cantidad * precioUnitario;
-                        modeloTablaIngrdientes.setValueAt(total, fila, 5);
+                    String valorComoTexto = String.valueOf(valor);
+                    if (valorComoTexto.length() > 10) {
+                        JOptionPane.showMessageDialog(this, "El valor en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " no debe exceder los 10 dígitos en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                        modeloTablaIngrdientes.setValueAt(null, fila, col);
+                        return;
                     }
+
+                    double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 2));
+                    double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 4));
+                    modeloTablaIngrdientes.setValueAt(cantidad * precioUnitario, fila, 5);
 
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
@@ -405,7 +437,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 
         BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((DetallesIngredienteViejoDTO ingredienteNuevo) -> {
             if (ingredienteNuevo == null) {
-                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -417,13 +449,13 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 if (nombreExistente.equalsIgnoreCase(ingredienteNuevo.getNombre())) {
                     encontrado = true;
                     Double cantidadActual = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(i, 2));
-                    Double cantidadAAgregar = 1.0; 
+                    Double cantidadAAgregar = 1.0;
                     double nuevaCantidad = cantidadActual + cantidadAAgregar;
                     modeloTablaIngrdientes.setValueAt(nuevaCantidad, i, 2);
                     Double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(i, 4));
                     modeloTablaIngrdientes.setValueAt(precioUnitario, i, 4);
                     modeloTablaIngrdientes.setValueAt(nuevaCantidad * precioUnitario, i, 5);
-                    break; 
+                    break;
                 }
             }
 
