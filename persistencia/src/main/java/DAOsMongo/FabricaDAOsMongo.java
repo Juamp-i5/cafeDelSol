@@ -6,6 +6,7 @@ import DAOsMongo.cubiculos.ReservacionDAOMongo;
 import DAOsMongo.entradas.EntradaDAOMongo;
 import DAOsMongo.ingredientes.IngredienteDAOMongo;
 import DAOsMongo.ingredientes.ProveedorDAOMongo;
+import DAOsMongo.salidas.SalidaDAOMongo;
 import IDAOs.IFabricaDAOs;
 import conexion.ConexionMongo;
 import conexion.IConexionMongo;
@@ -21,6 +22,7 @@ import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import IDAOs.ingredientes.IProveedorDAOMongo;
+import IDAOs.salidas.ISalidaDAO;
 
 /**
  * Fábrica de DAOs estática que proporciona instancias de DAOs conectadas a
@@ -132,6 +134,10 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
     @Override
     public IReservacionDAO getReservacionDAO() {
         return ReservacionDAOMongo.getInstance(conexion);
+    }
+    
+    public ISalidaDAO getSalidaDAO(){
+        return SalidaDAOMongo.getInstance(conexion);
     }
 
 }
