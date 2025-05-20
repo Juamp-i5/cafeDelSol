@@ -2,8 +2,8 @@ package pantallas.CRUDEntradas;
 
 import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
-import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
+import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.Color;
@@ -309,7 +309,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 2);
                 UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
                 Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
-                Object estadoObj = modeloTablaIngrdientes.getValueAt(i, 6);
+                NivelStock estadoObj = (NivelStock) modeloTablaIngrdientes.getValueAt(i, 6);
 
                 if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
                     JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
@@ -362,16 +362,17 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 System.out.println("Tipo de cantidad agregada: " + cantidadAgregada);
                 System.out.println("Tipo de precio unitario: " + precioUnitario);
                 System.out.println("Tipo de precio total: " + precioTotal);
+                System.out.println("Tipo de nivel de stock: "+estadoObj);
 
                 DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
                 preRegistro.setNombreIngrediente(nombreIngrediente);
                 preRegistro.setCantidadIngrediente(cantidadAgregada);
                 preRegistro.setPrecioUnitario(precioUnitario);
                 preRegistro.setPrecioTotal(precioTotal);
+                preRegistro.setNivelStock(estadoObj);
 
 //                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(nombreIngrediente, estadoObj.toString());
 //                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
-//                
 //                boolean resultado = ControlNavegacion.aumentarStock(ingrediente.getId(),cantidadAgregada);
 //                if (resultado!=true) {
 //                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -443,7 +444,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             }
         });
 
-        BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((DetallesIngredienteViejoDTO ingredienteNuevo) -> {
+        BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((IngredienteViejoListDTO ingredienteNuevo) -> {
             if (ingredienteNuevo == null) {
                 JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;

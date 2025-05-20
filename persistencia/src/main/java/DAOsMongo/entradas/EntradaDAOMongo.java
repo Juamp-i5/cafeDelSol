@@ -32,7 +32,7 @@ public class EntradaDAOMongo implements IEntradaDAO {
     private final MongoCollection<Entrada> coleccion;
     private final String NOMBRE_COLECCION = "RegistroEntradas";
 
-    private EntradaDAOMongo(IConexionMongo conexion) {
+    EntradaDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
         this.database = conexion.getDatabase();
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Entrada.class);

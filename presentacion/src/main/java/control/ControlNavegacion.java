@@ -692,7 +692,7 @@ public class ControlNavegacion {
         frame.setVisible(true);
     }
 
-    public static void mostrarPantallaBuscadorIngrediente(Consumer<DetallesIngredienteViejoDTO> regreso) {
+    public static void mostrarPantallaBuscadorIngrediente(Consumer<IngredienteViejoListDTO> regreso) {
         JFrame frame = new BuscadorIngredientesSimulado(regreso);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

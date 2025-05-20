@@ -3,6 +3,7 @@ package BOs.entradas;
 import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import entidades.DetalleEntrada;
 import BOs.entradas.IDetalleEntradaMapper;
+import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.entradas.DetalleEntradaDTOPersistencia;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +29,9 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
         detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
         detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
         detalles.setCantidadIngrediente(detallesDTO.getCantidadIngrediente());
-        detalles.setIdIngrediente(detalles.getIdIngrediente());
+        detalles.setIdIngrediente(detallesDTO.getIdIngrediente());
         detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
+        detalles.setNivelStock(detallesDTO.getNivelStock() != null ? NivelStock.valueOf(detallesDTO.getNivelStock()) : null);
         return detalles;
     }
 
@@ -39,11 +41,12 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
         detallesDTO.setCantidadIngrediente(detalles.getCantidadIngrediente());
-        detallesDTO.setIngrediente(detallesDTO.getIngrediente());
+        detallesDTO.setIdIngrediente(detalles.getIdIngrediente());
         detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
+        detallesDTO.setNivelStock(detalles.getNivelStock() != null ? detalles.getNivelStock().name() : null);
         return detallesDTO;
     }
-
+    
     @Override
     public List<DetalleEntradaDTO> todtoList(List<DetalleEntradaDTOPersistencia> detallesDTOList) {
         List<DetalleEntradaDTO> detallesList = new ArrayList<>();
