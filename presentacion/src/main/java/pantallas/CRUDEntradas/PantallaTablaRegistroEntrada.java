@@ -377,9 +377,8 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 //                if (resultado!=true) {
 //                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
 //                }
-                //Actualizar Stock
-                
-//                preRegistro.setIdIngrediente(ingrediente.getId());
+//                preRegistro.setIdIngrediente(ingrediente.getId());               
+//                ControlNavegacion.actualizarNivelStock(ingrediente.getId());
 
                 registroNuevo.add(preRegistro);
 

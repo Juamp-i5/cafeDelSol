@@ -796,6 +796,17 @@ public class ControlNavegacion {
             return false;
         }
     }
+    
+    public static void actualizarNivelStock(String idIngrediente){
+        try {
+            gestorCRUDIngredientes.actualizarNivelStock(idIngrediente);
+            JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     //=====================================================
     //==================== CUBICULOS ======================

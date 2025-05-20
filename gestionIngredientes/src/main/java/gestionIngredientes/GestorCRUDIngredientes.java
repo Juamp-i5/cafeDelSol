@@ -128,5 +128,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
             return false;
         }
     }
+    
+    @Override
+    public void actualizarNivelStock(String idIngrediente) throws GestionCRUDIngredientesException {
+        try {
+            ingredienteBO.actualizarNivelStock(idIngrediente);
+        } catch (NegocioException ex) {
+            Logger.getLogger(GestorCRUDIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
