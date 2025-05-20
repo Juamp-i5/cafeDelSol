@@ -7,8 +7,10 @@ package gestion;
 import DTOs.cubiculos.CubiculoCompletoDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -32,5 +34,8 @@ public interface IGestorCubiculos {
     public Integer realizarReagenda(ReagendaDTO reagenda) throws GestionCubiculosException;
     
     public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo) throws GestionCubiculosException;
+    
+    public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException;
+    
     
 }

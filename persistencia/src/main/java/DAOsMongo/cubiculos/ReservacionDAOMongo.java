@@ -119,13 +119,13 @@ public class ReservacionDAOMongo implements IReservacionDAO {
 
             if (fechaInicio != null && fechaFin != null) {
                 filtro = Filters.and(
-                        Filters.gte("fecha", fechaInicio.atStartOfDay()),
-                        Filters.lte("fecha", fechaFin.atTime(LocalTime.MAX))
+                        Filters.gte("fechaReserva", fechaInicio.atStartOfDay()),
+                        Filters.lte("fechaReserva", fechaFin.atTime(LocalTime.MAX))
                 );
             } else if (fechaInicio != null) {
-                filtro = Filters.gte("fecha", fechaInicio);
+                filtro = Filters.gte("fechaReserva", fechaInicio);
             } else if (fechaFin != null) {
-                filtro = Filters.lte("fecha", fechaFin);
+                filtro = Filters.lte("fechaReserva", fechaFin);
             } // Si las dos son null, se usa el filtro vacío (en teoría)
 
             listaDTO = reservacionMapper.toDTOList(coleccion.find(filtro).into(new ArrayList<>()));
@@ -133,6 +133,38 @@ public class ReservacionDAOMongo implements IReservacionDAO {
             return listaDTO;
         } catch (Exception e) {
             throw new PersistenciaCubiculoEsception("Error al buscar reservaciones por rango de fechas", e);
+        }
+    }
+
+    @Override
+    public List<ReservacionDTOCompletaPersistencia> buscarPendientesPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception {
+        try {
+            List<Bson> filtros = new ArrayList<>();
+
+            // Filtro por estado "PENDIENTE"
+            filtros.add(Filters.in("estado", Estado.PENDIENTE, Estado.ENCURSO));
+
+            // Filtros por fechas, si no son null
+            if (fechaInicio != null && fechaFin != null) {
+                filtros.add(Filters.gte("fechaReserva", fechaInicio.atStartOfDay()));
+                filtros.add(Filters.lte("fechaReserva", fechaFin.atTime(LocalTime.MAX)));
+            } else if (fechaInicio != null) {
+                filtros.add(Filters.gte("fechaReserva", fechaInicio.atStartOfDay()));
+            } else if (fechaFin != null) {
+                filtros.add(Filters.lte("fechaReserva", fechaFin.atTime(LocalTime.MAX)));
+            }
+
+            // Combina los filtros (estado + fechas)
+            Bson filtroFinal = Filters.and(filtros);
+
+            // Ejecuta la consulta
+            List<ReservacionDTOCompletaPersistencia> listaDTO = reservacionMapper.toDTOList(
+                    coleccion.find(filtroFinal).into(new ArrayList<>())
+            );
+
+            return listaDTO;
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al buscar reservaciones por rango de fechas y estado PENDIENTE", e);
         }
     }
 
