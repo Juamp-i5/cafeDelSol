@@ -800,7 +800,7 @@ public class ControlNavegacion {
     public static void actualizarNivelStock(String idIngrediente){
         try {
             gestorCRUDIngredientes.actualizarNivelStock(idIngrediente);
-            JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
+            JOptionPane.showMessageDialog(null, "Se actualizó el stock exitosamente");
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();

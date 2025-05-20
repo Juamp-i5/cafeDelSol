@@ -139,7 +139,7 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
                 tabla.addCell(new Phrase(detalle.getNombreIngrediente(), cuerpoFont));
                 tabla.addCell(new Phrase(" ")); //Stock actual
                 tabla.addCell(new Phrase(" ")); //Unidad de medida
-                tabla.addCell(new Phrase(String.valueOf(detalle.getPrecioUnitario()), cuerpoFont));
+                tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioUnitario()), cuerpoFont));
                 tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioTotal()), cuerpoFont));
 //                tabla.addCell(new Phrase(String.valueOf(ingrediente.getUnidadMedida()), cuerpoFont)); //Unidad de medida
 //                tabla.addCell(new Phrase(String.valueOf(ingrediente.getCantidadDisponible()), cuerpoFont)); //Stock actual

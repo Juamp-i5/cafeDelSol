@@ -248,11 +248,19 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVolverAtrasActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila != -1) {
-            modeloTablaIngrdientes.removeRow(fila);
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Seguro que deseas eliminar este ingrediente?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (respuesta == JOptionPane.YES_OPTION) {
+            int fila = jTable1.getSelectedRow();
+            if (fila != -1) {
+                modeloTablaIngrdientes.removeRow(fila);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
+            }
         }
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
@@ -281,8 +289,8 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             }
 
             if (!esProveedorNumerico(TFProveedor.getText().trim())) {
-                JOptionPane.showMessageDialog(this,"El nombre del proveedor no puede ser numérico.","Error",JOptionPane.ERROR_MESSAGE);
-                return; 
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
             if (detalle == null) {
@@ -362,7 +370,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 System.out.println("Tipo de cantidad agregada: " + cantidadAgregada);
                 System.out.println("Tipo de precio unitario: " + precioUnitario);
                 System.out.println("Tipo de precio total: " + precioTotal);
-                System.out.println("Tipo de nivel de stock: "+estadoObj);
+                System.out.println("Tipo de nivel de stock: " + estadoObj);
 
                 DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
                 preRegistro.setNombreIngrediente(nombreIngrediente);
@@ -379,7 +387,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 //                }
 //                preRegistro.setIdIngrediente(ingrediente.getId());               
 //                ControlNavegacion.actualizarNivelStock(ingrediente.getId());
-
                 registroNuevo.add(preRegistro);
 
                 totalEntrada += precioTotal;
