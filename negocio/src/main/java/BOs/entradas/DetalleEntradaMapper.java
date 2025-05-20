@@ -28,7 +28,7 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
         detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
         detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
         detalles.setCantidadIngrediente(detallesDTO.getCantidadIngrediente());
-        detalles.setIngrediente(detalles.getIngrediente());
+        detalles.setIdIngrediente(detalles.getIdIngrediente());
         detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
         return detalles;
     }

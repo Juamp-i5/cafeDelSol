@@ -778,6 +778,19 @@ public class ControlNavegacion {
         }
         return null;
     }
+    
+    public static boolean aumentarStock(String idIngrediente, Double cantidad){
+        try {
+            gestorCRUDIngredientes.aumentarStock(idIngrediente, cantidad);
+            JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
+            return true;
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
 
     //=====================================================
     //==================== CUBICULOS ======================

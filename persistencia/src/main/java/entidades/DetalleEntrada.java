@@ -1,5 +1,7 @@
 package entidades;
 
+import org.bson.types.ObjectId;
+
 /**
  *
  * @author pablo
@@ -10,17 +12,17 @@ public class DetalleEntrada {
     private Double precioUnitario;
     private Double precioTotal;
     private Double cantidad;
-    private Ingrediente ingrediente;
+    private ObjectId idIngrediente;
 
     public DetalleEntrada() {
     }
 
-    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, Ingrediente ingrediente) {
+    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, ObjectId idIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidad = cantidad;
-        this.ingrediente = ingrediente;
+        this.idIngrediente = idIngrediente;
     }
 
     public String getNombreIngrediente() {
@@ -55,11 +57,11 @@ public class DetalleEntrada {
         this.cantidad = cantidad;
     }
 
-    public Ingrediente getIngrediente() {
-        return ingrediente;
+    public ObjectId getIdIngrediente() {
+        return idIngrediente;
     }
 
-    public void setIngrediente(Ingrediente ingrediente) {
-        this.ingrediente = ingrediente;
-    } 
+    public void setIdIngrediente(ObjectId idIngrediente) {
+        this.idIngrediente = idIngrediente;
+    }
 }

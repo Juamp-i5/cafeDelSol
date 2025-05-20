@@ -11,17 +11,17 @@ public class DetalleEntradaDTO {
     private Double precioUnitario;
     private Double precioTotal;
     private Double cantidadIngrediente;
-    private DetallesIngredienteViejoDTO ingrediente;
+    private String idIngrediente;
 
     public DetalleEntradaDTO() {
     }
 
-    public DetalleEntradaDTO(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, DetallesIngredienteViejoDTO ingrediente) {
+    public DetalleEntradaDTO(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String idIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidadIngrediente = cantidadIngrediente;
-        this.ingrediente = ingrediente;
+        this.idIngrediente = idIngrediente;
     }
 
     public String getNombreIngrediente() {
@@ -56,16 +56,16 @@ public class DetalleEntradaDTO {
         this.cantidadIngrediente = cantidadIngrediente;
     }
 
-    public DetallesIngredienteViejoDTO getIngrediente() {
-        return ingrediente;
+    public String getIdIngrediente() {
+        return idIngrediente;
     }
 
-    public void setIngrediente(DetallesIngredienteViejoDTO ingrediente) {
-        this.ingrediente = ingrediente;
+    public void setIdIngrediente(String idIngrediente) {
+        this.idIngrediente = idIngrediente;
     }
 
     @Override
     public String toString() {
-        return "DetalleEntradaNuevoDTO{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", ingrediente=" + ingrediente + '}';
+        return "DetalleEntradaDTO{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", idIngrediente=" + idIngrediente + '}';
     }
 }

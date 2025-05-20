@@ -3,6 +3,7 @@ package pantallas.CRUDEntradas;
 import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import DTOs.CRUDEntradas.EntradaNuevaDTO;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.Color;
@@ -308,6 +309,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 2);
                 UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
                 Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
+                Object estadoObj = modeloTablaIngrdientes.getValueAt(i, 6);
 
                 if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
                     JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
@@ -367,11 +369,17 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 preRegistro.setPrecioUnitario(precioUnitario);
                 preRegistro.setPrecioTotal(precioTotal);
 
-                //Obtener ingrediente por nombre
-                //Sumar Stock
-//          preRegistro.setIngrediente(ingrediente);
-                //Buscar proveedor por nombre
-//          preRegistro.getIngrediente().setNombreProveedor(nombreProveedor);
+//                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(nombreIngrediente, estadoObj.toString());
+//                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
+//                
+//                boolean resultado = ControlNavegacion.aumentarStock(ingrediente.getId(),cantidadAgregada);
+//                if (resultado!=true) {
+//                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+                //Actualizar Stock
+                
+//                preRegistro.setIdIngrediente(ingrediente.getId());
+
                 registroNuevo.add(preRegistro);
 
                 totalEntrada += precioTotal;
