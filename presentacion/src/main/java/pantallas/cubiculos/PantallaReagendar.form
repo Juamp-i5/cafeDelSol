@@ -29,7 +29,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnVolver" min="-2" pref="200" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnReservar" min="-2" pref="200" max="-2" attributes="0"/>
+              <Component id="btnReagendar" min="-2" pref="200" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="290" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -55,8 +55,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="timePicker1" min="-2" max="-2" attributes="0"/>
-                              <Component id="datePicker1" min="-2" max="-2" attributes="0"/>
+                              <Component id="horaInicioPicker" min="-2" max="-2" attributes="0"/>
+                              <Component id="fechaPicker" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="76" max="-2" attributes="0"/>
                       </Group>
@@ -96,15 +96,12 @@
               <Component id="jSeparator3" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jLabelFecha" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="datePicker1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="jLabelFecha" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="fechaPicker" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="timePicker1" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="horaInicioPicker" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="jLabelHoraInicio" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -122,7 +119,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnVolver" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReservar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnReagendar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
           </Group>
@@ -136,18 +133,18 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblTitulo">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Reagendar Cubiculo"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="48" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Reagendar Cubiculo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnVolver">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Volver"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Volver"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[120, 70]"/>
         </Property>
@@ -162,12 +159,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVolverActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnReservar">
+    <Component class="javax.swing.JButton" name="btnReagendar">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Reagendar"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Reservar"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[120, 70]"/>
         </Property>
@@ -179,17 +176,17 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReagendarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.github.lgooddatepicker.components.TimePicker" name="timePicker1">
+    <Component class="com.github.lgooddatepicker.components.TimePicker" name="horaInicioPicker">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
       </Properties>
     </Component>
-    <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePicker1">
+    <Component class="com.github.lgooddatepicker.components.DatePicker" name="fechaPicker">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
@@ -198,18 +195,18 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelFecha">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Fecha de Reserva"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Fecha de Reserva"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelHoraInicio">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Hora Inicio"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Hora Inicio"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldMotivo">
@@ -221,18 +218,18 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelMotivo">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Motivo"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Motivo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelCubiculo">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Cub&#xed;culo"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cub&#xed;culo"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JComboBox" name="jComboBox1">
@@ -254,10 +251,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabelNumReservacion">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Numero Reservacion"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Numero Reservacion"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextFieldNumReservacion">

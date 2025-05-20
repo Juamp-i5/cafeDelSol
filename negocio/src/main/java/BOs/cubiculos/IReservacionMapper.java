@@ -15,4 +15,6 @@ public interface IReservacionMapper {
     
     public ReservacionDTOCompletaPersistencia toDTOPersistencia(ReservacionCompletaDTO dtoNuevo);
     
+    public ReservacionCompletaDTO toDTO (ReservacionDTOCompletaPersistencia dtoPersistencia);
+    
 }

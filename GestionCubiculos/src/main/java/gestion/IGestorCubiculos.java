@@ -6,6 +6,7 @@ package gestion;
 
 import DTOs.cubiculos.CubiculoCompletoDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
+import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import java.util.List;
@@ -27,5 +28,7 @@ public interface IGestorCubiculos {
     public double calcularCambio(EfectivoDTOCubiculo efectivoDTO);
     
     public Integer realizarReservacion() throws GestionCubiculosException;
+    
+    public Integer realizarReagenda(ReagendaDTO reagenda) throws GestionCubiculosException;
     
 }

@@ -55,6 +55,20 @@ public class ReservacionBO implements IReservacionBO{
         }
         
     }
+
+    @Override
+    public ReservacionCompletaDTO buscarPorId(Integer id) throws NegocioCubiculoException {
+        try {
+            ReservacionDTOCompletaPersistencia dtoPers = reservacionDAO.buscarPorId(id);
+            ReservacionCompletaDTO dto = mapperReservacion.toDTO(dtoPers);
+            return dto;
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al buscar reservacion por id");
+        }
+    }
+    
+    
     
     
 

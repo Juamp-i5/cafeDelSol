@@ -1,9 +1,7 @@
 package IDAOs;
 
-import IDAOs.cubiculos.ICancelacionDAO;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
-import IDAOs.cubiculos.IReagendaDAO;
 import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
@@ -28,10 +26,6 @@ public interface IFabricaDAOs {
     public IToppingDAO getToppingDAO();
     
     public ICubiculoDAO getCubiculoDAO();
-    
-    public ICancelacionDAO getCancelacionDAO();
-    
-    public IReagendaDAO getReagendaDAO();
     
     public IContadorReservaciones getContadorReservaciones();
     

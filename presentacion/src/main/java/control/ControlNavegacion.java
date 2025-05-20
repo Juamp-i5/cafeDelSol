@@ -21,6 +21,7 @@ import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
 import DTOs.ToppingMostrarDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
+import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
@@ -61,6 +62,7 @@ import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
 import pantallas.cubiculos.PagoEfectivoCubiculos;
+import pantallas.cubiculos.PantallaReagendar;
 import pantallas.ingredientes.PantallaAgregarIngrediente;
 import pantallas.ingredientes.PantallaBuscarIngrediente;
 import pantallas.ingredientes.PantallaEditarDetallesIngrediente;
@@ -858,5 +860,23 @@ public class ControlNavegacion {
             return null;
         }
     }
+    
+        public static void mostrarPantallaReagendar() {
+        JFrame pantallaReagendar = new PantallaReagendar();
+        pantallaReagendar.setLocationRelativeTo(null);
+        pantallaReagendar.setVisible(true);
+
+        framesVisitados.add(pantallaReagendar);
+    }
+    
+    public static Integer realizarReagenda(ReagendaDTO reagenda) {
+        try {
+            return gestorCubiculos.realizarReagenda(reagenda);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     
 }

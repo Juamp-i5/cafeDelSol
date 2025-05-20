@@ -159,7 +159,8 @@ public class PantallaMenuCubiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistorialReservacionesActionPerformed
 
     private void btnReagendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReagendarActionPerformed
-        // TODO add your handling code here:
+        ControlNavegacion.mostrarPantallaReagendar();
+        this.dispose();
     }//GEN-LAST:event_btnReagendarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHistorialReservaciones;

@@ -44,6 +44,25 @@ public class ReservacionMapper implements IReservacionMapper{
         return dtoPers;
         
     }
+
+    @Override
+    public ReservacionCompletaDTO toDTO(ReservacionDTOCompletaPersistencia dtoPersistencia) {
+        if (dtoPersistencia == null) {
+            return null;
+        }
+        ReservacionCompletaDTO dto = new ReservacionCompletaDTO();
+        dto.setNumReservacion(dtoPersistencia.getNumReservacion());
+        dto.setNombre(dtoPersistencia.getNombre());
+        dto.setTelefono(dtoPersistencia.getTelefono());
+        dto.setFechaReserva(dtoPersistencia.getFechaReserva());
+        dto.setHoraInicio(dtoPersistencia.getHoraInicio());
+        dto.setHoraFin(dtoPersistencia.getHoraFin());
+        dto.setIdCubiculo(dtoPersistencia.getIdCubiculo());
+        dto.setNombreCubiculo(dtoPersistencia.getNombreCubiculo());
+        dto.setPrecioHora(dtoPersistencia.getPrecioHora());
+        dto.setPrecioReservacion(dtoPersistencia.getPrecioReservacion());
+        return dto;
+    }
     
     
     

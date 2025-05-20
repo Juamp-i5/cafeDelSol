@@ -4,7 +4,12 @@
  */
 package pantallas.cubiculos;
 
+import DTOs.cubiculos.ReagendaDTO;
 import control.ControlNavegacion;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,12 +17,59 @@ import control.ControlNavegacion;
  */
 public class PantallaReagendar extends javax.swing.JFrame {
 
+    ReagendaDTO reagendaDTO;
+    
     /**
      * Creates new form PantallaReagendar
      */
     public PantallaReagendar() {
         initComponents();
+        cargarComboBox();
     }
+    
+    private void cargarComboBox() {
+        jComboBox1.removeAllItems();
+
+        List<String> listaCubiculos = ControlNavegacion.obtenerCubiculos();
+        for (String cubiculo : listaCubiculos) {
+            jComboBox1.addItem(cubiculo);
+        }
+    }
+    
+    public void crearReagenda(){
+        if (jTextFieldNumReservacion.getText().isEmpty() || jTextFieldNumReservacion.getText().isBlank() || jTextFieldMotivo.getText().isEmpty() ||
+                jTextFieldMotivo.getText().isBlank() || jComboBox1.getSelectedItem() == null || fechaPicker.getDate() == null 
+                || horaInicioPicker.getTime() == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Integer numReservacion = Integer.valueOf(jTextFieldNumReservacion.getText());
+        LocalDate fechaNueva = fechaPicker.getDate();
+        LocalTime horaInicio = horaInicioPicker.getTime();
+        String motivo = jTextFieldMotivo.getText();
+        String numCubiculo = (String) jComboBox1.getSelectedItem();
+        
+        reagendaDTO = new ReagendaDTO();
+        reagendaDTO.setNumReservacion(numReservacion);
+        reagendaDTO.setFechaNueva(fechaNueva);
+        reagendaDTO.setHoraInicio(horaInicio);
+        reagendaDTO.setMotivo(motivo);
+        reagendaDTO.setNombreCubiculo(numCubiculo);
+    }
+    
+    public void guardarReagenda(){
+        crearReagenda();
+        if (reagendaDTO != null) {
+            ControlNavegacion.realizarReagenda(reagendaDTO);
+            ControlNavegacion.mostrarPantallaReservacionExitosa();
+            this.dispose();
+        }
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,9 +84,9 @@ public class PantallaReagendar extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         lblTitulo = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
-        btnReservar = new javax.swing.JButton();
-        timePicker1 = new com.github.lgooddatepicker.components.TimePicker();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        btnReagendar = new javax.swing.JButton();
+        horaInicioPicker = new com.github.lgooddatepicker.components.TimePicker();
+        fechaPicker = new com.github.lgooddatepicker.components.DatePicker();
         jLabelFecha = new javax.swing.JLabel();
         jLabelHoraInicio = new javax.swing.JLabel();
         jTextFieldMotivo = new javax.swing.JTextField();
@@ -47,11 +99,11 @@ public class PantallaReagendar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         lblTitulo.setText("Reagendar Cubiculo");
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
 
-        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnVolver.setText("Volver");
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnVolver.setMaximumSize(new java.awt.Dimension(120, 70));
         btnVolver.setMinimumSize(new java.awt.Dimension(120, 70));
         btnVolver.setPreferredSize(new java.awt.Dimension(120, 70));
@@ -61,39 +113,39 @@ public class PantallaReagendar extends javax.swing.JFrame {
             }
         });
 
-        btnReservar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnReservar.setText("Reservar");
-        btnReservar.setMaximumSize(new java.awt.Dimension(120, 70));
-        btnReservar.setMinimumSize(new java.awt.Dimension(120, 70));
-        btnReservar.setPreferredSize(new java.awt.Dimension(120, 70));
-        btnReservar.addActionListener(new java.awt.event.ActionListener() {
+        btnReagendar.setText("Reagendar");
+        btnReagendar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnReagendar.setMaximumSize(new java.awt.Dimension(120, 70));
+        btnReagendar.setMinimumSize(new java.awt.Dimension(120, 70));
+        btnReagendar.setPreferredSize(new java.awt.Dimension(120, 70));
+        btnReagendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservarActionPerformed(evt);
+                btnReagendarActionPerformed(evt);
             }
         });
 
-        timePicker1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        horaInicioPicker.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        datePicker1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        fechaPicker.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jLabelFecha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabelFecha.setText("Fecha de Reserva");
+        jLabelFecha.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jLabelHoraInicio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabelHoraInicio.setText("Hora Inicio");
+        jLabelHoraInicio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         jTextFieldMotivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jLabelMotivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabelMotivo.setText("Motivo");
+        jLabelMotivo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
-        jLabelCubiculo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabelCubiculo.setText("Cubículo");
+        jLabelCubiculo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jLabelNumReservacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabelNumReservacion.setText("Numero Reservacion");
+        jLabelNumReservacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         jTextFieldNumReservacion.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -107,7 +159,7 @@ public class PantallaReagendar extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReagendar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(290, 290, 290))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,8 +180,8 @@ public class PantallaReagendar extends javax.swing.JFrame {
                                 .addComponent(jLabelFecha))
                             .addGap(18, 18, 18)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(horaInicioPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(fechaPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
@@ -159,13 +211,11 @@ public class PantallaReagendar extends javax.swing.JFrame {
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabelFecha))
-                    .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelFecha)
+                    .addComponent(fechaPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(timePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(horaInicioPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelHoraInicio))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -180,7 +230,7 @@ public class PantallaReagendar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReagendar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13))
         );
 
@@ -191,15 +241,16 @@ public class PantallaReagendar extends javax.swing.JFrame {
         ControlNavegacion.volverPantallaAnterior();
     }//GEN-LAST:event_btnVolverActionPerformed
 
-    private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReservarActionPerformed
+    private void btnReagendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReagendarActionPerformed
+        guardarReagenda();
+    }//GEN-LAST:event_btnReagendarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnReservar;
+    private javax.swing.JButton btnReagendar;
     private javax.swing.JButton btnVolver;
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
+    private com.github.lgooddatepicker.components.DatePicker fechaPicker;
+    private com.github.lgooddatepicker.components.TimePicker horaInicioPicker;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelCubiculo;
     private javax.swing.JLabel jLabelFecha;
@@ -212,6 +263,5 @@ public class PantallaReagendar extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldMotivo;
     private javax.swing.JTextField jTextFieldNumReservacion;
     private javax.swing.JLabel lblTitulo;
-    private com.github.lgooddatepicker.components.TimePicker timePicker1;
     // End of variables declaration//GEN-END:variables
 }

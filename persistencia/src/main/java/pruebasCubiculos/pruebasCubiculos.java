@@ -6,9 +6,11 @@ package pruebasCubiculos;
 
 import DAOsMongo.FabricaDAOsMongo;
 import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
+import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
 import IDAOs.IFabricaDAOs;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
+import IDAOs.cubiculos.IReservacionDAO;
 import entidades.Cubiculo;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class pruebasCubiculos {
         IFabricaDAOs fabrica = new FabricaDAOsMongo();
         ICubiculoDAO cubiculoDAO = fabrica.getCubiculoDAO();
         IContadorReservaciones contadorDAO = fabrica.getContadorReservaciones();
+        IReservacionDAO reservacionDAO = fabrica.getReservacionDAO();
 
         try {
             // Obtener cubículos desde la base de datos
@@ -35,7 +38,7 @@ public class pruebasCubiculos {
             
             System.out.println("-----");
             
-            CubiculoCompletoDTOPersistencia dto = cubiculoDAO.obtenerPorNombre("Cubículo A");
+            ReservacionDTOCompletaPersistencia dto = reservacionDAO.buscarPorId(2);
             System.out.println(dto);
             
         } catch (Exception e) {

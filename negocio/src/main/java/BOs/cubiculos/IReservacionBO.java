@@ -16,6 +16,6 @@ public interface IReservacionBO {
     
     public Integer agregarReservacion (ReservacionCompletaDTO reservacion) throws NegocioCubiculoException;
     
-    
+    public ReservacionCompletaDTO buscarPorId (Integer id) throws NegocioCubiculoException;
     
 }
