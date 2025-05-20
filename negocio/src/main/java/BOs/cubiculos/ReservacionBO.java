@@ -17,6 +17,7 @@ import acceso.AccesoDatos;
 import enumCubiculos.Estado;
 import excepciones.NegocioCubiculoException;
 import excepciones.PersistenciaCubiculoEsception;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,6 +66,17 @@ public class ReservacionBO implements IReservacionBO{
         } catch (PersistenciaCubiculoEsception ex) {
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al buscar reservacion por id");
+        }
+    }
+
+    @Override
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo, LocalDateTime fechaHora)  throws NegocioCubiculoException{
+        try {
+            reservacionDAO.modificarReservacion(numReservacion, numReservacionNueva, motivo, fechaHora);
+            return true;
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al modificar la reservación original");
         }
     }
     

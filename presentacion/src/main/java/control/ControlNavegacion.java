@@ -871,7 +871,11 @@ public class ControlNavegacion {
     
     public static Integer realizarReagenda(ReagendaDTO reagenda) {
         try {
-            return gestorCubiculos.realizarReagenda(reagenda);
+            Integer numReservacionNuevo;
+            numReservacionNuevo = gestorCubiculos.realizarReagenda(reagenda);
+            gestorCubiculos.modificarReservacion(reagenda.getNumReservacion(), numReservacionNuevo, reagenda.getMotivo());
+            
+            return numReservacionNuevo;
         } catch (GestionCubiculosException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return null;

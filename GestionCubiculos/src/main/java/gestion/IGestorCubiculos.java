@@ -31,4 +31,6 @@ public interface IGestorCubiculos {
     
     public Integer realizarReagenda(ReagendaDTO reagenda) throws GestionCubiculosException;
     
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo) throws GestionCubiculosException;
+    
 }

@@ -7,6 +7,7 @@ package BOs.cubiculos;
 import DTOs.cubiculos.ReservacionCompletaDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.NegocioCubiculoException;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -17,5 +18,7 @@ public interface IReservacionBO {
     public Integer agregarReservacion (ReservacionCompletaDTO reservacion) throws NegocioCubiculoException;
     
     public ReservacionCompletaDTO buscarPorId (Integer id) throws NegocioCubiculoException;
+    
+    public boolean modificarReservacion (Integer numReservacion, Integer numReservacionNueva, String motivo, LocalDateTime fechaHora) throws NegocioCubiculoException;
     
 }

@@ -19,6 +19,7 @@ import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import excepciones.NegocioCubiculoException;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.logging.Level;
@@ -146,5 +147,16 @@ public class GestorCubiculos implements IGestorCubiculos {
             throw new GestionCubiculosException("Error al registar la reagenda");
         }
 
+    }
+
+    @Override
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo) throws GestionCubiculosException {
+        try {
+            reservacionBO.modificarReservacion(numReservacion, numReservacionNueva, motivo, LocalDateTime.now());
+            return true;
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al modificar la reservcion");
+        }
     }
 }

@@ -24,9 +24,7 @@ public interface IReservacionDAO {
     public ReservacionDTOCompletaPersistencia buscarPorId(Integer numReservacion) throws PersistenciaCubiculoEsception;
     
     public List<ReservacionDTOCompletaPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception;
-
-    public boolean cancelacionReservacion(Integer numReservacion, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
     
-    public boolean reagendaReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
 
 }

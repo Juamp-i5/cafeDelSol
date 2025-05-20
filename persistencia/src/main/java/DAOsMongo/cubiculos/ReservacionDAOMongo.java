@@ -137,37 +137,25 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     }
 
     @Override
-    public boolean cancelacionReservacion(Integer numReservacion, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
         try {
             Bson filtro = Filters.eq("numReservacion", numReservacion);
+            Bson actualizacion;
 
-            Bson actualizacion = Updates.combine(
-                    Updates.set("motivo", motivo),
-                    Updates.set("fechaHora", fechaHora)
-            );
-
-            UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
-
-            if (resultado.getMatchedCount() == 0) {
-                throw new PersistenciaCubiculoEsception("No se encontró la reservación.");
+            if (numReservacionNuevo == null) {
+                actualizacion = Updates.combine(
+                        Updates.set("estado", Estado.CANCELADO),
+                        Updates.set("motivo", motivo),
+                        Updates.set("fechModificacion", fechaHora)
+                );
+            } else {
+                actualizacion = Updates.combine(
+                        Updates.set("estado", Estado.REAGENDADO),
+                        Updates.set("numReservacionNuevo", numReservacionNuevo),
+                        Updates.set("motivo", motivo),
+                        Updates.set("fechaHora", fechaHora)
+                );
             }
-
-            return resultado.wasAcknowledged();
-        } catch (Exception e) {
-            throw new PersistenciaCubiculoEsception("Error al cancelar la reservacion", e);
-        }
-    }
-
-    @Override
-    public boolean reagendaReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
-        try {
-            Bson filtro = Filters.eq("numReservacion", numReservacion);
-
-            Bson actualizacion = Updates.combine(
-                    Updates.set("numReservacionNuevo", numReservacionNuevo),
-                    Updates.set("motivo", motivo),
-                    Updates.set("fechaHora", fechaHora)
-            );
 
             UpdateResult resultado = coleccion.updateOne(filtro, actualizacion);
 
