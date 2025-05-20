@@ -87,10 +87,13 @@ public class SalidaDAOMongo implements ISalidaDAO{
     @Override
     public Salida consultarPorId(ObjectId id) throws PersistenciaSalidasException {
         try {
-            return coleccion.find(Filters.eq("_id", id)).first();
+            Salida salida = coleccion.find(Filters.eq("_id", id)).first();
+            if (salida == null) {
+                throw new PersistenciaSalidasException("No se encontró ninguna salida con ese ID.");
+            }
+            return salida;
         } catch (Exception e) {
             throw new PersistenciaSalidasException("Error al consultar la salida por ID: " + e.getMessage(), e);
         }
     }
-    
 }
