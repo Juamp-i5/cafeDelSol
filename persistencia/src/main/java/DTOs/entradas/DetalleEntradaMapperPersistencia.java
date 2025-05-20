@@ -3,6 +3,7 @@ package DTOs.entradas;
 import entidades.DetalleEntrada;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -25,8 +26,13 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
         detalles.setNombreIngrediente(detallesDTO.getNombreIngrediente());
         detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
         detalles.setCantidad(detallesDTO.getCantidadIngrediente());
-        detalles.setIdIngrediente(detalles.getIdIngrediente());
+
+//        String idHex = detallesDTO.getIdIngrediente();
+//        ObjectId objectId = new ObjectId(idHex);
+//        detalles.setIdIngrediente(objectId);
+
         detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
+        detalles.setNivelStock(detallesDTO.getNivelStock());
         return detalles;
     }
 
@@ -36,8 +42,9 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
         detallesDTO.setCantidadIngrediente(detalles.getCantidad());
-        detallesDTO.setIngrediente(detallesDTO.getIngrediente());
+//        detallesDTO.setIdIngrediente(detalles.getIdIngrediente().toHexString());
         detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
+        detallesDTO.setNivelStock(detalles.getNivelStock());
         return detallesDTO;
     }
 

@@ -15,10 +15,12 @@ import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionCompletaDTO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import excepciones.NegocioCubiculoException;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -157,6 +159,16 @@ public class GestorCubiculos implements IGestorCubiculos {
         } catch (NegocioCubiculoException ex) {
             Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionCubiculosException("Error al modificar la reservcion");
+        }
+    }
+
+    @Override
+    public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException {
+        try {
+            return reservacionBO.obtenerReservacionesPendientes(fechaInicio, fechaFin);
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al cargar reservaciones sin concluir");
         }
     }
 }

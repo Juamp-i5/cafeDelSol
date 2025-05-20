@@ -1,6 +1,7 @@
 package DTOs.CRUDEntradas;
 
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
+import DTOs.CRUDIngredientes.NivelStock;
 
 /**
  *
@@ -11,16 +12,18 @@ public class DetalleEntradaDTO {
     private Double precioUnitario;
     private Double precioTotal;
     private Double cantidadIngrediente;
+    private NivelStock nivelStock;
     private String idIngrediente;
 
     public DetalleEntradaDTO() {
     }
 
-    public DetalleEntradaDTO(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String idIngrediente) {
+    public DetalleEntradaDTO(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, NivelStock nivelStock, String idIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidadIngrediente = cantidadIngrediente;
+        this.nivelStock = nivelStock;
         this.idIngrediente = idIngrediente;
     }
 
@@ -64,8 +67,16 @@ public class DetalleEntradaDTO {
         this.idIngrediente = idIngrediente;
     }
 
+    public NivelStock getNivelStock() {
+        return nivelStock;
+    }
+
+    public void setNivelStock(NivelStock nivelStock) {
+        this.nivelStock = nivelStock;
+    }
+
     @Override
     public String toString() {
-        return "DetalleEntradaDTO{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", idIngrediente=" + idIngrediente + '}';
+        return "DetalleEntradaDTO{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + '}';
     }
 }

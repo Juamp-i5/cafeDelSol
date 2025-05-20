@@ -8,6 +8,7 @@ import pantallas.*;
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import control.Modo;
 import exception.GestionException;
 import java.awt.event.ActionEvent;
@@ -31,93 +32,75 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
 
     /**
-     * Constructor de la clase TotalDesglosado. Inicializa los componentes de la
+     * Constructor de la clase PantallaVerReservaciones. Inicializa los componentes de la
      * interfaz y ajusta el tamaño de la ventana.
      *
-     * Llama a los métodos para cargar los productos del pedido y ajustar el
+     * Llama a los métodos para cargar las reservaciones pendientes e iniciadas y ajustar el
      * scroll.
      */
     public PantallaVerReservaciones() {
         initComponents();
         setSize(1000, 800);
-        cargarPanelesProductosPedidos();
+        cargarPanelesReservaciones();
         ajustarScroll();
     }
 
     /**
-     * Ajusta el comportamiento del scroll vertical de los productos en el
+     * Ajusta el comportamiento del scroll vertical de las reservaciones en el
      * panel.
      */
     private void ajustarScroll() {
-        pnlProductosPedidos.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
+        pnlVerReservaciones.getVerticalScrollBar().setUnitIncrement(MOVIMIENTO_SCROLL_MOUSE);
     }
 
     /**
-     * Carga los paneles de los productos pedidos y actualiza la información del
-     * total.
+     * Carga los paneles de las reservaciones
      */
-    public void cargarPanelesProductosPedidos() {
-        int posicionScroll = pnlProductosPedidos.getVerticalScrollBar().getValue();
-        JPanel contenedorPanelesProductosPedidos = obtenerPanelesProductosPedidos();
-        this.pnlProductosPedidos.setViewportView(contenedorPanelesProductosPedidos);
-        pnlProductosPedidos.getVerticalScrollBar().setValue(posicionScroll);
+    public void cargarPanelesReservaciones() {
+        int posicionScroll = pnlVerReservaciones.getVerticalScrollBar().getValue();
+        JPanel contenedorPanelesReservaciones = obtenerPanelesReservaciones();
+        this.pnlVerReservaciones.setViewportView(contenedorPanelesReservaciones);
+        pnlVerReservaciones.getVerticalScrollBar().setValue(posicionScroll);
     }
 
     /**
-     * Obtiene un panel que contiene todos los productos en el pedido.
+     * Obtiene un panel que contiene todos los datos de las reservaciones.
      *
-     * @return JPanel que contiene los productos pedidos.
+     * @return JPanel que contiene los datos de las reservaciones.
      */
-    private JPanel obtenerPanelesProductosPedidos() {
-        PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+    private JPanel obtenerPanelesReservaciones() {
+        
+        List<ReservacionDTOMostrar> listaVerReservaciones = ControlNavegacion.cargarReservacionesPendientes(null, null);
 
-        JPanel contenedorPanelesProductosPedidos = new JPanel();
-        contenedorPanelesProductosPedidos.setLayout(new BoxLayout(contenedorPanelesProductosPedidos, BoxLayout.Y_AXIS));
+        JPanel contenedorPanelesVerReservaciones = new JPanel();
+        contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
 
-        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
-            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
-            configurarPanelProducto(panelProductoPedido);
-            contenedorPanelesProductosPedidos.add(panelProductoPedido);
+        for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
+            PanelReservacion panelReservacion = new PanelReservacion(reservacion);
+            configurarPanelProducto(panelReservacion);
+            contenedorPanelesVerReservaciones.add(panelReservacion);
         }
 
-        return contenedorPanelesProductosPedidos;
+        return contenedorPanelesVerReservaciones;
     }
 
     /**
-     * Configura los listeners para cada panel de producto (editar, cancelar,
-     * agregar cantidad, quitar cantidad).
+     * Configura los listeners para cada panel de reservacion (iniciar, cancelar).
      *
-     * @param panelProductoPedido El panel del producto para configurar.
+     * @param panelRes El panel de reservacion a configurar.
      */
-    private void configurarPanelProducto(PanelProductoPedido panelProductoPedido) {
-        panelProductoPedido.setCancelarActionListener(new ActionListener() {
+    private void configurarPanelProducto(PanelReservacion panelRes) {
+        panelRes.setCancelarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                cancelarProductoPedido(panelProductoPedido.getProductoPedido());
             }
         });
-
-        panelProductoPedido.setEditarActionListener(new ActionListener() {
+        panelRes.setIniciarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                editarProductoPedido(panelProductoPedido.getProductoPedido());
             }
         });
-
-        panelProductoPedido.setAgregarCantidadActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                agregarCantidad(panelProductoPedido.getProductoPedido());
-            }
-        });
-
-        panelProductoPedido.setQuitarCantidadActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                quitarCantidad(panelProductoPedido.getProductoPedido());
-            }
-        });
+        
 
     }
 
@@ -140,78 +123,11 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
 
             ControlNavegacion.mostrarPantallaProductoPedidoCancelado(this);
 
-            cargarPanelesProductosPedidos();
+            cargarPanelesReservaciones();
         }
     }
 
-    /**
-     * Cancela todo el pedido y navega a la pantalla principal.
-     */
-    private void cancelarPedido() {
-        int opc = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas cancelar el pedido?",
-                "Confirmar cancelación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
 
-        if (opc == JOptionPane.YES_OPTION) {
-            ControlNavegacion.cancelarPedido();
-
-            ControlNavegacion.mostrarPantallaPedidoCancelado(this);
-            this.dispose();
-
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    ControlNavegacion.mostrarPantallaMenuPrincipal();
-                }
-            }, 1000);
-        }
-    }
-
-    /**
-     * Abre la pantalla para editar un producto del pedido.
-     *
-     * @param productoPedido El producto a editar.
-     */
-    private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
-        this.dispose();
-        ControlNavegacion.mostrarPantallaEditarProducto(productoPedido);
-    }
-
-    /**
-     * Incrementa la cantidad de un producto en el pedido. Si la cantidad es
-     * menor a 99, la aumenta en 1.
-     *
-     * @param productoPedido El producto a modificar.
-     */
-    private void agregarCantidad(ProductoPedidoDTO productoPedido) {
-        if (productoPedido.getCantidad() < 99) {
-            productoPedido.setCantidad(productoPedido.getCantidad() + 1);
-            ControlNavegacion.actualizarTotal();
-            cargarPanelesProductosPedidos();
-        } else {
-            JOptionPane.showMessageDialog(this, "La cantidad máxima permitida es 99.", "Límite alcanzado", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
-    /**
-     * Disminuye la cantidad de un producto en el pedido. Si la cantidad es
-     * mayor a 1, la disminuye en 1.
-     *
-     * @param productoPedido El producto a modificar.
-     */
-    private void quitarCantidad(ProductoPedidoDTO productoPedido) {
-        if (productoPedido.getCantidad() != 1) {
-            productoPedido.setCantidad(productoPedido.getCantidad() - 1);
-            ControlNavegacion.actualizarTotal();
-            cargarPanelesProductosPedidos();
-        } else {
-            JOptionPane.showMessageDialog(this, "La cantidad mínima permitida es 1.", "Mínimo alcanzado", JOptionPane.WARNING_MESSAGE);
-        }
-    }
 
     /**
      * Thte javax.swing.JButton btnTarjeta; private javax.swing.JLabel lblSigno;
@@ -225,7 +141,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlProductosPedidos = new javax.swing.JScrollPane();
+        pnlVerReservaciones = new javax.swing.JScrollPane();
         btnVolver = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabelTitulo = new javax.swing.JLabel();
@@ -249,7 +165,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(104, Short.MAX_VALUE)
-                .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlVerReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
@@ -270,7 +186,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlProductosPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlVerReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -302,6 +218,6 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JScrollPane pnlProductosPedidos;
+    private javax.swing.JScrollPane pnlVerReservaciones;
     // End of variables declaration//GEN-END:variables
 }

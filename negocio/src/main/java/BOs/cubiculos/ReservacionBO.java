@@ -4,20 +4,18 @@
  */
 package BOs.cubiculos;
 
-import BOs.ingredientes.IIngredienteMapper;
-import BOs.ingredientes.IngredienteBO;
-import BOs.ingredientes.IngredienteMapper;
 import DTOs.cubiculos.ReservacionCompletaDTO;
 import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
-import DTOs.cubiculos.ReservacionNuevaDTO;
-import IDAOs.cubiculos.ICubiculoDAO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import IDAOs.cubiculos.IReservacionDAO;
-import IDAOs.ingredientes.IIngredienteDAOMongo;
 import acceso.AccesoDatos;
 import enumCubiculos.Estado;
 import excepciones.NegocioCubiculoException;
 import excepciones.PersistenciaCubiculoEsception;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +27,7 @@ public class ReservacionBO implements IReservacionBO{
 
     IReservacionDAO reservacionDAO = AccesoDatos.getReservacionDAO();
     IReservacionMapper mapperReservacion = new ReservacionMapper();
+    IReservacionMostrarMapper mapperMostrar = new ReservacionMostrarMapper();
     
     private static ReservacionBO instanceBO;
 
@@ -77,6 +76,24 @@ public class ReservacionBO implements IReservacionBO{
         } catch (PersistenciaCubiculoEsception ex) {
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al modificar la reservación original");
+        }
+    }
+
+    @Override
+    public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException {
+        try {
+            List<ReservacionDTOCompletaPersistencia> listaPers = reservacionDAO.buscarPendientesPorRangoFechas(fechaInicio, fechaFin);
+            List<ReservacionDTOMostrar> listaDTO = new ArrayList<>();
+            
+            for (ReservacionDTOCompletaPersistencia pers : listaPers) {
+                ReservacionDTOMostrar dto = mapperMostrar.toDTO(pers);
+                listaDTO.add(dto);
+            }
+            return listaDTO;
+            
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al obtener reservaciones inconclusas por rango de fechas");
         }
     }
     

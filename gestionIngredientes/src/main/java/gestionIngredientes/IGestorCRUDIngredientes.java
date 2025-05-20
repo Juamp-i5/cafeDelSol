@@ -28,4 +28,5 @@ public interface IGestorCRUDIngredientes {
 
     public boolean reducirStock(String idIngrediente, Double cantidad) throws GestionCRUDIngredientesException;
 
+    public void actualizarNivelStock(String idIngrediente) throws GestionCRUDIngredientesException;
 }

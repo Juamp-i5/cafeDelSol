@@ -22,6 +22,7 @@ import DTOs.TarjetaDTO;
 import DTOs.ToppingMostrarDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
@@ -39,6 +40,7 @@ import gestion.ManejadorPedidos;
 import gestionIngredientes.GestorCRUDIngredientes;
 import gestionIngredientes.IGestorCRUDIngredientes;
 import java.awt.Component;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -63,6 +65,7 @@ import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
 import pantallas.cubiculos.PagoEfectivoCubiculos;
 import pantallas.cubiculos.PantallaReagendar;
+import pantallas.cubiculos.PantallaVerReservaciones;
 import pantallas.ingredientes.PantallaAgregarIngrediente;
 import pantallas.ingredientes.PantallaBuscarIngrediente;
 import pantallas.ingredientes.PantallaEditarDetallesIngrediente;
@@ -547,7 +550,7 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaReservar);
     }
-    
+
     public static void mostrarPantallaGestionInventario() {
         JFrame gestionInventario = new PantallaMenuGestionInventario();
         gestionInventario.setLocationRelativeTo(null);
@@ -692,7 +695,7 @@ public class ControlNavegacion {
         frame.setVisible(true);
     }
 
-    public static void mostrarPantallaBuscadorIngrediente(Consumer<DetallesIngredienteViejoDTO> regreso) {
+    public static void mostrarPantallaBuscadorIngrediente(Consumer<IngredienteViejoListDTO> regreso) {
         JFrame frame = new BuscadorIngredientesSimulado(regreso);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -780,8 +783,8 @@ public class ControlNavegacion {
         }
         return null;
     }
-    
-    public static boolean aumentarStock(String idIngrediente, Double cantidad){
+
+    public static boolean aumentarStock(String idIngrediente, Double cantidad) {
         try {
             gestorCRUDIngredientes.aumentarStock(idIngrediente, cantidad);
             JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
@@ -791,6 +794,17 @@ public class ControlNavegacion {
             ex.printStackTrace();
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return false;
+        }
+    }
+    
+    public static void actualizarNivelStock(String idIngrediente){
+        try {
+            gestorCRUDIngredientes.actualizarNivelStock(idIngrediente);
+            JOptionPane.showMessageDialog(null, "Se actualizó el stock exitosamente");
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -821,27 +835,27 @@ public class ControlNavegacion {
 
         return horas * precioPorHora;
     }
-    
-    public static ReservacionNuevaDTO getReservacionNueva(){
+
+    public static ReservacionNuevaDTO getReservacionNueva() {
         return gestorCubiculos.getReservacionNueva();
     }
-    
-    public static void setReservacionNueva(ReservacionNuevaDTO reservacionNueva){
+
+    public static void setReservacionNueva(ReservacionNuevaDTO reservacionNueva) {
         gestorCubiculos.setReservacionNueva(reservacionNueva);
     }
-    
-    public static void mostrarPantallaPagoEfCubiculo(){
+
+    public static void mostrarPantallaPagoEfCubiculo() {
         JFrame pagoEfectivo = new PagoEfectivoCubiculos();
         pagoEfectivo.setLocationRelativeTo(null);
         pagoEfectivo.setVisible(true);
 
         framesVisitados.add(pagoEfectivo);
     }
-    
+
     public static double calcularCambioCubiculo(EfectivoDTOCubiculo efectivo) {
         return gestorCubiculos.calcularCambio(efectivo);
     }
-    
+
     public static void mostrarPantallaReservacionExitosa() {
         JOptionPane.showMessageDialog(null, "Reservación exitosa");
         new Timer().schedule(new TimerTask() {
@@ -851,8 +865,8 @@ public class ControlNavegacion {
             }
         }, 1000);
     }
-    
-    public static Integer realizarReservacion(){
+
+    public static Integer realizarReservacion() {
         try {
             return gestorCubiculos.realizarReservacion();
         } catch (GestionCubiculosException ex) {
@@ -860,27 +874,43 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
-        public static void mostrarPantallaReagendar() {
+
+    public static void mostrarPantallaReagendar() {
         JFrame pantallaReagendar = new PantallaReagendar();
         pantallaReagendar.setLocationRelativeTo(null);
         pantallaReagendar.setVisible(true);
 
         framesVisitados.add(pantallaReagendar);
     }
-    
+
     public static Integer realizarReagenda(ReagendaDTO reagenda) {
         try {
             Integer numReservacionNuevo;
             numReservacionNuevo = gestorCubiculos.realizarReagenda(reagenda);
             gestorCubiculos.modificarReservacion(reagenda.getNumReservacion(), numReservacionNuevo, reagenda.getMotivo());
-            
+
             return numReservacionNuevo;
         } catch (GestionCubiculosException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
+
+    public static List<ReservacionDTOMostrar> cargarReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) {
+        try {
+            return gestorCubiculos.obtenerReservacionesPendientes(fechaInicio, fechaFin);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
     
-    
+    public static void mostrarPantallaVerReservaciones() {
+        JFrame pantallaVerReservaciones = new PantallaVerReservaciones();
+        pantallaVerReservaciones.setLocationRelativeTo(null);
+        pantallaVerReservaciones.setVisible(true);
+
+        framesVisitados.add(pantallaVerReservaciones);
+    }
+
 }

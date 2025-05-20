@@ -10,19 +10,21 @@ public class DetalleEntradaDTOPersistencia {
     private Double precioUnitario;
     private Double precioTotal;
     private Double cantidadIngrediente;
-    private DetallesIngredienteViejoDTOPersistencia ingrediente;
+    private String nivelStock;
+    private String idIngrediente;
 
     public DetalleEntradaDTOPersistencia() {
     }
 
-    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, DetallesIngredienteViejoDTOPersistencia ingrediente) {
+    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidadIngrediente = cantidadIngrediente;
-        this.ingrediente = ingrediente;
+        this.nivelStock = nivelStock;
+        this.idIngrediente = idIngrediente;
     }
-
+    
     public String getNombreIngrediente() {
         return nombreIngrediente;
     }
@@ -55,16 +57,24 @@ public class DetalleEntradaDTOPersistencia {
         this.cantidadIngrediente = cantidadIngrediente;
     }
 
-    public DetallesIngredienteViejoDTOPersistencia getIngrediente() {
-        return ingrediente;
+    public String getIdIngrediente() {
+        return idIngrediente;
     }
 
-    public void setIngrediente(DetallesIngredienteViejoDTOPersistencia ingrediente) {
-        this.ingrediente = ingrediente;
+    public void setIdIngrediente(String idIngrediente) {
+        this.idIngrediente = idIngrediente;
+    }
+
+    public String getNivelStock() {
+        return nivelStock;
+    }
+
+    public void setNivelStock(String nivelStock) {
+        this.nivelStock = nivelStock;
     }
 
     @Override
     public String toString() {
-        return "DetalleEntradaNuevoDTO{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", ingrediente=" + ingrediente + '}';
+        return "DetalleEntradaDTOPersistencia{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + '}';
     }
 }

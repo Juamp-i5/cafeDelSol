@@ -1,6 +1,6 @@
 package pantallas.CRUDEntradas;
 
-import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import java.util.function.Consumer;
@@ -11,14 +11,14 @@ import java.util.function.Consumer;
  */
 public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
 
-    private Consumer<DetallesIngredienteViejoDTO> regreso;
+    private Consumer<IngredienteViejoListDTO> regreso;
     private boolean ingredienteSeleccionado = false;
 
     public BuscadorIngredientesSimulado() {
         initComponents();
     }
 
-    public BuscadorIngredientesSimulado(Consumer<DetallesIngredienteViejoDTO> regreso) {
+    public BuscadorIngredientesSimulado(Consumer<IngredienteViejoListDTO> regreso) {
         initComponents();
         this.regreso = regreso;
         configurarCierre();
@@ -103,7 +103,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("fgsdfgdsf", "Leche", 0.0, 0.0, UnidadMedida.MILILITROS, NivelStock.ENSTOCK, "Proveedor"));
+            regreso.accept(new IngredienteViejoListDTO("fgsdfgdsf", "Leche", 0.0,UnidadMedida.MILILITROS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -111,7 +111,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("fsgfhdf", "Barras de chocolate", 0.0, 0.0, UnidadMedida.GRAMOS, NivelStock.ENSTOCK, "Proveedor2"));
+            regreso.accept(new IngredienteViejoListDTO("fsgfhdf", "Barras de chocolate", 0.0,UnidadMedida.GRAMOS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -119,7 +119,7 @@ public class BuscadorIngredientesSimulado extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (regreso != null) {
             ingredienteSeleccionado = true;
-            regreso.accept(new DetallesIngredienteViejoDTO("rtyjryjryj", "Galletas", 0.0, 0.0, UnidadMedida.GRAMOS, NivelStock.ENSTOCK , "Proveedor3"));
+            regreso.accept(new IngredienteViejoListDTO("rtyjryjryj", "Galletas", 0.0, UnidadMedida.GRAMOS, NivelStock.ENSTOCK));
             this.dispose();
         }
     }//GEN-LAST:event_jButton3ActionPerformed

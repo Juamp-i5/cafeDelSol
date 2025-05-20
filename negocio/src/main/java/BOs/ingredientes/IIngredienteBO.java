@@ -27,4 +27,6 @@ public interface IIngredienteBO {
     public boolean reducirStock(String idIngrediente,Double cantidad) throws NegocioException;
         
     public boolean obtenerIngredientePorNombre(String nombre) throws NegocioException;
+    
+    public void actualizarNivelStock(String idIngrediente)throws NegocioException;
 }

@@ -2,6 +2,7 @@ package pantallas.CRUDEntradas;
 
 import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import DTOs.CRUDEntradas.EntradaViejaDTO;
+import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -21,10 +22,8 @@ import java.awt.HeadlessException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -59,16 +58,18 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
             List<DetalleEntradaDTO> registros = entrada.getDetallesEntrada();
             if (registros != null) {
                 for (DetalleEntradaDTO registro : registros) {
+//                    List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(registro.getNombreIngrediente(), registro.getNivelStock().toString());
+//                    IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
                     modelo.addRow(new Object[]{
                         registro.getNombreIngrediente(),
                         null,
-//                        registro.getIngrediente().getCantidadDisponible(),
+//                        ingrediente.getCantidadDisponible(),
                         null,
-//                        registro.getIngrediente().getUnidadMedida(),
+//                        ingrediente.getUnidadMedida(),
                         registro.getPrecioUnitario(),
                         registro.getPrecioTotal(),
                         null
-//                        registro.getIngrediente().getNivelStock()
+//                        ingrediente.getNivelStock()
                     });
                 }
             }
@@ -87,7 +88,7 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
             Phrase pagina = new Phrase("Pagina " + w.getPageNumber(), font);
 
             ColumnText.showTextAligned(pcb, Element.ALIGN_LEFT, titulo, documento.leftMargin(), documento.top() + 10, 0);
-            ColumnText.showTextAligned(pcb, Element.ALIGN_RIGHT, pagina, documento.right() - documento.left(), documento.bottom() - 20, 0); // Move page number to bottom
+            ColumnText.showTextAligned(pcb, Element.ALIGN_RIGHT, pagina, documento.right() - documento.left(), documento.bottom() - 20, 0); 
         }
     }
 
@@ -132,20 +133,23 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
 
         if (entrada != null && entrada.getDetallesEntrada() != null) {
             for (DetalleEntradaDTO detalle : entrada.getDetallesEntrada()) {
+//                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(detalle.getNombreIngrediente(), detalle.getNivelStock().toString());
+//                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
+                
                 tabla.addCell(new Phrase(detalle.getNombreIngrediente(), cuerpoFont));
                 tabla.addCell(new Phrase(" ")); //Stock actual
                 tabla.addCell(new Phrase(" ")); //Unidad de medida
-                tabla.addCell(new Phrase(String.valueOf(detalle.getPrecioUnitario()), cuerpoFont));
+                tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioUnitario()), cuerpoFont));
                 tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioTotal()), cuerpoFont));
-//                tabla.addCell(new Phrase(String.valueOf(detalle.getIngrediente().getUnidadMedida()), cuerpoFont)); //Unidad de medida
-//                tabla.addCell(new Phrase(String.valueOf(detalle.getIngrediente().getCantidadDisponible()), cuerpoFont)); //Stock actual
+//                tabla.addCell(new Phrase(String.valueOf(ingrediente.getUnidadMedida()), cuerpoFont)); //Unidad de medida
+//                tabla.addCell(new Phrase(String.valueOf(ingrediente.getCantidadDisponible()), cuerpoFont)); //Stock actual
             }
         }
 
         documento.add(tabla);
 
         documento.add(new Paragraph(" "));
-        Paragraph total = new Paragraph("Precio total de entrada: $" + String.format("%.0f", entrada.getPrecioTotal()), cuerpoFont); // Format total without decimals as in image
+        Paragraph total = new Paragraph("Precio total de entrada: $" + String.format("%.2f", entrada.getPrecioTotal()), cuerpoFont); 
         documento.add(total);
         Paragraph proveedor = new Paragraph("Proveedor: " + entrada.getProveedor(), cuerpoFont);
         documento.add(proveedor);

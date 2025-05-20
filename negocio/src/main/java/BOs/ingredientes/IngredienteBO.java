@@ -101,5 +101,13 @@ public class IngredienteBO implements IIngredienteBO{
             throw new NegocioException("Error al obtener el ingrediente por nombre.");
         }
     }
-
+    
+    @Override
+    public void actualizarNivelStock(String idIngrediente)throws NegocioException{
+        try {
+            ingredienteDAO.actualizarNivelStock(idIngrediente);
+        } catch (PersistenciaIngredientesException ex) {
+            throw new NegocioException("Error al actualizar el nivel de stock.");
+        }
+    }
 }

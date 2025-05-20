@@ -6,38 +6,60 @@ package pantallas.cubiculos;
 
 import pantallas.*;
 import DTOs.ProductoPedidoDTO;
+import DTOs.cubiculos.ReservacionDTOMostrar;
 import java.awt.event.ActionListener;
 
 /**
- * Clase que representa un panel para mostrar los detalles de un producto en un
- * pedido como el producto, tamaño, sabor, topping, cantidad y precio. Además,
- * permite la edición de la cantidad y la cancelación de un pedido de producto.
+ * Clase que representa un panel para mostrar los detalles de una reservacion
+ * como el numero, nombre, cubiculo, estado, fecha, hora inicio y fin. Además,
+ * permite iniciar o cancelar la reservacion.
  *
- * @author norma
+ * @author rodri
  */
 public class PanelReservacion extends javax.swing.JPanel {
 
-    private ProductoPedidoDTO productoPedido;
-
+    ReservacionDTOMostrar dtoMostrar;
+    
     /**
-     * Crea un nuevo panel para mostrar la información de un producto pedido en
-     * el pedido.
+     * Crea un nuevo panel para mostrar la información de una reservacion
      *
-     * @param productoPedido El objeto que contiene la información del producto
-     * y su pedido.
+     * @param reservacionMostrar El objeto que contiene la información de la reservacion
+     * 
      */
-    public PanelReservacion(ProductoPedidoDTO productoPedido) {
+    public PanelReservacion(ReservacionDTOMostrar reservacionMostrar) {
         initComponents();
-        this.productoPedido = productoPedido;
-        this.lblNombreCliente.setText(productoPedido.getProducto().getNombre());
-        this.lblTopping.setText("");
-        if (productoPedido.getTopping() != null) {
-            this.lblTopping.setText(productoPedido.getTopping().getNombre());
-        }
-        double costo = productoPedido.getCosto();
-        this.lblFechaTxt.setText(String.format("%.2f", costo));
+        this.dtoMostrar = reservacionMostrar;
+        
+        this.lblNumReservacion.setText(String.valueOf("N#: " + dtoMostrar.getNumReservacion()));
+        this.lblNombre.setText(dtoMostrar.getNombre());
+        this.lblNombreCubiculo.setText(dtoMostrar.getNombreCubiculo());
+        this.lblEstado.setText(dtoMostrar.getEstado());
+        this.lblFecha.setText(dtoMostrar.getFechaInicio().toString());
+        this.lblHoraInicio.setText(dtoMostrar.getHoraInicio().toString());
+        this.lblHoraFin.setText(dtoMostrar.getHoraFin().toString());
     }
     
+    public ReservacionDTOMostrar getProductoPedido() {
+        return this.dtoMostrar;
+    }
+    
+    /**
+     * Establece el escuchador de acción para el botón de cancelar.
+     *
+     * @param listener El escuchador de acción para el botón de cancelar.
+     */
+    public void setCancelarActionListener(ActionListener listener) {
+        this.btnCancelar.addActionListener(listener);
+    }
+    
+    /**
+     * Establece el escuchador de acción para el botón de iniciar.
+     *
+     * @param listener El escuchador de acción para el botón de iniciar.
+     */
+    public void setIniciarActionListener(ActionListener listener) {
+        this.btnIniciar.addActionListener(listener);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,7 +69,7 @@ public class PanelReservacion extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblNombreCliente = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         lblFechaTxt = new javax.swing.JLabel();
         btnIniciar = new javax.swing.JButton();
         lblTopping = new javax.swing.JLabel();
@@ -59,12 +81,13 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblHoraFin = new javax.swing.JLabel();
         lblNombreCubiculo = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
+        lblNumReservacion = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        lblNombreCliente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblNombreCliente.setText("Nombre");
+        lblNombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNombre.setText("Nombre");
 
         lblFechaTxt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblFechaTxt.setText("Fecha:");
@@ -112,6 +135,9 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblEstado.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblEstado.setText("Estado");
 
+        lblNumReservacion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNumReservacion.setText("00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,23 +153,27 @@ public class PanelReservacion extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblFechaTxt)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblFecha))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lblHoraTxt)
                                         .addGap(18, 18, 18)
                                         .addComponent(lblHoraInicio)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGap(32, 32, 32)
                                         .addComponent(lblFechaSeparador)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblHoraFin)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(49, 49, 49)
+                                        .addComponent(lblHoraFin))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(lblNumReservacion)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblNombre))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(lblFechaTxt)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(lblFecha))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblNombreCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblNombreCubiculo)
-                                .addGap(133, 133, 133)))
+                                .addGap(71, 71, 71)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblEstado)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -157,8 +187,7 @@ public class PanelReservacion extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblNombreCliente)
-                        .addGap(33, 33, 33)
+                        .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblFechaTxt)
                             .addComponent(lblFecha))
@@ -172,7 +201,9 @@ public class PanelReservacion extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(lblEstado)
-                                .addComponent(lblNombreCubiculo))
+                                .addComponent(lblNombreCubiculo)
+                                .addComponent(lblNombre)
+                                .addComponent(lblNumReservacion))
                             .addGap(140, 140, 140))
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnIniciar)
@@ -202,8 +233,9 @@ public class PanelReservacion extends javax.swing.JPanel {
     private javax.swing.JLabel lblHoraFin;
     private javax.swing.JLabel lblHoraInicio;
     private javax.swing.JLabel lblHoraTxt;
-    private javax.swing.JLabel lblNombreCliente;
+    private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombreCubiculo;
+    private javax.swing.JLabel lblNumReservacion;
     private javax.swing.JLabel lblTopping;
     // End of variables declaration//GEN-END:variables
 }

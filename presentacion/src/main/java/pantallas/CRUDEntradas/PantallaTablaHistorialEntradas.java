@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 
 /**
@@ -24,6 +25,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
     private DatePicker datePickerInicio;
     private DatePicker datePickerFin;
     private List<EntradaViejaDTO> listaEntradas;
+    private Timer debounceTimer;
 
     /**
      * Creates new form PantallaTablaHistorialEntradas
@@ -44,8 +46,11 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         settingsFin.setFormatForDatesCommonEra("dd/MM/yyyy");
         datePickerFin = new DatePicker(settingsFin);
 
-        datePickerInicio.addDateChangeListener(event -> actualizarComandasFiltradas());
-        datePickerFin.addDateChangeListener(event -> actualizarComandasFiltradas());
+        debounceTimer = new Timer(400, e -> actualizarFechasFiltradas());
+        debounceTimer.setRepeats(false);
+
+        datePickerInicio.addDateChangeListener(event -> reiniciarDebounce());
+        datePickerFin.addDateChangeListener(event -> reiniciarDebounce());
 
         pnlFechas.setLayout(new BoxLayout(pnlFechas, BoxLayout.Y_AXIS));
         pnlFechas.add(datePickerInicio);
@@ -75,7 +80,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         }
     }
 
-    private void actualizarComandasFiltradas() {
+    private void actualizarFechasFiltradas() {
         LocalDate fechaInicio = datePickerInicio.getDate();
         LocalDate fechaFin = datePickerFin.getDate();
 
@@ -109,6 +114,14 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
                 }
             }
         });
+    }
+
+    private void reiniciarDebounce() {
+        if (debounceTimer.isRunning()) {
+            debounceTimer.restart();
+        } else {
+            debounceTimer.start();
+        }
     }
 
     /**

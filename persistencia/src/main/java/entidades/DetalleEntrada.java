@@ -12,16 +12,18 @@ public class DetalleEntrada {
     private Double precioUnitario;
     private Double precioTotal;
     private Double cantidad;
+    private String nivelStock;
     private ObjectId idIngrediente;
 
     public DetalleEntrada() {
     }
 
-    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, ObjectId idIngrediente) {
+    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, String nivelStock, ObjectId idIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidad = cantidad;
+        this.nivelStock = nivelStock;
         this.idIngrediente = idIngrediente;
     }
 
@@ -63,5 +65,13 @@ public class DetalleEntrada {
 
     public void setIdIngrediente(ObjectId idIngrediente) {
         this.idIngrediente = idIngrediente;
+    }
+
+    public String getNivelStock() {
+        return nivelStock;
+    }
+
+    public void setNivelStock(String nivelStock) {
+        this.nivelStock = nivelStock;
     }
 }
