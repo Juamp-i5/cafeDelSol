@@ -138,4 +138,23 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    @Override
+    public DetallesIngredienteViejoDTO obtenerIngredientePorNombre(String nombre) throws GestionCRUDIngredientesException {
+        try {
+            List<IngredienteViejoListDTO> lista = ingredienteBO.buscarIngredientesPorFiltros(nombre, null);
+            if (lista == null || lista.isEmpty()) {
+                throw new GestionCRUDIngredientesException("No se encontró ningún ingrediente con el nombre: " + nombre);
+            }
+            return obtenerDetallesIngrediente(lista.get(0).getId());
+        } catch (NegocioException e) {
+            throw new GestionCRUDIngredientesException("Error al buscar el ingrediente por nombre: " + nombre, e);
+        }
+    }
+    
+    @Override
+    public String obtenerIdIngredientePorNombre(String nombre) throws GestionCRUDIngredientesException {
+        DetallesIngredienteViejoDTO dto = obtenerIngredientePorNombre(nombre);
+        return dto.getId();
+    }
+
 }
