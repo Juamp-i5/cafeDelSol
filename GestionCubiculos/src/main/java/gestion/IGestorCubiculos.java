@@ -8,6 +8,7 @@ import DTOs.cubiculos.CubiculoCompletoDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import java.time.LocalDate;
@@ -40,4 +41,6 @@ public interface IGestorCubiculos {
     public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException;
 
     public Integer actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException;
+    
+    public ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) throws GestionCubiculosException;
 }

@@ -6,6 +6,7 @@ package BOs.cubiculos;
 
 import DTOs.cubiculos.ReservacionCompletaDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.NegocioCubiculoException;
 import java.time.LocalDate;
@@ -29,4 +30,6 @@ public interface IReservacionBO {
     public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException;
     
     public Integer actualizarEstado (Integer numReservacion, String estado) throws NegocioCubiculoException;
+    
+    public ReservacionDetalleDTO getDetalleReservacion (Integer numReservacion) throws NegocioCubiculoException;
 }

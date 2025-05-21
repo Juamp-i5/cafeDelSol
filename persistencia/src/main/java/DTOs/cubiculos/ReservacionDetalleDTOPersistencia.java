@@ -2,21 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs.cubiculos;
 
 import enumCubiculos.Estado;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import org.bson.types.ObjectId;
 
 /**
  *
  * @author rodri
  */
-public class Reservacion {
+public class ReservacionDetalleDTOPersistencia {
     
-    private ObjectId id;
     private Integer numReservacion;
     private String nombre;
     private String telefono;
@@ -24,18 +22,18 @@ public class Reservacion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
-    private ObjectId idCubiculo;
+    private String idCubiculo;
     private String nombreCubiculo;
     private Double precioHora;
     private Double precioReservacion;
     private String motivo;
     private Integer numReservacionNuevo;
-    private LocalDateTime fechaModificacion; 
+    private LocalDateTime fechaModificacion;
 
-    public Reservacion() {
+    public ReservacionDetalleDTOPersistencia() {
     }
 
-    public Reservacion(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion, String motivo, Integer numReservacionNuevo, LocalDateTime fechModificacion) {
+    public ReservacionDetalleDTOPersistencia(Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, String idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion, String motivo, Integer numReservacionNuevo, LocalDateTime fechModificacion) {
         this.numReservacion = numReservacion;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -50,32 +48,6 @@ public class Reservacion {
         this.motivo = motivo;
         this.numReservacionNuevo = numReservacionNuevo;
         this.fechaModificacion = fechModificacion;
-    }
-
-    public Reservacion(ObjectId id, Integer numReservacion, String nombre, String telefono, LocalDate fechaReserva, LocalTime horaInicio, LocalTime horaFin, Estado estado, ObjectId idCubiculo, String nombreCubiculo, Double precioHora, Double precioReservacion, String motivo, Integer numReservacionNuevo, LocalDateTime fechModificacion) {
-        this.id = id;
-        this.numReservacion = numReservacion;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.fechaReserva = fechaReserva;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.estado = estado;
-        this.idCubiculo = idCubiculo;
-        this.nombreCubiculo = nombreCubiculo;
-        this.precioHora = precioHora;
-        this.precioReservacion = precioReservacion;
-        this.motivo = motivo;
-        this.numReservacionNuevo = numReservacionNuevo;
-        this.fechaModificacion = fechModificacion;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public Integer getNumReservacion() {
@@ -134,11 +106,11 @@ public class Reservacion {
         this.estado = estado;
     }
 
-    public ObjectId getIdCubiculo() {
+    public String getIdCubiculo() {
         return idCubiculo;
     }
 
-    public void setIdCubiculo(ObjectId idCubiculo) {
+    public void setIdCubiculo(String idCubiculo) {
         this.idCubiculo = idCubiculo;
     }
 
@@ -192,10 +164,6 @@ public class Reservacion {
 
     @Override
     public String toString() {
-        return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + ", motivo=" + motivo + ", numReservacionNuevo=" + numReservacionNuevo + ", fechModificacion=" + fechaModificacion + '}';
+        return "ReservacionDetalleDTOPersistencia{" + "numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + ", motivo=" + motivo + ", numReservacionNuevo=" + numReservacionNuevo + ", fechModificacion=" + fechaModificacion + '}';
     }
-    
-    
-    
-    
 }

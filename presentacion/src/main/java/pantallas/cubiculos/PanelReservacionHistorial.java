@@ -21,8 +21,8 @@ public class PanelReservacionHistorial extends javax.swing.JPanel {
     ReservacionDTOMostrar dtoMostrar;
 
     /**
-     * Crea un nuevo panel para mostrar la información de un producto pedido en
-     * el pedido.
+     * Crea un nuevo panel para mostrar la información de una reservacion
+     * 
      *
      * @param reservacionMostrar El objeto que contiene la información de la reservacion
      *
@@ -40,8 +40,12 @@ public class PanelReservacionHistorial extends javax.swing.JPanel {
         this.lblHoraFin.setText(dtoMostrar.getHoraFin().toString());
     }
     
+    public ReservacionDTOMostrar getReservacion() {
+        return this.dtoMostrar;
+    }
+    
     /**
-     * Establece el escuchador de acción para el botón de cancelar.
+     * Establece el escuchador de acción para el botón de detalle.
      *
      * @param listener El escuchador de acción para el botón de cancelar.
      */

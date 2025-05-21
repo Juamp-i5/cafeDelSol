@@ -7,6 +7,8 @@ package BOs.cubiculos;
 import DTOs.cubiculos.ReservacionCompletaDTO;
 import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
+import DTOs.cubiculos.ReservacionDetalleDTOPersistencia;
 import IDAOs.cubiculos.IReservacionDAO;
 import acceso.AccesoDatos;
 import enumCubiculos.Estado;
@@ -28,6 +30,7 @@ public class ReservacionBO implements IReservacionBO {
     IReservacionDAO reservacionDAO = AccesoDatos.getReservacionDAO();
     IReservacionMapper mapperReservacion = new ReservacionMapper();
     IReservacionMostrarMapper mapperMostrar = new ReservacionMostrarMapper();
+    IReservacionDetalleMapper detalleMapper = new ReservacionDetalleMapper();
 
     private static ReservacionBO instanceBO;
 
@@ -133,6 +136,18 @@ public class ReservacionBO implements IReservacionBO {
         } catch (Exception ex) {
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al modificar el estado de la reservacion");
+        }
+    }
+
+    @Override
+    public ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) throws NegocioCubiculoException {
+        try {
+            ReservacionDetalleDTOPersistencia dtoPers = reservacionDAO.getDetalleReservacion(numReservacion);
+            ReservacionDetalleDTO dto = detalleMapper.toDTOBO(dtoPers);
+            return dto;
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al obtener detalle de la reservacion");
         }
     }
 }

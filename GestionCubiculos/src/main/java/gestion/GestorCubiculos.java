@@ -16,6 +16,7 @@ import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionCompletaDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import excepciones.NegocioCubiculoException;
@@ -189,6 +190,16 @@ public class GestorCubiculos implements IGestorCubiculos {
         } catch (NegocioCubiculoException ex) {
             Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionCubiculosException("Error al actualizar el estado de la reservacion");
+        }
+    }
+
+    @Override
+    public ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) throws GestionCubiculosException {
+        try {
+            return reservacionBO.getDetalleReservacion(numReservacion);
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al obtener detalle de la reservacion");
         }
     }
 }

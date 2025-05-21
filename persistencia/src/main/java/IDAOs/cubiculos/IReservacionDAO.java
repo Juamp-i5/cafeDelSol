@@ -5,6 +5,7 @@
 package IDAOs.cubiculos;
 
 import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
+import DTOs.cubiculos.ReservacionDetalleDTOPersistencia;
 import enumCubiculos.Estado;
 import excepciones.PersistenciaCubiculoEsception;
 import java.time.LocalDate;
@@ -28,5 +29,7 @@ public interface IReservacionDAO {
     public List<ReservacionDTOCompletaPersistencia> buscarPendientesPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception; 
     
     public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
+    
+    public ReservacionDetalleDTOPersistencia getDetalleReservacion (Integer numReservacion) throws PersistenciaCubiculoEsception;
 
 }

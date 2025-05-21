@@ -23,6 +23,7 @@ import DTOs.ToppingMostrarDTO;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
@@ -928,6 +929,15 @@ public class ControlNavegacion {
     public static List<ReservacionDTOMostrar> cargarReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) {
         try {
             return gestorCubiculos.obtenerReservacionesHistorial(fechaInicio, fechaFin);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) {
+        try {
+            return gestorCubiculos.getDetalleReservacion(numReservacion);
         } catch (GestionCubiculosException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return null;

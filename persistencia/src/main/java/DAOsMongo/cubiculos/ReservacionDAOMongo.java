@@ -4,8 +4,11 @@
  */
 package DAOsMongo.cubiculos;
 
+import DTOs.cubiculos.IReservacionDetalleMapperPersistencia;
 import DTOs.cubiculos.IReservacionMapperPersistencia;
 import DTOs.cubiculos.ReservacionDTOCompletaPersistencia;
+import DTOs.cubiculos.ReservacionDetalleDTOPersistencia;
+import DTOs.cubiculos.ReservacionDetalleMapperPersistencia;
 import DTOs.cubiculos.ReservacionMapperPersistencia;
 import IDAOs.cubiculos.IReservacionDAO;
 import com.mongodb.MongoClientSettings;
@@ -43,6 +46,7 @@ public class ReservacionDAOMongo implements IReservacionDAO {
     private static final String NOMBRE_COLECCION = "reservaciones";
 
     IReservacionMapperPersistencia reservacionMapper = new ReservacionMapperPersistencia();
+    IReservacionDetalleMapperPersistencia detalleMapper = new ReservacionDetalleMapperPersistencia();
 
     // Constructor con la conexion y codec para POJOs
     public ReservacionDAOMongo(IConexionMongo conexion) {
@@ -185,7 +189,7 @@ public class ReservacionDAOMongo implements IReservacionDAO {
                         Updates.set("estado", Estado.REAGENDADO),
                         Updates.set("numReservacionNuevo", numReservacionNuevo),
                         Updates.set("motivo", motivo),
-                        Updates.set("fechaHora", fechaHora)
+                        Updates.set("fechModificacion", fechaHora)
                 );
             }
 
@@ -200,5 +204,20 @@ public class ReservacionDAOMongo implements IReservacionDAO {
             throw new PersistenciaCubiculoEsception("Error al actualizar los datos de reagenda", e);
         }
     }
+
+    @Override
+    public ReservacionDetalleDTOPersistencia getDetalleReservacion(Integer numReservacion) throws PersistenciaCubiculoEsception {
+        try {
+            Bson filtro = Filters.eq("numReservacion", numReservacion);
+            Reservacion entidad = coleccion.find(filtro).first();
+            ReservacionDetalleDTOPersistencia dto = detalleMapper.toDTO(entidad);
+            return dto;
+
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al obtener detalle: " + e.getMessage(), e);
+        }
+    }
+    
+    
 
 }

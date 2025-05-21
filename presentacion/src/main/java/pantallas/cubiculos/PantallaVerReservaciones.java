@@ -9,6 +9,7 @@ import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
+import DTOs.cubiculos.ReservacionDetalleDTO;
 import control.Modo;
 import control.ModoCubiculos;
 import exception.GestionException;
@@ -92,7 +93,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
                 contenedorPanelesVerReservaciones.add(panelReservacion);
             }
         } else {
-            listaVerReservaciones = ControlNavegacion.cargarReservacionesHistorial(null, null);
+            listaVerReservaciones = ControlNavegacion.cargarReservacionesHistorial(fechaInicio, fechaFin);
 
             contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
 
@@ -153,7 +154,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         panelRes.setVerDetalleActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                mostrarDetalle(panelRes.getReservacion());
             }
         });
     }
@@ -296,9 +297,34 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         }
         pnlVerReservaciones.revalidate();
         pnlVerReservaciones.repaint();
-        System.out.println("hola");
     }
 
+    public void mostrarDetalle(ReservacionDTOMostrar reservacion) {
+        ReservacionDetalleDTO dtoDetalle = ControlNavegacion.getDetalleReservacion(reservacion.getNumReservacion());
+        
+        StringBuilder mensaje = new StringBuilder("Detalles de la Reservación:\n");
+        mensaje.append("Número de Reservación: ").append(dtoDetalle.getNumReservacion()).append("\n");
+        mensaje.append("Nombre del cliente: ").append(dtoDetalle.getNombre()).append("\n");
+        mensaje.append("Número de teléfono: ").append(dtoDetalle.getTelefono()).append("\n");
+        mensaje.append("Fecha de reservación: ").append(dtoDetalle.getFechaReserva().toString()).append("\n");
+        mensaje.append("Hora de inicio: ").append(dtoDetalle.getHoraInicio().toString()).append("\n");
+        mensaje.append("Hora de finalización: ").append(dtoDetalle.getHoraFin().toString()).append("\n");
+        mensaje.append("Estado: ").append(dtoDetalle.getEstado()).append("\n");
+        mensaje.append("Cubículo: ").append(dtoDetalle.getNombreCubiculo()).append("\n");
+        mensaje.append("Precio por hora: ").append("$" + dtoDetalle.getPrecioHora()).append("\n");
+        mensaje.append("Precio total: ").append("$" + dtoDetalle.getPrecioReservacion()).append("\n");
+        if(dtoDetalle.getMotivo() != null){
+            mensaje.append("Motivo de movimiento: ").append(dtoDetalle.getMotivo()).append("\n");
+        }
+        if(dtoDetalle.getNumReservacionNuevo()!= null){
+            mensaje.append("Reservación nueva: ").append(dtoDetalle.getNumReservacionNuevo()).append("\n");
+        }
+        if(dtoDetalle.getFechaModificacion()!= null){
+            mensaje.append("Fecha de modificación: ").append(dtoDetalle.getFechaModificacion().toString()).append("\n");
+        }
+        
+        JOptionPane.showMessageDialog(null, mensaje.toString(), "Detalles", JOptionPane.INFORMATION_MESSAGE);
+    }
     /**
      * Thte javax.swing.JButton btnTarjeta; private javax.swing.JLabel lblSigno;
      * private javax.swing.JLabel lblTotal; private javax.swing.JLabel
