@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package pruebasCubiculos;
+package pruebas;
 
 import DAOsMongo.SaborDAOMongo;
 import DAOsMongo.TamanioDAOMongo;
@@ -13,6 +13,8 @@ import DTOs.PersistenciaToppingDTO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
+import IDAOs.ingredientes.IProveedorDAOMongo;
 import conexion.ConexionMongo;
 import excepciones.PersistenciaException;
 import java.io.IOException;
@@ -39,14 +41,19 @@ public class InsertarDatosPrueba {
         insertarTamanios(TamanioDAOMongo.getInstance(ConexionMongo.getInstance()));
         insertarSabores(SaborDAOMongo.getInstance(ConexionMongo.getInstance()));
         insertarToppings(ToppingDAOMongo.getInstance(ConexionMongo.getInstance()));
+
+    }
+
+    private static void insertarProductosConIngredientesConProveedores(IIngredienteDAOMongo ingredienteDAO, IProveedorDAOMongo proveedorDAO) {
+
     }
 
     private static void insertarTamanios(ITamanioDAO tamanioDAO) throws PersistenciaException {
         System.out.println("Iniciando inserción de Tamaños base (DTOs)...");
         List<PersistenciaTamanioDTO> tamanios = Arrays.asList(
-                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "PEQUEÑO", 0, cargarImagenDesdeRecursos("tamanioPequenio.jpg")),
-                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "MEDIANO", 20, cargarImagenDesdeRecursos("tamanioMediano.jpg")),
-                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "GRANDE", 40, cargarImagenDesdeRecursos("tamanioGrande.jpg"))
+                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "PEQUEÑO", 0.0, cargarImagenDesdeRecursos("tamanioPequenio.jpg")),
+                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "MEDIANO", 20.0, cargarImagenDesdeRecursos("tamanioMediano.jpg")),
+                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "GRANDE", 40.0, cargarImagenDesdeRecursos("tamanioGrande.jpg"))
         );
 
         for (PersistenciaTamanioDTO tamanio : tamanios) {

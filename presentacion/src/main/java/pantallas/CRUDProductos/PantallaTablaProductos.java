@@ -23,7 +23,7 @@ public class PantallaTablaProductos extends javax.swing.JFrame {
     private DefaultTableModel modeloTablaProductos;
     private Timer debounceTimer;
 
-    private final int DEBOUNCE_DELAY = 50;
+    private final int DEBOUNCE_DELAY = 100; //MILISEGUNDOS
 
     public PantallaTablaProductos() {
         initComponents();
@@ -350,7 +350,8 @@ public class PantallaTablaProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_filtroCategoriasComboBoxItemStateChanged
 
     private void botonAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarProductoActionPerformed
-        // TODO add your handling code here:
+        ControlNavegacion.mostrarPantallaRegistrarProducto();
+        this.dispose();
     }//GEN-LAST:event_botonAgregarProductoActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
@@ -365,6 +366,9 @@ public class PantallaTablaProductos extends javax.swing.JFrame {
             return;
         }
 
+        String id = (String) modeloTablaProductos.getValueAt(row, 0);
+        ControlNavegacion.mostrarPantallaDetallesProducto(id);
+        this.dispose();
     }//GEN-LAST:event_botonModificarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -65,7 +65,12 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
     @Override
     public boolean agregarIngrediente(IngredienteDTOPersistencia ingrediente) throws PersistenciaIngredientesException {
         try {
-            coleccion.insertOne(ingredienteMapper.toMongo(ingrediente));
+            Ingrediente entidadIngrediente = ingredienteMapper.toMongo(ingrediente);
+            if (ingrediente.getId() == null || ingrediente.getId().trim().equals("")) {
+                entidadIngrediente.setId(new ObjectId());
+                ingrediente.setId(entidadIngrediente.getId().toHexString());
+            }
+            coleccion.insertOne(entidadIngrediente);
             System.out.println("Ingrediente agregado correctamente.");
             return true;
         } catch (Exception e) {

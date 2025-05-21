@@ -163,6 +163,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
         for (int i = 0; i < tablaProductosTable.getRowCount(); i++) {
             String id = tablaProductosTable.getValueAt(i, 0).toString();
+            String nombre = tablaProductosTable.getValueAt(i, 1).toString();
             Double cantidadChico = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
             Double cantidadMediano = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
             Double cantidadGrande = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
@@ -172,7 +173,7 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             cantidades.put(TamanioProducto.MEDIANO, cantidadMediano);
             cantidades.put(TamanioProducto.GRANDE, cantidadGrande);
 
-            ingredientes.put(new IngredienteViejoListDTO(id), cantidades);
+            ingredientes.put(new IngredienteViejoListDTO(id, nombre), cantidades);
         }
         productoNuevo.setIngredientes(ingredientes);
     }
@@ -364,6 +365,11 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
         botonVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonVolver.setText("Volver");
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolverActionPerformed(evt);
+            }
+        });
 
         botonRegistrarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonRegistrarProducto.setText("Registrar Producto");
@@ -470,6 +476,11 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
         ControlNavegacion.guardarProducto(productoNuevo);
     }//GEN-LAST:event_botonRegistrarProductoActionPerformed
+
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
+        ControlNavegacion.mostrarPantallaTablaProductos();
+        this.dispose();
+    }//GEN-LAST:event_botonVolverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;

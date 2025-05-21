@@ -1,7 +1,6 @@
 package DTOs.ingredientes;
 
 import entidades.Proveedor;
-import excepciones.PersistenciaIngredientesException;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -23,6 +22,17 @@ public class ProveedorMapperPersistencia implements IProveedorMapperPersistencia
         }
         dto.setNombre(entidadMongo.getNombre());
         return dto;
+    }
+
+    @Override
+    public Proveedor toEntity(ProveedorDTOPersistencia dto) {
+        if (dto == null) {
+            return null;
+        }
+        Proveedor proveedor = new Proveedor();
+        proveedor.setId(new ObjectId(dto.getId()));
+        proveedor.setNombre(dto.getNombre());
+        return proveedor;
     }
 
     @Override

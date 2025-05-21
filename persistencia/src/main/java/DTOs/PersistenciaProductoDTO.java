@@ -17,7 +17,7 @@ public class PersistenciaProductoDTO {
     private String descripcion;
     private String categoria;
     private String estado;
-    private double precioBase;
+    private Double precioBase;
     private byte[] imageData;
     private List<PersistenciaProductoTamanioDTO> tamanios;
 

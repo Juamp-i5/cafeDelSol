@@ -13,12 +13,12 @@ import DTOs.ingredientes.IngredienteDTOPersistencia;
 public class PersistenciaProductoTamanioIngredienteDTO {
 
     private IngredienteDTOPersistencia ingrediente;
-    private double cantidad;
+    private Double cantidad;
 
     public PersistenciaProductoTamanioIngredienteDTO() {
     }
 
-    public PersistenciaProductoTamanioIngredienteDTO(IngredienteDTOPersistencia ingrediente, double cantidad) {
+    public PersistenciaProductoTamanioIngredienteDTO(IngredienteDTOPersistencia ingrediente, Double cantidad) {
         this.ingrediente = ingrediente;
         this.cantidad = cantidad;
     }
@@ -31,11 +31,11 @@ public class PersistenciaProductoTamanioIngredienteDTO {
         this.ingrediente = ingrediente;
     }
 
-    public double getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
 

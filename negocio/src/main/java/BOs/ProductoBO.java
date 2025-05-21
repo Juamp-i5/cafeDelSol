@@ -8,6 +8,7 @@ import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.PersistenciaProductoDTO;
+import DTOs.PersistenciaProductoTamanioDTO;
 import DTOs.ProductoMostrarDTO;
 import excepciones.NegocioException;
 import excepciones.PersistenciaException;
@@ -19,8 +20,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import mapper.ProductoMapper;
 import IDAOs.IProductoDAO;
+import IDAOs.ITamanioDAO;
 import acceso.AccesoDatos;
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +31,7 @@ import java.util.stream.Collectors;
 public class ProductoBO implements IProductoBO {
 
     IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
+    ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
     IProductoMapper productoMapper = ProductoMapper.getInstance();
 
     private static ProductoBO instanceBO;
@@ -87,17 +89,50 @@ public class ProductoBO implements IProductoBO {
 
     @Override
     public DetallesProductoDTO obtenerDetallesProducto(String idProducto) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DetallesProductoDTO producto;
+        PersistenciaProductoDTO productoPersistencia;
+        try {
+            productoPersistencia = productoDAO.buscarPorId(idProducto);
+            producto = productoMapper.toDetallesProductoDTO(productoPersistencia);
+            return producto;
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al intentar consultar detalles producto", e);
+        }
     }
 
     @Override
     public void guardarProducto(ProductoCreateDTO productoDTO) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            PersistenciaProductoDTO producto;
+            producto = productoMapper.toPersistenciaProductoDTO(productoDTO);
+            for (PersistenciaProductoTamanioDTO tamanioDTO : producto.getTamanios()) {
+                String nombre = tamanioDTO.getTamanio().getNombre();
+                String id = tamanioDAO.buscarPorNombre(nombre).getId();
+                tamanioDTO.getTamanio().setId(id);
+                tamanioDTO.getTamanio().setNombre(null);
+            }
+        } catch (PersistenciaException e) {
+        }
     }
 
     @Override
     public void actualizarProducto(DetallesProductoDTO productoDTO) throws NegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            PersistenciaProductoDTO producto;
+
+            producto = productoMapper.toPersistenciaProductoDTO(productoDTO);
+            for (PersistenciaProductoTamanioDTO tamanioDTO : producto.getTamanios()) {
+                String nombre = tamanioDTO.getTamanio().getNombre();
+                String id = tamanioDAO.buscarPorNombre(nombre).getId();
+                tamanioDTO.getTamanio().setId(id);
+                tamanioDTO.getTamanio().setNombre(null);
+            }
+
+            productoDAO.actualizarProducto(producto);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("Error al actualizar producto en negocio", ex);
+        }
     }
 
 }

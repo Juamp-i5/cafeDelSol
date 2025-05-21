@@ -12,8 +12,8 @@ public class IngredienteDTOPersistencia {
 
     private String id;
     private String nombre;
-    private double cantidadDisponible;
-    private double cantidadMinima;
+    private Double cantidadDisponible;
+    private Double cantidadMinima;
     private String unidadMedida;
     private String nivelStock;
     private String idProveedor;
@@ -21,7 +21,7 @@ public class IngredienteDTOPersistencia {
     public IngredienteDTOPersistencia() {
     }
 
-    public IngredienteDTOPersistencia(String id, String nombre, double cantidadDisponible, double cantidadMinima, String unidadMedida, String nivelStock, String idProveedor) {
+    public IngredienteDTOPersistencia(String id, String nombre, Double cantidadDisponible, Double cantidadMinima, String unidadMedida, String nivelStock, String idProveedor) {
         this.id = id;
         this.nombre = nombre;
         this.cantidadDisponible = cantidadDisponible;
@@ -47,19 +47,19 @@ public class IngredienteDTOPersistencia {
         this.nombre = nombre;
     }
 
-    public double getCantidadDisponible() {
+    public Double getCantidadDisponible() {
         return cantidadDisponible;
     }
 
-    public void setCantidadDisponible(double cantidadDisponible) {
+    public void setCantidadDisponible(Double cantidadDisponible) {
         this.cantidadDisponible = cantidadDisponible;
     }
 
-    public double getCantidadMinima() {
+    public Double getCantidadMinima() {
         return cantidadMinima;
     }
 
-    public void setCantidadMinima(double cantidadMinima) {
+    public void setCantidadMinima(Double cantidadMinima) {
         this.cantidadMinima = cantidadMinima;
     }
 

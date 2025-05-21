@@ -11,7 +11,7 @@ package entidades;
 public class ProductoTamanioIngrediente {
 
     private Ingrediente ingrediente;
-    private double cantidad;
+    private Double cantidad;
 
     public ProductoTamanioIngrediente() {
     }
@@ -24,11 +24,11 @@ public class ProductoTamanioIngrediente {
         this.ingrediente = ingrediente;
     }
 
-    public double getCantidad() {
+    public Double getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(double cantidad) {
+    public void setCantidad(Double cantidad) {
         this.cantidad = cantidad;
     }
 

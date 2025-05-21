@@ -19,15 +19,6 @@ public class Ingrediente {
     public Ingrediente() {
     }
 
-    public Ingrediente(String nombre, Double cantidadDisponible, Double cantidadMinima, String unidadMedida, String nivelStock, ObjectId idProveedor) {
-        this.nombre = nombre;
-        this.cantidadDisponible = cantidadDisponible;
-        this.cantidadMinima = cantidadMinima;
-        this.unidadMedida = unidadMedida;
-        this.nivelStock = nivelStock;
-        this.idProveedor = idProveedor;
-    }
-
     public ObjectId getId() {
         return id;
     }

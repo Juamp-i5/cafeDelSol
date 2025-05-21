@@ -551,6 +551,7 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReservar);
     }
 
+
     public static void mostrarPantallaGestionInventario() {
         JFrame gestionInventario = new PantallaMenuGestionInventario();
         gestionInventario.setLocationRelativeTo(null);
@@ -628,8 +629,7 @@ public class ControlNavegacion {
         try {
             gestorCRUDProductos.actualizarProducto(productoDTO);
             JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente");
-            ControlNavegacion.mostrarPantallaTablaProductos();
-        } catch (GestionCRUDProductosException ex) {
+        } catch (GestionCRUDProductosException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);

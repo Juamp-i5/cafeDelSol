@@ -11,10 +11,12 @@ import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.TamanioProducto;
 import control.ControlNavegacion;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,13 +29,28 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     private DefaultTableModel modeloTablaProductos;
     private DetallesProductoDTO producto;
     private DetallesProductoDTO productoActualizado;
+    private Timer debounceTimer;
+
+    private double aumentoMediano = 0;
+    private double aumentoGrande = 0;
+
+    private final int DEBOUNCE_DELAY = 100;
 
     public PantallaDetallesProducto(DetallesProductoDTO productoDTO) {
         initComponents();
 
         this.modeloTablaProductos = (DefaultTableModel) tablaProductosTable.getModel();
         this.producto = productoDTO;
-
+        this.productoActualizado = new DetallesProductoDTO(producto);
+        try {
+            if (productoDTO.getPrecios() != null & productoDTO.getPrecios().get(TamanioProducto.CHICO) != null) {
+                this.aumentoMediano = productoDTO.getPrecios().get(TamanioProducto.MEDIANO) - productoDTO.getPrecios().get(TamanioProducto.CHICO);
+                this.aumentoGrande = productoDTO.getPrecios().get(TamanioProducto.GRANDE) - productoDTO.getPrecios().get(TamanioProducto.CHICO);
+            }
+        } catch (NullPointerException e) {
+            this.aumentoMediano = 20;
+            this.aumentoGrande = 40;
+        }
         setInitialUI();
     }
 
@@ -43,13 +60,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         cargarComboBoxEstado();
         agregarRendererTablaProductos();
         agregarEventosTablaProductos();
-        iniciarMapas();
         desplegarDatosFormulario();
-    }
-
-    private void iniciarMapas() {
-        productoActualizado.setPrecios(new HashMap<>());
-        productoActualizado.setIngredientes(new HashMap<>());
     }
 
     private void agregarIngrediente() {
@@ -160,7 +171,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     }
 
     private void desplegarDatosTabla() {
-        Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
+        Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = producto.getIngredientes();
 
         for (Map.Entry<IngredienteViejoListDTO, Map<TamanioProducto, Double>> entry : ingredientes.entrySet()) {
             IngredienteViejoListDTO ingrediente = entry.getKey();
@@ -168,9 +179,9 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
 
             String id = ingrediente.getId();
             String nombre = ingrediente.getNombre();
-            Double cantidadChico = cantidades.get(TamanioProducto.CHICO);
-            Double cantidadMediano = cantidades.get(TamanioProducto.MEDIANO);
-            Double cantidadGrande = cantidades.get(TamanioProducto.GRANDE);
+            Double cantidadChico = cantidades.getOrDefault(TamanioProducto.CHICO, 0.0);
+            Double cantidadMediano = cantidades.getOrDefault(TamanioProducto.MEDIANO, 0.0);
+            Double cantidadGrande = cantidades.getOrDefault(TamanioProducto.GRANDE, 0.0);
 
             modeloTablaProductos.addRow(new Object[]{
                 id,
@@ -211,18 +222,33 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes = new HashMap<>();
         for (int i = 0; i < tablaProductosTable.getRowCount(); i++) {
             String id = tablaProductosTable.getValueAt(i, 0).toString();
+            String nombre = tablaProductosTable.getValueAt(i, 1).toString();
             Double cantidadChico = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
-            Double cantidadMediano = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
-            Double cantidadGrande = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
+            Double cantidadMediano = Double.valueOf(tablaProductosTable.getValueAt(i, 3).toString());
+            Double cantidadGrande = Double.valueOf(tablaProductosTable.getValueAt(i, 4).toString());
 
             Map<TamanioProducto, Double> cantidades = new HashMap<>();
             cantidades.put(TamanioProducto.CHICO, cantidadChico);
             cantidades.put(TamanioProducto.MEDIANO, cantidadMediano);
             cantidades.put(TamanioProducto.GRANDE, cantidadGrande);
 
-            ingredientes.put(new IngredienteViejoListDTO(id), cantidades);
+            ingredientes.put(new IngredienteViejoListDTO(id, nombre), cantidades);
         }
         productoActualizado.setIngredientes(ingredientes);
+    }
+
+    private void debounce(Runnable action) {
+        if (debounceTimer != null && debounceTimer.isRunning()) {
+            debounceTimer.stop();
+        }
+
+        ActionListener taskPerformer = evt -> {
+            action.run();
+        };
+
+        debounceTimer = new Timer(DEBOUNCE_DELAY, taskPerformer);
+        debounceTimer.setRepeats(false);
+        debounceTimer.start();
     }
 
     /**
@@ -263,7 +289,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         tablaProductosTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registrar Producto");
+        setTitle("Detalles Producto");
         setSize(new java.awt.Dimension(800, 600));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -279,8 +305,10 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         });
 
         textFieldNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldNombre.setMaximumSize(new java.awt.Dimension(64, 31));
 
         comboBoxCategoria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        comboBoxCategoria.setMaximumSize(new java.awt.Dimension(72, 31));
 
         labelNombre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelNombre.setText("Nombre");
@@ -292,6 +320,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         labelDescripcion.setText("Descripción");
 
         textFieldDescripcion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldDescripcion.setMaximumSize(new java.awt.Dimension(64, 31));
 
         labelPrecioGrande.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         labelPrecioGrande.setText("Precio grande");
@@ -303,14 +332,21 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         LabelPrecioMediano.setText("Precio mediano");
 
         textFieldPrecioMediano.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldPrecioMediano.setEnabled(false);
         textFieldPrecioMediano.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioMediano.setPreferredSize(new java.awt.Dimension(80, 31));
 
         textFieldPrecioChico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textFieldPrecioChico.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioChico.setPreferredSize(new java.awt.Dimension(80, 31));
+        textFieldPrecioChico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldPrecioChicoKeyTyped(evt);
+            }
+        });
 
         textFieldPrecioGrande.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldPrecioGrande.setEnabled(false);
         textFieldPrecioGrande.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioGrande.setPreferredSize(new java.awt.Dimension(80, 31));
 
@@ -351,9 +387,9 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(panelNorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comboBoxCategoria, 0, 250, Short.MAX_VALUE)
-                            .addComponent(textFieldDescripcion)
-                            .addComponent(textFieldNombre))
-                        .addGap(18, 18, 18)
+                            .addComponent(textFieldDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(28, 28, 28)
                         .addGroup(panelNorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPrecioChico)
                             .addComponent(LabelPrecioMediano)
@@ -412,6 +448,11 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
 
         botonVolver.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonVolver.setText("Volver");
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolverActionPerformed(evt);
+            }
+        });
 
         botonActualizarProducto.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonActualizarProducto.setText("Actualizar Producto");
@@ -496,7 +537,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tablaProductosScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(tablaProductosScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -519,9 +560,28 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         if (producto.equals(productoActualizado)) {
             JOptionPane.showMessageDialog(null, "No cambiaste ningún dato");
         } else {
-            ControlNavegacion.actualizarProducto(productoActualizado);
+            if (JOptionPane.showConfirmDialog(null, "¿Deseas actualizar el producto?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                ControlNavegacion.actualizarProducto(productoActualizado);
+            }
         }
     }//GEN-LAST:event_botonActualizarProductoActionPerformed
+
+    private void textFieldPrecioChicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldPrecioChicoKeyTyped
+
+        debounce(() -> {
+            try {
+                double precioChicoNuevo = Double.parseDouble(this.textFieldPrecioChico.getText());
+                this.textFieldPrecioMediano.setText((this.aumentoMediano + precioChicoNuevo) + "");
+                this.textFieldPrecioGrande.setText((this.aumentoGrande + precioChicoNuevo) + "");
+            } catch (Exception e) {
+            }
+        });
+    }//GEN-LAST:event_textFieldPrecioChicoKeyTyped
+
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
+        ControlNavegacion.mostrarPantallaTablaProductos();
+        this.dispose();
+    }//GEN-LAST:event_botonVolverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;

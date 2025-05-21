@@ -5,7 +5,9 @@
 package DTOs.CRUDProductos;
 
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -109,6 +111,56 @@ public class DetallesProductoDTO {
 
     public void setIngredientes(Map<IngredienteViejoListDTO, Map<TamanioProducto, Double>> ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.nombre);
+        hash = 59 * hash + Objects.hashCode(this.descipcion);
+        hash = 59 * hash + Objects.hashCode(this.categoria);
+        hash = 59 * hash + Arrays.hashCode(this.imagenData);
+        hash = 59 * hash + Objects.hashCode(this.estadoProducto);
+        hash = 59 * hash + Objects.hashCode(this.precios);
+        hash = 59 * hash + Objects.hashCode(this.ingredientes);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DetallesProductoDTO other = (DetallesProductoDTO) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.descipcion, other.descipcion)) {
+            return false;
+        }
+        if (this.categoria != other.categoria) {
+            return false;
+        }
+        if (!Arrays.equals(this.imagenData, other.imagenData)) {
+            return false;
+        }
+        if (this.estadoProducto != other.estadoProducto) {
+            return false;
+        }
+        if (!Objects.equals(this.precios, other.precios)) {
+            return false;
+        }
+        return Objects.equals(this.ingredientes, other.ingredientes);
     }
 
 }

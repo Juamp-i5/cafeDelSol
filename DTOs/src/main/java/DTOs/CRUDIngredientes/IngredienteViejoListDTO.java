@@ -1,5 +1,7 @@
 package DTOs.CRUDIngredientes;
 
+import java.util.Objects;
+
 /**
  *
  * @author norma
@@ -17,6 +19,11 @@ public class IngredienteViejoListDTO {
 
     public IngredienteViejoListDTO(String id) {
         this.id = id;
+    }
+
+    public IngredienteViejoListDTO(String id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
     }
 
     public IngredienteViejoListDTO(String id, String nombre, Double cantidadDisponible, UnidadMedida unidadMedida, NivelStock nivelStock) {
@@ -65,6 +72,28 @@ public class IngredienteViejoListDTO {
 
     public void setNivelStock(NivelStock nivelStock) {
         this.nivelStock = nivelStock;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IngredienteViejoListDTO other = (IngredienteViejoListDTO) obj;
+        return Objects.equals(this.id, other.id);
     }
 
     @Override

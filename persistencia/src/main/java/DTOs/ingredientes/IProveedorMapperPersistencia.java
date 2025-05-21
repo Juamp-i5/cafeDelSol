@@ -13,4 +13,5 @@ public interface IProveedorMapperPersistencia {
 
     public List<ProveedorDTOPersistencia> toDTOList(List<Proveedor> entidadesMongo);
 
+    public Proveedor toEntity(ProveedorDTOPersistencia dto);
 }

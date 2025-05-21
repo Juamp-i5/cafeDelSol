@@ -14,7 +14,7 @@ public class Tamanio {
 
     private ObjectId id;
     private String nombre;
-    private double precioAdicional;
+    private Double precioAdicional;
     private byte[] imagenData;
 
     public Tamanio() {
@@ -36,11 +36,11 @@ public class Tamanio {
         this.nombre = nombre;
     }
 
-    public double getPrecioAdicional() {
+    public Double getPrecioAdicional() {
         return precioAdicional;
     }
 
-    public void setPrecioAdicional(double precioAdicional) {
+    public void setPrecioAdicional(Double precioAdicional) {
         this.precioAdicional = precioAdicional;
     }
 

@@ -4,6 +4,8 @@
  */
 package interfacesMapper;
 
+import DTOs.CRUDProductos.DetallesProductoDTO;
+import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.PersistenciaProductoDTO;
 import DTOs.ProductoMostrarDTO;
@@ -14,7 +16,13 @@ import DTOs.ProductoMostrarDTO;
  */
 public interface IProductoMapper {
 
-    ProductoListDTO toProductoListDTO(PersistenciaProductoDTO productoDTO);
+    public ProductoListDTO toProductoListDTO(PersistenciaProductoDTO productoDTO);
 
-    ProductoMostrarDTO toProductoMostrarDTO(PersistenciaProductoDTO producto);
+    public ProductoMostrarDTO toProductoMostrarDTO(PersistenciaProductoDTO producto);
+
+    public DetallesProductoDTO toDetallesProductoDTO(PersistenciaProductoDTO pDTO);
+
+    public PersistenciaProductoDTO toPersistenciaProductoDTO(DetallesProductoDTO detallesDTO);
+
+    public PersistenciaProductoDTO toPersistenciaProductoDTO(ProductoCreateDTO createDTO);
 }

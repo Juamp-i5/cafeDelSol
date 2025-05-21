@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9798c1ac-024f-4b67-a279-8f91b9bea6ec" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MongoDB model New Model.hck.json" beforeDir="false" afterPath="$PROJECT_DIR$/MongoDB model New Model.hck.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/BOs/PedidoBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/BOs/PedidoBO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/negocio/src/main/java/BOs/ProductoBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/BOs/ProductoBO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/interfacesMapper/IProductoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/interfacesMapper/IProductoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/negocio/src/main/java/mapper/ProductoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/negocio/src/main/java/mapper/ProductoMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/ProductoDAOMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/ProductoDAOMongo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/cubiculos/CancelacionDAOMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/DAOsMongo/cubiculos/CancelacionDAOMongo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/DTOs/ProductoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/DTOs/PersistenciaProductoDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/IDAOs/IProductoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/IDAOs/IProductoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/conexion/ConexionMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/conexion/ConexionMongo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Producto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Sabor.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Sabor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Tamanio.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/entidades/Tamanio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/interfacesMappers/IProductoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/interfacesMappers/IProductoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/main/java/mappers/ProductoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/main/java/mappers/ProductoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistencia/src/test/java/DAOsMongo/ProductoDAOMongoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/persistencia/src/test/java/DAOsMongo/ProductoDAOMongoTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

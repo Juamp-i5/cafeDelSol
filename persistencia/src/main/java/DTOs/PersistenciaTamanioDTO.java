@@ -12,13 +12,13 @@ public class PersistenciaTamanioDTO {
 
     private String id;
     private String nombre;
-    private double precioAdicional;
+    private Double precioAdicional;
     private byte[] imagenData;
 
     public PersistenciaTamanioDTO() {
     }
 
-    public PersistenciaTamanioDTO(String id, String nombre, double precioAdicional, byte[] imagenData) {
+    public PersistenciaTamanioDTO(String id, String nombre, Double precioAdicional, byte[] imagenData) {
         this.id = id;
         this.nombre = nombre;
         this.precioAdicional = precioAdicional;
@@ -41,11 +41,11 @@ public class PersistenciaTamanioDTO {
         this.nombre = nombre;
     }
 
-    public double getPrecioAdicional() {
+    public Double getPrecioAdicional() {
         return precioAdicional;
     }
 
-    public void setPrecioAdicional(double precioAdicional) {
+    public void setPrecioAdicional(Double precioAdicional) {
         this.precioAdicional = precioAdicional;
     }
 
