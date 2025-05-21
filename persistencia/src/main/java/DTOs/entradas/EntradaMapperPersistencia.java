@@ -32,12 +32,12 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     }
 
     @Override
-    public EntradaNuevaDTOPersistencia todtoNuevo(Entrada entrada) {
+    public EntradaNuevaDTOPersistencia todtoNuevoPersistencia(Entrada entrada) {
         EntradaNuevaDTOPersistencia entradaDTO = new EntradaNuevaDTOPersistencia();
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());
-        entradaDTO.setDetallesEntrada(detalleEntradaMapper.todtoList(entrada.getDetallesEntrada()));
+        entradaDTO.setDetallesEntrada(detalleEntradaMapper.todtoPersistenciaList(entrada.getDetallesEntrada()));
         return entradaDTO;
     }
 
@@ -57,14 +57,14 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     }
 
     @Override
-    public List<EntradaNuevaDTOPersistencia> todtoNuevoList(List<Entrada> entradas) {
+    public List<EntradaNuevaDTOPersistencia> todtoNuevoPersistenciaList(List<Entrada> entradas) {
         List<EntradaNuevaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (Entrada entrada : entradas) {
             EntradaNuevaDTOPersistencia entradadto = new EntradaNuevaDTOPersistencia();
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());
-            entradadto.setDetallesEntrada(detalleEntradaMapper.todtoList(entrada.getDetallesEntrada()));
+            entradadto.setDetallesEntrada(detalleEntradaMapper.todtoPersistenciaList(entrada.getDetallesEntrada()));
             entradasDTO.add(entradadto);
         }
         return entradasDTO;
@@ -82,12 +82,12 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     }
 
     @Override
-    public EntradaViejaDTOPersistencia todtoViejo(Entrada entrada) {
+    public EntradaViejaDTOPersistencia todtoViejoPersistencia(Entrada entrada) {
         EntradaViejaDTOPersistencia entradaDTO = new EntradaViejaDTOPersistencia();
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());
-        entradaDTO.setDetallesEntrada(detalleEntradaMapper.todtoList(entrada.getDetallesEntrada()));
+        entradaDTO.setDetallesEntrada(detalleEntradaMapper.todtoPersistenciaList(entrada.getDetallesEntrada()));
         return entradaDTO;
     }
 
@@ -107,14 +107,14 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     }
 
     @Override
-    public List<EntradaViejaDTOPersistencia> todtoViejoList(List<Entrada> entradas) {
+    public List<EntradaViejaDTOPersistencia> todtoViejoPersistenciaList(List<Entrada> entradas) {
         List<EntradaViejaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (Entrada entrada : entradas) {
             EntradaViejaDTOPersistencia entradadto = new EntradaViejaDTOPersistencia();
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());
-            entradadto.setDetallesEntrada(detalleEntradaMapper.todtoList(entrada.getDetallesEntrada()));
+            entradadto.setDetallesEntrada(detalleEntradaMapper.todtoPersistenciaList(entrada.getDetallesEntrada()));
             entradasDTO.add(entradadto);
         }
         return entradasDTO;

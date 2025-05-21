@@ -11,17 +11,17 @@ public interface IEntradaMapperPersistencia {
 
     public Entrada toEntityNuevo(EntradaNuevaDTOPersistencia entradaDTO);
 
-    public EntradaNuevaDTOPersistencia todtoNuevo(Entrada entrada);
+    public EntradaNuevaDTOPersistencia todtoNuevoPersistencia(Entrada entrada);
 
     public List<Entrada> toEntityNuevoList(List<EntradaNuevaDTOPersistencia> entradasDTO);
 
-    public List<EntradaNuevaDTOPersistencia> todtoNuevoList(List<Entrada> entradas);
+    public List<EntradaNuevaDTOPersistencia> todtoNuevoPersistenciaList(List<Entrada> entradas);
 
     public Entrada toEntityViejo(EntradaViejaDTOPersistencia entradaDTO);
 
-    public EntradaViejaDTOPersistencia todtoViejo(Entrada entrada);
+    public EntradaViejaDTOPersistencia todtoViejoPersistencia(Entrada entrada);
 
     public List<Entrada> toEntityViejoList(List<EntradaViejaDTOPersistencia> entradasDTO);
 
-    public List<EntradaViejaDTOPersistencia> todtoViejoList(List<Entrada> entradas);
+    public List<EntradaViejaDTOPersistencia> todtoViejoPersistenciaList(List<Entrada> entradas);
 }

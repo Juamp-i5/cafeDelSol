@@ -74,7 +74,7 @@ public class EntradaDAOMongo implements IEntradaDAO {
             }
             Bson filtroFinal = filtros.isEmpty() ? new Document() : Filters.and(filtros);
             List<Entrada> documentos = coleccion.find(filtroFinal).into(new ArrayList<>());
-            return entradaMapper.todtoViejoList(documentos);
+            return entradaMapper.todtoViejoPersistenciaList(documentos);
         } catch (Exception e) {
             throw new PersistenciaEntradasException("Error al obtener entradas por fechas", e);
         }

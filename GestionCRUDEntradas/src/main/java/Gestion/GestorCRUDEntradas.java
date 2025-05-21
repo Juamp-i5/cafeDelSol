@@ -40,7 +40,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
         validador.validarEntrada(entrada);
         try {
             return entradaBO.registrarEntrada(entrada);
-        } catch (PersistenciaEntradasException | NegocioException ex) {
+        } catch (NegocioException ex) {
             Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
@@ -50,7 +50,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
     public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException{
         try {
             return entradaBO.obtenerEntradasPorFechas(fechaInicio, fechaFin);
-        } catch (PersistenciaEntradasException | NegocioException ex) {
+        } catch (NegocioException ex) {
             Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

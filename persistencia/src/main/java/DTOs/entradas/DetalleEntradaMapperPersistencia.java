@@ -37,7 +37,7 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
     }
 
     @Override
-    public DetalleEntradaDTOPersistencia todto(DetalleEntrada detalles) {
+    public DetalleEntradaDTOPersistencia todtoPersistencia(DetalleEntrada detalles) {
         DetalleEntradaDTOPersistencia detallesDTO = new DetalleEntradaDTOPersistencia();
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
@@ -58,10 +58,10 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
     }
 
     @Override
-    public List<DetalleEntradaDTOPersistencia> todtoList(List<DetalleEntrada> detallesList) {
+    public List<DetalleEntradaDTOPersistencia> todtoPersistenciaList(List<DetalleEntrada> detallesList) {
         List<DetalleEntradaDTOPersistencia> detallesDTOList = new ArrayList<>();
         for (DetalleEntrada detalle : detallesList) {
-            detallesDTOList.add(todto(detalle));
+            detallesDTOList.add(todtoPersistencia(detalle));
         }
         return detallesDTOList;
     }
