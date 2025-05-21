@@ -41,17 +41,13 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         DatePickerSettings settingsInicio = new DatePickerSettings();
         settingsInicio.setFormatForDatesCommonEra("dd/MM/yyyy");
         datePickerInicio = new DatePicker(settingsInicio);
-
         DatePickerSettings settingsFin = new DatePickerSettings();
         settingsFin.setFormatForDatesCommonEra("dd/MM/yyyy");
         datePickerFin = new DatePicker(settingsFin);
-
         debounceTimer = new Timer(400, e -> actualizarFechasFiltradas());
         debounceTimer.setRepeats(false);
-
-        datePickerInicio.addDateChangeListener(event -> reiniciarDebounce());
-        datePickerFin.addDateChangeListener(event -> reiniciarDebounce());
-
+        datePickerInicio.addDateChangeListener(event -> Debounce());
+        datePickerFin.addDateChangeListener(event -> Debounce());
         pnlFechas.setLayout(new BoxLayout(pnlFechas, BoxLayout.Y_AXIS));
         pnlFechas.add(datePickerInicio);
         pnlFechas.add(Box.createVerticalStrut(5));
@@ -61,15 +57,11 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
     public void mostrarEntradasEnTabla(LocalDateTime fechaInicio, LocalDateTime fechaFin) {
         DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
         modelo.setRowCount(0);
-
         List<EntradaViejaDTO> entradas = ControlNavegacion.obtenerListaEntradasPorRangoFecha(fechaInicio, fechaFin);
-
         if (entradas == null) {
             JOptionPane.showMessageDialog(this, "No hay entradas actualmente en ese rango de fechas");
         }
-
         this.listaEntradas = entradas;
-
         for (EntradaViejaDTO entrada : entradas) {
             modelo.addRow(new Object[]{
                 entrada.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")),
@@ -83,15 +75,12 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
     private void actualizarFechasFiltradas() {
         LocalDate fechaInicio = datePickerInicio.getDate();
         LocalDate fechaFin = datePickerFin.getDate();
-
         LocalDateTime filtroInicio;
         LocalDateTime filtroFin;
-
         if (fechaInicio != null && fechaFin != null && fechaInicio.isAfter(fechaFin)) {
-            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha final.", "Rango de fechas inválido", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha final.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
         if (fechaInicio == null && fechaFin == null) {
             filtroInicio = LocalDateTime.of(2025, 1, 1, 0, 0);
             filtroFin = LocalDateTime.now();
@@ -116,7 +105,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         });
     }
 
-    private void reiniciarDebounce() {
+    private void Debounce() {
         if (debounceTimer.isRunning()) {
             debounceTimer.restart();
         } else {
@@ -147,7 +136,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BtnVolverAtras.setText("Volver a Menu");
+        BtnVolverAtras.setText("<--");
         BtnVolverAtras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnVolverAtrasActionPerformed(evt);
@@ -162,6 +151,11 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         });
 
         BtnInventario.setText("Inventario");
+        BtnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnInventarioActionPerformed(evt);
+            }
+        });
 
         LbTitulo.setText("Historial");
 
@@ -252,7 +246,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverAtrasActionPerformed
-        ControlNavegacion.mostrarPantallaMenuPrincipal();
+        ControlNavegacion.mostrarPantallaGestionInventario();
         this.dispose();
     }//GEN-LAST:event_BtnVolverAtrasActionPerformed
 
@@ -260,6 +254,11 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         ControlNavegacion.mostrarPantallaRegistroEntrada();
         this.dispose();
     }//GEN-LAST:event_BtnAgregarRegistroActionPerformed
+
+    private void BtnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInventarioActionPerformed
+        ControlNavegacion.mostrarPantallaListaIngredientes();
+        this.dispose();
+    }//GEN-LAST:event_BtnInventarioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAgregarRegistro;

@@ -34,7 +34,7 @@ public class EntradaBO implements IEntradaBO {
     }
 
     @Override
-    public boolean registrarEntrada(EntradaNuevaDTO entrada) throws PersistenciaEntradasException, NegocioException {
+    public boolean registrarEntrada(EntradaNuevaDTO entrada) throws NegocioException {
         try {
             return entradaDAO.registrarEntrada(entradaMapper.toDtoNuevoPersistencia(entrada));
         } catch (PersistenciaEntradasException e) {
@@ -43,7 +43,7 @@ public class EntradaBO implements IEntradaBO {
     }
     
     @Override
-    public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException, NegocioException{
+    public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws NegocioException{
         try {
             return entradaMapper.todtoViejoList(entradaDAO.obtenerEntradasPorFechas(fechaInicio, fechaFin));
         } catch (PersistenciaEntradasException e) {

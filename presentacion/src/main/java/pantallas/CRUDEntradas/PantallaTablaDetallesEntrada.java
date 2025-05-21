@@ -53,7 +53,6 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
     public void mostrarDetallesEnTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaDetallesEntrada.getModel();
         modelo.setRowCount(0);
-
         if (entrada != null && entrada.getDetallesEntrada() != null) {
             List<DetalleEntradaDTO> registros = entrada.getDetallesEntrada();
             if (registros != null) {
@@ -77,65 +76,50 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
     }
 
     class encabezadoReporte extends PdfPageEventHelper {
-
         Font font = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.DARK_GRAY);
         Font tituloFont = new Font(Font.FontFamily.HELVETICA, 16, Font.NORMAL, BaseColor.BLACK);
-
         @Override
         public void onEndPage(PdfWriter w, Document documento) {
             PdfContentByte pcb = w.getDirectContent();
             Phrase titulo = new Phrase("Reporte de Entrada", tituloFont);
             Phrase pagina = new Phrase("Pagina " + w.getPageNumber(), font);
-
             ColumnText.showTextAligned(pcb, Element.ALIGN_LEFT, titulo, documento.leftMargin(), documento.top() + 10, 0);
             ColumnText.showTextAligned(pcb, Element.ALIGN_RIGHT, pagina, documento.right() - documento.left(), documento.bottom() - 20, 0); 
         }
     }
 
-    private void generarPDF(File archivo) throws DocumentException, IOException {
+    private void EstructuraPDF(File archivo) throws DocumentException, IOException {
         Document documento = new Document();
         PdfWriter writer = PdfWriter.getInstance(documento, new FileOutputStream(archivo));
-
         writer.setPageEvent(new encabezadoReporte());
-
         documento.open();
-
         documento.add(new Paragraph(" "));
         documento.add(new Paragraph(" "));
-
         PdfPTable tabla = new PdfPTable(5);
         tabla.setWidthPercentage(100);
-
         BaseColor colorEncabezado = new BaseColor(240, 240, 240);
         Font encabezadoFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
         Font cuerpoFont = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL, BaseColor.BLACK);
         PdfPCell celda;
-
         celda = new PdfPCell(new Phrase("Producto", encabezadoFont));
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
-
         celda = new PdfPCell(new Phrase("Stock actual", encabezadoFont));
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
-
         celda = new PdfPCell(new Phrase("Unidad de medida", encabezadoFont));
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
-
         celda = new PdfPCell(new Phrase("Precio unitario", encabezadoFont));
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
-
         celda = new PdfPCell(new Phrase("Subtotal", encabezadoFont));
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
-
         if (entrada != null && entrada.getDetallesEntrada() != null) {
             for (DetalleEntradaDTO detalle : entrada.getDetallesEntrada()) {
 //                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(detalle.getNombreIngrediente(), detalle.getNivelStock().toString());
 //                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
-                
                 tabla.addCell(new Phrase(detalle.getNombreIngrediente(), cuerpoFont));
                 tabla.addCell(new Phrase(" ")); //Stock actual
                 tabla.addCell(new Phrase(" ")); //Unidad de medida
@@ -147,7 +131,6 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
         }
 
         documento.add(tabla);
-
         documento.add(new Paragraph(" "));
         Paragraph total = new Paragraph("Precio total de entrada: $" + String.format("%.2f", entrada.getPrecioTotal()), cuerpoFont); 
         documento.add(total);
@@ -156,8 +139,24 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
         DateTimeFormatter formatoFechaHora = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         Paragraph fechaHora = new Paragraph("Fecha y hora de registro: " + entrada.getFechaHora().format(formatoFechaHora), cuerpoFont);
         documento.add(fechaHora);
-
         documento.close();
+    }
+    
+    public void generarPDF(){
+        String usuario = System.getProperty("user.home");
+        File Descargas = new File(usuario, "Downloads");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
+        String tiempo = LocalDateTime.now().format(formatter);
+        File reporte = new File(Descargas, "ReporteDeEntrada_" + tiempo + ".pdf");
+        try {
+            EstructuraPDF(reporte);
+            JOptionPane.showMessageDialog(this, "PDF generado exitosamente.");
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(reporte);
+            }
+        } catch (DocumentException | HeadlessException | IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -257,25 +256,7 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVolverAtrasActionPerformed
 
     private void BtnPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPDFActionPerformed
-        String usuario = System.getProperty("user.home");
-        File Descargas = new File(usuario, "Downloads");
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss");
-        String tiempo = LocalDateTime.now().format(formatter);
-
-        File reporte = new File(Descargas, "ReporteDeEntrada_" + tiempo + ".pdf");
-
-        try {
-            generarPDF(reporte);
-
-            JOptionPane.showMessageDialog(this, "PDF generado exitosamente.");
-
-            if (Desktop.isDesktopSupported()) {
-                Desktop.getDesktop().open(reporte);
-            }
-        } catch (DocumentException | HeadlessException | IOException e) {
-            JOptionPane.showMessageDialog(this, "Error al generar PDF: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        generarPDF();
     }//GEN-LAST:event_BtnPDFActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

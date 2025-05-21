@@ -42,7 +42,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         if (value == null) {
             return 0.0;
         }
-
         if (value instanceof Number number) {
             return number.doubleValue();
         } else if (value instanceof String string) {
@@ -63,7 +62,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                     return column == 2 || column == 4;
                 }
             };
-
             modeloTablaIngrdientes.addColumn("Nombre");
             modeloTablaIngrdientes.addColumn("Stock actual");
             modeloTablaIngrdientes.addColumn("Cantidad agregada");
@@ -71,24 +69,19 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             modeloTablaIngrdientes.addColumn("Precio unitario");
             modeloTablaIngrdientes.addColumn("Precio total");
             modeloTablaIngrdientes.addColumn("Estado");
-
             jTable1.setModel(modeloTablaIngrdientes);
-
             jTable1.getColumnModel().getColumn(2).setCellRenderer(new Placeholder("Ingrese cantidad"));
             jTable1.getColumnModel().getColumn(4).setCellRenderer(new Placeholder("Ingrese precio"));
         }
     }
 
     public class Placeholder extends DefaultTableCellRenderer {
-
         private final String placeholder;
         private final boolean editando = false;
-
         public Placeholder(String placeholder) {
             this.placeholder = placeholder;
             setForeground(Color.GRAY);
         }
-
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
@@ -111,7 +104,243 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         return proveedor != null
                 && !proveedor.matches("\\d+");
     }
+    
+    public void validacionesDeRegistro(){
+        String proveedor = TFProveedor.getText().trim();
+        if (proveedor.length() > 50) {
+            JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+            TFProveedor.setText(null);
+            return;
+        }
 
+        modeloTablaIngrdientes.addTableModelListener(e -> {
+            int fila = e.getFirstRow();
+            int col = e.getColumn();
+
+            if (col == 2 || col == 4) {
+                Object valorObj = modeloTablaIngrdientes.getValueAt(fila, col);
+                if (valorObj instanceof String valorStr && !valorStr.trim().isEmpty() && !esNumeroValido(valorStr)) {
+                    JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " (solo números) en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    modeloTablaIngrdientes.setValueAt(null, fila, col);
+                }
+
+                try {
+                    double valor = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, col));
+
+                    if (valor < 0) {
+                        JOptionPane.showMessageDialog(this, "No se permiten valores negativos en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                        modeloTablaIngrdientes.setValueAt(null, fila, col);
+                    }
+
+                    String valorComoTexto = String.valueOf(valor);
+                    if (valorComoTexto.length() > 10) {
+                        JOptionPane.showMessageDialog(this, "El valor en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " no debe exceder los 10 dígitos en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                        modeloTablaIngrdientes.setValueAt(null, fila, col);
+                        return;
+                    }
+
+                    double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 2));
+                    double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 4));
+                    modeloTablaIngrdientes.setValueAt(cantidad * precioUnitario, fila, 5);
+
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    modeloTablaIngrdientes.setValueAt(null, fila, col);
+                }
+            }
+        });
+    }
+    
+    public void agregarIngrediente(){
+        this.setVisible(false);
+        BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((IngredienteViejoListDTO ingredienteNuevo) -> {
+            if (ingredienteNuevo == null) {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            boolean encontrado = false;
+            for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
+                String nombreExistente = String.valueOf(modeloTablaIngrdientes.getValueAt(i, 0));
+                if (nombreExistente.equalsIgnoreCase(ingredienteNuevo.getNombre())) {
+                    encontrado = true;
+                    JOptionPane.showMessageDialog(this, "El ingrediente \"" + ingredienteNuevo.getNombre() + "\" ya se encuentra en la lista.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+
+            if (!encontrado) {
+                modeloTablaIngrdientes.addRow(new Object[]{
+                    ingredienteNuevo.getNombre(),
+                    ingredienteNuevo.getCantidadDisponible(),
+                    null,
+                    ingredienteNuevo.getUnidadMedida(),
+                    null,
+                    0.0,
+                    ingredienteNuevo.getNivelStock()
+                });
+            }
+        });
+        buscador.setVisible(true);
+    }
+    
+    public void volverAtras(){
+        if (modeloTablaIngrdientes.getRowCount() != 0) {
+            int respuesta = JOptionPane.showConfirmDialog(
+                    this,
+                    "        ¿Seguro que deseas volver?\nTu registro se eliminará automáticamente",
+                    "Advertencia",
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (respuesta == JOptionPane.YES_OPTION) {
+                ControlNavegacion.mostrarPantallaHistorialEntradas();
+                this.dispose();
+            }
+        }else{
+            ControlNavegacion.mostrarPantallaHistorialEntradas();
+                this.dispose();
+        }
+    }
+    
+    public void cancelarIngrediente(){
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Seguro que deseas eliminar este ingrediente?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
+        if (respuesta == JOptionPane.YES_OPTION) {
+            int fila = jTable1.getSelectedRow();
+            if (fila != -1) {
+                modeloTablaIngrdientes.removeRow(fila);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
+            }
+        }
+    }
+    
+    public void validacionYRegistro(){
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Deseas realizar el registro?",
+                "Registro",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            if (modeloTablaIngrdientes.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (TFProveedor.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (TFProveedor.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+                TFProveedor.setText(null);
+                return;
+            }
+            if (!esProveedorNumerico(TFProveedor.getText().trim())) {
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (detalle == null) {
+                detalle = new DetalleEntradaDTO();
+            }
+            if (entrada == null) {
+                entrada = new EntradaNuevaDTO();
+            }
+            registroNuevo.clear();
+            double totalEntrada = 0.0;
+            double totalCantidadIngredientes = 0.0;
+
+            for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
+                Double cantidadAgregada = null;
+                Double precioUnitario = null;
+                String nombreIngrediente = null;
+                Double stockActual = null;
+                Double precioTotal = 0.0;
+
+                Object nombreObj = modeloTablaIngrdientes.getValueAt(i, 0);
+                Object stockObj = modeloTablaIngrdientes.getValueAt(i, 1);
+                Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 2);
+                UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
+                Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
+                NivelStock estadoObj = (NivelStock) modeloTablaIngrdientes.getValueAt(i, 6);
+
+                if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
+                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (precioUnitarioObj instanceof String precioStr && !precioStr.trim().isEmpty() && !esNumeroValido(precioStr)) {
+                    JOptionPane.showMessageDialog(this, "Precio unitario inválido (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                if (nombreObj != null) {
+                    nombreIngrediente = nombreObj.toString();
+                }
+                if (stockObj instanceof Number number) {
+                    stockActual = number.doubleValue();
+                }
+                try {
+                    if (cantidadObj instanceof String string) {
+                        cantidadAgregada = Double.valueOf(string);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try {
+                    if (precioUnitarioObj instanceof String string) {
+                        precioUnitario = Double.valueOf(string);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (cantidadAgregada == null || precioUnitario == null) {
+                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + (i + 1) + " para realizar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (cantidadAgregada <= 0) {
+                    JOptionPane.showMessageDialog(this, "La cantidad agregada no puede ser cero en la fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                precioTotal = cantidadAgregada * precioUnitario;
+                modeloTablaIngrdientes.setValueAt(precioTotal, i, 5);
+                DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
+                preRegistro.setNombreIngrediente(nombreIngrediente);
+                preRegistro.setCantidadIngrediente(cantidadAgregada);
+                preRegistro.setPrecioUnitario(precioUnitario);
+                preRegistro.setPrecioTotal(precioTotal);
+                preRegistro.setNivelStock(estadoObj);
+
+//                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(nombreIngrediente, estadoObj.toString());
+//                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
+//                boolean resultado = ControlNavegacion.aumentarStock(ingrediente.getId(),cantidadAgregada);
+//                if (resultado!=true) {
+//                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//                preRegistro.setIdIngrediente(ingrediente.getId());               
+//                ControlNavegacion.actualizarNivelStock(ingrediente.getId());
+                registroNuevo.add(preRegistro);
+
+                totalEntrada += precioTotal;
+                totalCantidadIngredientes += cantidadAgregada;
+            }
+
+            entrada.setFechaHora(LocalDateTime.now());
+            entrada.setProveedor(TFProveedor.getText().trim());
+            entrada.setPrecioTotal(totalEntrada);
+            entrada.setDetallesEntrada(registroNuevo);
+
+            ControlNavegacion.registrarEntrada(entrada);
+            ControlNavegacion.mostrarPantallaHistorialEntradas();
+            this.dispose();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -219,14 +448,14 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(BtnAgregarIngrediente, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(LbProveedor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TFProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addComponent(TFProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE))
+                    .addComponent(BtnAgregarIngrediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TablaRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 533, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,251 +472,20 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverAtrasActionPerformed
-        ControlNavegacion.mostrarPantallaHistorialEntradas();
-        this.dispose();
+        volverAtras();
     }//GEN-LAST:event_BtnVolverAtrasActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                "¿Seguro que deseas eliminar este ingrediente?",
-                "Registro",
-                JOptionPane.YES_NO_OPTION
-        );
-        if (respuesta == JOptionPane.YES_OPTION) {
-            int fila = jTable1.getSelectedRow();
-            if (fila != -1) {
-                modeloTablaIngrdientes.removeRow(fila);
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleccione una fila para eliminar.");
-            }
-        }
+        cancelarIngrediente();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void BtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfirmarActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas realizar el registro?",
-                "Registro",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            if (modeloTablaIngrdientes.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (TFProveedor.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (TFProveedor.getText().trim().length() > 50) {
-                JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-                TFProveedor.setText(null);
-                return;
-            }
-
-            if (!esProveedorNumerico(TFProveedor.getText().trim())) {
-                JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (detalle == null) {
-                detalle = new DetalleEntradaDTO();
-            }
-            if (entrada == null) {
-                entrada = new EntradaNuevaDTO();
-            }
-
-            registroNuevo.clear();
-
-            double totalEntrada = 0.0;
-            double totalCantidadIngredientes = 0.0;
-
-            for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
-                Double cantidadAgregada = null;
-                Double precioUnitario = null;
-                String nombreIngrediente = null;
-                Double stockActual = null;
-                Double precioTotal = 0.0;
-
-                Object nombreObj = modeloTablaIngrdientes.getValueAt(i, 0);
-                Object stockObj = modeloTablaIngrdientes.getValueAt(i, 1);
-                Object cantidadObj = modeloTablaIngrdientes.getValueAt(i, 2);
-                UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
-                Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
-                NivelStock estadoObj = (NivelStock) modeloTablaIngrdientes.getValueAt(i, 6);
-
-                if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
-                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                if (precioUnitarioObj instanceof String precioStr && !precioStr.trim().isEmpty() && !esNumeroValido(precioStr)) {
-                    JOptionPane.showMessageDialog(this, "Precio unitario inválido (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                if (nombreObj != null) {
-                    nombreIngrediente = nombreObj.toString();
-                }
-                if (stockObj instanceof Number number) {
-                    stockActual = number.doubleValue();
-                }
-
-                try {
-                    if (cantidadObj instanceof String string) {
-                        cantidadAgregada = Double.valueOf(string);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Cantidad agregada inválida en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                try {
-                    if (precioUnitarioObj instanceof String string) {
-                        precioUnitario = Double.valueOf(string);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                if (cantidadAgregada == null || precioUnitario == null) {
-                    JOptionPane.showMessageDialog(this, "Complete la cantidad agregada y precio unitario en la fila " + (i + 1) + " para realizar el registro.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                if (cantidadAgregada <= 0) {
-                    JOptionPane.showMessageDialog(this, "La cantidad agregada no puede ser cero en la fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                precioTotal = cantidadAgregada * precioUnitario;
-                modeloTablaIngrdientes.setValueAt(precioTotal, i, 5);
-
-                System.out.println("Tipo de cantidad agregada: " + cantidadAgregada);
-                System.out.println("Tipo de precio unitario: " + precioUnitario);
-                System.out.println("Tipo de precio total: " + precioTotal);
-                System.out.println("Tipo de nivel de stock: " + estadoObj);
-
-                DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
-                preRegistro.setNombreIngrediente(nombreIngrediente);
-                preRegistro.setCantidadIngrediente(cantidadAgregada);
-                preRegistro.setPrecioUnitario(precioUnitario);
-                preRegistro.setPrecioTotal(precioTotal);
-                preRegistro.setNivelStock(estadoObj);
-
-//                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(nombreIngrediente, estadoObj.toString());
-//                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
-//                boolean resultado = ControlNavegacion.aumentarStock(ingrediente.getId(),cantidadAgregada);
-//                if (resultado!=true) {
-//                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//                preRegistro.setIdIngrediente(ingrediente.getId());               
-//                ControlNavegacion.actualizarNivelStock(ingrediente.getId());
-                registroNuevo.add(preRegistro);
-
-                totalEntrada += precioTotal;
-                totalCantidadIngredientes += cantidadAgregada;
-            }
-
-            entrada.setFechaHora(LocalDateTime.now());
-            entrada.setProveedor(TFProveedor.getText().trim());
-            System.out.println("Total entrada: " + totalEntrada);
-            entrada.setPrecioTotal(totalEntrada);
-            entrada.setDetallesEntrada(registroNuevo);
-
-            ControlNavegacion.registrarEntrada(entrada);
-            ControlNavegacion.mostrarPantallaHistorialEntradas();
-            this.dispose();
-        }
+        validacionYRegistro();
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     private void BtnAgregarIngredienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarIngredienteActionPerformed
-        String proveedor = TFProveedor.getText().trim();
-        if (proveedor.length() > 50) {
-            JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-            TFProveedor.setText(null);
-            return;
-        }
-
-        modeloTablaIngrdientes.addTableModelListener(e -> {
-            int fila = e.getFirstRow();
-            int col = e.getColumn();
-
-            if (col == 2 || col == 4) {
-                Object valorObj = modeloTablaIngrdientes.getValueAt(fila, col);
-                if (valorObj instanceof String valorStr && !valorStr.trim().isEmpty() && !esNumeroValido(valorStr)) {
-                    JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " (solo números) en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    modeloTablaIngrdientes.setValueAt(null, fila, col);
-                }
-
-                try {
-                    double valor = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, col));
-
-                    if (valor < 0) {
-                        JOptionPane.showMessageDialog(this, "No se permiten valores negativos en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                        modeloTablaIngrdientes.setValueAt(null, fila, col);
-                    }
-
-                    String valorComoTexto = String.valueOf(valor);
-                    if (valorComoTexto.length() > 10) {
-                        JOptionPane.showMessageDialog(this, "El valor en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " no debe exceder los 10 dígitos en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                        modeloTablaIngrdientes.setValueAt(null, fila, col);
-                        return;
-                    }
-
-                    double cantidad = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 2));
-                    double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(fila, 4));
-                    modeloTablaIngrdientes.setValueAt(cantidad * precioUnitario, fila, 5);
-
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Ingrese un número válido en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
-                    modeloTablaIngrdientes.setValueAt(null, fila, col);
-                }
-            }
-        });
-
-        BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((IngredienteViejoListDTO ingredienteNuevo) -> {
-            if (ingredienteNuevo == null) {
-                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            boolean encontrado = false;
-
-            for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
-                String nombreExistente = String.valueOf(modeloTablaIngrdientes.getValueAt(i, 0));
-
-                if (nombreExistente.equalsIgnoreCase(ingredienteNuevo.getNombre())) {
-                    encontrado = true;
-                    Double cantidadActual = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(i, 2));
-                    Double cantidadAAgregar = 1.0;
-                    double nuevaCantidad = cantidadActual + cantidadAAgregar;
-                    modeloTablaIngrdientes.setValueAt(nuevaCantidad, i, 2);
-                    Double precioUnitario = parseDoubleSafely(modeloTablaIngrdientes.getValueAt(i, 4));
-                    modeloTablaIngrdientes.setValueAt(precioUnitario, i, 4);
-                    modeloTablaIngrdientes.setValueAt(nuevaCantidad * precioUnitario, i, 5);
-                    break;
-                }
-            }
-
-            if (!encontrado) {
-                modeloTablaIngrdientes.addRow(new Object[]{
-                    ingredienteNuevo.getNombre(),
-                    ingredienteNuevo.getCantidadDisponible(),
-                    null,
-                    ingredienteNuevo.getUnidadMedida(),
-                    null,
-                    0.0,
-                    ingredienteNuevo.getNivelStock()
-                });
-            }
-        });
-
-        buscador.setVisible(true);
+        validacionesDeRegistro();
+        agregarIngrediente();
     }//GEN-LAST:event_BtnAgregarIngredienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
