@@ -10,9 +10,11 @@ import control.ControlNavegacion;
 import DTOs.ProductoPedidoDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
 import control.Modo;
+import control.ModoCubiculos;
 import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,15 +32,17 @@ import javax.swing.JPanel;
 public class PantallaVerReservaciones extends javax.swing.JFrame {
 
     private final int MOVIMIENTO_SCROLL_MOUSE = 15;
+    private ModoCubiculos modo;
 
     /**
-     * Constructor de la clase PantallaVerReservaciones. Inicializa los componentes de la
-     * interfaz y ajusta el tamaño de la ventana.
+     * Constructor de la clase PantallaVerReservaciones. Inicializa los
+     * componentes de la interfaz y ajusta el tamaño de la ventana.
      *
-     * Llama a los métodos para cargar las reservaciones pendientes e iniciadas y ajustar el
-     * scroll.
+     * Llama a los métodos para cargar las reservaciones pendientes e iniciadas
+     * y ajustar el scroll.
      */
-    public PantallaVerReservaciones() {
+    public PantallaVerReservaciones(ModoCubiculos modo) {
+        this.modo = modo;
         initComponents();
         setSize(1000, 800);
         cargarPanelesReservaciones();
@@ -69,27 +73,42 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
      * @return JPanel que contiene los datos de las reservaciones.
      */
     private JPanel obtenerPanelesReservaciones() {
-        
-        List<ReservacionDTOMostrar> listaVerReservaciones = ControlNavegacion.cargarReservacionesPendientes(null, null);
 
+        List<ReservacionDTOMostrar> listaVerReservaciones = new ArrayList<>();
         JPanel contenedorPanelesVerReservaciones = new JPanel();
-        contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
+        
+        if (modo == ModoCubiculos.VER) {
+            listaVerReservaciones = ControlNavegacion.cargarReservacionesPendientes(null, null);
+            
+            contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
 
-        for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
-            PanelReservacion panelReservacion = new PanelReservacion(reservacion);
-            configurarPanelProducto(panelReservacion);
-            contenedorPanelesVerReservaciones.add(panelReservacion);
+            for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
+                PanelReservacion panelReservacion = new PanelReservacion(reservacion);
+                configurarPanelReservacion(panelReservacion);
+                contenedorPanelesVerReservaciones.add(panelReservacion);
+            }
+        } else {
+            listaVerReservaciones = ControlNavegacion.cargarReservacionesHistorial(null, null);
+            
+            contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
+
+            for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
+                PanelReservacionHistorial panelReservacion = new PanelReservacionHistorial(reservacion);
+                configurarPanelReservacionHistorial(panelReservacion);
+                contenedorPanelesVerReservaciones.add(panelReservacion);
+            }
         }
 
         return contenedorPanelesVerReservaciones;
     }
 
     /**
-     * Configura los listeners para cada panel de reservacion (iniciar, cancelar).
+     * Configura los listeners para cada panel de reservacion (iniciar,
+     * cancelar).
      *
      * @param panelRes El panel de reservacion a configurar.
      */
-    private void configurarPanelProducto(PanelReservacion panelRes) {
+    private void configurarPanelReservacion(PanelReservacion panelRes) {
         panelRes.setCancelarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,8 +119,21 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
             }
         });
-        
 
+    }
+    
+    /**
+     * Configura los listeners para cada panel de reservacion (ver detalle).
+     *
+     *
+     * @param panelRes El panel de reservacion historial a configurar.
+     */
+    private void configurarPanelReservacionHistorial(PanelReservacionHistorial panelRes) {
+        panelRes.setVerDetalleActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
     }
 
     /**
@@ -126,8 +158,6 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
             cargarPanelesReservaciones();
         }
     }
-
-
 
     /**
      * Thte javax.swing.JButton btnTarjeta; private javax.swing.JLabel lblSigno;
@@ -204,14 +234,8 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
      * "Tarjeta"
      */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-        if (listaProductosPedidos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            ControlNavegacion.mostrarPantallaPagoTarjeta();
-            this.dispose();
-        }
+        ControlNavegacion.volverPantallaAnterior();
+        this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

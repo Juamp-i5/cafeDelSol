@@ -5,6 +5,7 @@
 package pantallas.cubiculos;
 
 import control.ControlNavegacion;
+import control.ModoCubiculos;
 
 /**
  *
@@ -151,12 +152,13 @@ public class PantallaMenuCubiculos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRealizarReservacionActionPerformed
 
     private void btnVerReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReservacionesActionPerformed
-        ControlNavegacion.mostrarPantallaVerReservaciones();
+        ControlNavegacion.mostrarPantallaVerReservaciones(ModoCubiculos.VER);
         this.dispose();
     }//GEN-LAST:event_btnVerReservacionesActionPerformed
 
     private void btnHistorialReservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialReservacionesActionPerformed
-
+        ControlNavegacion.mostrarPantallaVerReservaciones(ModoCubiculos.HISTORIAL);
+        this.dispose();
     }//GEN-LAST:event_btnHistorialReservacionesActionPerformed
 
     private void btnReagendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReagendarActionPerformed

@@ -171,4 +171,14 @@ public class GestorCubiculos implements IGestorCubiculos {
             throw new GestionCubiculosException("Error al cargar reservaciones sin concluir");
         }
     }
+    
+    @Override
+    public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException {
+        try {
+            return reservacionBO.obtenerReservacionesHistorial(fechaInicio, fechaFin);
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al cargar reservaciones sin concluir");
+        }
+    }
 }

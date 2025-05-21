@@ -37,5 +37,5 @@ public interface IGestorCubiculos {
     
     public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException;
     
-    
+    public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException;
 }

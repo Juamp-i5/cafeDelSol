@@ -905,8 +905,17 @@ public class ControlNavegacion {
         }
     }
     
-    public static void mostrarPantallaVerReservaciones() {
-        JFrame pantallaVerReservaciones = new PantallaVerReservaciones();
+    public static List<ReservacionDTOMostrar> cargarReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) {
+        try {
+            return gestorCubiculos.obtenerReservacionesHistorial(fechaInicio, fechaFin);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static void mostrarPantallaVerReservaciones(ModoCubiculos modo) {
+        JFrame pantallaVerReservaciones = new PantallaVerReservaciones(modo);
         pantallaVerReservaciones.setLocationRelativeTo(null);
         pantallaVerReservaciones.setVisible(true);
 

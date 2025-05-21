@@ -25,4 +25,6 @@ public interface IReservacionBO {
     public boolean modificarReservacion (Integer numReservacion, Integer numReservacionNueva, String motivo, LocalDateTime fechaHora) throws NegocioCubiculoException;
     
     public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException;
+    
+    public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException;
 }

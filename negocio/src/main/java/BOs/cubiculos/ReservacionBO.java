@@ -96,6 +96,24 @@ public class ReservacionBO implements IReservacionBO{
             throw new NegocioCubiculoException("Error al obtener reservaciones inconclusas por rango de fechas");
         }
     }
+
+    @Override
+    public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException {
+        try {
+            List<ReservacionDTOCompletaPersistencia> listaPers = reservacionDAO.buscarPorRangoFechas(fechaInicio, fechaFin);
+            List<ReservacionDTOMostrar> listaDTO = new ArrayList<>();
+            
+            for (ReservacionDTOCompletaPersistencia pers : listaPers) {
+                ReservacionDTOMostrar dto = mapperMostrar.toDTO(pers);
+                listaDTO.add(dto);
+            }
+            return listaDTO;
+            
+        } catch (PersistenciaCubiculoEsception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al obtener reservaciones inconclusas por rango de fechas");
+        }
+    }
     
     
     
