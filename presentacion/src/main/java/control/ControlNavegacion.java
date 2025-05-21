@@ -65,6 +65,7 @@ import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
 import pantallas.cubiculos.PagoEfectivoCubiculos;
+import pantallas.cubiculos.PagoTarjetaCubiculos;
 import pantallas.cubiculos.PantallaReagendar;
 import pantallas.cubiculos.PantallaVerReservaciones;
 import pantallas.ingredientes.PantallaAgregarIngrediente;
@@ -850,6 +851,14 @@ public class ControlNavegacion {
         pagoEfectivo.setVisible(true);
 
         framesVisitados.add(pagoEfectivo);
+    }
+    
+    public static void mostrarPantallaPagoTarjCubiculo() {
+        JFrame pagoTarjeta = new PagoTarjetaCubiculos();
+        pagoTarjeta.setLocationRelativeTo(null);
+        pagoTarjeta.setVisible(true);
+
+        framesVisitados.add(pagoTarjeta);
     }
 
     public static double calcularCambioCubiculo(EfectivoDTOCubiculo efectivo) {

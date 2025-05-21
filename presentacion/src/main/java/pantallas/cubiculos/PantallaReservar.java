@@ -82,7 +82,7 @@ public class PantallaReservar extends javax.swing.JFrame {
         crearReservacion();
         if(reservacionNueva != null) {
             ControlNavegacion.setReservacionNueva(reservacionNueva);
-            ControlNavegacion.mostrarPantallaPagoTarjeta();
+            ControlNavegacion.mostrarPantallaPagoTarjCubiculo();
             this.dispose();
         }
     }

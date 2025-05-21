@@ -188,6 +188,7 @@ public class PagoEfectivoCubiculos extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ControlNavegacion.volverPantallaAnterior();
+                ControlNavegacion.setReservacionNueva(null);
                 dispose();
             }
         });
