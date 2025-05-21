@@ -8,6 +8,7 @@ import IDAOs.IProductoPedidoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.IUsuarioDAO;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReservacionDAO;
@@ -90,33 +91,37 @@ public class AccesoDatos {
     public static IToppingDAO getToppingDAO() {
         return fabricaDAOs.getToppingDAO();
     }
-    
-    public static IEntradaDAO getEntradaDAO(){
+
+    public static IEntradaDAO getEntradaDAO() {
         return fabricaDAOs.getEntradaDAO();
     }
-    
+
     public static IIngredienteDAOMongo getIngredienteDAO() {
         return fabricaDAOs.getIngredienteDAO();
     }
-    
+
     public static IProveedorDAOMongo getProveedorDAO() {
         return fabricaDAOs.getProveedorDAO();
     }
-    
+
     public static IReservacionDAO getReservacionDAO() {
         return fabricaDAOs.getReservacionDAO();
     }
-    
+
     public static ICubiculoDAO getCubiculoDAO() {
         return fabricaDAOs.getCubiculoDAO();
     }
-    
+
     public static IContadorReservaciones getContador() {
         return fabricaDAOs.getContadorReservaciones();
     }
-    
-    public static ISalidaDAO getSalidaDAO(){
+
+    public static ISalidaDAO getSalidaDAO() {
         return fabricaDAOs.getSalidaDAO();
     }
-    
+
+    public static IUsuarioDAO getUsuarioDAO() {
+        return fabricaDAOs.getUsuarioDAO();
+    }
+
 }

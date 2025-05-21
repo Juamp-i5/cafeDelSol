@@ -16,6 +16,7 @@ import IDAOs.IProductoPedidoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.IUsuarioDAO;
 import IDAOs.cubiculos.IContadorReservaciones;
 import IDAOs.cubiculos.ICubiculoDAO;
 import IDAOs.cubiculos.IReservacionDAO;
@@ -135,10 +136,15 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
     public IReservacionDAO getReservacionDAO() {
         return ReservacionDAOMongo.getInstance(conexion);
     }
-    
+
     @Override
-    public ISalidaDAO getSalidaDAO(){
+    public ISalidaDAO getSalidaDAO() {
         return SalidaDAOMongo.getInstance(conexion);
+    }
+
+    @Override
+    public IUsuarioDAO getUsuarioDAO() {
+        return UsuarioDAOMongo.getInstancia(conexion);
     }
 
 }

@@ -1,26 +1,12 @@
 package BOs;
 
 import DTOs.PedidoDTO;
-import DTOs.PersistenciaProductoDTO;
-import DTOs.ProductoPedidoDTO;
-import DTOs.PersistenciaSaborDTO;
-import DTOs.PersistenciaTamanioDTO;
-import DTOs.PersistenciaToppingDTO;
-import entidades.Pedido;
-import entidades.Producto;
-import entidades.ProductoPedido;
-import entidades.Sabor;
-import entidades.Tamanio;
-import entidades.Topping;
 import excepciones.NegocioException;
-import excepciones.PersistenciaException;
 import interfacesBO.IPedidoBO;
 import java.util.ArrayList;
 import interfacesObservers.NuevaVentaObserver;
 import interfacesMapper.IPedidoMapper;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import mapper.PedidoMapper;
 import IDAOs.IPedidoDAO;
 import IDAOs.IProductoDAO;

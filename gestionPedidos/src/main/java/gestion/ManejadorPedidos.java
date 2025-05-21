@@ -9,8 +9,10 @@ import BOs.ProductoBO;
 import BOs.SaborBO;
 import BOs.TamanioBO;
 import BOs.ToppingBO;
+import BOs.UsuarioBO;
 import DTOs.DetallesCobroTarjetaDTO;
 import DTOs.EfectivoDTO;
+import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
@@ -18,6 +20,7 @@ import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
 import DTOs.TarjetaDTO;
+import DTOs.UsuarioDTO;
 import excepciones.NegocioException;
 import exception.GestionException;
 import interfaces.IFachadaPago;
@@ -26,6 +29,7 @@ import interfacesBO.IProductoBO;
 import interfacesBO.ISaborBO;
 import interfacesBO.ITamanioBO;
 import interfacesBO.IToppingBO;
+import interfacesBO.IUsuarioBO;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +54,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     ISaborBO saborBO = SaborBO.getInstance();
     ITamanioBO tamanioBO = TamanioBO.getInstance();
     IToppingBO toppingBO = ToppingBO.getInstance();
+    IUsuarioBO usuarioBO = UsuarioBO.getInstancia();
 
     private IFachadaPago fachadaPago;
 
@@ -288,5 +293,13 @@ public class ManejadorPedidos implements IGestionPedidos {
         }
 
         return pedido;
+    }
+
+    public UsuarioDTO comprobarInicioSesion(InicioSesionDTO inicioSesionDTO) throws GestionException {
+        try {
+            return usuarioBO.comprobarInicioSesion(inicioSesionDTO);
+        } catch (NegocioException ex) {
+            throw new GestionException("Los datos de inicio de sesion son incorrectos", ex);
+        }
     }
 }

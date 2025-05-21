@@ -4,22 +4,18 @@
  */
 package pruebas;
 
-import DAOsMongo.SaborDAOMongo;
-import DAOsMongo.TamanioDAOMongo;
-import DAOsMongo.ToppingDAOMongo;
+import DAOsMongo.UsuarioDAOMongo;
 import DTOs.PersistenciaSaborDTO;
 import DTOs.PersistenciaTamanioDTO;
 import DTOs.PersistenciaToppingDTO;
+import DTOs.PersistenciaUsuarioDTO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
-import IDAOs.ingredientes.IIngredienteDAOMongo;
-import IDAOs.ingredientes.IProveedorDAOMongo;
+import IDAOs.IUsuarioDAO;
 import conexion.ConexionMongo;
 import excepciones.PersistenciaException;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -38,14 +34,34 @@ public class InsertarDatosPrueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws PersistenciaException {
-        insertarTamanios(TamanioDAOMongo.getInstance(ConexionMongo.getInstance()));
-        insertarSabores(SaborDAOMongo.getInstance(ConexionMongo.getInstance()));
-        insertarToppings(ToppingDAOMongo.getInstance(ConexionMongo.getInstance()));
+        ConexionMongo conexionMongo = ConexionMongo.getInstance();
+
+        insertarUsuarios(UsuarioDAOMongo.getInstancia(conexionMongo));
+//        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
+//        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
+//        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
 
     }
 
-    private static void insertarProductosConIngredientesConProveedores(IIngredienteDAOMongo ingredienteDAO, IProveedorDAOMongo proveedorDAO) {
+    private static void insertarUsuarios(IUsuarioDAO usuarioDAO) throws PersistenciaException {
+        PersistenciaUsuarioDTO adminDTO = new PersistenciaUsuarioDTO();
+        adminDTO.setNombresPila("Denise");
+        adminDTO.setApellidoPaterno("Garcia");
+        adminDTO.setApellidoMaterno("Acosta");
+        adminDTO.setTipoEmpleado("Administrador");
+        adminDTO.setUsuario("admin01");
+        adminDTO.setContrasenia("12345678".toCharArray());
 
+        PersistenciaUsuarioDTO baristaDTO = new PersistenciaUsuarioDTO();
+        baristaDTO.setNombresPila("Laura");
+        baristaDTO.setApellidoPaterno("Gomez");
+        baristaDTO.setApellidoMaterno("Fernandez");
+        baristaDTO.setTipoEmpleado("Barista");
+        baristaDTO.setUsuario("barista01");
+        baristaDTO.setContrasenia("12345678".toCharArray());
+
+        usuarioDAO.agregarUsuario(adminDTO);
+        usuarioDAO.agregarUsuario(baristaDTO);
     }
 
     private static void insertarTamanios(ITamanioDAO tamanioDAO) throws PersistenciaException {

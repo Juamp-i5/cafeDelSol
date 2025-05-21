@@ -5,6 +5,7 @@
 package gestion;
 
 import DTOs.EfectivoDTO;
+import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;
@@ -12,6 +13,7 @@ import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
 import DTOs.TarjetaDTO;
+import DTOs.UsuarioDTO;
 import exception.GestionException;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public interface IGestionPedidos {
      * Carga la lista de productos disponibles.
      *
      * @return La lista de productos disponibles.
+     * @throws exception.GestionException
      */
     public List<ProductoMostrarDTO> cargarProductos() throws GestionException;
 
@@ -60,6 +63,7 @@ public interface IGestionPedidos {
      * Carga la lista de tamaños disponibles.
      *
      * @return La lista de tamaños disponibles.
+     * @throws exception.GestionException
      */
     public List<TamanioMostrarDTO> cargarTamanios() throws GestionException;
 
@@ -75,6 +79,7 @@ public interface IGestionPedidos {
      * Carga la lista de sabores disponibles.
      *
      * @return La lista de sabores disponibles.
+     * @throws exception.GestionException
      */
     public List<SaborMostrarDTO> cargarSabores() throws GestionException;
 
@@ -90,6 +95,7 @@ public interface IGestionPedidos {
      * Carga la lista de toppings disponibles.
      *
      * @return La lista de toppings disponibles.
+     * @throws exception.GestionException
      */
     public List<ToppingMostrarDTO> cargarToppings() throws GestionException;
 
@@ -201,14 +207,15 @@ public interface IGestionPedidos {
      * @return El costo total actualizado del pedido actual.
      */
     public double actualizarTotal();
-    
+
     /**
-     * 
+     *
      * Registar el pedido en la base de datos
      *
+     * @return
      * @throws exception.GestionException
      */
     public PedidoDTO registrarPedido() throws GestionException;
-    
-    
+
+    public UsuarioDTO comprobarInicioSesion(InicioSesionDTO inicioSesionDTO) throws GestionException;
 }

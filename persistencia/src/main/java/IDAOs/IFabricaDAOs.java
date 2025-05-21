@@ -25,18 +25,20 @@ public interface IFabricaDAOs {
     public ITamanioDAO getTamanioDAO();
 
     public IToppingDAO getToppingDAO();
-    
+
     public ICubiculoDAO getCubiculoDAO();
-    
+
     public IContadorReservaciones getContadorReservaciones();
-    
+
     public IEntradaDAO getEntradaDAO();
-    
+
     public IIngredienteDAOMongo getIngredienteDAO();
 
     public IProveedorDAOMongo getProveedorDAO();
-    
+
     public IReservacionDAO getReservacionDAO();
-    
+
     public ISalidaDAO getSalidaDAO();
+
+    public IUsuarioDAO getUsuarioDAO();
 }

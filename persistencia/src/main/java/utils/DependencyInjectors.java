@@ -11,6 +11,7 @@ import interfacesMappers.IProductoTamanioMapper;
 import interfacesMappers.ISaborMapper;
 import interfacesMappers.ITamanioMapper;
 import interfacesMappers.IToppingMapper;
+import interfacesMappers.IUsuarioMapper;
 import mappers.IngredienteMapper;
 import mappers.ProductoMapper;
 import mappers.ProductoTamanioIngredienteMapper;
@@ -18,6 +19,7 @@ import mappers.ProductoTamanioMapper;
 import mappers.SaborMapper;
 import mappers.TamanioMapper;
 import mappers.ToppingMapper;
+import mappers.UsuarioMapper;
 
 /**
  *
@@ -34,6 +36,7 @@ public class DependencyInjectors {
     private final IProductoTamanioIngredienteMapper productoTamanioIngredienteMapper = new ProductoTamanioIngredienteMapper(ingredienteMapper);
     private final IProductoTamanioMapper productoTamanioMapper = new ProductoTamanioMapper(tamanioMapper, productoTamanioIngredienteMapper);
     private final IProductoMapper productoMapper = new ProductoMapper(productoTamanioMapper);
+    private final IUsuarioMapper usuarioMapper = new UsuarioMapper();
 
     private DependencyInjectors() {
     }
@@ -72,6 +75,10 @@ public class DependencyInjectors {
 
     public IToppingMapper getToppingMapper() {
         return toppingMapper;
+    }
+
+    public IUsuarioMapper getUsuarioMapper() {
+        return usuarioMapper;
     }
 
 }
