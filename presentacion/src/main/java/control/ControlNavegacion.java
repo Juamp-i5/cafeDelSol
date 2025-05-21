@@ -551,7 +551,6 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReservar);
     }
 
-
     public static void mostrarPantallaGestionInventario() {
         JFrame gestionInventario = new PantallaMenuGestionInventario();
         gestionInventario.setLocationRelativeTo(null);
@@ -796,8 +795,8 @@ public class ControlNavegacion {
             return false;
         }
     }
-    
-    public static void actualizarNivelStock(String idIngrediente){
+
+    public static void actualizarNivelStock(String idIngrediente) {
         try {
             gestorCRUDIngredientes.actualizarNivelStock(idIngrediente);
             JOptionPane.showMessageDialog(null, "Se actualizó el stock exitosamente");
@@ -861,7 +860,7 @@ public class ControlNavegacion {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                ControlNavegacion.mostrarPantallaMenuPrincipal();
+                ControlNavegacion.mostrarPantallaMenuCubiculos();
             }
         }, 1000);
     }
@@ -896,6 +895,27 @@ public class ControlNavegacion {
         }
     }
 
+    public static Integer cancelarReservacion(Integer numReservacion, String motivo) {
+        try {
+            gestorCubiculos.modificarReservacion(numReservacion, null, motivo);
+
+            return numReservacion;
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static Integer actualizarEstadoReservacion(Integer numReservacion, String estado){
+        try {
+            return gestorCubiculos.actualizarEstado(numReservacion, estado);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+
     public static List<ReservacionDTOMostrar> cargarReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) {
         try {
             return gestorCubiculos.obtenerReservacionesPendientes(fechaInicio, fechaFin);
@@ -904,7 +924,7 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
+
     public static List<ReservacionDTOMostrar> cargarReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) {
         try {
             return gestorCubiculos.obtenerReservacionesHistorial(fechaInicio, fechaFin);
@@ -913,7 +933,7 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
+
     public static void mostrarPantallaVerReservaciones(ModoCubiculos modo) {
         JFrame pantallaVerReservaciones = new PantallaVerReservaciones(modo);
         pantallaVerReservaciones.setLocationRelativeTo(null);

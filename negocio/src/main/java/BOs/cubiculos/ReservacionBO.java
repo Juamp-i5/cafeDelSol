@@ -23,12 +23,12 @@ import java.util.logging.Logger;
  *
  * @author rodri
  */
-public class ReservacionBO implements IReservacionBO{
+public class ReservacionBO implements IReservacionBO {
 
     IReservacionDAO reservacionDAO = AccesoDatos.getReservacionDAO();
     IReservacionMapper mapperReservacion = new ReservacionMapper();
     IReservacionMostrarMapper mapperMostrar = new ReservacionMostrarMapper();
-    
+
     private static ReservacionBO instanceBO;
 
     public ReservacionBO() {
@@ -45,7 +45,7 @@ public class ReservacionBO implements IReservacionBO{
     public Integer agregarReservacion(ReservacionCompletaDTO reservacion) throws NegocioCubiculoException {
         ReservacionDTOCompletaPersistencia dtoPers = mapperReservacion.toDTOPersistencia(reservacion);
         dtoPers.setEstado(Estado.PENDIENTE);
-        
+
         try {
             reservacionDAO.agregarReservacion(dtoPers);
             return dtoPers.getNumReservacion();
@@ -53,7 +53,7 @@ public class ReservacionBO implements IReservacionBO{
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al insertar una reservación nueva");
         }
-        
+
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ReservacionBO implements IReservacionBO{
     }
 
     @Override
-    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo, LocalDateTime fechaHora)  throws NegocioCubiculoException{
+    public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo, LocalDateTime fechaHora) throws NegocioCubiculoException {
         try {
             reservacionDAO.modificarReservacion(numReservacion, numReservacionNueva, motivo, fechaHora);
             return true;
@@ -84,13 +84,13 @@ public class ReservacionBO implements IReservacionBO{
         try {
             List<ReservacionDTOCompletaPersistencia> listaPers = reservacionDAO.buscarPendientesPorRangoFechas(fechaInicio, fechaFin);
             List<ReservacionDTOMostrar> listaDTO = new ArrayList<>();
-            
+
             for (ReservacionDTOCompletaPersistencia pers : listaPers) {
                 ReservacionDTOMostrar dto = mapperMostrar.toDTO(pers);
                 listaDTO.add(dto);
             }
             return listaDTO;
-            
+
         } catch (PersistenciaCubiculoEsception ex) {
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al obtener reservaciones inconclusas por rango de fechas");
@@ -102,21 +102,37 @@ public class ReservacionBO implements IReservacionBO{
         try {
             List<ReservacionDTOCompletaPersistencia> listaPers = reservacionDAO.buscarPorRangoFechas(fechaInicio, fechaFin);
             List<ReservacionDTOMostrar> listaDTO = new ArrayList<>();
-            
+
             for (ReservacionDTOCompletaPersistencia pers : listaPers) {
                 ReservacionDTOMostrar dto = mapperMostrar.toDTO(pers);
                 listaDTO.add(dto);
             }
             return listaDTO;
-            
+
         } catch (PersistenciaCubiculoEsception ex) {
             Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioCubiculoException("Error al obtener reservaciones inconclusas por rango de fechas");
         }
     }
-    
-    
-    
-    
 
+    @Override
+    public Integer actualizarEstado(Integer numReservacion, String estado) throws NegocioCubiculoException {
+        try {
+            boolean resultado = false;
+            
+            if (estado == "ACTIVA") {
+                resultado = reservacionDAO.actualizarEstadoReservacion(numReservacion, Estado.ACTIVA);
+            } else if(estado == "CONCLUIDA"){
+                resultado = reservacionDAO.actualizarEstadoReservacion(numReservacion, Estado.CONCLUIDA);
+            }
+            if(resultado){
+                return numReservacion;
+            } else{
+                throw new NegocioCubiculoException("Error al modificar el estado de la reservacion");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ReservacionBO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioCubiculoException("Error al modificar el estado de la reservacion");
+        }
+    }
 }

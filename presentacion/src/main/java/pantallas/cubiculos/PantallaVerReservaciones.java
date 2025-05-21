@@ -12,8 +12,10 @@ import DTOs.cubiculos.ReservacionDTOMostrar;
 import control.Modo;
 import control.ModoCubiculos;
 import exception.GestionException;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -21,8 +23,10 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Clase que representa la pantalla de total desglosado de un pedido.
@@ -45,7 +49,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         this.modo = modo;
         initComponents();
         setSize(1000, 800);
-        cargarPanelesReservaciones();
+        cargarPanelesReservaciones(null, null);
         ajustarScroll();
     }
 
@@ -60,9 +64,9 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
     /**
      * Carga los paneles de las reservaciones
      */
-    public void cargarPanelesReservaciones() {
+    public void cargarPanelesReservaciones(LocalDate fechaInicio, LocalDate fechaFin) {
         int posicionScroll = pnlVerReservaciones.getVerticalScrollBar().getValue();
-        JPanel contenedorPanelesReservaciones = obtenerPanelesReservaciones();
+        JPanel contenedorPanelesReservaciones = obtenerPanelesReservaciones(fechaInicio, fechaFin);
         this.pnlVerReservaciones.setViewportView(contenedorPanelesReservaciones);
         pnlVerReservaciones.getVerticalScrollBar().setValue(posicionScroll);
     }
@@ -72,14 +76,14 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
      *
      * @return JPanel que contiene los datos de las reservaciones.
      */
-    private JPanel obtenerPanelesReservaciones() {
+    private JPanel obtenerPanelesReservaciones(LocalDate fechaInicio, LocalDate fechaFin) {
 
         List<ReservacionDTOMostrar> listaVerReservaciones = new ArrayList<>();
         JPanel contenedorPanelesVerReservaciones = new JPanel();
-        
+
         if (modo == ModoCubiculos.VER) {
-            listaVerReservaciones = ControlNavegacion.cargarReservacionesPendientes(null, null);
-            
+            listaVerReservaciones = ControlNavegacion.cargarReservacionesPendientes(fechaInicio, fechaFin);
+
             contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
 
             for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
@@ -89,7 +93,7 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
             }
         } else {
             listaVerReservaciones = ControlNavegacion.cargarReservacionesHistorial(null, null);
-            
+
             contenedorPanelesVerReservaciones.setLayout(new BoxLayout(contenedorPanelesVerReservaciones, BoxLayout.Y_AXIS));
 
             for (ReservacionDTOMostrar reservacion : listaVerReservaciones) {
@@ -112,16 +116,33 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         panelRes.setCancelarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cancelarReservacion(panelRes.getReservacion());
+                cargarPanelesReservaciones(null, null);
+                pnlVerReservaciones.revalidate();
+                pnlVerReservaciones.repaint();
             }
         });
         panelRes.setIniciarActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                iniciarReservacion(panelRes.getReservacion());
+                cargarPanelesReservaciones(null, null);
+                pnlVerReservaciones.revalidate();
+                pnlVerReservaciones.repaint();
+            }
+        });
+        panelRes.setConcluirActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                concluirReservacion(panelRes.getReservacion());
+                cargarPanelesReservaciones(null, null);
+                pnlVerReservaciones.revalidate();
+                pnlVerReservaciones.repaint();
             }
         });
 
     }
-    
+
     /**
      * Configura los listeners para cada panel de reservacion (ver detalle).
      *
@@ -132,31 +153,150 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         panelRes.setVerDetalleActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
             }
         });
     }
 
     /**
-     * Cancela un producto específico del pedido y actualiza la interfaz.
+     * Cancela una reservacion, modifica el estado y guarda el motivo de
+     * cancelacion.
      *
-     * @param productoPedido El producto a cancelar.
+     * @param ReservacionDTOMostrar la reservacion a cancelar
      */
-    private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
-        int opc = JOptionPane.showConfirmDialog(
-                this,
-                "¿Deseas cancelar el producto pedido?",
-                "Confirmar cancelación",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
+    private void cancelarReservacion(ReservacionDTOMostrar reservacion) {
+        if (reservacion.getEstado() == "ACTIVA") {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "No puedes cancelar una reservacion Activa.",
+                    "Reservacion Activa",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } else {
+            String motivo = optionPaneCancelar();
+            if (motivo != null) {
+                ControlNavegacion.cancelarReservacion(reservacion.getNumReservacion(), motivo);
+            }
+        }
+    }
+
+    /**
+     * Inicia una reservacion, modifica el estado a ACTIVA
+     *
+     *
+     * @param ReservacionDTOMostrar reservacion a iniciar
+     */
+    private void iniciarReservacion(ReservacionDTOMostrar reservacion) {
+        if (reservacion.getEstado() == "ACTIVA") {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "La reservacion se encuentra activa",
+                    "Reservacion Activa",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } else {
+            int opc = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Activar la Reservacion?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (opc == JOptionPane.YES_OPTION) {
+                ControlNavegacion.actualizarEstadoReservacion(reservacion.getNumReservacion(), "ACTIVA");
+            }
+        }
+    }
+
+    /**
+     * Termina una reservacion, modifica el estado a CONCLUIDA
+     *
+     *
+     * @param ReservacionDTOMostrar reservacion a concluir
+     */
+    private void concluirReservacion(ReservacionDTOMostrar reservacion) {
+        if (reservacion.getEstado() == "PENDIENTE") {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "La reservacion no se encuentra activa",
+                    "Concluir reservacion",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        } else {
+            int opc = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Concluir la Reservacion?",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE
+            );
+            if (opc == JOptionPane.YES_OPTION) {
+                ControlNavegacion.actualizarEstadoReservacion(reservacion.getNumReservacion(), "CONCLUIDA");
+            }
+        }
+    }
+
+    /**
+     * Configura el option pane que se genera al seleccionar cancelar una
+     * reservacion.
+     *
+     * @return String el mensaje escrito en el motivo.
+     */
+    private String optionPaneCancelar() {
+        JTextField campoMotivo = new JTextField();
+
+        JPanel panel = new JPanel(new BorderLayout(5, 5));
+        panel.add(new JLabel("Escribe el motivo de cancelación:"), BorderLayout.NORTH);
+        panel.add(campoMotivo, BorderLayout.CENTER);
+
+        int resultado = JOptionPane.showConfirmDialog(
+                null,
+                panel,
+                "Motivo de Cancelación",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
         );
 
-        if (opc == JOptionPane.YES_OPTION) {
-            ControlNavegacion.cancelarProductoPedido(productoPedido);
-
-            ControlNavegacion.mostrarPantallaProductoPedidoCancelado(this);
-
-            cargarPanelesReservaciones();
+        if (resultado == JOptionPane.OK_OPTION) {
+            String motivo = campoMotivo.getText().trim();
+            if (motivo.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Debes escribir un motivo para cancelar.",
+                        "Motivo requerido",
+                        JOptionPane.WARNING_MESSAGE
+                );
+                return null;
+            }
+            return motivo;
         }
+        return null;
+    }
+
+    private void filtrarFechas() {
+        LocalDate fecha1 = fechaDesde.getDate();
+        LocalDate fecha2 = fechaHasta.getDate();
+        if (fecha1 != null && fecha2 != null) {
+            if (fecha1.isAfter(fecha2)) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "La primera fecha no puede ser mayor que segunda.",
+                        "Rango de fechas inválido",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            } else {
+                cargarPanelesReservaciones(fecha1, fecha2);
+            }
+        } else if (fecha1 != null) {
+            cargarPanelesReservaciones(fecha1, null);
+        } else if (fecha2 != null) {
+            cargarPanelesReservaciones(null, fecha2);
+        } else {
+            cargarPanelesReservaciones(null, null);
+        }
+        pnlVerReservaciones.revalidate();
+        pnlVerReservaciones.repaint();
+        System.out.println("hola");
     }
 
     /**
@@ -175,6 +315,11 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         btnVolver = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabelTitulo = new javax.swing.JLabel();
+        fechaDesde = new com.github.lgooddatepicker.components.DatePicker();
+        fechaHasta = new com.github.lgooddatepicker.components.DatePicker();
+        jLabelFechaDesde = new javax.swing.JLabel();
+        jLabelFechaHasta = new javax.swing.JLabel();
+        btnFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -188,6 +333,20 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
 
         jLabelTitulo.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabelTitulo.setText("Ver Reservaciones");
+
+        jLabelFechaDesde.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelFechaDesde.setText("Desde");
+
+        jLabelFechaHasta.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabelFechaHasta.setText("Hasta");
+
+        btnFiltrar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,18 +364,36 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
                         .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jLabelTitulo)))
+                        .addComponent(jLabelTitulo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
+                        .addComponent(jLabelFechaDesde)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(jLabelFechaHasta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnFiltrar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlVerReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelFechaDesde)
+                    .addComponent(jLabelFechaHasta)
+                    .addComponent(btnFiltrar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlVerReservaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -238,8 +415,17 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        filtrarFechas();
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnVolver;
+    private com.github.lgooddatepicker.components.DatePicker fechaDesde;
+    private com.github.lgooddatepicker.components.DatePicker fechaHasta;
+    private javax.swing.JLabel jLabelFechaDesde;
+    private javax.swing.JLabel jLabelFechaHasta;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JScrollPane pnlVerReservaciones;

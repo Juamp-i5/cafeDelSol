@@ -27,4 +27,6 @@ public interface IReservacionBO {
     public List<ReservacionDTOMostrar> obtenerReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException;
     
     public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws NegocioCubiculoException;
+    
+    public Integer actualizarEstado (Integer numReservacion, String estado) throws NegocioCubiculoException;
 }

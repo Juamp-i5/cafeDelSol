@@ -142,7 +142,7 @@ public class ReservacionDAOMongo implements IReservacionDAO {
             List<Bson> filtros = new ArrayList<>();
 
             // Filtro por estado "PENDIENTE"
-            filtros.add(Filters.in("estado", Estado.PENDIENTE, Estado.ENCURSO));
+            filtros.add(Filters.in("estado", Estado.PENDIENTE, Estado.ACTIVA));
 
             // Filtros por fechas, si no son null
             if (fechaInicio != null && fechaFin != null) {

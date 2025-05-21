@@ -181,4 +181,14 @@ public class GestorCubiculos implements IGestorCubiculos {
             throw new GestionCubiculosException("Error al cargar reservaciones sin concluir");
         }
     }
+
+    @Override
+    public Integer actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException {
+        try {
+            return reservacionBO.actualizarEstado(numReservacion, estado);
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al actualizar el estado de la reservacion");
+        }
+    }
 }

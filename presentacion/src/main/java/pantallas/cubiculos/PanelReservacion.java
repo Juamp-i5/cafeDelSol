@@ -39,7 +39,7 @@ public class PanelReservacion extends javax.swing.JPanel {
         this.lblHoraFin.setText(dtoMostrar.getHoraFin().toString());
     }
     
-    public ReservacionDTOMostrar getProductoPedido() {
+    public ReservacionDTOMostrar getReservacion() {
         return this.dtoMostrar;
     }
     
@@ -60,6 +60,16 @@ public class PanelReservacion extends javax.swing.JPanel {
     public void setIniciarActionListener(ActionListener listener) {
         this.btnIniciar.addActionListener(listener);
     }
+    
+    /**
+     * Establece el escuchador de acción para el botón de iniciar.
+     *
+     * @param listener El escuchador de acción para el botón de iniciar.
+     */
+    public void setConcluirActionListener(ActionListener listener) {
+        this.btnConcluir.addActionListener(listener);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,6 +92,7 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblNombreCubiculo = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
         lblNumReservacion = new javax.swing.JLabel();
+        btnConcluir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -138,6 +149,16 @@ public class PanelReservacion extends javax.swing.JPanel {
         lblNumReservacion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblNumReservacion.setText("00");
 
+        btnConcluir.setBackground(new java.awt.Color(153, 153, 153));
+        btnConcluir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnConcluir.setForeground(new java.awt.Color(255, 255, 255));
+        btnConcluir.setText("Concluir");
+        btnConcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,18 +195,18 @@ public class PanelReservacion extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(lblNombreCubiculo)
                                 .addGap(71, 71, 71)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblEstado)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(46, 46, 46))))
+                            .addComponent(btnIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnConcluir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -197,18 +218,18 @@ public class PanelReservacion extends javax.swing.JPanel {
                             .addComponent(lblHoraInicio)
                             .addComponent(lblFechaSeparador)
                             .addComponent(lblHoraFin)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblEstado)
-                                .addComponent(lblNombreCubiculo)
-                                .addComponent(lblNombre)
-                                .addComponent(lblNumReservacion))
-                            .addGap(140, 140, 140))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnIniciar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCancelar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblEstado)
+                            .addComponent(lblNombreCubiculo)
+                            .addComponent(lblNombre)
+                            .addComponent(lblNumReservacion))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnIniciar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnConcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCancelar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTopping)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -223,8 +244,13 @@ public class PanelReservacion extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnIniciarActionPerformed
 
+    private void btnConcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConcluirActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnConcluir;
     private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblFecha;
