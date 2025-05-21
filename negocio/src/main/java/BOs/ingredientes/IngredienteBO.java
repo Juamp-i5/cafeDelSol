@@ -58,11 +58,21 @@ public class IngredienteBO implements IIngredienteBO{
     @Override
     public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws NegocioException {
         try {
+            if (filtroNombre != null) {
+                filtroNombre = filtroNombre.trim();
+            }
             List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
             return ingredienteMapper.toDTOIngredienteList(ingredientes);
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al buscar los ingredientes por filtros.");
         }
+        
+//        try {
+//            List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
+//            return ingredienteMapper.toDTOIngredienteList(ingredientes);
+//        } catch (PersistenciaIngredientesException ex) {
+//            throw new NegocioException("Error al buscar los ingredientes por filtros.");
+//        }
     }
 
     @Override

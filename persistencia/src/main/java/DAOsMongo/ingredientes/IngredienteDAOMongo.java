@@ -11,6 +11,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Aggregates;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.UnwindOptions;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
 import conexion.IConexionMongo;
@@ -89,7 +90,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
                             "_id",
                             "detalleProveedor"
                     ),
-                    Aggregates.unwind("$detalleProveedor")
+                    Aggregates.unwind("$detalleProveedor", new UnwindOptions().preserveNullAndEmptyArrays(true))
             );
             MongoCollection<Document> coleccionDocumentos = database.getCollection("ingredientes");
             Document resultado = coleccionDocumentos.aggregate(pipeline).first();
@@ -104,7 +105,12 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
             dto.setUnidadMedida(resultado.getString("unidadMedida"));
             dto.setNivelStock(resultado.getString("nivelStock"));
             Document proveedorDoc = (Document) resultado.get("detalleProveedor");
-            dto.setNombreProveedor(proveedorDoc.getString("nombre"));
+            if (proveedorDoc != null){
+              dto.setNombreProveedor(proveedorDoc.getString("nombre"));  
+            }else {
+                dto.setNombreProveedor("Desconocido");
+            }
+            //dto.setNombreProveedor(proveedorDoc.getString("nombre"));
             return dto;
         } catch (Exception e) {
             throw new PersistenciaIngredientesException("Error al obtener detalles del ingrediente: " + e.getMessage(), e);
