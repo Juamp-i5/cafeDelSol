@@ -4,6 +4,7 @@
  */
 package gestionSalidas;
 
+import DTOs.CRUDSalidas.DetalleSalidaDTO;
 import DTOs.CRUDSalidas.SalidaListDTO;
 import DTOs.CRUDSalidas.SalidaNuevaDTO;
 import excepciones.GestionCRUDSalidasException;
@@ -15,7 +16,8 @@ import java.util.List;
  * @author katia
  */
 public interface IGestorCRUDSalidas {
-    public boolean registrarSalida(SalidaNuevaDTO salida) throws GestionCRUDSalidasException;
+    public boolean registrarSalida(SalidaNuevaDTO salidaNueva) throws GestionCRUDSalidasException;
     public List<SalidaListDTO> consultarTodas() throws GestionCRUDSalidasException;
-    public List<SalidaListDTO> consultarPorRangoFechas(LocalDate inicio, LocalDate fin) throws GestionCRUDSalidasException;
+    public List<SalidaListDTO> consultarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCRUDSalidasException;
+    public DetalleSalidaDTO consultarPorId(String id) throws GestionCRUDSalidasException;
 }
