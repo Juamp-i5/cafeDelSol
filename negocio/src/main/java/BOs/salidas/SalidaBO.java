@@ -29,10 +29,23 @@ import org.bson.types.ObjectId;
  * @author katia
  */
 public class SalidaBO implements ISalidaBO{
+    
+    private static SalidaBO instanciaBO;
+    
     private final ISalidaDAO salidaDAO = AccesoDatos.getSalidaDAO();
     private final IIngredienteDAOMongo ingredienteDAO = AccesoDatos.getIngredienteDAO();
     private final ISalidaMapper mapper = SalidaMapper.getInstance();
 
+    public SalidaBO() {
+    }
+    
+    public static SalidaBO getInstance(){
+        if (instanciaBO == null){
+            instanciaBO = new SalidaBO();
+        }
+        return instanciaBO;
+    }
+    
     @Override
     public boolean registrarSalida(SalidaNuevaDTO salidaNueva) throws NegocioException {
         try {
