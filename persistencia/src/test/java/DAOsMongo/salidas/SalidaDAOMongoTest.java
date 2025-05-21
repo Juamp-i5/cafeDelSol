@@ -10,7 +10,7 @@ import com.mongodb.client.MongoDatabase;
 import conexion.ConexionMongo;
 import conexion.IConexionMongo;
 import entidades.Salida;
-import enumSalidas.MotivoEnum;
+import enums.MotivoEnum;
 import java.time.LocalDate;
 import java.util.List;
 import org.bson.types.ObjectId;

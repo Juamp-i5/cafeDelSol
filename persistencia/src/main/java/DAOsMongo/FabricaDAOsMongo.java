@@ -136,6 +136,7 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
         return ReservacionDAOMongo.getInstance(conexion);
     }
     
+    @Override
     public ISalidaDAO getSalidaDAO(){
         return SalidaDAOMongo.getInstance(conexion);
     }

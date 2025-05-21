@@ -14,6 +14,7 @@ import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import IDAOs.ingredientes.IProveedorDAOMongo;
+import IDAOs.salidas.ISalidaDAO;
 
 /**
  * Clase que proporciona acceso centralizado a las implementaciones de los DAOs
@@ -112,6 +113,10 @@ public class AccesoDatos {
     
     public static IContadorReservaciones getContador() {
         return fabricaDAOs.getContadorReservaciones();
+    }
+    
+    public static ISalidaDAO getSalidaDAO(){
+        return fabricaDAOs.getSalidaDAO();
     }
     
 }

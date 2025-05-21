@@ -4,7 +4,7 @@
  */
 package entidades;
 
-import enumSalidas.MotivoEnum;
+import enums.MotivoEnum;
 import java.time.LocalDate;
 import org.bson.types.ObjectId;
 

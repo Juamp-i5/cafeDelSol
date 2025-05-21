@@ -4,7 +4,7 @@
  */
 package DTOs.salidas;
 
-import enumSalidas.MotivoEnum;
+import enums.MotivoEnum;
 import java.time.LocalDate;
 
 /**

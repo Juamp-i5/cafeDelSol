@@ -6,6 +6,7 @@ import IDAOs.cubiculos.IReservacionDAO;
 import IDAOs.entradas.IEntradaDAO;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
 import IDAOs.ingredientes.IProveedorDAOMongo;
+import IDAOs.salidas.ISalidaDAO;
 
 /**
  *
@@ -36,4 +37,6 @@ public interface IFabricaDAOs {
     public IProveedorDAOMongo getProveedorDAO();
     
     public IReservacionDAO getReservacionDAO();
+    
+    public ISalidaDAO getSalidaDAO();
 }
