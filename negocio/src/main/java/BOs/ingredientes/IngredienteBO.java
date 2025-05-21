@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author norma
  */
-public class IngredienteBO implements IIngredienteBO{
+public class IngredienteBO implements IIngredienteBO {
 
     IIngredienteDAOMongo ingredienteDAO = AccesoDatos.getIngredienteDAO();
     IIngredienteMapper ingredienteMapper = IngredienteMapper.getInstance();
@@ -111,9 +111,9 @@ public class IngredienteBO implements IIngredienteBO{
             throw new NegocioException("Error al obtener el ingrediente por nombre.");
         }
     }
-    
+
     @Override
-    public void actualizarNivelStock(String idIngrediente)throws NegocioException{
+    public void actualizarNivelStock(String idIngrediente) throws NegocioException {
         try {
             ingredienteDAO.actualizarNivelStock(idIngrediente);
         } catch (PersistenciaIngredientesException ex) {

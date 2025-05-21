@@ -4,7 +4,8 @@
  */
 package pantallas;
 
-import DTOs.InicioSesionDTO;
+import control.ControlNavegacion;
+import control.Sesion;
 
 /**
  *
@@ -14,7 +15,15 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
 
     public PantallaMenuBarista() {
         initComponents();
+        setInitialUIstate();
+    }
 
+    private void setInitialUIstate() {
+        setNombreUsuario();
+    }
+
+    public void setNombreUsuario() {
+        labelNombreUsuario.setText("Hola!, " + Sesion.getCurrentUsuario().getNombresPila());
     }
 
     /**
@@ -29,21 +38,22 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
         panelNorte = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         topSeparator = new javax.swing.JSeparator();
+        labelNombreUsuario = new javax.swing.JLabel();
         panelSur = new javax.swing.JPanel();
         bottomSeparator = new javax.swing.JSeparator();
+        botonCerrarSesion = new javax.swing.JButton();
         panelCentro = new javax.swing.JPanel();
-        labelUsuario = new javax.swing.JLabel();
-        textFieldUsuario = new javax.swing.JTextField();
-        labelUsuario1 = new javax.swing.JLabel();
-        botonIniciarSesion = new javax.swing.JButton();
-        passwordField = new javax.swing.JPasswordField();
+        botonRealizarPedido = new javax.swing.JButton();
+        botonEstadoPedidos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tabla de Productos");
         setSize(new java.awt.Dimension(800, 600));
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        titleLabel.setText("Iniciar Sesión");
+        titleLabel.setText("Menu barista");
+
+        labelNombreUsuario.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout panelNorteLayout = new javax.swing.GroupLayout(panelNorte);
         panelNorte.setLayout(panelNorteLayout);
@@ -53,94 +63,79 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
             .addGroup(panelNorteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(titleLabel)
-                .addContainerGap(572, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 567, Short.MAX_VALUE)
+                .addComponent(labelNombreUsuario)
+                .addContainerGap())
         );
         panelNorteLayout.setVerticalGroup(
             panelNorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelNorteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titleLabel)
+                .addGroup(panelNorteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(topSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelNorte, java.awt.BorderLayout.NORTH);
+
+        botonCerrarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonCerrarSesion.setText("Cerrar sesión");
+        botonCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCerrarSesionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSurLayout = new javax.swing.GroupLayout(panelSur);
         panelSur.setLayout(panelSurLayout);
         panelSurLayout.setHorizontalGroup(
             panelSurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(bottomSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addGroup(panelSurLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botonCerrarSesion)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSurLayout.setVerticalGroup(
             panelSurLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSurLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(bottomSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(panelSur, java.awt.BorderLayout.SOUTH);
 
-        labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelUsuario.setText("Usuario");
+        botonRealizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRealizarPedido.setText("<html><center>Realizar un pedido</center></html>");
 
-        textFieldUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        textFieldUsuario.setPreferredSize(new java.awt.Dimension(100, 31));
-
-        labelUsuario1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelUsuario1.setText("Contraseña");
-
-        botonIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        botonIniciarSesion.setText("Iniciar Sesión");
-        botonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonIniciarSesionActionPerformed(evt);
-            }
-        });
-
-        passwordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonEstadoPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonEstadoPedidos.setText("<html><center>Estado de los pedidos</center></html>");
 
         javax.swing.GroupLayout panelCentroLayout = new javax.swing.GroupLayout(panelCentro);
         panelCentro.setLayout(panelCentroLayout);
         panelCentroLayout.setHorizontalGroup(
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCentroLayout.createSequentialGroup()
-                .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(370, 370, 370)
-                        .addComponent(labelUsuario))
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(355, 355, 355)
-                        .addComponent(labelUsuario1))
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(passwordField))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
-                .addGap(0, 335, Short.MAX_VALUE)
-                .addComponent(botonIniciarSesion)
-                .addGap(332, 332, 332))
+                .addGap(240, 240, 240)
+                .addComponent(botonRealizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonEstadoPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(242, Short.MAX_VALUE))
         );
         panelCentroLayout.setVerticalGroup(
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCentroLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labelUsuario1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(botonIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(172, 172, 172))
+                .addGap(139, 139, 139)
+                .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonEstadoPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRealizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         getContentPane().add(panelCentro, java.awt.BorderLayout.CENTER);
@@ -148,24 +143,20 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarSesionActionPerformed
-        String usuario = textFieldUsuario.getText();
-        char[] contrasenia = passwordField.getPassword();
-
-        InicioSesionDTO inicioSesionDTO = new InicioSesionDTO(usuario, contrasenia);
-
-    }//GEN-LAST:event_botonIniciarSesionActionPerformed
+    private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
+        ControlNavegacion.mostrarPantallaMenuPrincipal();
+        Sesion.setCurrentUsuario(null);
+    }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonIniciarSesion;
+    private javax.swing.JButton botonCerrarSesion;
+    private javax.swing.JButton botonEstadoPedidos;
+    private javax.swing.JButton botonRealizarPedido;
     private javax.swing.JSeparator bottomSeparator;
-    private javax.swing.JLabel labelUsuario;
-    private javax.swing.JLabel labelUsuario1;
+    private javax.swing.JLabel labelNombreUsuario;
     private javax.swing.JPanel panelCentro;
     private javax.swing.JPanel panelNorte;
     private javax.swing.JPanel panelSur;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JTextField textFieldUsuario;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JSeparator topSeparator;
     // End of variables declaration//GEN-END:variables
