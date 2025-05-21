@@ -113,8 +113,6 @@ public class PantallaReservar extends javax.swing.JFrame {
         fechaPicker = new com.github.lgooddatepicker.components.DatePicker();
         btnPagoEfectivo = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jLabelPrecio = new javax.swing.JLabel();
-        jTextFieldPrecio = new javax.swing.JTextField();
         btnPagoTarjeta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -179,11 +177,6 @@ public class PantallaReservar extends javax.swing.JFrame {
             }
         });
 
-        jLabelPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabelPrecio.setText("Precio");
-
-        jTextFieldPrecio.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-
         btnPagoTarjeta.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnPagoTarjeta.setText("Tarjeta");
         btnPagoTarjeta.setMaximumSize(new java.awt.Dimension(120, 70));
@@ -227,8 +220,7 @@ public class PantallaReservar extends javax.swing.JFrame {
                                 .addComponent(jLabelNombre, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabelHoraFin)
                             .addComponent(jLabelCubiculo)
-                            .addComponent(jLabelHoraInicio)
-                            .addComponent(jLabelPrecio))
+                            .addComponent(jLabelHoraInicio))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(horaInicioPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,8 +228,7 @@ public class PantallaReservar extends javax.swing.JFrame {
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
                             .addComponent(horaFinPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fechaPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldPrecio))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -274,11 +265,7 @@ public class PantallaReservar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(horaFinPicker, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelHoraFin))
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldPrecio)
-                    .addComponent(jLabelPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
+                .addGap(153, 153, 153)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -320,12 +307,10 @@ public class PantallaReservar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelHoraFin;
     private javax.swing.JLabel jLabelHoraInicio;
     private javax.swing.JLabel jLabelNombre;
-    private javax.swing.JLabel jLabelPrecio;
     private javax.swing.JLabel jLabelTelefono;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldPrecio;
     private javax.swing.JTextField jTextFieldTelefono;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
