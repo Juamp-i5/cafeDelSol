@@ -9,6 +9,7 @@ import DTOs.CRUDIngredientes.ProveedorViejoDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
+import DTOs.CRUDSalidas.DetalleSalidaDTO;
 import pantallas.cubiculos.PantallaCubiculosOPedidos;
 import pantallas.cubiculos.PantallaReservar;
 import pantallas.cubiculos.PantallaMenuCubiculos;
@@ -63,6 +64,10 @@ import pantallas.CRUDEntradas.PantallaTablaRegistroEntrada;
 import pantallas.CRUDProductos.PantallaDetallesProducto;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
+import pantallas.CRUDSalidas.MenuSalidas;
+import pantallas.CRUDSalidas.PantallaDetalleSalida;
+import pantallas.CRUDSalidas.PantallaHistorialSalidas;
+import pantallas.CRUDSalidas.PantallaRegistrarSalida;
 import pantallas.cubiculos.PagoEfectivoCubiculos;
 import pantallas.cubiculos.PagoTarjetaCubiculos;
 import pantallas.cubiculos.PantallaReagendar;
@@ -1067,5 +1072,37 @@ public class ControlNavegacion {
         }
     }
     
+    public static void mostrarPantallaMenuSalidas() {
+        JFrame pantallaMenuSalidas = new MenuSalidas();
+        pantallaMenuSalidas.setLocationRelativeTo(null);
+        pantallaMenuSalidas.setVisible(true);
+        
+        framesVisitados.add(pantallaMenuSalidas);
+    }
+    
+    public static void mostrarPantallaRegistrarSalida(){
+        JFrame pantallaRegistrarSalida = new PantallaRegistrarSalida();
+        pantallaRegistrarSalida.setLocationRelativeTo(null);
+        pantallaRegistrarSalida.setVisible(true);
+        
+        framesVisitados.add(pantallaRegistrarSalida);
+    }
+    
+    public static void mostrarPantallaHistorialSalidas(){
+        JFrame pantallaHistorialSalidas = new PantallaHistorialSalidas();
+        pantallaHistorialSalidas.setLocationRelativeTo(null);
+        pantallaHistorialSalidas.setVisible(true);
+        
+        framesVisitados.add(pantallaHistorialSalidas);
+    }
+    
+    public static void mostrarPantallaDetalleSalida(List<DetalleSalidaDTO> detalles){
+        PantallaDetalleSalida.setDetalles(detalles);
+        JFrame pantallaDetalleSalida = new PantallaDetalleSalida();
+        pantallaDetalleSalida.setLocationRelativeTo(null);
+        pantallaDetalleSalida.setVisible(true);
+        
+        framesVisitados.add(pantallaDetalleSalida);
+    }
   
 }
