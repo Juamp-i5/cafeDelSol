@@ -148,12 +148,8 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
 
     
     private void cargarTodasLasSalidas() {
-        try {
-            List<SalidaListDTO> lista = GestorCRUDSalidas.getInstance().consultarTodas();
-            mostrarAgrupadas(lista);
-        } catch (GestionCRUDSalidasException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar salidas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        List<SalidaListDTO> lista = ControlNavegacion.obtenerTodasLasSalidas();
+        mostrarAgrupadas(lista);
     }
     
     private void buscarSalidas() {
@@ -171,12 +167,8 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            List<SalidaListDTO> lista = GestorCRUDSalidas.getInstance().consultarPorRangoFechas(inicio, fin);
-            mostrarAgrupadas(lista);
-        } catch (GestionCRUDSalidasException ex) {
-            JOptionPane.showMessageDialog(this, "Error al consultar salidas: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        List<SalidaListDTO> lista = ControlNavegacion.obtenerSalidasPorRango(inicio, fin);
+        mostrarAgrupadas(lista);
     }
     
     private void mostrarAgrupadas(List<SalidaListDTO> lista) {
@@ -187,7 +179,7 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         for (Map.Entry<LocalDate, List<SalidaListDTO>> entry : agrupadas.entrySet()) {
             LocalDate fecha = entry.getKey();
             int totalSalidas = entry.getValue().size();
-            String idCualquiera = entry.getValue().get(0).getId(); // usamos un ID de muestra
+            String idCualquiera = entry.getValue().get(0).getId();
             modeloTabla.addRow(new Object[]{idCualquiera, fecha.toString(), totalSalidas, "Detalles"});
         }
 
@@ -216,27 +208,22 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
             super(checkBox);
             button = new JButton("Detalles");
             button.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+            
             button.addActionListener(e -> {
                 int row = table.getSelectedRow();
                 String fechaTexto = (String) table.getModel().getValueAt(row, 1);
-                try {
+                try{
                     LocalDate fecha = LocalDate.parse(fechaTexto);
-                    List<SalidaListDTO> salidas = GestorCRUDSalidas.getInstance().consultarPorRangoFechas(fecha, fecha);
-                    List<DetalleSalidaDTO> detalles = new ArrayList<>();
-                    for (SalidaListDTO s : salidas) {
-                        DetalleSalidaDTO d = GestorCRUDSalidas.getInstance().consultarPorId(s.getId());
-                        if (d != null) {
-                            detalles.add(d);
-                        }
-                    }
+                    List<DetalleSalidaDTO> detalles = ControlNavegacion.obtenerDetallesPorFecha(fecha);
+                    
                     if (!detalles.isEmpty()) {
-                        PantallaDetalleSalida.setDetalles(detalles);
-                        new PantallaDetalleSalida().setVisible(true);
-                        PantallaHistorialSalidas.this.dispose();
-                    } else{
-                        JOptionPane.showMessageDialog(null, "No se encontraron detalles.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                } catch (GestionCRUDSalidasException ex) {
+                    PantallaDetalleSalida.setDetalles(detalles);
+                    new PantallaDetalleSalida().setVisible(true);
+                    PantallaHistorialSalidas.this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se encontraron detalles para la fecha.", "Sin datos", JOptionPane.INFORMATION_MESSAGE);
+                }
+                } catch (Exception ex){
                     JOptionPane.showMessageDialog(null, "Error al obtener detalles: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             });

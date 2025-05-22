@@ -1117,6 +1117,8 @@ public class ControlNavegacion {
         } catch (GestionCRUDSalidasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+
             return false;
         }
     }
@@ -1127,6 +1129,7 @@ public class ControlNavegacion {
         } catch (GestionCRUDSalidasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return Collections.emptyList();
         }
     }
@@ -1137,6 +1140,7 @@ public class ControlNavegacion {
         } catch (GestionCRUDSalidasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return Collections.emptyList();
         }
     }
@@ -1152,6 +1156,7 @@ public class ControlNavegacion {
         } catch (GestionCRUDSalidasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
             return Collections.emptyList();
         }
     }
