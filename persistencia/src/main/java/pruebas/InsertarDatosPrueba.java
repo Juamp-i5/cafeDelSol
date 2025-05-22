@@ -39,10 +39,10 @@ public class InsertarDatosPrueba {
     public static void main(String[] args) throws PersistenciaException {
         ConexionMongo conexionMongo = ConexionMongo.getInstance();
 
-        insertarUsuarios(UsuarioDAOMongo.getInstancia(conexionMongo));
-        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
-        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
-        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
+//        insertarUsuarios(UsuarioDAOMongo.getInstancia(conexionMongo));
+//        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
+//        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
+//        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
 
     }
 
