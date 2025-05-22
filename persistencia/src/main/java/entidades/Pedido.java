@@ -155,8 +155,28 @@ public class Pedido {
         this.estado = estado;
     }
 
-    /**
-     * Obtiene el identificador del barista asignado al pedido.
-     *
-     * @return objeto {@code ObjectId} del barist
-     a
+    public ObjectId getBaristaId() {
+        return baristaId;
+    }
+
+    public void setBaristaId(ObjectId baristaId) {
+        this.baristaId = baristaId;
+    }
+
+    public Pago getPago() {
+        return pago;
+    }
+
+    public void setPago(Pago pago) {
+        this.pago = pago;
+    }
+
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
+    }
+
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
+    }
+
+}
