@@ -68,16 +68,16 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private JPanel obtenerPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.getPedido();
-//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getProductos();
 
         JPanel contenedorPanelesProductosPedidos = new JPanel();
         contenedorPanelesProductosPedidos.setLayout(new BoxLayout(contenedorPanelesProductosPedidos, BoxLayout.Y_AXIS));
 
-//        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
-//            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
-//            configurarPanelProducto(panelProductoPedido);
-//            contenedorPanelesProductosPedidos.add(panelProductoPedido);
-//        }
+        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
+            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
+            configurarPanelProducto(panelProductoPedido);
+            contenedorPanelesProductosPedidos.add(panelProductoPedido);
+        }
         return contenedorPanelesProductosPedidos;
     }
 

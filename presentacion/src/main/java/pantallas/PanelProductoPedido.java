@@ -36,8 +36,8 @@ public class PanelProductoPedido extends javax.swing.JPanel {
             this.lblTopping.setText(productoPedido.getTopping().getNombre());
         }
         this.lblCantidadCantidad.setText(String.format("%d", productoPedido.getCantidad()));
-//        double costo = productoPedido.getCosto();
-//        this.lblPrecio.setText(String.format("%.2f", costo));
+        double costo = productoPedido.getCosto();
+        this.lblPrecio.setText(String.format("%.2f", costo));
     }
 
     /**
