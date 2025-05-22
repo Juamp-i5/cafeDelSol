@@ -4,7 +4,6 @@
  */
 package pantallas.cubiculos;
 
-import pantallas.*;
 import DTOs.TarjetaDTO;
 import control.ControlNavegacion;
 import java.awt.*;
@@ -19,7 +18,7 @@ public class PagoTarjetaCubiculos extends javax.swing.JFrame {
 
     private TarjetaDTO tarjeta;
 
-    final int CANTIDAD_FILAS = 4;
+    final int CANTIDAD_FILAS = 5;
     final int CANTIDAD_COLUMNAS = 2;
     final int ESPACIO_ENTRE_BOTONES_HORIZONTAL = 10;
     final int ESPACIO_ENTRE_BOTONES_VERTICAL = 10;
@@ -81,7 +80,7 @@ public class PagoTarjetaCubiculos extends javax.swing.JFrame {
         agregarCampoFormulario("Nombre de banco", txtBanco);
         agregarCampoFormulario("Fecha exp", txtFecha);
         agregarCampoFormulario("CVV", txtCVV);
-
+        agregarPrecioFormulario("Precio de Reservacion:", "$" + String.valueOf(ControlNavegacion.getReservacionNueva().getPrecioReservacion()));
         return panelFormulario;
     }
 
@@ -137,13 +136,21 @@ public class PagoTarjetaCubiculos extends javax.swing.JFrame {
         panelFormulario.add(label);
         panelFormulario.add(campo);
     }
+    
+    private void agregarPrecioFormulario(String etiqueta, String precio) {
+        JLabel label = new JLabel(etiqueta);
+        label.setFont(new Font("Segoe UI", Font.PLAIN, 24));
+        JLabel label2 = new JLabel(precio);
+        label2.setFont(new Font("Segoe UI", Font.PLAIN, 24));
+        panelFormulario.add(label);
+        panelFormulario.add(label2);
+    }
 
     /**
      * Maneja la acción de retroceder a la pantalla anterior.
      */
     private void BtnAtrasSeleccionado() {
         ControlNavegacion.volverPantallaAnterior();
-        ControlNavegacion.setReservacionNueva(null);
         dispose();
     }
 
@@ -166,8 +173,8 @@ public class PagoTarjetaCubiculos extends javax.swing.JFrame {
         );
         try {
             if (ControlNavegacion.validarTarjetaPresentacion(tarjetaIngresada)) {
-                ControlNavegacion.mostrarPantallaReservacionExitosa();
-                ControlNavegacion.realizarReservacion();
+                Integer num = ControlNavegacion.realizarReservacion();
+                ControlNavegacion.mostrarPantallaReservacionExitosa(num);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Datos de la tarjeta inválidos", "Error", JOptionPane.ERROR_MESSAGE);

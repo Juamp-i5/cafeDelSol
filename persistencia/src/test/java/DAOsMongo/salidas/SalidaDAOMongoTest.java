@@ -8,6 +8,7 @@ import IDAOs.salidas.ISalidaDAO;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import conexion.ConexionMongo;
+import conexion.ConexionMongoPrueba;
 import conexion.IConexionMongo;
 import entidades.Salida;
 import enums.MotivoEnum;
@@ -37,13 +38,19 @@ public class SalidaDAOMongoTest {
     
     @BeforeAll
     void setUp() {
-        conexion = ConexionMongo.getInstance();
+        conexion = ConexionMongoPrueba.getInstance();
         salidaDAO = SalidaDAOMongo.getInstance(conexion);
         database = conexion.getDatabase();
     }
 
     @BeforeEach
     void limpiarColeccion() {
+        MongoCollection<Salida> coleccion = database.getCollection("salidas", Salida.class);
+        coleccion.deleteMany(new org.bson.Document());
+    }
+    
+    @AfterEach
+    void limpiarColeccionAfter() {
         MongoCollection<Salida> coleccion = database.getCollection("salidas", Salida.class);
         coleccion.deleteMany(new org.bson.Document());
     }

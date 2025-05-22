@@ -43,7 +43,6 @@ public class GestorCubiculos implements IGestorCubiculos {
     private IContadorBO contadorBO = ContadorBO.getInstance();
     private IValidadorCubiculos validador = new ValidadorCubiculos();
 
-    
     private GestorCubiculos() {
     }
 
@@ -97,14 +96,14 @@ public class GestorCubiculos implements IGestorCubiculos {
         try {
             validador.ValidarReagendarReservacionCampos(reagenda);
             this.reagendaDTO = reagenda;
-            
+
             Integer numReservacionViejo = Integer.valueOf(reagendaDTO.getNumReservacion());
             ReservacionCompletaDTO dtoViejo = reservacionBO.buscarPorId(numReservacionViejo);
             Duration duracion = Duration.between(dtoViejo.getHoraInicio(), dtoViejo.getHoraFin());
             LocalTime horaFinNueva = reagendaDTO.getHoraInicio().plus(duracion);
-            
-            validador.ValidarChoqueHorarios(reagendaDTO,horaFinNueva);
-            
+
+            validador.ValidarChoqueHorarios(reagendaDTO, horaFinNueva);
+
             return horaFinNueva;
         } catch (GestionCubiculosException ex) {
             Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
@@ -219,9 +218,11 @@ public class GestorCubiculos implements IGestorCubiculos {
     @Override
     public boolean actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException {
         try {
-            validador.ValidarIniciarReservacion(numReservacion);
+            if (estado == "ACTIVA") {
+                validador.ValidarIniciarReservacion(numReservacion);
+            }
             reservacionBO.actualizarEstado(numReservacion, estado);
-            return true; 
+            return true;
         } catch (NegocioCubiculoException ex) {
             Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionCubiculosException("Error al actualizar el estado de la reservacion");

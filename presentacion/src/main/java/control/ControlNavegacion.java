@@ -937,8 +937,8 @@ public class ControlNavegacion {
         return gestorCubiculos.calcularCambio(efectivo);
     }
 
-    public static void mostrarPantallaReservacionExitosa() {
-        JOptionPane.showMessageDialog(null, "Reservación exitosa");
+    public static void mostrarPantallaReservacionExitosa(Integer numReservacion) {
+        JOptionPane.showMessageDialog(null, "Reservación exitosa"+"\n"+"Numero de Reservación: " + numReservacion);
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {

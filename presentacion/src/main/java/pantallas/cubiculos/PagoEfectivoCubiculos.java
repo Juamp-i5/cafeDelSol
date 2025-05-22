@@ -188,7 +188,6 @@ public class PagoEfectivoCubiculos extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ControlNavegacion.volverPantallaAnterior();
-                ControlNavegacion.setReservacionNueva(null);
                 dispose();
             }
         });
@@ -201,8 +200,8 @@ public class PagoEfectivoCubiculos extends javax.swing.JFrame {
                     EfectivoDTOCubiculo efectivo = new EfectivoDTOCubiculo(cantidadRecibida);
                     double cambio = ControlNavegacion.calcularCambioCubiculo(efectivo);
                     if (cambio >= 0) {
-                        ControlNavegacion.mostrarPantallaReservacionExitosa();
-                        ControlNavegacion.realizarReservacion();
+                        Integer num = ControlNavegacion.realizarReservacion();
+                        ControlNavegacion.mostrarPantallaReservacionExitosa(num);
                         dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Cantidad insuficiente para completar el pago", "Error", JOptionPane.ERROR_MESSAGE);
