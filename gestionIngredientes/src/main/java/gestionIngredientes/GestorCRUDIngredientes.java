@@ -23,6 +23,7 @@ import validadores.IValidadorGestorIngredientes;
 import validadores.ValidadorGestorIngredientes;
 
 /**
+ * Clase gestor ingredientes.
  *
  * @author norma
  */
@@ -33,9 +34,17 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
     private IIngredienteBO ingredienteBO = IngredienteBO.getInstance();
     private IProveedorBO proveedorBO = ProveedorBO.getInstance();
 
+    /**
+     * Constructor por defecto.
+     */
     private GestorCRUDIngredientes() {
     }
 
+    /**
+     * Obtiene la instancia de la clase.
+     *
+     * @return instance.
+     */
     public static GestorCRUDIngredientes getInstance() {
         if (instance == null) {
             instance = new GestorCRUDIngredientes();
@@ -43,6 +52,13 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         return instance;
     }
 
+    /**
+     * Agrega un nuevo ingrediente.
+     *
+     * @param ingrediente ingrediente a agregar.
+     * @return true si se agregó correctamente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public boolean agregarIngrediente(IngredienteNuevoDTO ingrediente) throws GestionCRUDIngredientesException {
         try {
@@ -59,6 +75,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         return false;
     }
 
+    /**
+     * Edita el nombre de un ingrediente existente.
+     *
+     * @param idIngrediente id del ingrediente.
+     * @param nombreNuevo nuevo nombre.
+     * @return detalles del ingrediente actualizado.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public DetallesIngredienteViejoDTO editarIngrediente(String idIngrediente, String nombreNuevo) throws GestionCRUDIngredientesException {
         validador.validarEditarIngrediente(nombreNuevo);
@@ -75,6 +99,13 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         return null;
     }
 
+    /**
+     * Obtiene los detalles de un ingrediente por su ID.
+     *
+     * @param idIngrediente id del ingrediente.
+     * @return detalles del ingrediente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) throws GestionCRUDIngredientesException {
         validador.validarIdIngrediente(idIngrediente);
@@ -87,6 +118,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    /**
+     * Busca ingredientes usando filtros.
+     *
+     * @param filtroNombre filtro por nombre.
+     * @param filtroNivelStock filtro por nivel de stock.
+     * @return lista de ingredientes encontrados.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws GestionCRUDIngredientesException {
         try {
@@ -97,6 +136,12 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    /**
+     * Obtiene la lista de proveedores.
+     *
+     * @return lista de proveedores.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public List<ProveedorViejoDTO> obtenerProveedores() throws GestionCRUDIngredientesException {
         try {
@@ -107,6 +152,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    /**
+     * Aumenta el stock de un ingrediente.
+     *
+     * @param idIngrediente id del ingrediente.
+     * @param cantidad cantidad a aumentar.
+     * @return true si se aumentó correctamente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public boolean aumentarStock(String idIngrediente, Double cantidad) throws GestionCRUDIngredientesException {
         validador.validarCantidadNegativa(cantidad);
@@ -118,6 +171,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    /**
+     * Reduce el stock de un ingrediente.
+     *
+     * @param idIngrediente id del ingrediente.
+     * @param cantidad cantidad a reducir.
+     * @return true si se redujo correctamente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public boolean reducirStock(String idIngrediente, Double cantidad) throws GestionCRUDIngredientesException {
         validador.validarCantidadNegativa(cantidad);
@@ -128,7 +189,13 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
             return false;
         }
     }
-    
+
+    /**
+     * Actualiza el nivel de stock de un ingrediente.
+     *
+     * @param idIngrediente id del ingrediente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public void actualizarNivelStock(String idIngrediente) throws GestionCRUDIngredientesException {
         try {
@@ -138,6 +205,13 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
         }
     }
 
+    /**
+     * Obtiene un ingrediente por su nombre.
+     *
+     * @param nombre nombre del ingrediente.
+     * @return detalles del ingrediente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public DetallesIngredienteViejoDTO obtenerIngredientePorNombre(String nombre) throws GestionCRUDIngredientesException {
         try {
@@ -154,7 +228,14 @@ public class GestorCRUDIngredientes implements IGestorCRUDIngredientes {
             throw new GestionCRUDIngredientesException("Error al buscar el ingrediente por nombre: " + nombre, e);
         }
     }
-    
+
+    /**
+     * Obtiene el ID de un ingrediente por su nombre.
+     *
+     * @param nombre nombre del ingrediente.
+     * @return id del ingrediente.
+     * @throws GestionCRUDIngredientesException si ocurre un error.
+     */
     @Override
     public String obtenerIdIngredientePorNombre(String nombre) throws GestionCRUDIngredientesException {
         DetallesIngredienteViejoDTO dto = obtenerIngredientePorNombre(nombre);
