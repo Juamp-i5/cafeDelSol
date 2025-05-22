@@ -980,7 +980,7 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReagendar);
     }
 
-    public static Integer realizarReagenda(ReagendaDTO reagenda, LocalTime horaFinNueva) {
+    public static Integer realizarReagenda(ReagendaDTO reagenda,LocalTime horaFinNueva) {
         try {
             Integer numReservacionNuevo;
             numReservacionNuevo = gestorCubiculos.realizarReagenda(horaFinNueva);
