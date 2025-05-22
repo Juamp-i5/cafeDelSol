@@ -21,6 +21,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -75,7 +76,8 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
         Document document = new Document();
         try {
             String fecha = detalles.get(0).getFecha().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            String nombreArchivo = "salidas_" + fecha + ".pdf";
+            String timestamp = LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"));
+            String nombreArchivo = "salidas_" + fecha + "_" + timestamp + ".pdf";
             PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
             document.open();
 
