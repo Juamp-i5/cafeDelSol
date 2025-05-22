@@ -1,35 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaCaracteresSuperada.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\com\gestioningredientes\GestionIngredientes.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\validadores\ValidadorGestorIngredientes.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\excepciones\NombreExistenteException.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\validadores\IValidadorGestorIngredientes.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\GestorCRUDIngredientes.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\IGestorCRUDIngredientes.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMinimaDisponibleSuperadaException.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaDisponibleSuperadaException.java
-C:\Users\katia\OneDrive\Documentos\CopiaProyecto\cafeDelSol\gestionIngredientes\src\main\java\excepciones\GestionCRUDIngredientesException.java
-=======
-=======
->>>>>>> b298f4adb55c7458c03a30bbafc13afca0ee87e7
-=======
->>>>>>> b298f4adb55c7458c03a30bbafc13afca0ee87e7
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMinimaDisponibleSuperadaException.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\validadores\IValidadorGestorIngredientes.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\validadores\ValidadorGestorIngredientes.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\GestorCRUDIngredientes.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\com\gestioningredientes\GestionIngredientes.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\GestionCRUDIngredientesException.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaDisponibleSuperadaException.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\NombreExistenteException.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\IGestorCRUDIngredientes.java
-C:\Users\pablo\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaCaracteresSuperada.java
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b298f4adb55c7458c03a30bbafc13afca0ee87e7
-=======
->>>>>>> b298f4adb55c7458c03a30bbafc13afca0ee87e7
-=======
->>>>>>> b298f4adb55c7458c03a30bbafc13afca0ee87e7
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\NombreExistenteException.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\IGestorCRUDIngredientes.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\validadores\ValidadorGestorIngredientes.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaCaracteresSuperada.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\validadores\IValidadorGestorIngredientes.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMaximaDisponibleSuperadaException.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\gestionIngredientes\GestorCRUDIngredientes.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\com\gestioningredientes\GestionIngredientes.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\CantidadMinimaDisponibleSuperadaException.java
+C:\Users\norma\OneDrive\Documentos\GitHub\cafeDelSol\gestionIngredientes\src\main\java\excepciones\GestionCRUDIngredientesException.java

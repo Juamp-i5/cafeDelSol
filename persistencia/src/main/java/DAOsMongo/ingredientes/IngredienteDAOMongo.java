@@ -30,6 +30,8 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
+ * Clase DAO que logra la gestión de ingredientes en MongoDB. Sigue el patrón
+ * Singleton para garantizar una única instancia.
  *
  * @author norma
  */
@@ -44,6 +46,12 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
 
     IIngredienteMapperPersistencia ingredienteMapper = new IngredienteMapperPersistencia();
 
+    /**
+     * Constructor privado para el patrón Singleton. Configura el CodecRegistry
+     * para permitir el uso de POJOs.
+     *
+     * @param conexion Conexión a la base de datos.
+     */
     private IngredienteDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
 
@@ -56,6 +64,12 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Ingrediente.class);
     }
 
+    /**
+     * Obtiene la instancia única de IngredienteDAOMongo.
+     *
+     * @param conexion Conexión a la base de datos.
+     * @return Instancia única del DAO.
+     */
     public static IngredienteDAOMongo getInstance(IConexionMongo conexion) {
         if (instancia == null) {
             instancia = new IngredienteDAOMongo(conexion);
@@ -63,6 +77,14 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         return instancia;
     }
 
+    /**
+     * Agrega un nuevo ingrediente a la colección.
+     *
+     * @param ingrediente ingrediente a guardar.
+     * @return true si se agregó correctamente.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * operación.
+     */
     @Override
     public boolean agregarIngrediente(IngredienteDTOPersistencia ingrediente) throws PersistenciaIngredientesException {
         try {
@@ -79,6 +101,15 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Obtiene los detalles de un ingrediente, incluyendo información del
+     * proveedor.
+     *
+     * @param idIngrediente ID del ingrediente a consultar.
+     * @return ingrediente con todos sus detalles.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * operación.
+     */
     @Override
     public DetallesIngredienteViejoDTOPersistencia obtenerDetallesIngrediente(String idIngrediente) throws PersistenciaIngredientesException {
         try {
@@ -117,6 +148,15 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Edita el nombre de un ingrediente existente.
+     *
+     * @param idIngrediente ID del ingrediente a editar.
+     * @param nombreNuevo Nuevo nombre del ingrediente.
+     * @return ingrediente con todos sus detalles actualizados.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * operación.
+     */
     @Override
     public DetallesIngredienteViejoDTOPersistencia editarIngrediente(String idIngrediente, String nombreNuevo)
             throws PersistenciaIngredientesException {
@@ -133,6 +173,16 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Busca ingredientes que coincidan con los filtros de nombre y nivel de
+     * stock.
+     *
+     * @param filtroNombre Filtro por nombre (expresión regular).
+     * @param filtroNivelStock Filtro por nivel de stock.
+     * @return lista de ingredientes buscados.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * búsqueda.
+     */
     @Override
     public List<IngredienteDTOPersistencia> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws PersistenciaIngredientesException {
         try {
@@ -164,6 +214,16 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Aumenta la cantidad disponible de un ingrediente y actualiza el nivel de
+     * stock.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @param cantidad Cantidad a aumentar.
+     * @return true si se actualizó correctamente.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * operación.
+     */
     @Override
     public boolean aumentarStock(String idIngrediente, Double cantidad) throws PersistenciaIngredientesException {
         try {
@@ -178,6 +238,16 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Reduce la cantidad disponible de un ingrediente, validando que no sea
+     * negativa.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @param cantidad Cantidad a reducir.
+     * @return true si se redujo correctamente.
+     * @throws PersistenciaIngredientesException Si la cantidad es insuficiente
+     * o hay un error.
+     */
     @Override
     public boolean reducirStock(String idIngrediente, Double cantidad) throws PersistenciaIngredientesException {
         try {
@@ -195,6 +265,14 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Actualiza el campo "nivelStock" de un ingrediente dependiendo de su
+     * cantidad disponible actual.
+     *
+     * @param idIngrediente ID del ingrediente a actualizar.
+     * @throws PersistenciaIngredientesException Si ocurre un error en la
+     * actualización.
+     */
     @Override
     public void actualizarNivelStock(String idIngrediente) throws PersistenciaIngredientesException {
         try {
@@ -208,6 +286,14 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Verifica si existe un ingrediente por nombre exacto.
+     *
+     * @param nombre Nombre del ingrediente a buscar.
+     * @return true si existe, false en caso contrario.
+     * @throws PersistenciaIngredientesException Si ocurre un error en la
+     * búsqueda.
+     */
     @Override
     public boolean obtenerIngredientePorNombre(String nombre) throws PersistenciaIngredientesException {
         try {
@@ -219,6 +305,12 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         }
     }
 
+    /**
+     * Descuenta directamente una cantidad del stock de un ingrediente.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @param cantidad Cantidad a descontar.
+     */
     @Override
     public void descontarStock(String idIngrediente, double cantidad) {
         Bson filtro = Filters.eq("_id", new ObjectId(idIngrediente));

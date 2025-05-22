@@ -21,6 +21,8 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.bson.types.ObjectId;
 
 /**
+ * Clase DAO que logra la gestión de proveedores en MongoDB. Sigue el patrón
+ * Singleton para garantizar una única instancia.
  *
  * @author norma
  */
@@ -35,6 +37,12 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
 
     IProveedorMapperPersistencia proveedorMapper = new ProveedorMapperPersistencia();
 
+    /**
+     * Constructor para el patrón Singleton. Configura el CodecRegistry para
+     * permitir el uso de POJOs.
+     *
+     * @param conexion Conexión a la base de datos.
+     */
     public ProveedorDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
 
@@ -47,6 +55,12 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Proveedor.class);
     }
 
+    /**
+     * Obtiene la instancia única de ProveedorDAOMongo.
+     *
+     * @param conexion Conexión a la base de datos.
+     * @return Instancia única del DAO.
+     */
     public static ProveedorDAOMongo getInstance(IConexionMongo conexion) {
         if (instancia == null) {
             instancia = new ProveedorDAOMongo(conexion);
@@ -54,6 +68,13 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
         return instancia;
     }
 
+    /**
+     * Obtiene todos los proveedores exisitentes.
+     *
+     * @return Lista de proveedores.
+     * @throws PersistenciaIngredientesException Si ocurre un error durante la
+     * operación.
+     */
     @Override
     public List<ProveedorDTOPersistencia> obtenerProveedores() throws PersistenciaIngredientesException {
         try {
@@ -63,6 +84,14 @@ public class ProveedorDAOMongo implements IProveedorDAOMongo {
         }
     }
 
+    /**
+     * Guarda un nuevo proveedor a la colección (No se usa en el sistema, pero
+     * sirve para insertar manualmente proveedores ya que no se puede hacer eso
+     * en el sistema ejecutado).
+     *
+     * @param proveedorDTO proveedor a guardar.
+     * @throws PersistenciaException Si ocurre un error durante la operación.
+     */
     @Override
     public void guardarProveedor(ProveedorDTOPersistencia proveedorDTO) throws PersistenciaException {
         if (proveedorDTO == null) {
