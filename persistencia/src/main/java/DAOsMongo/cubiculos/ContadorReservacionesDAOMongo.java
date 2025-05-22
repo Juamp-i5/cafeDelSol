@@ -56,7 +56,11 @@ public class ContadorReservacionesDAOMongo implements IContadorReservaciones{
         return instancia;
     }
     
-    
+    /**
+     * Busca el contador en la base de datos y aumenta uno para guardarlo después
+     * @return El número del contador  + 1
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public Integer encontrarActualizar() throws PersistenciaCubiculoEsception {
          try {
