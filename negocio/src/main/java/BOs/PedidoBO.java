@@ -177,13 +177,16 @@ public class PedidoBO implements IPedidoBO {
                 throw new NegocioException("El topping '" + ppDTO.getTopping().getNombre() + "' no fue encontrado.");
             }
         }
-        toppingEnt.setImagenData(null);
-
+        if (toppingEnt != null) {
+            toppingEnt.setImagenData(null);
+        }
         PersistenciaProductoPedidoDTO ppEntidad = new PersistenciaProductoPedidoDTO();
         ppEntidad.setProducto(productoNuevo);
         ppEntidad.setTamanio(tamanioEnt);
         ppEntidad.setSabor(saborEnt);
-        ppEntidad.setTopping(toppingEnt);
+        if (toppingEnt != null) {
+            ppEntidad.setTopping(toppingEnt);
+        }
         ppEntidad.setCantidad(ppDTO.getCantidad());
 
         return ppEntidad;

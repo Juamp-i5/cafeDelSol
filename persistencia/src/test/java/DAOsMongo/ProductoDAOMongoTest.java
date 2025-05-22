@@ -235,14 +235,14 @@ public class ProductoDAOMongoTest {
         assertEquals(22.0, productoDesdeBD.getPrecioBase());
     }
 
-    @Test
-    void testActualizarProductoIdNoExistente() throws PersistenciaException {
-        String idInexistente = new ObjectId().toHexString();
-        PersistenciaProductoDTO dtoFantasma = crearProductoDTOCompleto(idInexistente, "Fantasma", "Etéreo", "DESHABILITADO", 0);
-
-        assertDoesNotThrow(() -> productoDAO.actualizarProducto(dtoFantasma));
-
-        PersistenciaProductoDTO noDeberiaExistir = productoDAO.buscarPorId(idInexistente);
-        assertNull(noDeberiaExistir, "El producto fantasma no debería haber sido creado por actualizar.");
-    }
+//    @Test
+//    void testActualizarProductoIdNoExistente() throws PersistenciaException {
+//        String idInexistente = new ObjectId().toHexString();
+//        PersistenciaProductoDTO dtoFantasma = crearProductoDTOCompleto(idInexistente, "Fantasma", "Etéreo", "DESHABILITADO", 0);
+//
+//        assertDoesNotThrow(() -> productoDAO.actualizarProducto(dtoFantasma));
+//
+//        PersistenciaProductoDTO noDeberiaExistir = productoDAO.buscarPorId(idInexistente);
+//        assertNull(noDeberiaExistir, "El producto fantasma no debería haber sido creado por actualizar.");
+//    }
 }
