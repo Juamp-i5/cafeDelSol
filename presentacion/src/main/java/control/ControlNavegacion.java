@@ -574,14 +574,6 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReservar);
     }
 
-    public static void mostrarPantallaGestionInventario() {
-        JFrame gestionInventario = new PantallaMenuGestionInventario();
-        gestionInventario.setLocationRelativeTo(null);
-        gestionInventario.setVisible(true);
-
-        framesVisitados.add(gestionInventario);
-    }
-
     public static void comprobarUsuario(InicioSesionDTO inicioSesionDTO) throws GestionException {
         Sesion.setCurrentUsuario(gestor.comprobarInicioSesion(inicioSesionDTO));
         if (Sesion.getCurrentUsuario().getTipoEmpleado().equals("Barista")) {
@@ -851,7 +843,6 @@ public class ControlNavegacion {
     public static boolean aumentarStock(String idIngrediente, Double cantidad) {
         try {
             gestorCRUDIngredientes.aumentarStock(idIngrediente, cantidad);
-            JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
             return true;
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

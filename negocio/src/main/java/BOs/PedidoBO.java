@@ -32,43 +32,43 @@ import java.util.logging.Logger;
  * @author rodri
  */
 public class PedidoBO implements IPedidoBO {
-
+    
     IPedidoMapper pedidoMapper = PedidoMapper.getInstance();
     IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
     ISaborDAO saborDAO = AccesoDatos.getSaborDAO();
     ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
     IToppingDAO toppingDAO = AccesoDatos.getToppingDAO();
     IPedidoDAO pedidoDAO = AccesoDatos.getPedidoDAO();
-
+    
     private List<NuevaVentaObserver> observers = new ArrayList<>();
-
+    
     public void agregarObserver(NuevaVentaObserver observer) {
         observers.add(observer);
     }
-
+    
     private void notificarObservers() {
         for (NuevaVentaObserver observer : observers) {
             observer.update();
         }
     }
-
+    
     private static PedidoBO instanceBO;
-
+    
     public PedidoBO() {
     }
-
+    
     public static PedidoBO getInstance() {
         if (instanceBO == null) {
             instanceBO = new PedidoBO();
         }
         return instanceBO;
     }
-
+    
     @Override
     public void registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
         try {
             PersistenciaPedidoDTO pedidoEntidad = pedidoMapper.toPersistenciaPedidoDTO(pedidoDTO);
-
+            
             List<PersistenciaProductoPedidoDTO> productosPedidoEntidades = new ArrayList<>();
             for (ProductoPedidoDTO ppDTO : pedidoDTO.getProductos()) {
                 if (ppDTO == null || ppDTO.getProducto() == null || ppDTO.getProducto().getNombre() == null || ppDTO.getProducto().getNombre().trim().isEmpty()) {
@@ -79,20 +79,20 @@ public class PedidoBO implements IPedidoBO {
             pedidoEntidad.setProductos(productosPedidoEntidades);
             
             pedidoDAO.registrarPedido(pedidoEntidad);
-
+            
             notificarObservers();
-
+            
         } catch (PersistenciaException ex) {
             Logger.getLogger(PedidoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al registrar");
         }
     }
-
+    
     @Override
     public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     @Override
     public void actualizarEstado(String idPedido) throws NegocioException {
         try {
@@ -101,45 +101,51 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al intentar actualizar el estado del pedido", e);
         }
     }
-
+    
     private PersistenciaProductoPedidoDTO convertirYValidarProductoPedido(ProductoPedidoDTO ppDTO) throws NegocioException, PersistenciaException {
         PersistenciaProductoDTO productoEnt = productoDAO.buscarPorNombre(ppDTO.getProducto().getNombre());
         if (productoEnt == null) {
             throw new NegocioException("El producto '" + ppDTO.getProducto().getNombre() + "' no fue encontrado.");
         }
-
+        PersistenciaProductoDTO productoNuevo = new PersistenciaProductoDTO();
+        productoNuevo.setId(productoEnt.getId());
+        productoNuevo.setNombre(productoEnt.getNombre());
+        
         PersistenciaTamanioDTO tamanioEnt = null;
         if (ppDTO.getTamanio() != null && ppDTO.getTamanio().getNombre() != null && !ppDTO.getTamanio().getNombre().trim().isEmpty()) {
             tamanioEnt = tamanioDAO.buscarPorNombre(ppDTO.getTamanio().getNombre());
             if (tamanioEnt == null) {
                 throw new NegocioException("El tamaño '" + ppDTO.getTamanio().getNombre() + "' no fue encontrado.");
             }
-        } // Considera si el tamaño es opcional o mandatorio. Si es mandatorio y falta, lanza excepción.
-
+        }
+        tamanioEnt.setImagenData(null);
+        tamanioEnt.setPrecioAdicional(null);
+        
         PersistenciaSaborDTO saborEnt = null;
         if (ppDTO.getSabor() != null && ppDTO.getSabor().getNombre() != null && !ppDTO.getSabor().getNombre().trim().isEmpty()) {
             saborEnt = saborDAO.buscarPorNombre(ppDTO.getSabor().getNombre());
             if (saborEnt == null) {
                 throw new NegocioException("El sabor '" + ppDTO.getSabor().getNombre() + "' no fue encontrado.");
             }
-        } // Considera si el sabor es opcional.
-
+        }
+        saborEnt.setImagenData(null);
+        
         PersistenciaToppingDTO toppingEnt = null;
         if (ppDTO.getTopping() != null && ppDTO.getTopping().getNombre() != null && !ppDTO.getTopping().getNombre().trim().isEmpty()) {
             toppingEnt = toppingDAO.buscarPorNombre(ppDTO.getTopping().getNombre());
             if (toppingEnt == null) {
                 throw new NegocioException("El topping '" + ppDTO.getTopping().getNombre() + "' no fue encontrado.");
             }
-        } // Topping es usualmente opcional.
-
-        // Crear la entidad ProductoPedido
+        }
+        toppingEnt.setImagenData(null);
+        
         PersistenciaProductoPedidoDTO ppEntidad = new PersistenciaProductoPedidoDTO();
-        ppEntidad.setProducto(productoEnt);
+        ppEntidad.setProducto(productoNuevo);
         ppEntidad.setTamanio(tamanioEnt);
         ppEntidad.setSabor(saborEnt);
         ppEntidad.setTopping(toppingEnt);
         ppEntidad.setCantidad(ppDTO.getCantidad());
-
+        
         return ppEntidad;
     }
 }

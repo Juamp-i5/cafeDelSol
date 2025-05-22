@@ -67,11 +67,7 @@ public class PedidoMapper implements IPedidoMapper {
         persistenciaPedido.setPrecioTotal(fuentePedido.getCostoTotal());
         persistenciaPedido.setBaristaId(fuentePedido.getIdUsuario());
 
-        if (fuentePedido.isTerminado()) {
-            persistenciaPedido.setEstado("TERMINADO");
-        } else {
-            persistenciaPedido.setEstado("PENDIENTE");
-        }
+        persistenciaPedido.setEstado("PENDIENTE");
 
         // Mapeo de la lista de Productos
         if (fuentePedido.getProductos() != null) {
@@ -183,16 +179,18 @@ public class PedidoMapper implements IPedidoMapper {
             }
 
             if (fuentePago.getEfectivoDTO() != null) {
-                if (metodoPago != null && metodoPago.equals("TARJETA")) {
-                    System.err.println("Advertencia: Datos de tarjeta y efectivo presentes. Revisar lógica de método de pago.");
-                }
-                metodoPago = "EFECTIVO";
-                pDetallesEfectivo = new PersistenciaDetallesEfectivoDTO();
-                pDetallesEfectivo.setMontoRecibido(fuentePago.getEfectivoDTO().getCantidadIngresada());
-                if (fuentePago.getCambioDTO() != null) {
-                    pDetallesEfectivo.setCambio(fuentePago.getCambioDTO().getCambio());
-                } else {
-                    pDetallesEfectivo.setCambio(0.0);
+                if (fuentePago.getEfectivoDTO().getCantidadIngresada() != 0 && fuentePago.getCambioDTO().getCambio() != 0) {
+                    if (metodoPago != null && metodoPago.equals("TARJETA")) {
+                        System.err.println("Advertencia: Datos de tarjeta y efectivo presentes. Revisar lógica de método de pago.");
+                    }
+                    metodoPago = "EFECTIVO";
+                    pDetallesEfectivo = new PersistenciaDetallesEfectivoDTO();
+                    pDetallesEfectivo.setMontoRecibido(fuentePago.getEfectivoDTO().getCantidadIngresada());
+                    if (fuentePago.getCambioDTO() != null) {
+                        pDetallesEfectivo.setCambio(fuentePago.getCambioDTO().getCambio());
+                    } else {
+                        pDetallesEfectivo.setCambio(0.0);
+                    }
                 }
             }
 

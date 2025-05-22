@@ -75,11 +75,11 @@ public class PersistenciaProductoDTO {
         this.estado = estado;
     }
 
-    public double getPrecioBase() {
+    public Double getPrecioBase() {
         return precioBase;
     }
 
-    public void setPrecioBase(double precioBase) {
+    public void setPrecioBase(Double precioBase) {
         this.precioBase = precioBase;
     }
 
