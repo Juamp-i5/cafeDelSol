@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BOs.ingredientes;
 
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
@@ -11,12 +7,11 @@ import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.CRUDIngredientes.UnidadMedida;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IngredienteDTOPersistencia;
-import entidades.Ingrediente;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 /**
+ * Clase IngredienteMapper que sirve para mapear objectos a entidades o a DTOs
  *
  * @author norma
  */
@@ -24,9 +19,17 @@ public class IngredienteMapper implements IIngredienteMapper {
 
     private static IngredienteMapper instanceMapper;
 
+    /**
+     * Constructor por defecto.
+     */
     public IngredienteMapper() {
     }
 
+    /**
+     * Obtiene la instancia de la clase.
+     *
+     * @return instanceMapper.
+     */
     public static IngredienteMapper getInstance() {
         if (instanceMapper == null) {
             instanceMapper = new IngredienteMapper();
@@ -34,6 +37,13 @@ public class IngredienteMapper implements IIngredienteMapper {
         return instanceMapper;
     }
 
+    /**
+     * Convierte un objeto de tipo IngredienteNuevoDTO en un objeto de tipo
+     * IngredienteDTOPersistencia.
+     *
+     * @param dtoNuevo Objeto IngredienteNuevoDTO que se desea convertir.
+     * @return Objeto convertido de tipo IngredienteDTOPersistencia.
+     */
     @Override
     public IngredienteDTOPersistencia toDTOPersistencia(IngredienteNuevoDTO dtoNuevo) {
         if (dtoNuevo == null) {
@@ -54,6 +64,14 @@ public class IngredienteMapper implements IIngredienteMapper {
         return dtoPersistencia;
     }
 
+    /**
+     * Convierte un objeto de tipo DetallesIngredienteViejoDTOPersistencia en un
+     * objeto de tipo DetallesIngredienteViejoDTO.
+     *
+     * @param dtoPersistencia Objeto DetallesIngredienteViejoDTOPersistencia que
+     * se desea convertir.
+     * @return Objeto convertido de tipo DetallesIngredienteViejoDTO.
+     */
     @Override
     public DetallesIngredienteViejoDTO toDTOIngredienteDetalles(DetallesIngredienteViejoDTOPersistencia dtoPersistencia) {
         if (dtoPersistencia == null) {
@@ -80,6 +98,14 @@ public class IngredienteMapper implements IIngredienteMapper {
         return dto;
     }
 
+    /**
+     * Convierte una lista de objetos de tipo IngredienteDTOPersistencia en una
+     * lista de objetos de tipo IngredienteViejoListDTO.
+     *
+     * @param listaPersistencia Objeto DetallesIngredienteViejoDTOPersistencia
+     * que se desea convertir.
+     * @return Objeto convertido de tipo IngredienteViejoListDTO.
+     */
     @Override
     public List<IngredienteViejoListDTO> toDTOIngredienteList(List<IngredienteDTOPersistencia> listaPersistencia) {
         if (listaPersistencia == null) {

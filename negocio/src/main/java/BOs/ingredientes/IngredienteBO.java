@@ -3,8 +3,6 @@ package BOs.ingredientes;
 import DTOs.CRUDIngredientes.DetallesIngredienteViejoDTO;
 import DTOs.CRUDIngredientes.IngredienteNuevoDTO;
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
-import DTOs.CRUDIngredientes.NivelStock;
-import DTOs.CRUDIngredientes.ProveedorViejoDTO;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IngredienteDTOPersistencia;
 import IDAOs.ingredientes.IIngredienteDAOMongo;
@@ -12,10 +10,10 @@ import acceso.AccesoDatos;
 import excepciones.NegocioException;
 import excepciones.PersistenciaIngredientesException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
+ * Clase IngredienteBO que usa los métodos de IngredienteDAO y mapea las
+ * entidades o DTOs.
  *
  * @author norma
  */
@@ -26,9 +24,17 @@ public class IngredienteBO implements IIngredienteBO {
 
     private static IngredienteBO instanceBO;
 
+    /**
+     * Construcor por defecto.
+     */
     public IngredienteBO() {
     }
 
+    /**
+     * Obtiene la instancia de la clase.
+     *
+     * @return instanciaBO.
+     */
     public static IngredienteBO getInstance() {
         if (instanceBO == null) {
             instanceBO = new IngredienteBO();
@@ -36,6 +42,13 @@ public class IngredienteBO implements IIngredienteBO {
         return instanceBO;
     }
 
+    /**
+     * Agrega un ingrediente.
+     *
+     * @param ingredienteDTO ingrediente a agregar.
+     * @return true si se agregó correctamente.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public boolean agregarIngrediente(IngredienteNuevoDTO ingredienteDTO) throws NegocioException {
         try {
@@ -45,6 +58,14 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Edita el nombre de un ingrediente.
+     *
+     * @param idIngrediente ID del ingrediente a editar.
+     * @param nombreNuevo Nuevo nombre.
+     * @return Detalles actualizados.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public DetallesIngredienteViejoDTO editarIngrediente(String idIngrediente, String nombreNuevo) throws NegocioException {
         try {
@@ -55,6 +76,14 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Busca ingredientes por nombre y stock.
+     *
+     * @param filtroNombre Nombre parcial.
+     * @param filtroNivelStock Nivel de stock.
+     * @return Lista de ingredientes encontrados.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws NegocioException {
         try {
@@ -66,15 +95,15 @@ public class IngredienteBO implements IIngredienteBO {
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al buscar los ingredientes por filtros.");
         }
-        
-//        try {
-//            List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
-//            return ingredienteMapper.toDTOIngredienteList(ingredientes);
-//        } catch (PersistenciaIngredientesException ex) {
-//            throw new NegocioException("Error al buscar los ingredientes por filtros.");
-//        }
     }
 
+    /**
+     * Obtiene detalles de un ingrediente.
+     *
+     * @param idIngrediente ID del ingrediente que se quiere obtener.
+     * @return Detalles del ingrediente.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public DetallesIngredienteViejoDTO obtenerDetallesIngrediente(String idIngrediente) throws NegocioException {
         try {
@@ -85,6 +114,14 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Aumenta el stock de un ingrediente.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @param cantidad Cantidad a aumentar.
+     * @return true si se actualizó.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public boolean aumentarStock(String idIngrediente, Double cantidad) throws NegocioException {
         try {
@@ -94,6 +131,14 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Reduce el stock de un ingrediente.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @param cantidad Cantidad a reducir.
+     * @return true si se actualizó.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public boolean reducirStock(String idIngrediente, Double cantidad) throws NegocioException {
         try {
@@ -103,6 +148,13 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Verifica si existe un ingrediente por nombre.
+     *
+     * @param nombre Nombre a buscar.
+     * @return true si existe.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public boolean obtenerIngredientePorNombre(String nombre) throws NegocioException {
         try {
@@ -112,6 +164,12 @@ public class IngredienteBO implements IIngredienteBO {
         }
     }
 
+    /**
+     * Actualiza el nivel de stock.
+     *
+     * @param idIngrediente ID del ingrediente.
+     * @throws NegocioException en caso de error.
+     */
     @Override
     public void actualizarNivelStock(String idIngrediente) throws NegocioException {
         try {

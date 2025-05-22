@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BOs.ingredientes;
 
 import DTOs.CRUDIngredientes.ProveedorViejoDTO;
@@ -10,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Clase ProveedorMapper que sirve para mapear objectos a entidades o a DTOs
  *
  * @author norma
  */
@@ -17,9 +14,17 @@ public class ProveedorMapper implements IProveedorMapper {
 
     private static ProveedorMapper instanceMapper;
 
+    /**
+     * Constructor por defecto.
+     */
     public ProveedorMapper() {
     }
 
+    /**
+     * Obtiene la instancia de la clase.
+     *
+     * @return instanceMapper.
+     */
     public static ProveedorMapper getInstance() {
         if (instanceMapper == null) {
             instanceMapper = new ProveedorMapper();
@@ -27,6 +32,14 @@ public class ProveedorMapper implements IProveedorMapper {
         return instanceMapper;
     }
 
+    /**
+     * Convierte una lista de objetos de tipo ProveedorDTOPersistencia en una
+     * lista de objetos de tipo ProveedorViejoDTO.
+     *
+     * @param listaPersistencia Objeto ProveedorDTOPersistencia que se desea
+     * convertir.
+     * @return Objeto convertido de tipo ProveedorViejoDTO.
+     */
     @Override
     public List<ProveedorViejoDTO> toDTOList(List<ProveedorDTOPersistencia> listaPersistencia) {
         if (listaPersistencia == null) {
