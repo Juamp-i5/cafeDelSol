@@ -16,7 +16,7 @@ import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
@@ -110,7 +110,7 @@ public class ControlNavegacion {
      *
      * @return El pedido actual.
      */
-    public static PersistenciaProductoPedidoDTO getProductoPedidoActual() {
+    public static ProductoPedidoDTO getProductoPedidoActual() {
         return gestor.getProductoPedidoActual();
     }
 
@@ -189,7 +189,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto pedido actual.
      */
-    public static void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedido) {
+    public static void setProductoPedidoActual(ProductoPedidoDTO productoPedido) {
         gestor.setProductoPedidoActual(productoPedido);
     }
 
@@ -245,7 +245,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto pedido que se quiere eliminar.
      */
-    public static void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
+    public static void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
         gestor.cancelarProductoPedido(productoPedido);
     }
 
@@ -413,7 +413,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto que se desea editar.
      */
-    public static void mostrarPantallaEditarProducto(PersistenciaProductoPedidoDTO productoPedido) {
+    public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
@@ -520,6 +520,7 @@ public class ControlNavegacion {
 
     public static void registrarPedido() {
         try {
+            gestor.agregarUsuarioAlPedido(Sesion.getCurrentUsuario().getId());
             gestor.registrarPedido();
         } catch (GestionException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);

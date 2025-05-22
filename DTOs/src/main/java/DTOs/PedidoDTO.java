@@ -13,9 +13,11 @@ import java.util.List;
  */
 public class PedidoDTO {
 
-    private List<ProductoPedidoDTO> pedido = new ArrayList<>();
+    private List<ProductoPedidoDTO> productos = new ArrayList<>();
     private double costoTotal;
     private boolean terminado;
+    private String idUsuario;
+    private PagoDTO pagoDTO;
 
     public PedidoDTO() {
     }
@@ -25,13 +27,13 @@ public class PedidoDTO {
     }
 
     public PedidoDTO(List<ProductoPedidoDTO> pedido) {
-        this.pedido = pedido;
+        this.productos = pedido;
     }
 
     public PedidoDTO(double costoTotal, boolean terminado, List<ProductoPedidoDTO> pedido) {
         this.costoTotal = costoTotal;
         this.terminado = terminado;
-        this.pedido = pedido;
+        this.productos = pedido;
     }
 
     public PedidoDTO(double costoTotal, boolean terminado) {
@@ -39,8 +41,8 @@ public class PedidoDTO {
         this.terminado = terminado;
     }
 
-    public List<ProductoPedidoDTO> getPedido() {
-        return pedido;
+    public List<ProductoPedidoDTO> getProductos() {
+        return productos;
     }
 
     public boolean isTerminado() {
@@ -51,8 +53,8 @@ public class PedidoDTO {
         this.terminado = terminado;
     }
 
-    public void setPedido(List<ProductoPedidoDTO> pedido) {
-        this.pedido = pedido;
+    public void setProductos(List<ProductoPedidoDTO> productos) {
+        this.productos = productos;
     }
 
     public double getCostoTotal() {
@@ -63,10 +65,26 @@ public class PedidoDTO {
         this.costoTotal = costoTotal;
     }
 
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public PagoDTO getPagoDTO() {
+        return pagoDTO;
+    }
+
+    public void setPagoDTO(PagoDTO pagoDTO) {
+        this.pagoDTO = pagoDTO;
+    }
+
     @Override
     public String toString() {
         StringBuilder salida = new StringBuilder();
-        for (ProductoPedidoDTO producto : pedido) {
+        for (ProductoPedidoDTO producto : productos) {
             salida.append(producto.toString());
         }
         return salida.toString();

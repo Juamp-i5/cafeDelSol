@@ -7,15 +7,13 @@ package pantallas;
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
 import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
 import control.Modo;
-import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -80,7 +78,6 @@ public class TotalDesglosado extends javax.swing.JFrame {
 //            configurarPanelProducto(panelProductoPedido);
 //            contenedorPanelesProductosPedidos.add(panelProductoPedido);
 //        }
-
         return contenedorPanelesProductosPedidos;
     }
 
@@ -126,7 +123,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a cancelar.
      */
-    private void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
+    private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
         int opc = JOptionPane.showConfirmDialog(
                 this,
                 "¿Deseas cancelar el producto pedido?",
@@ -176,7 +173,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a editar.
      */
-    private void editarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
+    private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
         this.dispose();
         ControlNavegacion.mostrarPantallaEditarProducto(productoPedido);
     }
@@ -187,7 +184,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a modificar.
      */
-    private void agregarCantidad(PersistenciaProductoPedidoDTO productoPedido) {
+    private void agregarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() < 99) {
             productoPedido.setCantidad(productoPedido.getCantidad() + 1);
             ControlNavegacion.actualizarTotal();
@@ -203,7 +200,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a modificar.
      */
-    private void quitarCantidad(PersistenciaProductoPedidoDTO productoPedido) {
+    private void quitarCantidad(ProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() != 1) {
             productoPedido.setCantidad(productoPedido.getCantidad() - 1);
             ControlNavegacion.actualizarTotal();
@@ -371,13 +368,13 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-//        if (listaProductosPedidos.isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            ControlNavegacion.mostrarPantallaPagoTarjeta();
-//            this.dispose();
-//        }
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getProductos();
+        if (listaProductosPedidos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ControlNavegacion.mostrarPantallaPagoTarjeta();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     /**
@@ -390,13 +387,13 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-//        if (listaProductosPedidos.isEmpty()) {
-//            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            ControlNavegacion.mostrarPantallaPagoEfectivo();
-//            this.dispose();
-//        }
+        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getProductos();
+        if (listaProductosPedidos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            ControlNavegacion.mostrarPantallaPagoEfectivo();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnEfectivoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

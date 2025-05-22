@@ -68,7 +68,7 @@ public class PedidoBO implements IPedidoBO {
         try {
             notificarObservers();
 
-            List<ProductoPedidoDTO> pds = pedidoDTO.getPedido();
+            List<ProductoPedidoDTO> pds = pedidoDTO.getProductos();
             List<ProductoPedido> pdsE = new ArrayList<>();
             Pedido pedido = pedidoMapper.toEntity(pedidoDTO);
 
@@ -84,9 +84,6 @@ public class PedidoBO implements IPedidoBO {
                 sabor = saborDAO.buscarPorNombre(pd.getSabor().getNombre());
                 if (pd.getTopping() != null) {
                     topping = toppingDAO.buscarPorNombre(pd.getTopping().getNombre());
-                    pdsE.add(new ProductoPedido(producto, tamanio, sabor, topping));
-                } else {
-                    pdsE.add(new ProductoPedido(producto, tamanio, sabor));
                 }
             }
 
@@ -114,7 +111,5 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al intentar actualizar el estado del pedido", e);
         }
     }
-    
-    
 
 }

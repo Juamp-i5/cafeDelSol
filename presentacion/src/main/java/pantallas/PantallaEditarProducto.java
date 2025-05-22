@@ -5,6 +5,7 @@
 package pantallas;
 
 import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
 import control.ControlNavegacion;
 import control.Modo;
 import exception.GestionException;
@@ -36,7 +37,7 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
      * @param productoPedido Objeto PersistenciaProductoPedidoDTO con la información del
  producto actual.
      */
-    public PantallaEditarProducto(PersistenciaProductoPedidoDTO productoPedido) {
+    public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
         ControlNavegacion.setProductoPedidoActual(productoPedido);
         setTitle("Editar Producto");
         setSize(1000, 800);

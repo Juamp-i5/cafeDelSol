@@ -8,7 +8,6 @@ import DTOs.EfectivoDTO;
 import java.awt.*;
 import javax.swing.*;
 import control.ControlNavegacion;
-import exception.GestionException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;

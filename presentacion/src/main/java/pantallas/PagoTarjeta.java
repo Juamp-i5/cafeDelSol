@@ -10,7 +10,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * Clase que representa la pantalla para realizar pagos con tarjeta. 
+ * Clase que representa la pantalla para realizar pagos con tarjeta.
  *
  * @author pablo
  */

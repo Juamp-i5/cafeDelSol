@@ -5,6 +5,7 @@
 package interfacesMapper;
 
 import DTOs.PedidoDTO;
+import DTOs.PersistenciaPedidoDTO;
 import entidades.Pedido;
 
 /**
@@ -15,4 +16,5 @@ public interface IPedidoMapper {
 
     public Pedido toEntity(PedidoDTO pedidoDTO);
 
+    public PersistenciaPedidoDTO toPersistenciaUnicoMetodo(PedidoDTO fuentePedido);
 }

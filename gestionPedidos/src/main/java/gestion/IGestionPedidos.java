@@ -4,11 +4,12 @@
  */
 package gestion;
 
+import DTOs.CambioDTO;
 import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -178,7 +179,7 @@ public interface IGestionPedidos {
      *
      * @param productoPedido El producto pedido que se quiere eliminar.
      */
-    public void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido);
+    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido);
 
     /**
      * Imprime la información del pedido y del producto pedido actual en
@@ -191,14 +192,14 @@ public interface IGestionPedidos {
      *
      * @param productoPedidoActual El producto pedido actual.
      */
-    public void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedidoActual);
+    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual);
 
     /**
      * Obtiene el producto pedido actual.
      *
      * @return El producto pedido actual.
      */
-    public PersistenciaProductoPedidoDTO getProductoPedidoActual();
+    public ProductoPedidoDTO getProductoPedidoActual();
 
     /**
      * Actualiza el total del pedido en relación a los costos de los productos
@@ -218,6 +219,8 @@ public interface IGestionPedidos {
     public PedidoDTO registrarPedido() throws GestionException;
 
     public UsuarioDTO comprobarInicioSesion(InicioSesionDTO inicioSesionDTO) throws GestionException;
+
+    public void agregarUsuarioAlPedido(String idUsuario);
     
     public List<PedidoDTO> obtenerPedidosDelivery() throws GestionException;
     

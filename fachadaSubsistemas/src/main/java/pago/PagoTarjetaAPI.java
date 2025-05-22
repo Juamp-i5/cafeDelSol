@@ -16,6 +16,6 @@ public class PagoTarjetaAPI implements IPagoTarjetaAPI {
     @Override
     public ResultadoPago cobrar(DetallesCobroTarjetaDTO tarjeta) {
         // Simulación de cobro
-        return new ResultadoPago(true, "Pago realizado exitosamente", null, "TX123456");
+        return new ResultadoPago(true, "Pago realizado exitosamente", null, "TX123456", "Débito", "MasterCard", "BBVA México", "Jose Luis Beltrán Fraijo");
     }
 }

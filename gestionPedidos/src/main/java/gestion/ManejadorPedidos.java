@@ -15,7 +15,7 @@ import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -48,7 +48,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
 //    private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
-    private PersistenciaProductoPedidoDTO productoPedidoActual;
+    private ProductoPedidoDTO productoPedidoActual;
     IPedidoBO pedidoBO = PedidoBO.getInstance();
     IProductoBO productoBO = ProductoBO.getInstance();
     ISaborBO saborBO = SaborBO.getInstance();
@@ -60,7 +60,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     public ManejadorPedidos() {
         this.fachadaPago = new FachadaPago(new PagoTarjetaAPI(), new ValidarPago());
-        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
+        this.productoPedidoActual = new ProductoPedidoDTO();
         this.pedido = new PedidoDTO();
     }
 
@@ -73,7 +73,12 @@ public class ManejadorPedidos implements IGestionPedidos {
         detalles.setFechaExp(tarjetaDTO.getFechaExp());
 
         ResultadoPago resultado = fachadaPago.procesarPago(detalles);
-
+        pedido.getPagoDTO().getResultadoPagoDTO().setIdTransaccion(resultado.getIdTransaccion());
+        pedido.getPagoDTO().getResultadoPagoDTO().setBanco(resultado.getBanco());
+        pedido.getPagoDTO().getResultadoPagoDTO().setMarca(resultado.getMarca());
+        pedido.getPagoDTO().getResultadoPagoDTO().setTipoTarjeta(resultado.getTipoTarjeta());
+        pedido.getPagoDTO().getResultadoPagoDTO().setTitular(resultado.getTitular());
+        
         if (!resultado.isExito()) {
             throw new GestionException("Pago fallido: " + resultado.getMensajeError());
         }
@@ -82,12 +87,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public PersistenciaProductoPedidoDTO getProductoPedidoActual() {
+    public ProductoPedidoDTO getProductoPedidoActual() {
         return productoPedidoActual;
     }
 
     @Override
-    public void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedidoActual) {
+    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual) {
         this.productoPedidoActual = productoPedidoActual;
     }
 
@@ -114,12 +119,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public void iniciarPedido() {
         this.pedido = new PedidoDTO();
-        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
+        this.productoPedidoActual = new ProductoPedidoDTO();
     }
 
     @Override
     public void crearProductoPedido() {
-        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
+        this.productoPedidoActual = new ProductoPedidoDTO();
     }
 
     @Override
@@ -168,36 +173,6 @@ public class ManejadorPedidos implements IGestionPedidos {
         productoPedidoActual.setTopping(topping);
     }
 
-//    @Override
-//    public boolean validarTarjetaPresentacion(TarjetaDTO tarjeta) throws GestionException {
-//        String numeroTarjeta = tarjeta.getNumTarjeta();
-//        String banco = tarjeta.getNombreBanco();
-//        String cvv = tarjeta.getCVV();
-//        String fechaExp = tarjeta.getFechaExp();
-//
-//        if (banco == null || banco.trim().isEmpty()
-//                || numeroTarjeta == null || numeroTarjeta.trim().isEmpty()
-//                || cvv == null || cvv.trim().isEmpty()
-//                || fechaExp == null) {
-//            throw new GestionException("Se tiene que llenar todos los campos.");
-//        }
-//
-//        if (tarjeta == null) {
-//            throw new GestionException("La tarjeta no puede ser nula.");
-//        }
-//
-//        if (!numeroTarjeta.matches("\\d{16}")) {
-//            throw new GestionException("Número de tarjeta inválido. Tiene que tener 16 dígitos.");
-//        }
-//
-//        if (!cvv.matches("\\d{3,4}")) {
-//            throw new GestionException("CVV inválido. Tiene que tener 3 o 4 dígitos.");
-//        }
-//        if (!fechaExp.matches("\\d{2}/\\d{2}")) {
-//            throw new GestionException("Fecha de expiración inválida. Tiene que tener formato MM/YY.");
-//        }
-//        return true;
-//    }
     @Override
     public boolean cancelarPedido(PedidoDTO pedido) throws GestionException {
 
@@ -210,7 +185,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public boolean agregarProductoPedidoAPedido() throws GestionException {
-        boolean agregado = pedido.getPedido().add(productoPedidoActual);
+        boolean agregado = pedido.getProductos().add(productoPedidoActual);
         if (!agregado) {
             throw new GestionException("No se pudo agregar al pedido");
         }
@@ -239,7 +214,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     public double calcularTotal() {
         double total = 0;
 
-        for (PersistenciaProductoPedidoDTO productoPedido : pedido.getPedido()) {
+        for (ProductoPedidoDTO productoPedido : pedido.getProductos()) {
             total += productoPedido.getCosto();
         }
         pedido.setCostoTotal(total);
@@ -249,15 +224,18 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public double calcularCambio(EfectivoDTO efectivo) {
         if (efectivo.getCantidadIngresada() >= pedido.getCostoTotal()) {
-            return efectivo.getCantidadIngresada() - pedido.getCostoTotal();
+            double cambio = efectivo.getCantidadIngresada() - pedido.getCostoTotal();
+            this.pedido.getPagoDTO().getEfectivoDTO().setCantidadIngresada(efectivo.getCantidadIngresada());
+            this.pedido.getPagoDTO().getCambioDTO().setCambio(cambio);
+            return cambio;
         } else {
             return -1;
         }
     }
 
     @Override
-    public void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
-        pedido.getPedido().remove(productoPedido);
+    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
+        pedido.getProductos().remove(productoPedido);
     }
 
     @Override
@@ -274,7 +252,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     public double actualizarTotal() {
         double total = 0;
 
-        for (PersistenciaProductoPedidoDTO productoPedido : pedido.getPedido()) {
+        for (ProductoPedidoDTO productoPedido : pedido.getProductos()) {
             double costoProducto = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecioAdicional()) * productoPedido.getCantidad();
             productoPedido.setCosto(costoProducto);
             total += costoProducto;
@@ -284,7 +262,6 @@ public class ManejadorPedidos implements IGestionPedidos {
         return total;
     }
 
-    //Ahoria lo hago, tiene que conectarse con su BO de Pedido
     @Override
     public PedidoDTO registrarPedido() throws GestionException {
         try {
@@ -304,6 +281,11 @@ public class ManejadorPedidos implements IGestionPedidos {
         } catch (NegocioException ex) {
             throw new GestionException("Los datos de inicio de sesion son incorrectos", ex);
         }
+    }
+
+    @Override
+    public void agregarUsuarioAlPedido(String idUsuario) {
+        this.pedido.setIdUsuario(idUsuario);
     }
 
     @Override
