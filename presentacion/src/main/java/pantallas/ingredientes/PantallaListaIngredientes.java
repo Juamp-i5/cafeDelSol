@@ -77,6 +77,11 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
         btnVolverAtras.setBackground(new java.awt.Color(255, 204, 0));
         btnVolverAtras.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnVolverAtras.setText("<---");
+        btnVolverAtras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverAtrasActionPerformed(evt);
+            }
+        });
 
         tablaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -191,6 +196,10 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
         ControlNavegacion.mostrarPantallaAgregarIngrediente();
         this.dispose();
     }//GEN-LAST:event_btnAgregarIngredienteActionPerformed
+
+    private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
+        ControlNavegacion.mostrarPantallaMenuAdministrador();
+    }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

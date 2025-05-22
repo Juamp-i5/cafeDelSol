@@ -146,6 +146,11 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
 
         botonInventarioIngredientes.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonInventarioIngredientes.setText("<html><center>Inventario de ingredientes</center></html>");
+        botonInventarioIngredientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonInventarioIngredientesActionPerformed(evt);
+            }
+        });
 
         botonInventarioProductos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonInventarioProductos.setText("<html><center>Inventario de productos</center></html>");
@@ -229,6 +234,11 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
         ControlNavegacion.mostrarPantallaHistorialEntradas();
         this.dispose();
     }//GEN-LAST:event_botonEntradaInventarioActionPerformed
+
+    private void botonInventarioIngredientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonInventarioIngredientesActionPerformed
+        ControlNavegacion.mostrarPantallaListaIngredientes();
+        this.dispose();
+    }//GEN-LAST:event_botonInventarioIngredientesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgendaEspacios;
