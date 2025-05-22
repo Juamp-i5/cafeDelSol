@@ -73,7 +73,6 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(235, 235, 235));
 
-        // Título y separador
         JPanel panelTitulo = new JPanel(new BorderLayout());
         panelTitulo.setBackground(new Color(235, 235, 235));
         lblTitulo = new JLabel("Historial de salidas");
@@ -85,11 +84,9 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         panelTitulo.add(separador, BorderLayout.SOUTH);
         add(panelTitulo, BorderLayout.NORTH);
 
-        // Panel filtros + tabla
         JPanel panelCentro = new JPanel(new BorderLayout());
         panelCentro.setBackground(new Color(235, 235, 235));
 
-        // Filtros
         JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 10));
         panelFiltros.setBackground(new Color(235, 235, 235));
         lblFechaInicio = new JLabel("Fecha Inicio:");
@@ -112,7 +109,6 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         panelFiltros.add(pickerFin);
         panelFiltros.add(btnBuscar);
 
-        // Tabla
         modeloTabla = new DefaultTableModel(new Object[]{"ID", "Fecha", "Cantidad de salidas", ""}, 0) {
             public boolean isCellEditable(int row, int column) {
                 return column == 3;

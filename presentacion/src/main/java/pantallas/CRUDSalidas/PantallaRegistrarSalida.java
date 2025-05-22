@@ -90,14 +90,10 @@ public class PantallaRegistrarSalida extends javax.swing.JFrame {
     }
     
     private void cargarIngredientes() {
-        try {
-            List<IngredienteViejoListDTO> ingredientes = GestorCRUDIngredientes.getInstance().buscarIngredientesPorFiltros("", null);
-            comboIngredientes.removeAllItems();
-            for (IngredienteViejoListDTO ingrediente : ingredientes) {
-                comboIngredientes.addItem(ingrediente.getNombre());
-            }
-        } catch (GestionCRUDIngredientesException ex) {
-            JOptionPane.showMessageDialog(this, "Error al cargar ingredientes: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        List<IngredienteViejoListDTO> ingredientes = ControlNavegacion.buscarIngredientesPorFiltros("", null);
+        comboIngredientes.removeAllItems();
+        for (IngredienteViejoListDTO ingrediente : ingredientes) {
+            comboIngredientes.addItem(ingrediente.getNombre());
         }
     }
 
@@ -109,33 +105,30 @@ public class PantallaRegistrarSalida extends javax.swing.JFrame {
             String textoCantidad = txtCantidad.getText().trim();
             MotivoEnum motivo = (MotivoEnum) comboMotivo.getSelectedItem();
 
-            if (nombreIngrediente == null || nombreIngrediente.isBlank()) {
-                throw new GestionCRUDSalidasException("Debes seleccionar un ingrediente.");
-            }
-            
-            if (textoCantidad.isBlank()) {
-                throw new GestionCRUDSalidasException("Debes ingresar una cantidad.");
-            }
+//            if (nombreIngrediente == null || nombreIngrediente.isBlank()) {
+//                throw new GestionCRUDSalidasException("Debes seleccionar un ingrediente.");
+//            }
+//            
+//            if (textoCantidad.isBlank()) {
+//                throw new GestionCRUDSalidasException("Debes ingresar una cantidad.");
+//            }
             
             Double cantidad = Double.parseDouble(textoCantidad);
             
-            String idIngrediente = GestorCRUDIngredientes.getInstance().obtenerIdIngredientePorNombre(nombreIngrediente);
+            String idIngrediente = ControlNavegacion.obtenerIdIngredientePorNombre(nombreIngrediente);
 
             SalidaNuevaDTO salidaDTO = new SalidaNuevaDTO(fecha, idIngrediente, cantidad, motivo);
 
-            boolean exito = GestorCRUDSalidas.getInstance().registrarSalida(salidaDTO);
+            boolean exito = ControlNavegacion.registrarSalida(salidaDTO);
+
             if (exito) {
                 JOptionPane.showMessageDialog(this, "Salida registrada correctamente.");
             } else {
                 JOptionPane.showMessageDialog(this, "No se pudo registrar la salida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-        } catch (GestionCRUDSalidasException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Cantidad inválida.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch(GestionCRUDIngredientesException ex){
-            JOptionPane.showMessageDialog(this, "Error al obtener el ingrediente: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
