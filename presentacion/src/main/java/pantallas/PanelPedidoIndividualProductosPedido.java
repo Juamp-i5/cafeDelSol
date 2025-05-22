@@ -19,6 +19,7 @@ public class PanelPedidoIndividualProductosPedido extends javax.swing.JPanel {
         lblProducto.setText(productoPedido.getProducto().getNombre());
         lblSabor.setText(productoPedido.getSabor().getNombre());
         lblTamanio.setText(productoPedido.getTamanio().getNombre());
+//        lblPrecio.setText(productoPedido.getCosto().toString() + " x " + productoPedido.getCantidad().toString());
         if (productoPedido.getTopping() == null) {
             lblTopping.setText("");
         } else {

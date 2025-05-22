@@ -15,7 +15,6 @@
         <module>../GestionCubiculos</module>
         <module>../gestionIngredientes</module>
         <module>../gestionPedidos</module>
-        <module>../infraestructura</module>
         <module>../negocio</module>
         <module>../persistencia</module>
         <module>../presentacion</module>
