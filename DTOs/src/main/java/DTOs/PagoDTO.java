@@ -17,6 +17,9 @@ public class PagoDTO {
     private CambioDTO cambioDTO;
 
     public PagoDTO() {
+        this.efectivoDTO = new EfectivoDTO();
+        this.cambioDTO = new CambioDTO();
+
         this.moneda = "MXN";
     }
 

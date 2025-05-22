@@ -923,8 +923,8 @@ public class ControlNavegacion {
             return false;
         }
     }
-    
-    public static LocalTime setReagendaNueva(ReagendaDTO reagenda){
+
+    public static LocalTime setReagendaNueva(ReagendaDTO reagenda) {
         try {
             return gestorCubiculos.setReagendaNueva(reagenda);
         } catch (GestionCubiculosException ex) {
@@ -980,7 +980,7 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReagendar);
     }
 
-    public static Integer realizarReagenda(ReagendaDTO reagenda,LocalTime horaFinNueva) {
+    public static Integer realizarReagenda(ReagendaDTO reagenda, LocalTime horaFinNueva) {
         try {
             Integer numReservacionNuevo;
             numReservacionNuevo = gestorCubiculos.realizarReagenda(horaFinNueva);
@@ -1049,14 +1049,14 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaVerReservaciones);
     }
-    
+
     public static void mostrarPantallaPantallaEstadoPedidos() {
         JFrame frame = new PantallaEstadoPedidos();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-   
-    public static void actualizarEstado(String idPedido){
+
+    public static void actualizarEstado(String idPedido) {
         try {
             gestor.actualizarEstado(idPedido);
             JOptionPane.showMessageDialog(null, "Se actualizó el estado exitosamente");
@@ -1066,8 +1066,8 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static List<PedidoDTO> obtenerPedidosDelivery(){
+
+    public static List<PedidoDTO> obtenerPedidosDelivery() {
         try {
             return gestor.obtenerPedidosDelivery();
         } catch (GestionException ex) {
@@ -1077,40 +1077,40 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
+
     public static void mostrarPantallaMenuSalidas() {
         JFrame pantallaMenuSalidas = new MenuSalidas();
         pantallaMenuSalidas.setLocationRelativeTo(null);
         pantallaMenuSalidas.setVisible(true);
-        
+
         framesVisitados.add(pantallaMenuSalidas);
     }
-    
-    public static void mostrarPantallaRegistrarSalida(){
+
+    public static void mostrarPantallaRegistrarSalida() {
         JFrame pantallaRegistrarSalida = new PantallaRegistrarSalida();
         pantallaRegistrarSalida.setLocationRelativeTo(null);
         pantallaRegistrarSalida.setVisible(true);
-        
+
         framesVisitados.add(pantallaRegistrarSalida);
     }
-    
-    public static void mostrarPantallaHistorialSalidas(){
+
+    public static void mostrarPantallaHistorialSalidas() {
         JFrame pantallaHistorialSalidas = new PantallaHistorialSalidas();
         pantallaHistorialSalidas.setLocationRelativeTo(null);
         pantallaHistorialSalidas.setVisible(true);
-        
+
         framesVisitados.add(pantallaHistorialSalidas);
     }
-    
-    public static void mostrarPantallaDetalleSalida(List<DetalleSalidaDTO> detalles){
+
+    public static void mostrarPantallaDetalleSalida(List<DetalleSalidaDTO> detalles) {
         PantallaDetalleSalida.setDetalles(detalles);
         JFrame pantallaDetalleSalida = new PantallaDetalleSalida();
         pantallaDetalleSalida.setLocationRelativeTo(null);
         pantallaDetalleSalida.setVisible(true);
-        
+
         framesVisitados.add(pantallaDetalleSalida);
     }
-    
+
     public static boolean registrarSalida(SalidaNuevaDTO salida) {
         try {
             return GestorCRUDSalidas.getInstance().registrarSalida(salida);
@@ -1155,5 +1155,5 @@ public class ControlNavegacion {
             return Collections.emptyList();
         }
     }
-  
+
 }

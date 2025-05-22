@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IPedidoBO {
 
-    public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) throws NegocioException;
+    public void registrarPedido(PedidoDTO pedidoDTO) throws NegocioException;
     
     public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException;
     

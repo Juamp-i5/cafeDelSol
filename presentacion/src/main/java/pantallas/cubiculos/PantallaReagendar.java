@@ -63,14 +63,13 @@ public class PantallaReagendar extends javax.swing.JFrame {
         if (reagendaDTO != null) {
             LocalTime horaFin = ControlNavegacion.setReagendaNueva(reagendaDTO);
             if (horaFin != null) {
-                ControlNavegacion.realizarReagenda(reagendaDTO,horaFin);
+                ControlNavegacion.realizarReagenda(reagendaDTO, horaFin);
                 ControlNavegacion.mostrarPantallaReservacionExitosa();
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "No se puedo realizar la reagenda.", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
-            
         }
     }
 

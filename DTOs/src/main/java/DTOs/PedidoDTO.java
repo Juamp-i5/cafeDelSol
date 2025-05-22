@@ -20,6 +20,9 @@ public class PedidoDTO {
     private PagoDTO pagoDTO;
 
     public PedidoDTO() {
+        pagoDTO = new PagoDTO();
+        pagoDTO.setEfectivoDTO(new EfectivoDTO());
+        pagoDTO.setCambioDTO(new CambioDTO());
     }
 
     public PedidoDTO(boolean terminado) {

@@ -13,6 +13,7 @@ import BOs.UsuarioBO;
 import DTOs.DetallesCobroTarjetaDTO;
 import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
+import DTOs.PagoDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
 import DTOs.ProductoPedidoDTO;

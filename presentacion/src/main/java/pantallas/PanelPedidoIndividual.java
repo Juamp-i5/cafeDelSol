@@ -25,7 +25,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
         initComponents();
         this.pedido = pedido;
         this.pantallaPadre = pantallaPadre;
-        this.listaProductosPedidos = pedido.getPedido();
+        this.listaProductosPedidos = pedido.getProductos();
         pnlProductosPedidos.setLayout(new BoxLayout(pnlProductosPedidos, BoxLayout.Y_AXIS));
         cargarInformacion();
     }

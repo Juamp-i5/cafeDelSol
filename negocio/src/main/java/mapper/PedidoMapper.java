@@ -54,7 +54,7 @@ public class PedidoMapper implements IPedidoMapper {
     }
 
     @Override
-    public PersistenciaPedidoDTO toPersistenciaUnicoMetodo(PedidoDTO fuentePedido) {
+    public PersistenciaPedidoDTO toPersistenciaPedidoDTO(PedidoDTO fuentePedido) {
         if (fuentePedido == null) {
             return null;
         }

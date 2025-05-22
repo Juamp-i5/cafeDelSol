@@ -1,6 +1,7 @@
 package BOs;
 
 import DTOs.PedidoDTO;
+import DTOs.PersistenciaPedidoDTO;
 import DTOs.PersistenciaProductoDTO;
 import DTOs.PersistenciaSaborDTO;
 import DTOs.PersistenciaTamanioDTO;
@@ -64,38 +65,27 @@ public class PedidoBO implements IPedidoBO {
     }
 
     @Override
-    public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
+    public void registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
         try {
-            notificarObservers();
+            PersistenciaPedidoDTO pedidoEntidad = pedidoMapper.toPersistenciaPedidoDTO(pedidoDTO);
 
-            List<ProductoPedidoDTO> pds = pedidoDTO.getProductos();
-            List<ProductoPedido> pdsE = new ArrayList<>();
-            Pedido pedido = pedidoMapper.toEntity(pedidoDTO);
-
-            for (ProductoPedidoDTO pd : pds) {
-
-                PersistenciaProductoDTO producto;
-                PersistenciaTamanioDTO tamanio;
-                PersistenciaSaborDTO sabor;
-                PersistenciaToppingDTO topping;
-
-                producto = productoDAO.buscarPorNombre(pd.getProducto().getNombre());
-                tamanio = tamanioDAO.buscarPorNombre(pd.getTamanio().getNombre());
-                sabor = saborDAO.buscarPorNombre(pd.getSabor().getNombre());
-                if (pd.getTopping() != null) {
-                    topping = toppingDAO.buscarPorNombre(pd.getTopping().getNombre());
+            List<PersistenciaProductoPedidoDTO> productosPedidoEntidades = new ArrayList<>();
+            for (ProductoPedidoDTO ppDTO : pedidoDTO.getProductos()) {
+                if (ppDTO == null || ppDTO.getProducto() == null || ppDTO.getProducto().getNombre() == null || ppDTO.getProducto().getNombre().trim().isEmpty()) {
+                    throw new NegocioException("Uno de los productos en el pedido tiene información inválida o faltante.");
                 }
+                productosPedidoEntidades.add(convertirYValidarProductoPedido(ppDTO));
             }
+            pedidoEntidad.setProductos(productosPedidoEntidades);
+            
+            pedidoDAO.registrarPedido(pedidoEntidad);
 
-            pedido.setPedido(pdsE);
-            pedidoDAO.registrarPedido(pedido);
-            return pedidoDTO;
+            notificarObservers();
 
         } catch (PersistenciaException ex) {
             Logger.getLogger(PedidoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al registrar");
         }
-        return null;
     }
 
     @Override
@@ -112,4 +102,44 @@ public class PedidoBO implements IPedidoBO {
         }
     }
 
+    private PersistenciaProductoPedidoDTO convertirYValidarProductoPedido(ProductoPedidoDTO ppDTO) throws NegocioException, PersistenciaException {
+        PersistenciaProductoDTO productoEnt = productoDAO.buscarPorNombre(ppDTO.getProducto().getNombre());
+        if (productoEnt == null) {
+            throw new NegocioException("El producto '" + ppDTO.getProducto().getNombre() + "' no fue encontrado.");
+        }
+
+        PersistenciaTamanioDTO tamanioEnt = null;
+        if (ppDTO.getTamanio() != null && ppDTO.getTamanio().getNombre() != null && !ppDTO.getTamanio().getNombre().trim().isEmpty()) {
+            tamanioEnt = tamanioDAO.buscarPorNombre(ppDTO.getTamanio().getNombre());
+            if (tamanioEnt == null) {
+                throw new NegocioException("El tamaño '" + ppDTO.getTamanio().getNombre() + "' no fue encontrado.");
+            }
+        } // Considera si el tamaño es opcional o mandatorio. Si es mandatorio y falta, lanza excepción.
+
+        PersistenciaSaborDTO saborEnt = null;
+        if (ppDTO.getSabor() != null && ppDTO.getSabor().getNombre() != null && !ppDTO.getSabor().getNombre().trim().isEmpty()) {
+            saborEnt = saborDAO.buscarPorNombre(ppDTO.getSabor().getNombre());
+            if (saborEnt == null) {
+                throw new NegocioException("El sabor '" + ppDTO.getSabor().getNombre() + "' no fue encontrado.");
+            }
+        } // Considera si el sabor es opcional.
+
+        PersistenciaToppingDTO toppingEnt = null;
+        if (ppDTO.getTopping() != null && ppDTO.getTopping().getNombre() != null && !ppDTO.getTopping().getNombre().trim().isEmpty()) {
+            toppingEnt = toppingDAO.buscarPorNombre(ppDTO.getTopping().getNombre());
+            if (toppingEnt == null) {
+                throw new NegocioException("El topping '" + ppDTO.getTopping().getNombre() + "' no fue encontrado.");
+            }
+        } // Topping es usualmente opcional.
+
+        // Crear la entidad ProductoPedido
+        PersistenciaProductoPedidoDTO ppEntidad = new PersistenciaProductoPedidoDTO();
+        ppEntidad.setProducto(productoEnt);
+        ppEntidad.setTamanio(tamanioEnt);
+        ppEntidad.setSabor(saborEnt);
+        ppEntidad.setTopping(toppingEnt);
+        ppEntidad.setCantidad(ppDTO.getCantidad());
+
+        return ppEntidad;
+    }
 }
