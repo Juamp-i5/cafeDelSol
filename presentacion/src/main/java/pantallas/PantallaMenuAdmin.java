@@ -256,7 +256,8 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEstadoPedidosActionPerformed
 
     private void botonAgendaEspaciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendaEspaciosActionPerformed
-       ControlNavegacion.mostrarPantallaMenuCubiculos();
+        ControlNavegacion.mostrarPantallaMenuCubiculos();
+        this.dispose();
     }//GEN-LAST:event_botonAgendaEspaciosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

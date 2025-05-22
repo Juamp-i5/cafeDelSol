@@ -13,6 +13,7 @@ import java.util.List;
  */
 public class PedidoDTO {
 
+    private String idPedido;
     private List<ProductoPedidoDTO> productos = new ArrayList<>();
     private double costoTotal;
     private boolean terminado;
@@ -82,6 +83,14 @@ public class PedidoDTO {
 
     public void setPagoDTO(PagoDTO pagoDTO) {
         this.pagoDTO = pagoDTO;
+    }
+
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
     }
 
     @Override

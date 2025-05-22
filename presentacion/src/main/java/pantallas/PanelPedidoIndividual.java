@@ -31,7 +31,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
     }
 
     public void cargarInformacion() {
-        lblNumeroPedido.setText(""); //???
+        lblNumeroPedido.setText(pedido.getIdPedido()); //???
 
         pnlProductosPedidos.removeAll();
 
@@ -157,8 +157,8 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
         if (respuesta != JOptionPane.YES_OPTION) {
             return;
         }
-        
-//        ControlNavegacion.actualizarEstado(pedido.getId());
+
+        ControlNavegacion.actualizarEstado(pedido.getIdPedido());
         pantallaPadre.recargarPaneles();
         JOptionPane.showMessageDialog(
                 null,

@@ -37,7 +37,6 @@ import java.util.logging.Logger;
  */
 public class PedidoBO implements IPedidoBO {
 
-
     IPedidoMapper pedidoMapper = PedidoMapper.getInstance();
     IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
     ISaborDAO saborDAO = AccesoDatos.getSaborDAO();
@@ -46,14 +45,11 @@ public class PedidoBO implements IPedidoBO {
     IPedidoDAO pedidoDAO = AccesoDatos.getPedidoDAO();
     IIngredienteDAOMongo ingredienteDAO = AccesoDatos.getIngredienteDAO();
 
-
     private List<NuevaVentaObserver> observers = new ArrayList<>();
-
 
     public void agregarObserver(NuevaVentaObserver observer) {
         observers.add(observer);
     }
-
 
     private void notificarObservers() {
         for (NuevaVentaObserver observer : observers) {
@@ -61,13 +57,10 @@ public class PedidoBO implements IPedidoBO {
         }
     }
 
-
     private static PedidoBO instanceBO;
-
 
     public PedidoBO() {
     }
-
 
     public static PedidoBO getInstance() {
         if (instanceBO == null) {
@@ -76,12 +69,10 @@ public class PedidoBO implements IPedidoBO {
         return instanceBO;
     }
 
-
     @Override
     public void registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
         try {
             PersistenciaPedidoDTO pedidoEntidad = pedidoMapper.toPersistenciaPedidoDTO(pedidoDTO);
-
 
             List<PersistenciaProductoPedidoDTO> productosPedidoEntidades = new ArrayList<>();
             for (ProductoPedidoDTO ppDTO : pedidoDTO.getProductos()) {
@@ -91,7 +82,6 @@ public class PedidoBO implements IPedidoBO {
                 productosPedidoEntidades.add(convertirYValidarProductoPedido(ppDTO));
             }
             pedidoEntidad.setProductos(productosPedidoEntidades);
-
 
             pedidoDAO.registrarPedido(pedidoEntidad);
             for (PersistenciaProductoPedidoDTO productoPedidoDTO : pedidoEntidad.getProductos()) {
@@ -118,7 +108,6 @@ public class PedidoBO implements IPedidoBO {
                 }
             }
 
-
             notificarObservers();
 
         } catch (PersistenciaException ex) {
@@ -126,7 +115,6 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al registrar");
         }
     }
-
 
     @Override
     public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException {
