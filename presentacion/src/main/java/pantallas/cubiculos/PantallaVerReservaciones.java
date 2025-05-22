@@ -204,7 +204,10 @@ public class PantallaVerReservaciones extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE
             );
             if (opc == JOptionPane.YES_OPTION) {
-                ControlNavegacion.actualizarEstadoReservacion(reservacion.getNumReservacion(), "ACTIVA");
+                boolean exito = ControlNavegacion.actualizarEstadoReservacion(reservacion.getNumReservacion(), "ACTIVA");
+                if(!exito){
+                    JOptionPane.showMessageDialog(this, "Aun no se puede iniciar la reservacion.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }

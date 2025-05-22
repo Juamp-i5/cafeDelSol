@@ -56,7 +56,7 @@ public class PantallaReservar extends javax.swing.JFrame {
         LocalTime horaFin = horaFinPicker.getTime();
         precioHora = ControlNavegacion.obtenerPrecioCubiculo(cubiculo);
         precioTotal = ControlNavegacion.calcularPrecioReservacion(horaInicio, horaFin, precioHora);
-        
+
         reservacionNueva = new ReservacionNuevaDTO();
         reservacionNueva.setNombre(nombre);
         reservacionNueva.setTelefono(telefono);
@@ -68,22 +68,30 @@ public class PantallaReservar extends javax.swing.JFrame {
         reservacionNueva.setPrecioReservacion(precioTotal);
 
     }
-    
-    public void guardarReservacionEfectivo(){
+
+    public void guardarReservacionEfectivo() {
         crearReservacion();
         if (reservacionNueva != null) {
-            ControlNavegacion.setReservacionNueva(reservacionNueva);
-            ControlNavegacion.mostrarPantallaPagoEfCubiculo();
-            this.dispose();
+            boolean exito = ControlNavegacion.setReservacionNueva(reservacionNueva);
+            if (exito) {
+                ControlNavegacion.mostrarPantallaPagoEfCubiculo();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Datos inválidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
-    
-    public void guardarReservacionTarjeta(){
+
+    public void guardarReservacionTarjeta() {
         crearReservacion();
-        if(reservacionNueva != null) {
-            ControlNavegacion.setReservacionNueva(reservacionNueva);
-            ControlNavegacion.mostrarPantallaPagoTarjCubiculo();
-            this.dispose();
+        if (reservacionNueva != null) {
+            boolean exito = ControlNavegacion.setReservacionNueva(reservacionNueva);
+            if (exito) {
+                ControlNavegacion.mostrarPantallaPagoTarjCubiculo();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Datos inválidos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

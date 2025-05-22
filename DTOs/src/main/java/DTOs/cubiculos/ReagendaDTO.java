@@ -13,7 +13,7 @@ import java.time.LocalTime;
  */
 public class ReagendaDTO {
     
-    private Integer numReservacion;
+    private String numReservacion;
     private LocalDate fechaNueva;
     private LocalTime horaInicio;
     private String motivo;
@@ -22,7 +22,7 @@ public class ReagendaDTO {
     public ReagendaDTO() {
     }
 
-    public ReagendaDTO(Integer numReservacion, LocalDate fechaNueva, LocalTime horaInicio, String motivo, String nombreCubiculo) {
+    public ReagendaDTO(String numReservacion, LocalDate fechaNueva, LocalTime horaInicio, String motivo, String nombreCubiculo) {
         this.numReservacion = numReservacion;
         this.fechaNueva = fechaNueva;
         this.horaInicio = horaInicio;
@@ -30,11 +30,11 @@ public class ReagendaDTO {
         this.nombreCubiculo = nombreCubiculo;
     }
 
-    public Integer getNumReservacion() {
+    public String getNumReservacion() {
         return numReservacion;
     }
 
-    public void setNumReservacion(Integer numReservacion) {
+    public void setNumReservacion(String numReservacion) {
         this.numReservacion = numReservacion;
     }
 

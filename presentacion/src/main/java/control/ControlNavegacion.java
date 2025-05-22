@@ -903,8 +903,22 @@ public class ControlNavegacion {
         return gestorCubiculos.getReservacionNueva();
     }
 
-    public static void setReservacionNueva(ReservacionNuevaDTO reservacionNueva) {
-        gestorCubiculos.setReservacionNueva(reservacionNueva);
+    public static boolean setReservacionNueva(ReservacionNuevaDTO reservacionNueva) {
+        try {
+            return gestorCubiculos.setReservacionNueva(reservacionNueva);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public static LocalTime setReagendaNueva(ReagendaDTO reagenda){
+        try {
+            return gestorCubiculos.setReagendaNueva(reagenda);
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public static void mostrarPantallaPagoEfCubiculo() {
@@ -954,11 +968,12 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReagendar);
     }
 
-    public static Integer realizarReagenda(ReagendaDTO reagenda) {
+    public static Integer realizarReagenda(ReagendaDTO reagenda, LocalTime horaFinNueva) {
         try {
             Integer numReservacionNuevo;
-            numReservacionNuevo = gestorCubiculos.realizarReagenda(reagenda);
-            gestorCubiculos.modificarReservacion(reagenda.getNumReservacion(), numReservacionNuevo, reagenda.getMotivo());
+            numReservacionNuevo = gestorCubiculos.realizarReagenda(horaFinNueva);
+            Integer numReservacionViejo = Integer.valueOf(reagenda.getNumReservacion());
+            gestorCubiculos.modificarReservacion(numReservacionViejo, numReservacionNuevo, reagenda.getMotivo());
 
             return numReservacionNuevo;
         } catch (GestionCubiculosException ex) {
@@ -978,12 +993,13 @@ public class ControlNavegacion {
         }
     }
 
-    public static Integer actualizarEstadoReservacion(Integer numReservacion, String estado) {
+    public static boolean actualizarEstadoReservacion(Integer numReservacion, String estado) {
         try {
-            return gestorCubiculos.actualizarEstado(numReservacion, estado);
+            gestorCubiculos.actualizarEstado(numReservacion, estado);
+            return true;
         } catch (GestionCubiculosException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            return false;
         }
     }
 

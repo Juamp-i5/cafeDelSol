@@ -11,7 +11,6 @@ import BOs.cubiculos.ICubiculoBO;
 import BOs.cubiculos.IReservacionBO;
 import BOs.cubiculos.ReservacionBO;
 import DTOs.cubiculos.CubiculoCompletoDTO;
-import DTOs.cubiculos.CubiculoCompletoDTOPersistencia;
 import DTOs.cubiculos.EfectivoDTOCubiculo;
 import DTOs.cubiculos.ReagendaDTO;
 import DTOs.cubiculos.ReservacionCompletaDTO;
@@ -27,6 +26,8 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import validaciones.IValidadorCubiculos;
+import validaciones.ValidadorCubiculos;
 
 /**
  *
@@ -36,9 +37,11 @@ public class GestorCubiculos implements IGestorCubiculos {
 
     private static GestorCubiculos instance;
     private ReservacionNuevaDTO reservacionNueva;
+    private ReagendaDTO reagendaDTO;
     private ICubiculoBO cubiculoBO = CubiculoBO.getInstance();
     private IReservacionBO reservacionBO = ReservacionBO.getInstance();
     private IContadorBO contadorBO = ContadorBO.getInstance();
+    private IValidadorCubiculos validador = new ValidadorCubiculos();
 
     private GestorCubiculos() {
     }
@@ -76,8 +79,39 @@ public class GestorCubiculos implements IGestorCubiculos {
     }
 
     @Override
-    public void setReservacionNueva(ReservacionNuevaDTO reservacionNueva) {
-        this.reservacionNueva = reservacionNueva;
+    public boolean setReservacionNueva(ReservacionNuevaDTO reservacionNuevaParam) throws GestionCubiculosException {
+        try {
+            validador.ValidarGuardarReservacion(reservacionNuevaParam);
+            this.reservacionNueva = reservacionNuevaParam;
+            validador.ValidarChoqueHorariosResNueva(reservacionNueva);
+            return true;
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Datos inválidos");
+        }
+    }
+
+    @Override
+    public LocalTime setReagendaNueva(ReagendaDTO reagenda) throws GestionCubiculosException {
+        try {
+            validador.ValidarReagendarReservacionCampos(reagenda);
+            this.reagendaDTO = reagenda;
+            
+            Integer numReservacionViejo = Integer.valueOf(reagendaDTO.getNumReservacion());
+            ReservacionCompletaDTO dtoViejo = reservacionBO.buscarPorId(numReservacionViejo);
+            Duration duracion = Duration.between(dtoViejo.getHoraInicio(), dtoViejo.getHoraFin());
+            LocalTime horaFinNueva = reagendaDTO.getHoraInicio().plus(duracion);
+            
+            validador.ValidarChoqueHorarios(reagendaDTO,horaFinNueva);
+            
+            return horaFinNueva;
+        } catch (GestionCubiculosException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Datos inválidos" + ex.getMessage());
+        } catch (NegocioCubiculoException ex) {
+            Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
+            throw new GestionCubiculosException("Error al obtener la referencia de la reservación anterior");
+        }
     }
 
     @Override
@@ -119,25 +153,23 @@ public class GestorCubiculos implements IGestorCubiculos {
     }
 
     @Override
-    public Integer realizarReagenda(ReagendaDTO reagenda) throws GestionCubiculosException {
+    public Integer realizarReagenda(LocalTime horaFinNueva) throws GestionCubiculosException {
         try {
             CubiculoCompletoDTO cubiculo;
             Integer numeroReservacion;
-            ReservacionCompletaDTO dtoNueva;
-            cubiculo = cubiculoBO.obtenerPorNombre(reagenda.getNombreCubiculo());
-            numeroReservacion = contadorBO.obtenerContador();
-            ReservacionCompletaDTO dtoViejo = reservacionBO.buscarPorId(reagenda.getNumReservacion());
 
-            Duration duracion = Duration.between(dtoViejo.getHoraInicio(), dtoViejo.getHoraFin());
-            LocalTime horaFinNueva = reagenda.getHoraInicio().plus(duracion);
-            
-            dtoNueva = new ReservacionCompletaDTO();
+            cubiculo = cubiculoBO.obtenerPorNombre(reagendaDTO.getNombreCubiculo());
+            Integer numReservacionViejo = Integer.valueOf(reagendaDTO.getNumReservacion());
+            ReservacionCompletaDTO dtoViejo = reservacionBO.buscarPorId(numReservacionViejo);
+            numeroReservacion = contadorBO.obtenerContador();
+
+            ReservacionCompletaDTO dtoNueva = new ReservacionCompletaDTO();
             dtoNueva.setNumReservacion(numeroReservacion);
             dtoNueva.setNombre(dtoViejo.getNombre());
             dtoNueva.setTelefono(dtoViejo.getTelefono());
-            dtoNueva.setNombreCubiculo(reagenda.getNombreCubiculo());
-            dtoNueva.setFechaReserva(reagenda.getFechaNueva());
-            dtoNueva.setHoraInicio(reagenda.getHoraInicio());
+            dtoNueva.setNombreCubiculo(reagendaDTO.getNombreCubiculo());
+            dtoNueva.setFechaReserva(reagendaDTO.getFechaNueva());
+            dtoNueva.setHoraInicio(reagendaDTO.getHoraInicio());
             dtoNueva.setHoraFin(horaFinNueva);
             dtoNueva.setIdCubiculo(cubiculo.getId());
             dtoNueva.setPrecioHora(dtoViejo.getPrecioHora());
@@ -172,7 +204,7 @@ public class GestorCubiculos implements IGestorCubiculos {
             throw new GestionCubiculosException("Error al cargar reservaciones sin concluir");
         }
     }
-    
+
     @Override
     public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException {
         try {
@@ -184,9 +216,11 @@ public class GestorCubiculos implements IGestorCubiculos {
     }
 
     @Override
-    public Integer actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException {
+    public boolean actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException {
         try {
-            return reservacionBO.actualizarEstado(numReservacion, estado);
+            validador.ValidarIniciarReservacion(numReservacion);
+            reservacionBO.actualizarEstado(numReservacion, estado);
+            return true; 
         } catch (NegocioCubiculoException ex) {
             Logger.getLogger(GestorCubiculos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionCubiculosException("Error al actualizar el estado de la reservacion");

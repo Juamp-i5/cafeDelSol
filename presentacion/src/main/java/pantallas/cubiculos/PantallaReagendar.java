@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class PantallaReagendar extends javax.swing.JFrame {
 
     ReagendaDTO reagendaDTO;
-    
+
     /**
      * Creates new form PantallaReagendar
      */
@@ -26,7 +26,7 @@ public class PantallaReagendar extends javax.swing.JFrame {
         initComponents();
         cargarComboBox();
     }
-    
+
     private void cargarComboBox() {
         jComboBox1.removeAllItems();
 
@@ -35,21 +35,21 @@ public class PantallaReagendar extends javax.swing.JFrame {
             jComboBox1.addItem(cubiculo);
         }
     }
-    
-    public void crearReagenda(){
-        if (jTextFieldNumReservacion.getText().isEmpty() || jTextFieldNumReservacion.getText().isBlank() || jTextFieldMotivo.getText().isEmpty() ||
-                jTextFieldMotivo.getText().isBlank() || jComboBox1.getSelectedItem() == null || fechaPicker.getDate() == null 
+
+    public void crearReagenda() {
+        if (jTextFieldNumReservacion.getText().isEmpty() || jTextFieldNumReservacion.getText().isBlank() || jTextFieldMotivo.getText().isEmpty()
+                || jTextFieldMotivo.getText().isBlank() || jComboBox1.getSelectedItem() == null || fechaPicker.getDate() == null
                 || horaInicioPicker.getTime() == null) {
             JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        Integer numReservacion = Integer.valueOf(jTextFieldNumReservacion.getText());
+
+        String numReservacion = jTextFieldNumReservacion.getText();
         LocalDate fechaNueva = fechaPicker.getDate();
         LocalTime horaInicio = horaInicioPicker.getTime();
         String motivo = jTextFieldMotivo.getText();
         String numCubiculo = (String) jComboBox1.getSelectedItem();
-        
+
         reagendaDTO = new ReagendaDTO();
         reagendaDTO.setNumReservacion(numReservacion);
         reagendaDTO.setFechaNueva(fechaNueva);
@@ -57,19 +57,22 @@ public class PantallaReagendar extends javax.swing.JFrame {
         reagendaDTO.setMotivo(motivo);
         reagendaDTO.setNombreCubiculo(numCubiculo);
     }
-    
-    public void guardarReagenda(){
+
+    public void guardarReagenda() {
         crearReagenda();
         if (reagendaDTO != null) {
-            ControlNavegacion.realizarReagenda(reagendaDTO);
-            ControlNavegacion.mostrarPantallaReservacionExitosa();
-            this.dispose();
+            LocalTime horaFin = ControlNavegacion.setReagendaNueva(reagendaDTO);
+            if (horaFin != null) {
+                ControlNavegacion.realizarReagenda(reagendaDTO,horaFin);
+                ControlNavegacion.mostrarPantallaReservacionExitosa();
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "No se puedo realizar la reagenda.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            
         }
     }
-    
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
