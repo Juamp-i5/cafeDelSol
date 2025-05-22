@@ -5,6 +5,7 @@
 package pantallas;
 
 import control.ControlNavegacion;
+import control.Modo;
 import control.Sesion;
 
 /**
@@ -113,9 +114,19 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
 
         botonRealizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonRealizarPedido.setText("<html><center>Realizar un pedido</center></html>");
+        botonRealizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarPedidoActionPerformed(evt);
+            }
+        });
 
         botonEstadoPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonEstadoPedidos.setText("<html><center>Estado de los pedidos</center></html>");
+        botonEstadoPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEstadoPedidosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCentroLayout = new javax.swing.GroupLayout(panelCentro);
         panelCentro.setLayout(panelCentroLayout);
@@ -144,9 +155,20 @@ public class PantallaMenuBarista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
-        ControlNavegacion.mostrarPantallaMenuPrincipal();
+        ControlNavegacion.mostrarPantallaInicioSesion();
         Sesion.setCurrentUsuario(null);
+        this.dispose();
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
+
+    private void botonRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarPedidoActionPerformed
+        ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+        this.dispose();
+    }//GEN-LAST:event_botonRealizarPedidoActionPerformed
+
+    private void botonEstadoPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstadoPedidosActionPerformed
+        ControlNavegacion.mostrarPantallaEstadoPedidos();
+        this.dispose();
+    }//GEN-LAST:event_botonEstadoPedidosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonCerrarSesion;
