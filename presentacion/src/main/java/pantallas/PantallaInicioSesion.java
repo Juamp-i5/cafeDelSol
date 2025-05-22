@@ -88,17 +88,20 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
 
         getContentPane().add(panelSur, java.awt.BorderLayout.SOUTH);
 
-        labelUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelUsuario.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelUsuario.setForeground(new java.awt.Color(255, 204, 51));
         labelUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelUsuario.setText("Usuario");
 
         textFieldUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textFieldUsuario.setPreferredSize(new java.awt.Dimension(100, 31));
 
-        labelUsuario1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelUsuario1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        labelUsuario1.setForeground(new java.awt.Color(255, 204, 51));
         labelUsuario1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelUsuario1.setText("Contraseña");
 
+        botonIniciarSesion.setBackground(new java.awt.Color(255, 204, 0));
         botonIniciarSesion.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonIniciarSesion.setText("Iniciar Sesión");
         botonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -114,23 +117,24 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
         panelCentroLayout.setHorizontalGroup(
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCentroLayout.createSequentialGroup()
-                .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(370, 370, 370)
-                        .addComponent(labelUsuario))
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(355, 355, 355)
-                        .addComponent(labelUsuario1))
-                    .addGroup(panelCentroLayout.createSequentialGroup()
-                        .addGap(250, 250, 250)
-                        .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                            .addComponent(passwordField))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(250, 250, 250)
+                .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textFieldUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addComponent(passwordField))
+                .addContainerGap(250, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
-                .addGap(0, 335, Short.MAX_VALUE)
-                .addComponent(botonIniciarSesion)
-                .addGap(332, 332, 332))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(labelUsuario)
+                .addGap(353, 353, 353))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
+                        .addComponent(labelUsuario1)
+                        .addGap(330, 330, 330))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCentroLayout.createSequentialGroup()
+                        .addComponent(botonIniciarSesion)
+                        .addGap(322, 322, 322))))
         );
         panelCentroLayout.setVerticalGroup(
             panelCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,13 +143,13 @@ public class PantallaInicioSesion extends javax.swing.JFrame {
                 .addComponent(labelUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(43, 43, 43)
                 .addComponent(labelUsuario1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(botonIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addGap(172, 172, 172))
+                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(botonIniciarSesion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(123, 123, 123))
         );
 
         getContentPane().add(panelCentro, java.awt.BorderLayout.CENTER);

@@ -199,6 +199,7 @@ public class PantallaListaIngredientes extends javax.swing.JFrame {
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
         ControlNavegacion.mostrarPantallaMenuAdministrador();
+        this.dispose();
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
 
