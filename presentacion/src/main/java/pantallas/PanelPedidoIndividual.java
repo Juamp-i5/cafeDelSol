@@ -5,9 +5,11 @@
 package pantallas;
 
 import DTOs.PedidoDTO;
-import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
+import control.ControlNavegacion;
 import java.util.List;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +17,7 @@ import javax.swing.BoxLayout;
  */
 public class PanelPedidoIndividual extends javax.swing.JPanel {
 
-    private List<PersistenciaProductoPedidoDTO> listaProductosPedidos;
+    private List<ProductoPedidoDTO> listaProductosPedidos;
     private PedidoDTO pedido;
     private PantallaEstadoPedidos pantallaPadre;
 
@@ -23,7 +25,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
         initComponents();
         this.pedido = pedido;
         this.pantallaPadre = pantallaPadre;
-//        this.listaProductosPedidos = pedido.getPedido();
+        this.listaProductosPedidos = pedido.getPedido();
         pnlProductosPedidos.setLayout(new BoxLayout(pnlProductosPedidos, BoxLayout.Y_AXIS));
         cargarInformacion();
     }
@@ -33,7 +35,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
 
         pnlProductosPedidos.removeAll();
 
-        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
+        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
             PanelPedidoIndividualProductosPedido panelProductoPedido = new PanelPedidoIndividualProductosPedido(productoPedido);
             pnlProductosPedidos.add(panelProductoPedido);
         }
@@ -147,7 +149,23 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarActionPerformed
-//        pantallaPadre.recargarPaneles();
+        int respuesta = JOptionPane.showConfirmDialog(null,
+                "¿Estás seguro de que desea terminar el pedido?",
+                "Confirmar término de pedido",
+                JOptionPane.YES_NO_OPTION);
+
+        if (respuesta != JOptionPane.YES_OPTION) {
+            return;
+        }
+        
+//        ControlNavegacion.actualizarEstado(pedido.getId());
+        pantallaPadre.recargarPaneles();
+        JOptionPane.showMessageDialog(
+                null,
+                "Pedido terminado correctamente.",
+                "Éxito",
+                JOptionPane.INFORMATION_MESSAGE
+        );
     }//GEN-LAST:event_btnTerminarActionPerformed
 
 

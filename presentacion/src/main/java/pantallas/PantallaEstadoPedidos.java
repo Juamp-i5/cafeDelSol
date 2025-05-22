@@ -25,7 +25,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     public PantallaEstadoPedidos() {
         initComponents();
         ajustarScroll();
-//        cargarPanelesPedidos();
+        cargarPanelesPedidos();
     }
 
     private void ajustarScroll() {
@@ -35,7 +35,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     }
 
     private void cargarPanelesPedidos() {
-//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+        this.pedidos = ControlNavegacion.obtenerPedidosDelivery();
         int posicionScroll = scrollPane.getVerticalScrollBar().getValue();
         JPanel contenedorPanel = obtenerPaneles(pedidos);
         scrollPane.setViewportView(contenedorPanel);
@@ -47,16 +47,15 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
         contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
 
         if (pedidos == null || pedidos.isEmpty()) {
-            JLabel lblVacio = new JLabel("No hay comandas registradas actualmente.");
+            JLabel lblVacio = new JLabel("No hay pedidos pendientes actualmente.");
             lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
             contenedorPaneles.add(lblVacio);
             return contenedorPaneles;
         }
 
         for (PedidoDTO pedido : pedidos) {
-//            PedidoDTO pedidoHistorial = ControlNavegacion.obtenerPedidoPorId(pedido.getId());
-//            PanelPedidoIndividual panelComanda = new PanelPedidoIndividual(pedidoHistorial, this);
-//            contenedorPaneles.add(panelComanda);
+            PanelPedidoIndividual panelPedidoIndividual = new PanelPedidoIndividual(pedido, this);
+            contenedorPaneles.add(panelPedidoIndividual);
 
         }
         return contenedorPaneles;
@@ -72,7 +71,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
      * Refresca la interfaz gráfica para mostrar los datos más recientes.
      */
     public void recargarPaneles() {
-//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+        this.pedidos = ControlNavegacion.obtenerPedidosDelivery();
         cargarPanelesPedidos();
         this.revalidate();
         this.repaint();
@@ -143,7 +142,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed
-
+        //falta
     }//GEN-LAST:event_btnVolverAtrasActionPerformed
 
 

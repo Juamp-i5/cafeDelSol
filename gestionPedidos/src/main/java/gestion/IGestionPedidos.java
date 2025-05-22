@@ -218,4 +218,8 @@ public interface IGestionPedidos {
     public PedidoDTO registrarPedido() throws GestionException;
 
     public UsuarioDTO comprobarInicioSesion(InicioSesionDTO inicioSesionDTO) throws GestionException;
+    
+    public List<PedidoDTO> obtenerPedidosDelivery() throws GestionException;
+    
+    public void actualizarEstado(String idPedido) throws GestionException;
 }

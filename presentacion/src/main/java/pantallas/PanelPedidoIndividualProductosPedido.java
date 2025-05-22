@@ -4,7 +4,8 @@
  */
 package pantallas;
 
-import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.ProductoPedidoDTO;
+
 
 /**
  *
@@ -12,7 +13,7 @@ import DTOs.PersistenciaProductoPedidoDTO;
  */
 public class PanelPedidoIndividualProductosPedido extends javax.swing.JPanel {
 
-    public PanelPedidoIndividualProductosPedido(PersistenciaProductoPedidoDTO productoPedido) {
+    public PanelPedidoIndividualProductosPedido(ProductoPedidoDTO productoPedido) {
         initComponents();
 
         lblProducto.setText(productoPedido.getProducto().getNombre());

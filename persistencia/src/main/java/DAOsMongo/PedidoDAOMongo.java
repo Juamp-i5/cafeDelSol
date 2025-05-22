@@ -10,6 +10,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import conexion.IConexionMongo;
 import interfacesMappers.IPedidoMapper;
 import org.bson.conversions.Bson;
@@ -75,4 +76,16 @@ public class PedidoDAOMongo implements IPedidoDAO {
         }
         return pedidos;
     }
+
+    @Override
+    public void actualizarEstado(String idPedido) throws PersistenciaException {
+        try {
+            String nuevoEstado = "TERMINADO";
+            coleccion.updateOne(Filters.eq("_id", new ObjectId(idPedido)), Updates.set("estado", nuevoEstado));
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al actualizar el estado del pedido", e);
+        }
+    }
+    
+    
 }

@@ -6,6 +6,7 @@ package interfacesBO;
 
 import DTOs.PedidoDTO;
 import excepciones.NegocioException;
+import java.util.List;
 
 /**
  *
@@ -14,5 +15,9 @@ import excepciones.NegocioException;
 public interface IPedidoBO {
 
     public PedidoDTO registrarPedido(PedidoDTO pedidoDTO) throws NegocioException;
+    
+    public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException;
+    
+    public void actualizarEstado(String idPedido) throws NegocioException;
 
 }

@@ -297,11 +297,26 @@ public class ManejadorPedidos implements IGestionPedidos {
         return pedido;
     }
 
+    @Override
     public UsuarioDTO comprobarInicioSesion(InicioSesionDTO inicioSesionDTO) throws GestionException {
         try {
             return usuarioBO.comprobarInicioSesion(inicioSesionDTO);
         } catch (NegocioException ex) {
             throw new GestionException("Los datos de inicio de sesion son incorrectos", ex);
+        }
+    }
+
+    @Override
+    public List<PedidoDTO> obtenerPedidosDelivery() throws GestionException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizarEstado(String idPedido) throws GestionException {
+        try {
+            pedidoBO.actualizarEstado(idPedido);
+        } catch (NegocioException ex) {
+            throw new GestionException("Error al actualizar el estado del pedido", ex);
         }
     }
 }

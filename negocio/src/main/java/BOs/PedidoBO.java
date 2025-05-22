@@ -101,4 +101,20 @@ public class PedidoBO implements IPedidoBO {
         return null;
     }
 
+    @Override
+    public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void actualizarEstado(String idPedido) throws NegocioException {
+        try {
+            pedidoDAO.actualizarEstado(idPedido);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al intentar actualizar el estado del pedido", e);
+        }
+    }
+    
+    
+
 }

@@ -1021,5 +1021,34 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaVerReservaciones);
     }
-
+    
+    public static void mostrarPantallaPantallaEstadoPedidos() {
+        JFrame frame = new PantallaEstadoPedidos();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+   
+    public static void actualizarEstado(String idPedido){
+        try {
+            gestor.actualizarEstado(idPedido);
+            JOptionPane.showMessageDialog(null, "Se actualizó el estado exitosamente");
+        } catch (GestionException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static List<PedidoDTO> obtenerPedidosDelivery(){
+        try {
+            return gestor.obtenerPedidosDelivery();
+        } catch (GestionException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+  
 }

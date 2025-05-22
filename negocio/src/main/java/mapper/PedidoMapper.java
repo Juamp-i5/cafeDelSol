@@ -33,5 +33,34 @@ public class PedidoMapper implements IPedidoMapper {
                 pedidoDTO.isTerminado()
         );
     }
+    
+    @Override
+    public PersistenciaPedidoDTO toPersistenciaProductoTamanioDTO(PedidoDTO entidad) {
+        if (entidad == null) {
+            return null;
+        }
+        PersistenciaPedidoDTO dto = new PersistenciaPedidoDTO();
+        if (entidad.getId() != null) {
+            dto.setId(entidad.getId().toString());
+        }
+
+        if (entidad.getProductos() != null) {
+            List<PersistenciaProductoPedidoDTO> productosDTO = entidad.getProductos().stream()
+                    .map(productoPedidoMapper::toDTO)
+                    .collect(Collectors.toList());
+            dto.setProductos(productosDTO);
+        } else {
+            dto.setProductos(new ArrayList<>());
+        }
+
+        dto.setPrecioTotal(entidad.getPrecioTotal());
+        dto.setEstado(entidad.getEstado());
+        if (entidad.getBaristaId() != null) {
+            dto.setBaristaId(entidad.getBaristaId().toString());
+        }
+        dto.setPago(pagoMapper.toDTO(entidad.getPago()));
+        dto.setFechaHora(entidad.getFechaHora());
+        return dto;
+    }
 
 }
