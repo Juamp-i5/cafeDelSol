@@ -390,13 +390,13 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 preRegistro.setPrecioUnitario(precioUnitario);
                 preRegistro.setPrecioTotal(precioTotal);
                 preRegistro.setNivelStock(estadoObj);
-//
-//                String idIngrediente = ControlNavegacion.obtenerIdIngredientePorNombre(nombreIngrediente);
-//                boolean resultado = ControlNavegacion.aumentarStock(idIngrediente,cantidadAgregada);
-//                if (resultado!=true) {
-//                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//                preRegistro.setIdIngrediente(idIngrediente);      
+
+                String idIngrediente = ControlNavegacion.obtenerIdIngredientePorNombre(nombreIngrediente);
+                boolean resultado = ControlNavegacion.aumentarStock(idIngrediente,cantidadAgregada);
+                if (resultado!=true) {
+                    JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                preRegistro.setIdIngrediente(idIngrediente);      
                 registroNuevo.add(preRegistro);
 
                 totalEntrada += precioTotal;
@@ -461,6 +461,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         this.setVisible(false);
         ControlNavegacion.mostrarPantallaIngrediente(ingredienteNuevo -> {
             this.setVisible(true);
+            System.out.println("ingrediente: "+ingredienteNuevo);
             if (ingredienteNuevo == null) {
                 JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;

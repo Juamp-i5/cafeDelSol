@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
+    private boolean yaRegresado = false;
     DefaultTableModel modeloTablaIngredientes;
     private Timer debounceTimer;
     Consumer<IngredienteViejoListDTO> regreso;
@@ -41,7 +42,10 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosed(WindowEvent e) {
-                regreso.accept(null);
+                if (!yaRegresado && regreso != null) {
+                    regreso.accept(null); // solo si no se seleccionó nada
+                    yaRegresado = true;
+                }
             }
         });
     }
@@ -267,13 +271,14 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        if (regreso != null) {
+        if (regreso != null && !yaRegresado) {
             int row = this.tablaIngredientes.getSelectedRow();
             IngredienteViejoListDTO ingredienteSeleccionado = new IngredienteViejoListDTO(
                     modeloTablaIngredientes.getValueAt(row, 0).toString(),
                     modeloTablaIngredientes.getValueAt(row, 1).toString()
             );
             regreso.accept(ingredienteSeleccionado);
+            yaRegresado = true;
             this.dispose();
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
