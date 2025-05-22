@@ -12,6 +12,7 @@ import DTOs.cubiculos.ReservacionDetalleDTO;
 import DTOs.cubiculos.ReservacionNuevaDTO;
 import excepciones.GestionCubiculosException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -26,13 +27,15 @@ public interface IGestorCubiculos {
     
     public ReservacionNuevaDTO getReservacionNueva();
     
-    public void setReservacionNueva(ReservacionNuevaDTO reservacionNueva);
+    public boolean setReservacionNueva(ReservacionNuevaDTO reservacionNueva) throws GestionCubiculosException;
+    
+    public LocalTime setReagendaNueva(ReagendaDTO reagenda) throws GestionCubiculosException;
     
     public double calcularCambio(EfectivoDTOCubiculo efectivoDTO);
     
     public Integer realizarReservacion() throws GestionCubiculosException;
     
-    public Integer realizarReagenda(ReagendaDTO reagenda) throws GestionCubiculosException;
+    public Integer realizarReagenda(LocalTime horaFinNueva) throws GestionCubiculosException;
     
     public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNueva, String motivo) throws GestionCubiculosException;
         
@@ -40,7 +43,7 @@ public interface IGestorCubiculos {
     
     public List<ReservacionDTOMostrar> obtenerReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) throws GestionCubiculosException;
 
-    public Integer actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException;
+    public boolean actualizarEstado(Integer numReservacion, String estado) throws GestionCubiculosException;
     
     public ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) throws GestionCubiculosException;
 }
