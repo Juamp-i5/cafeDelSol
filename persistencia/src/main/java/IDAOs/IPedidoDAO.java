@@ -1,5 +1,6 @@
 package IDAOs;
 
+import DTOs.PersistenciaPedidoDTO;
 import entidades.Pedido;
 import excepciones.PersistenciaException;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface IPedidoDAO {
 
-    public Pedido registrarPedido(Pedido pedido) throws PersistenciaException;
+    public PersistenciaPedidoDTO registrarPedido(PersistenciaPedidoDTO pedido) throws PersistenciaException;
     
-    public List<Pedido> obtenerPedidosDelivery() throws PersistenciaException;
+    public List<PersistenciaPedidoDTO> obtenerPedidosDelivery() throws PersistenciaException;
 }

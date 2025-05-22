@@ -70,16 +70,16 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private JPanel obtenerPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
 
         JPanel contenedorPanelesProductosPedidos = new JPanel();
         contenedorPanelesProductosPedidos.setLayout(new BoxLayout(contenedorPanelesProductosPedidos, BoxLayout.Y_AXIS));
 
-        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
-            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
-            configurarPanelProducto(panelProductoPedido);
-            contenedorPanelesProductosPedidos.add(panelProductoPedido);
-        }
+//        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
+//            PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
+//            configurarPanelProducto(panelProductoPedido);
+//            contenedorPanelesProductosPedidos.add(panelProductoPedido);
+//        }
 
         return contenedorPanelesProductosPedidos;
     }
@@ -371,13 +371,13 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-        if (listaProductosPedidos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            ControlNavegacion.mostrarPantallaPagoTarjeta();
-            this.dispose();
-        }
+//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+//        if (listaProductosPedidos.isEmpty()) {
+//            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            ControlNavegacion.mostrarPantallaPagoTarjeta();
+//            this.dispose();
+//        }
     }//GEN-LAST:event_btnTarjetaActionPerformed
 
     /**
@@ -390,13 +390,13 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
-        if (listaProductosPedidos.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            ControlNavegacion.mostrarPantallaPagoEfectivo();
-            this.dispose();
-        }
+//        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+//        if (listaProductosPedidos.isEmpty()) {
+//            JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            ControlNavegacion.mostrarPantallaPagoEfectivo();
+//            this.dispose();
+//        }
     }//GEN-LAST:event_btnEfectivoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
