@@ -112,36 +112,93 @@ public class FabricaDAOsMongo implements IFabricaDAOs {
         return CubiculoDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar el contador de
+     * reservaciones. Este método utiliza un patrón Singleton o similar para
+     * devolver una instancia compartida o una nueva basada en la conexión
+     * proporcionada.
+     *
+     * @return Una instancia de {@link IContadorReservaciones} para interactuar
+     * con los datos del contador de reservaciones en MongoDB.
+     */
     @Override
     public IContadorReservaciones getContadorReservaciones() {
         return ContadorReservacionesDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Entrada". "Entrada" podría referirse a registros de entrada de
+     * inventario, accesos, etc. Este método utiliza un patrón Singleton o
+     * similar.
+     *
+     * @return Una instancia de {@link IEntradaDAO} para operar con los datos de
+     * entradas en MongoDB.
+     */
     @Override
     public IEntradaDAO getEntradaDAO() {
         return EntradaDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Ingrediente". Este DAO está configurado para interactuar con una base de
+     * datos MongoDB. Este método utiliza un patrón Singleton o similar.
+     *
+     * @return Una instancia de {@link IIngredienteDAOMongo} para las
+     * operaciones CRUD y otras consultas sobre ingredientes en MongoDB.
+     */
     @Override
     public IIngredienteDAOMongo getIngredienteDAO() {
         return IngredienteDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Proveedor". Este DAO está configurado para interactuar con una base de
+     * datos MongoDB. Este método utiliza un patrón Singleton o similar.
+     *
+     * @return Una instancia de {@link IProveedorDAOMongo} para realizar
+     * operaciones sobre los datos de proveedores en MongoDB.
+     */
     @Override
     public IProveedorDAOMongo getProveedorDAO() {
         return ProveedorDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Reservacion". Este método utiliza un patrón Singleton o similar.
+     *
+     * @return Una instancia de {@link IReservacionDAO} para administrar los
+     * datos de reservaciones en MongoDB.
+     */
     @Override
     public IReservacionDAO getReservacionDAO() {
         return ReservacionDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Salida". "Salida" podría referirse a registros de salida de inventario,
+     * egresos, etc. Este método utiliza un patrón Singleton o similar.
+     *
+     * @return Una instancia de {@link ISalidaDAO} para operar con los datos de
+     * salidas en MongoDB.
+     */
     @Override
     public ISalidaDAO getSalidaDAO() {
         return SalidaDAOMongo.getInstance(conexion);
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar las entidades de tipo
+     * "Usuario". Este método utiliza un patrón Singleton o similar (nótese que
+     * usa {@code getInstancia} en lugar de {@code getInstance}).
+     *
+     * @return Una instancia de {@link IUsuarioDAO} para administrar los datos
+     * de usuarios en MongoDB.
+     */
     @Override
     public IUsuarioDAO getUsuarioDAO() {
         return UsuarioDAOMongo.getInstancia(conexion);

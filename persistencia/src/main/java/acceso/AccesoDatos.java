@@ -66,60 +66,116 @@ public class AccesoDatos {
     }
 
     /**
-     * Obtiene una instancia del DAO para sabores.
+     * Obtiene una instancia del DAO para gestionar sabores de productos.
      *
-     * @return una implementación de {@link ISaborDAO}
+     * @return una implementación de {@link ISaborDAO} proporcionada por la
+     * fábrica.
      */
     public static ISaborDAO getSaborDAO() {
         return fabricaDAOs.getSaborDAO();
     }
 
     /**
-     * Obtiene una instancia del DAO para tamaños.
+     * Obtiene una instancia del DAO para gestionar tamaños de productos.
      *
-     * @return una implementación de {@link ITamanioDAO}
+     * @return una implementación de {@link ITamanioDAO} proporcionada por la
+     * fábrica.
      */
     public static ITamanioDAO getTamanioDAO() {
         return fabricaDAOs.getTamanioDAO();
     }
 
     /**
-     * Obtiene una instancia del DAO para toppings.
+     * Obtiene una instancia del DAO para gestionar toppings de productos.
      *
-     * @return una implementación de {@link IToppingDAO}
+     * @return una implementación de {@link IToppingDAO} proporcionada por la
+     * fábrica.
      */
     public static IToppingDAO getToppingDAO() {
         return fabricaDAOs.getToppingDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar registros de entradas (por
+     * ejemplo, entradas de inventario o accesos).
+     *
+     * @return una implementación de {@link IEntradaDAO} proporcionada por la
+     * fábrica.
+     */
     public static IEntradaDAO getEntradaDAO() {
         return fabricaDAOs.getEntradaDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar ingredientes, utilizando una
+     * implementación específica para MongoDB.
+     *
+     * @return una implementación de {@link IIngredienteDAOMongo} proporcionada
+     * por la fábrica.
+     */
     public static IIngredienteDAOMongo getIngredienteDAO() {
         return fabricaDAOs.getIngredienteDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar proveedores, utilizando una
+     * implementación específica para MongoDB.
+     *
+     * @return una implementación de {@link IProveedorDAOMongo} proporcionada
+     * por la fábrica.
+     */
     public static IProveedorDAOMongo getProveedorDAO() {
         return fabricaDAOs.getProveedorDAO();
     }
 
-    public static IReservacionDAO getReservacionDAO() {
+    /**
+     * Obtiene una instancia del DAO para gestionar reservaciones
+     *
+     * @return una implementación de {@link IDAOs.cubiculos.IReservacionDAO}
+     * proporcionada por la fábrica.
+     */
+    public static IDAOs.cubiculos.IReservacionDAO getReservacionDAO() {
         return fabricaDAOs.getReservacionDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar cubículos.
+     *
+     * @return una implementación de {@link ICubiculoDAO} proporcionada por la
+     * fábrica.
+     */
     public static ICubiculoDAO getCubiculoDAO() {
         return fabricaDAOs.getCubiculoDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO o servicio para gestionar el contador de
+     * reservaciones de cubículos.
+     *
+     * @return una implementación de {@link IContadorReservaciones}
+     * proporcionada por la fábrica.
+     */
     public static IContadorReservaciones getContador() {
         return fabricaDAOs.getContadorReservaciones();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar registros de salidas (por
+     * ejemplo, salidas de inventario o egresos).
+     *
+     * @return una implementación de {@link ISalidaDAO} proporcionada por la
+     * fábrica.
+     */
     public static ISalidaDAO getSalidaDAO() {
         return fabricaDAOs.getSalidaDAO();
     }
 
+    /**
+     * Obtiene una instancia del DAO para gestionar usuarios del sistema.
+     *
+     * @return una implementación de {@link IUsuarioDAO} proporcionada por la
+     * fábrica.
+     */
     public static IUsuarioDAO getUsuarioDAO() {
         return fabricaDAOs.getUsuarioDAO();
     }
