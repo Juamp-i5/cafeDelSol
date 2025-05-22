@@ -1,7 +1,7 @@
 package excepciones;
 
 /**
- * Excepción para errores en la persistncia de ingredientes
+ * Excepción para errores en la persistencia de ingredientes
  * @author norma
  */
 public class PersistenciaIngredientesException extends Exception {
