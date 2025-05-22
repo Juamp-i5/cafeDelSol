@@ -54,7 +54,6 @@ public class PanelPedidoIndividualProductosPedido extends javax.swing.JPanel {
         lblTamanio.setText("Tamanio");
 
         lblPrecio.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        lblPrecio.setText("$100");
 
         lblTopping.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lblTopping.setText("Topping");
