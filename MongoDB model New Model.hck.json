@@ -91,22 +91,6 @@
               "type": "document",
               "properties": [
                 {
-                  "name": "tamanioId",
-                  "hackoladeMeta": {},
-                  "isActivated": true,
-                  "type": "objectId",
-                  "GUID": "ed15c9bc-32f7-43e3-a32f-3da7577a0613",
-                  "required": true,
-                  "error": {},
-                  "foreignCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-                  "foreignField": [
-                    "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-                    "f003a062-91e5-4e76-a109-9508c83e7e49"
-                  ],
-                  "relationshipType": "Foreign Key",
-                  "parentRelationship": "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d"
-                },
-                {
                   "name": "ingredientes",
                   "hackoladeMeta": {},
                   "isActivated": true,
@@ -118,22 +102,6 @@
                       "type": "document",
                       "properties": [
                         {
-                          "name": "ingredienteId",
-                          "hackoladeMeta": {},
-                          "isActivated": true,
-                          "type": "objectId",
-                          "GUID": "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750",
-                          "required": true,
-                          "error": {},
-                          "relationshipType": "Foreign Key",
-                          "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-                          "foreignField": [
-                            "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-                            "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
-                          ],
-                          "parentRelationship": "e9188e18-bb46-43af-8edd-8f193d7d0bee"
-                        },
-                        {
                           "hackoladeMeta": {},
                           "isActivated": true,
                           "type": "numeric",
@@ -141,6 +109,38 @@
                           "name": "cantidad",
                           "required": true,
                           "error": {}
+                        },
+                        {
+                          "hackoladeMeta": {},
+                          "isActivated": true,
+                          "type": "document",
+                          "properties": [
+                            {
+                              "name": "ingredienteId",
+                              "hackoladeMeta": {},
+                              "isActivated": true,
+                              "type": "objectId",
+                              "GUID": "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750",
+                              "required": true,
+                              "error": {},
+                              "foreignCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+                              "foreignField": [
+                                "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+                                "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+                              ],
+                              "relationshipType": "Foreign Key",
+                              "parentRelationship": "8863af40-bac9-450c-a041-9a99776663ce"
+                            }
+                          ],
+                          "additionalProperties": false,
+                          "GUID": "19fca32a-d158-4b0d-bf5e-d5c903dc91bb",
+                          "name": "ingrediente",
+                          "foreignCollection": "",
+                          "foreignField": [],
+                          "required": true,
+                          "error": {
+                            "name": false
+                          }
                         }
                       ],
                       "additionalProperties": false,
@@ -152,6 +152,38 @@
                   "GUID": "e0a64980-5ef0-4078-b3da-c96829cf8a81",
                   "required": true,
                   "error": {}
+                },
+                {
+                  "hackoladeMeta": {},
+                  "isActivated": true,
+                  "type": "document",
+                  "properties": [
+                    {
+                      "name": "tamanioId",
+                      "hackoladeMeta": {},
+                      "isActivated": true,
+                      "type": "objectId",
+                      "GUID": "ed15c9bc-32f7-43e3-a32f-3da7577a0613",
+                      "required": true,
+                      "error": {},
+                      "foreignCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+                      "foreignField": [
+                        "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+                        "f003a062-91e5-4e76-a109-9508c83e7e49"
+                      ],
+                      "relationshipType": "Foreign Key",
+                      "parentRelationship": "e3b552c1-16e1-48d8-b257-6fe025b188cb"
+                    }
+                  ],
+                  "additionalProperties": false,
+                  "GUID": "8df844da-4420-4661-87a0-1c00d2ca175b",
+                  "name": "tamanio",
+                  "foreignCollection": "",
+                  "foreignField": [],
+                  "required": true,
+                  "error": {
+                    "name": false
+                  }
                 }
               ],
               "additionalProperties": false,
@@ -200,8 +232,8 @@
           "required": true,
           "error": {},
           "childRelationships": [
-            "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d",
-            "2fbcb4de-1363-4746-8ffa-c736d5439d80"
+            "2fbcb4de-1363-4746-8ffa-c736d5439d80",
+            "e3b552c1-16e1-48d8-b257-6fe025b188cb"
           ]
         },
         {
@@ -266,7 +298,7 @@
           "childRelationships": [
             "5bebf718-c697-4577-ba89-4f9af80ff242",
             "a6a4d3cb-cc16-48b3-9bf7-0a95ddb24a66",
-            "e9188e18-bb46-43af-8edd-8f193d7d0bee"
+            "8863af40-bac9-450c-a041-9a99776663ce"
           ],
           "primaryKey": true,
           "required": true,
@@ -1613,130 +1645,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2354.791109679505,
-            "y": 2051.285714285711
+            "x": 2356.3911096795055,
+            "y": 2040.3523809523779
           },
           {
-            "x": 2393.1196811080695,
-            "y": 2051.285714285711
+            "x": 2419.2530144414022,
+            "y": 2040.3523809523779
           },
           {
-            "x": 2393.1196811080695,
-            "y": 2051.2333333333304
+            "x": 2419.2530144414022,
+            "y": 2040.5666666666627
           },
           {
-            "x": 2431.448252536634,
-            "y": 2051.2333333333304
-          }
-        ],
-        "sides": [
-          "right",
-          "left"
-        ]
-      }
-    },
-    {
-      "name": "fk_tamanios._id_to_productos.tamanios.tamanioId",
-      "relationshipType": "Foreign Key",
-      "parentField": [
-        [
-          "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-          "f003a062-91e5-4e76-a109-9508c83e7e49"
-        ]
-      ],
-      "parentCardinality": "1",
-      "childField": [
-        [
-          "39498ea1-e312-485c-a5e6-a235131f18a1",
-          "c1084734-baf7-47ac-9a24-bc42b2922319",
-          "2a8e0387-2c93-4a43-bbed-44616a28f05c",
-          "ed15c9bc-32f7-43e3-a32f-3da7577a0613"
-        ]
-      ],
-      "isActivated": true,
-      "childCardinality": "n",
-      "GUID": "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d",
-      "parentCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-      "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
-      "hackoladeStyles": {
-        "GUID": "e954ce5a-6111-4b42-8225-2c73641272ff",
-        "autoPositioning": true,
-        "type": "Orthogonal",
-        "thickness": 2,
-        "color": "#79c4ff",
-        "dataType": "",
-        "shape": [
-          {
-            "x": 1971.1666666666665,
-            "y": 2136.406989853438
-          },
-          {
-            "x": 2046.074126268322,
-            "y": 2136.406989853438
-          },
-          {
-            "x": 2046.074126268322,
-            "y": 2411.6666666666597
-          },
-          {
-            "x": 2120.9815858699776,
-            "y": 2411.6666666666597
-          }
-        ],
-        "sides": [
-          "right",
-          "left"
-        ]
-      }
-    },
-    {
-      "name": "fk_ingredientes._id_to_productos.tamanios.ingredientes.[0].ingredienteId",
-      "relationshipType": "Foreign Key",
-      "parentField": [
-        [
-          "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-          "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
-        ]
-      ],
-      "parentCardinality": "1",
-      "childField": [
-        [
-          "39498ea1-e312-485c-a5e6-a235131f18a1",
-          "c1084734-baf7-47ac-9a24-bc42b2922319",
-          "2a8e0387-2c93-4a43-bbed-44616a28f05c",
-          "e0a64980-5ef0-4078-b3da-c96829cf8a81",
-          "e6a3ae1b-5560-4eff-9825-69ddd8a7d73c",
-          "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750"
-        ]
-      ],
-      "isActivated": true,
-      "childCardinality": "n",
-      "GUID": "e9188e18-bb46-43af-8edd-8f193d7d0bee",
-      "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-      "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
-      "hackoladeStyles": {
-        "GUID": "19d022e6-e15e-4468-bfbb-8b9191ee6638",
-        "autoPositioning": true,
-        "type": "Orthogonal",
-        "thickness": 2,
-        "color": "#79c4ff",
-        "dataType": "",
-        "shape": [
-          {
-            "x": 1971.1666666666665,
-            "y": 2065.156989853438
-          },
-          {
-            "x": 2024.9788881730858,
-            "y": 2065.156989853438
-          },
-          {
-            "x": 2024.9788881730858,
-            "y": 2077.785714285711
-          },
-          {
-            "x": 2078.791109679505,
-            "y": 2077.785714285711
+            "x": 2482.1149192032985,
+            "y": 2040.5666666666627
           }
         ],
         "sides": [
@@ -1775,20 +1697,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1955.3149192033056,
-            "y": 2860.166666666666
+            "x": 1925.9815858699737,
+            "y": 2867.4
           },
           {
-            "x": 2037.6324428817943,
-            "y": 2860.166666666666
+            "x": 2009.6324428817943,
+            "y": 2867.4
           },
           {
-            "x": 2037.6324428817943,
-            "y": 2824.13670851407
+            "x": 2009.6324428817943,
+            "y": 2868.136708514072
           },
           {
-            "x": 2119.949966560283,
-            "y": 2824.13670851407
+            "x": 2093.2832998936146,
+            "y": 2868.136708514072
           }
         ],
         "sides": [
@@ -1830,20 +1752,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1955.3149192033056,
-            "y": 2639.166666666666
+            "x": 1925.9815858699737,
+            "y": 2602.2
           },
           {
-            "x": 2037.1322810973263,
-            "y": 2639.166666666666
+            "x": 2007.7989477639944,
+            "y": 2602.2
           },
           {
-            "x": 2037.1322810973263,
-            "y": 2564.4534009770796
+            "x": 2007.7989477639944,
+            "y": 2601.7867343104126
           },
           {
-            "x": 2118.949642991347,
-            "y": 2564.4534009770796
+            "x": 2089.616309658015,
+            "y": 2601.7867343104126
           }
         ],
         "sides": [
@@ -1885,20 +1807,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1955.3149192033056,
-            "y": 2749.666666666666
+            "x": 1925.9815858699737,
+            "y": 2734.8
           },
           {
-            "x": 2036.4564073656509,
-            "y": 2749.666666666666
+            "x": 2009.789740698985,
+            "y": 2734.8
           },
           {
-            "x": 2036.4564073656509,
-            "y": 2692.6225103344595
+            "x": 2009.789740698985,
+            "y": 2735.2891770011283
           },
           {
-            "x": 2117.597895527996,
-            "y": 2692.6225103344595
+            "x": 2093.597895527996,
+            "y": 2735.2891770011283
           }
         ],
         "sides": [
@@ -1939,21 +1861,25 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2390.694956625397,
-            "y": 2279.535585040911
+            "x": 2441.3616232920585,
+            "y": 2270.202251707588
           },
           {
-            "x": 2216.791109679505,
-            "y": 2279.535585040911
+            "x": 2398.876366485782,
+            "y": 2270.202251707588
           },
           {
-            "x": 2216.791109679505,
-            "y": 2157.285714285711
+            "x": 2398.876366485782,
+            "y": 2093.3523809523776
+          },
+          {
+            "x": 2356.3911096795055,
+            "y": 2093.3523809523776
           }
         ],
         "sides": [
           "left",
-          "bottom"
+          "right"
         ]
       }
     },
@@ -1988,19 +1914,19 @@
         "shape": [
           {
             "x": 2487.905416196916,
-            "y": 2831.482278748589
+            "y": 2830.148945415256
           },
           {
-            "x": 2422.9276913786,
-            "y": 2831.482278748589
+            "x": 2409.5943580452654,
+            "y": 2830.148945415256
           },
           {
-            "x": 2422.9276913786,
-            "y": 2824.13670851407
+            "x": 2409.5943580452654,
+            "y": 2868.136708514072
           },
           {
-            "x": 2357.949966560283,
-            "y": 2824.13670851407
+            "x": 2331.2832998936146,
+            "y": 2868.136708514072
           }
         ],
         "sides": [
@@ -2041,23 +1967,23 @@
         "shape": [
           {
             "x": 2678.5720828635826,
-            "y": 2661.982278748589
+            "y": 2660.648945415256
           },
           {
             "x": 2678.5720828635826,
-            "y": 2636.982278748589
+            "y": 2635.648945415256
           },
           {
             "x": 2798.905416196916,
-            "y": 2636.982278748589
+            "y": 2635.648945415256
           },
           {
             "x": 2798.905416196916,
-            "y": 2831.482278748589
+            "y": 2830.148945415256
           },
           {
             "x": 2773.905416196916,
-            "y": 2831.482278748589
+            "y": 2830.148945415256
           }
         ],
         "sides": [
@@ -2098,19 +2024,19 @@
         "shape": [
           {
             "x": 2583.2387495302496,
-            "y": 2661.982278748589
+            "y": 2660.648945415256
           },
           {
             "x": 2583.2387495302496,
-            "y": 2624.387295659525
+            "y": 2623.053962326192
           },
           {
             "x": 2583.3832675685817,
-            "y": 2624.387295659525
+            "y": 2623.053962326192
           },
           {
             "x": 2583.3832675685817,
-            "y": 2586.792312570461
+            "y": 2585.458979237128
           }
         ],
         "sides": [
@@ -2149,25 +2075,25 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2732.872592163876,
-            "y": 2104.429735850886
+            "x": 2217.0392588305417,
+            "y": 2201.5964025175535
           },
           {
-            "x": 2543.8318509216906,
-            "y": 2104.429735850886
+            "x": 2217.0392588305417,
+            "y": 2173.9743917349656
           },
           {
-            "x": 2543.8318509216906,
-            "y": 2104.285714285711
+            "x": 2218.3911096795055,
+            "y": 2173.9743917349656
           },
           {
-            "x": 2354.791109679505,
-            "y": 2104.285714285711
+            "x": 2218.3911096795055,
+            "y": 2146.3523809523776
           }
         ],
         "sides": [
-          "left",
-          "right"
+          "top",
+          "bottom"
         ]
       }
     },
@@ -2204,20 +2130,20 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1955.3149192033056,
-            "y": 2528.666666666666
+            "x": 1925.9815858699737,
+            "y": 2469.6
           },
           {
-            "x": 2038.1482525366416,
-            "y": 2528.666666666666
+            "x": 2007.4815858699749,
+            "y": 2469.6
           },
           {
-            "x": 2038.1482525366416,
-            "y": 2446.6666666666597
+            "x": 2007.4815858699749,
+            "y": 2469.3333333333267
           },
           {
-            "x": 2120.9815858699776,
-            "y": 2446.6666666666597
+            "x": 2088.981585869976,
+            "y": 2469.3333333333267
           }
         ],
         "sides": [
@@ -2259,25 +2185,25 @@
         "dataType": "",
         "shape": [
           {
-            "x": 1955.3149192033056,
-            "y": 2418.166666666666
+            "x": 1788.4815858699737,
+            "y": 2337
           },
           {
-            "x": 1996.1666666666665,
-            "y": 2418.166666666666
+            "x": 1788.4815858699737,
+            "y": 2309.420161593386
           },
           {
-            "x": 1996.1666666666665,
-            "y": 2207.656989853438
+            "x": 1788.4333333333334,
+            "y": 2309.420161593386
           },
           {
-            "x": 1971.1666666666665,
-            "y": 2207.656989853438
+            "x": 1788.4333333333334,
+            "y": 2281.8403231867724
           }
         ],
         "sides": [
-          "right",
-          "right"
+          "top",
+          "bottom"
         ]
       }
     },
@@ -2311,25 +2237,137 @@
         "dataType": "",
         "shape": [
           {
-            "x": 2527.194956625397,
-            "y": 2173.035585040911
+            "x": 2577.8616232920585,
+            "y": 2163.702251707588
           },
           {
-            "x": 2527.194956625397,
-            "y": 2129.3844591871207
+            "x": 2577.8616232920585,
+            "y": 2119.3844591871257
           },
           {
-            "x": 2527.448252536634,
-            "y": 2129.3844591871207
+            "x": 2578.1149192032985,
+            "y": 2119.3844591871257
           },
           {
-            "x": 2527.448252536634,
-            "y": 2085.7333333333304
+            "x": 2578.1149192032985,
+            "y": 2075.066666666663
           }
         ],
         "sides": [
           "top",
           "bottom"
+        ]
+      }
+    },
+    {
+      "name": "fk_tamanios._id_to_productos.tamanios.[0].tamanio.tamanioId",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+          "f003a062-91e5-4e76-a109-9508c83e7e49"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "39498ea1-e312-485c-a5e6-a235131f18a1",
+          "c1084734-baf7-47ac-9a24-bc42b2922319",
+          "2a8e0387-2c93-4a43-bbed-44616a28f05c",
+          "8df844da-4420-4661-87a0-1c00d2ca175b",
+          "ed15c9bc-32f7-43e3-a32f-3da7577a0613"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "n",
+      "GUID": "e3b552c1-16e1-48d8-b257-6fe025b188cb",
+      "parentCollection": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
+      "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
+      "hackoladeStyles": {
+        "GUID": "0276b3a7-e18c-490e-9dd0-973a97e114f2",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1952.4333333333334,
+            "y": 2174.8403231867724
+          },
+          {
+            "x": 2020.7074596016546,
+            "y": 2174.8403231867724
+          },
+          {
+            "x": 2020.7074596016546,
+            "y": 2434.3333333333267
+          },
+          {
+            "x": 2088.981585869976,
+            "y": 2434.3333333333267
+          }
+        ],
+        "sides": [
+          "right",
+          "left"
+        ]
+      }
+    },
+    {
+      "name": "fk_ingredientes._id_to_productos.tamanios.[0].ingredientes.[0].ingrediente.ingredienteId",
+      "relationshipType": "Foreign Key",
+      "parentField": [
+        [
+          "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+          "d9453ca5-7fbe-43bc-a1a9-d6a2612bceed"
+        ]
+      ],
+      "parentCardinality": "1",
+      "childField": [
+        [
+          "39498ea1-e312-485c-a5e6-a235131f18a1",
+          "c1084734-baf7-47ac-9a24-bc42b2922319",
+          "2a8e0387-2c93-4a43-bbed-44616a28f05c",
+          "e0a64980-5ef0-4078-b3da-c96829cf8a81",
+          "e6a3ae1b-5560-4eff-9825-69ddd8a7d73c",
+          "19fca32a-d158-4b0d-bf5e-d5c903dc91bb",
+          "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750"
+        ]
+      ],
+      "isActivated": true,
+      "childCardinality": "n",
+      "GUID": "8863af40-bac9-450c-a041-9a99776663ce",
+      "parentCollection": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
+      "childCollection": "39498ea1-e312-485c-a5e6-a235131f18a1",
+      "hackoladeStyles": {
+        "GUID": "1e03a104-8023-46c0-9253-b03058b45b1a",
+        "autoPositioning": true,
+        "type": "Orthogonal",
+        "thickness": 2,
+        "color": "#79c4ff",
+        "dataType": "",
+        "shape": [
+          {
+            "x": 1952.4333333333334,
+            "y": 2121.3403231867724
+          },
+          {
+            "x": 2016.4122215064194,
+            "y": 2121.3403231867724
+          },
+          {
+            "x": 2016.4122215064194,
+            "y": 2066.8523809523776
+          },
+          {
+            "x": 2080.3911096795055,
+            "y": 2066.8523809523776
+          }
+        ],
+        "sides": [
+          "right",
+          "left"
         ]
       }
     }
@@ -2360,8 +2398,6 @@
     "f003a062-91e5-4e76-a109-9508c83e7e49": "_id",
     "2ea338e6-6173-4227-b1ef-9a2fbcf9afbc": "precioAdicional",
     "98f578a6-4bce-4c7e-bd16-b5511b0e1b34": "fk_proveedores._id_to_ingredientes.proveedorId",
-    "657a2a11-fad7-4533-97ed-fdc5dbb6fe2d": "fk_tamanios._id_to_productos.tamanios.tamanioId",
-    "e9188e18-bb46-43af-8edd-8f193d7d0bee": "fk_ingredientes._id_to_productos.tamanios.ingredientes.[0].ingredienteId",
     "63072521-a3df-4f6b-9edf-3cb4c170e609": "pedidos",
     "c2922b7b-60b8-4f49-899d-a3b1b703cba1": "precioTotal",
     "f673a11c-979c-4f1f-ad57-6b848b3799cf": "estado",
@@ -2463,7 +2499,13 @@
     "62448f20-9d91-4232-b036-0a84360639df": "nombre",
     "dc3f102f-4a4e-4c2f-a4ff-6680b1319371": "estado",
     "35f0bb8e-a66f-4638-955b-621b362b584a": "imagenData",
-    "79ba60fc-4871-4b6a-8f7e-e8e947d5e974": "descripcion"
+    "79ba60fc-4871-4b6a-8f7e-e8e947d5e974": "descripcion",
+    "8df844da-4420-4661-87a0-1c00d2ca175b": "tamanio",
+    "ed15c9bc-32f7-43e3-a32f-3da7577a0613": "tamanioId",
+    "19fca32a-d158-4b0d-bf5e-d5c903dc91bb": "ingrediente",
+    "a3eed1d8-3bf2-4bdb-a524-7e80a27c5750": "ingredienteId",
+    "e3b552c1-16e1-48d8-b257-6fe025b188cb": "fk_tamanios._id_to_productos.tamanios.[0].tamanio.tamanioId",
+    "8863af40-bac9-450c-a041-9a99776663ce": "fk_ingredientes._id_to_productos.tamanios.[0].ingredientes.[0].ingrediente.ingredienteId"
   },
   "definitions": {
     "type": "definitions",
@@ -2488,7 +2530,7 @@
   "creationTS": "2025-05-18T23:33:01.278Z",
   "GUID": "cbac6318-07db-469c-9973-e7ebbbc9bcdf",
   "isLineageEnabled": false,
-  "lastModifTS": "2025-05-19T14:28:24.199Z",
+  "lastModifTS": "2025-05-22T00:22:06.630Z",
   "persistenceSchemaVersion": "8",
   "isCreatedByPlugin": true,
   "pluginInformation": {
@@ -2504,72 +2546,72 @@
         "erd": [
           {
             "GUID": "39498ea1-e312-485c-a5e6-a235131f18a1",
-            "x": 1663.1666666666665,
-            "y": 1993.906989853438,
-            "width": 308,
-            "height": 285,
+            "x": 1624.4333333333334,
+            "y": 1960.8403231867724,
+            "width": 328,
+            "height": 321,
             "color": {}
           },
           {
             "GUID": "f5bcd051-8122-4e00-8cfe-d5f53a373ceb",
-            "x": 2120.9815858699776,
-            "y": 2376.6666666666597,
+            "x": 2088.981585869976,
+            "y": 2399.3333333333267,
             "width": 240,
             "height": 105,
             "color": {}
           },
           {
             "GUID": "a71d1f24-0cba-49eb-8d49-b7cdb779061c",
-            "x": 2078.791109679505,
-            "y": 1998.285714285711,
+            "x": 2080.3911096795055,
+            "y": 1987.3523809523779,
             "width": 276,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "05a6e0d7-2d8c-40ba-b454-e826901afece",
-            "x": 2431.448252536634,
-            "y": 2016.7333333333304,
+            "x": 2482.1149192032985,
+            "y": 2006.0666666666627,
             "width": 192,
             "height": 69,
             "color": {}
           },
           {
             "GUID": "63072521-a3df-4f6b-9edf-3cb4c170e609",
-            "x": 1680.3149192033056,
-            "y": 2307.666666666666,
+            "x": 1650.9815858699737,
+            "y": 2337,
             "width": 275,
             "height": 663,
             "color": {}
           },
           {
             "GUID": "15d909f0-afee-4a78-bf50-8e32eaeea203",
-            "x": 2119.949966560283,
-            "y": 2744.63670851407,
+            "x": 2093.2832998936146,
+            "y": 2788.636708514072,
             "width": 238,
             "height": 159,
             "color": {}
           },
           {
             "GUID": "209cd22e-b1a0-49b3-beeb-4aecbbc7da1d",
-            "x": 2118.949642991347,
-            "y": 2520.9534009770796,
+            "x": 2089.616309658015,
+            "y": 2558.2867343104126,
             "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "fa7ae686-9175-4181-b527-b3e035e571c8",
-            "x": 2117.597895527996,
-            "y": 2649.1225103344595,
+            "x": 2093.597895527996,
+            "y": 2691.7891770011283,
             "width": 213,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "609907e5-1e34-4125-9f6b-93227c1f73be",
-            "x": 2390.694956625397,
-            "y": 2173.035585040911,
+            "x": 2441.3616232920585,
+            "y": 2163.702251707588,
             "width": 273,
             "height": 213,
             "color": {}
@@ -2577,7 +2619,7 @@
           {
             "GUID": "ef7922bc-25b4-4bd6-b92d-bb655414aa46",
             "x": 2487.905416196916,
-            "y": 2661.982278748589,
+            "y": 2660.648945415256,
             "width": 286,
             "height": 339,
             "color": {}
@@ -2585,15 +2627,15 @@
           {
             "GUID": "081dc445-949d-4d2e-98ad-5a5da677d2d1",
             "x": 2475.3832675685817,
-            "y": 2499.792312570461,
+            "y": 2498.458979237128,
             "width": 216,
             "height": 87,
             "color": {}
           },
           {
             "GUID": "d85cfdd2-770a-4a36-873a-4a907ea2d6a3",
-            "x": 2732.872592163876,
-            "y": 2042.9297358508861,
+            "x": 2103.5392588305417,
+            "y": 2201.5964025175535,
             "width": 227,
             "height": 123,
             "color": {}
@@ -2607,8 +2649,8 @@
         },
         "buckets": [
           {
-            "x": 1623.1666666666665,
-            "y": 1953.906989853438,
+            "x": 1584.4333333333334,
+            "y": 1920.8403231867724,
             "GUID": "65890915-e77b-4a9e-a1e6-4ca5d317812a"
           }
         ],
