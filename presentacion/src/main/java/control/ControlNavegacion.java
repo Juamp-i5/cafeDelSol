@@ -574,14 +574,6 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaReservar);
     }
 
-    public static void mostrarPantallaGestionInventario() {
-        JFrame gestionInventario = new PantallaMenuGestionInventario();
-        gestionInventario.setLocationRelativeTo(null);
-        gestionInventario.setVisible(true);
-
-        framesVisitados.add(gestionInventario);
-    }
-
     public static void comprobarUsuario(InicioSesionDTO inicioSesionDTO) throws GestionException {
         Sesion.setCurrentUsuario(gestor.comprobarInicioSesion(inicioSesionDTO));
         if (Sesion.getCurrentUsuario().getTipoEmpleado().equals("Barista")) {
