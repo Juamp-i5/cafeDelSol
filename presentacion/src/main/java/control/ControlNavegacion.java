@@ -870,6 +870,13 @@ public class ControlNavegacion {
     //=====================================================
     //==================== CUBICULOS ======================
     //=====================================================
+    
+    /**
+     * Método que obtiene los cubiculos para poderlos mostrar en los combobox
+     * 
+     * @return Lista tipo String con los nombres de los cubículos
+     *
+     */
     public static List<String> obtenerCubiculos() {
         try {
             return gestorCubiculos.obtenerCubiculos();
@@ -879,6 +886,14 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método que obtiene el precio del cubículo que se usará en la reservación
+     * 
+     * @param nombre para buscar el cubículo por nombre, el cuál es único.
+     * 
+     * @return El precio por hora que tiene el cubículo
+     *
+     */
     public static Double obtenerPrecioCubiculo(String nombre) {
         try {
             return gestorCubiculos.obtenerPorNombre(nombre).getPrecioHora();
@@ -888,6 +903,16 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método que calcula el precio de la reservación segun la duración y el precio del cubículo
+     * 
+     * @param inicio Fecha inicio de la reservación
+     * @param fin Fecha fin de la reservación
+     * @param precioPorHora Precio del cubículo por hora
+     * 
+     * @return El precio total de la reservación
+     *
+     */
     public static Double calcularPrecioReservacion(LocalTime inicio, LocalTime fin, Double precioPorHora) {
         long minutos = ChronoUnit.MINUTES.between(inicio, fin);
         double horas = minutos / 60.0;
@@ -895,10 +920,24 @@ public class ControlNavegacion {
         return horas * precioPorHora;
     }
 
+    /**
+     * Método que obtiene el precio del cubículo que se usará en la reservación
+     * 
+     * @return Método get para la variable de Gestor reservacionNueva
+     *
+     */
     public static ReservacionNuevaDTO getReservacionNueva() {
         return gestorCubiculos.getReservacionNueva();
     }
 
+    /**
+     * Método para settear la reservación nueva en la variable de Gestor
+     * 
+     * @param reservacionNueva dto con los datos para crear una ReservacionNuevaDTO en Gestor
+     * 
+     * @return True is se logró realizar el set, facilita la validación después
+     *
+     */
     public static boolean setReservacionNueva(ReservacionNuevaDTO reservacionNueva) {
         try {
             return gestorCubiculos.setReservacionNueva(reservacionNueva);
@@ -908,6 +947,14 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método para settear la reagenda nueva en la variable de Gestor
+     * 
+     * @param reagenda DTO para enviar a gestor
+     * 
+     * @return Retorna la hora fin de la reagenda
+     *
+     */
     public static LocalTime setReagendaNueva(ReagendaDTO reagenda) {
         try {
             return gestorCubiculos.setReagendaNueva(reagenda);
@@ -917,6 +964,9 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método para mostrar la pantalla de pago en efectivo del CU cubículos
+     */
     public static void mostrarPantallaPagoEfCubiculo() {
         JFrame pagoEfectivo = new PagoEfectivoCubiculos();
         pagoEfectivo.setLocationRelativeTo(null);
@@ -925,6 +975,9 @@ public class ControlNavegacion {
         framesVisitados.add(pagoEfectivo);
     }
 
+    /**
+     * Método para mostrar la pantalla de pago con tarjeta del CU cubículos
+     */
     public static void mostrarPantallaPagoTarjCubiculo() {
         JFrame pagoTarjeta = new PagoTarjetaCubiculos();
         pagoTarjeta.setLocationRelativeTo(null);
@@ -933,10 +986,22 @@ public class ControlNavegacion {
         framesVisitados.add(pagoTarjeta);
     }
 
+    /**
+     * Método que llama a gestor para calcula el cambio respecto a la cantidad ingresada para pagar la reservación
+     * 
+     * @param efectivo la cantidad recibida, se pasa como parámetro al gestor
+     * 
+     * @return El cambio a dar al cliente
+     */
     public static double calcularCambioCubiculo(EfectivoDTOCubiculo efectivo) {
         return gestorCubiculos.calcularCambio(efectivo);
     }
 
+    /**
+     * Método que muestra que la reservación se ha realizado con éxito
+     * 
+     * @param numReservacion se le da como parámetro para mostrarlo en el optionPane
+     */
     public static void mostrarPantallaReservacionExitosa(Integer numReservacion) {
         JOptionPane.showMessageDialog(null, "Reservación exitosa"+"\n"+"Numero de Reservación: " + numReservacion);
         new Timer().schedule(new TimerTask() {
@@ -947,6 +1012,11 @@ public class ControlNavegacion {
         }, 1000);
     }
 
+    /**
+     * Método que manda llamar a gestor para guardar la reservación en la base de datos
+     * 
+     * @return El número de reservación asignado
+     */
     public static Integer realizarReservacion() {
         try {
             return gestorCubiculos.realizarReservacion();
@@ -956,6 +1026,10 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Muestra la pantalla para reagendar una reservación
+     * 
+     */
     public static void mostrarPantallaReagendar() {
         JFrame pantallaReagendar = new PantallaReagendar();
         pantallaReagendar.setLocationRelativeTo(null);
@@ -963,7 +1037,13 @@ public class ControlNavegacion {
 
         framesVisitados.add(pantallaReagendar);
     }
-
+    
+    /**
+     * Método que engloba los métodos de gestor para guardar una reservación en la base de datos y ajustar la vieja
+     * @param reagenda Contiene datos necesarios para la reagenda
+     * @param horaFinNueva La hora fin de la reservación nueva
+     * @return El número de reservación nuevo ya que está reagendada.
+     */
     public static Integer realizarReagenda(ReagendaDTO reagenda, LocalTime horaFinNueva) {
         try {
             Integer numReservacionNuevo;
@@ -978,6 +1058,12 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método que llama a gestor para modificar el estado de la reservación a CANCELADO y agregar los datos extra
+     * @param numReservacion El número de reservación a cancelar
+     * @param motivo El motivo de cancelación
+     * @return El número de reservación a cancelar
+     */
     public static Integer cancelarReservacion(Integer numReservacion, String motivo) {
         try {
             gestorCubiculos.modificarReservacion(numReservacion, null, motivo);
@@ -989,6 +1075,12 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Método que manda llamar a gestor para cambiar la reservación a ACTIVA o CONCLUIDA según sea el caso
+     * @param numReservacion Número de la reservación a modificar el estado
+     * @param estado Estado nuevo de la reservación
+     * @return True si se logró completar la acción
+     */
     public static boolean actualizarEstadoReservacion(Integer numReservacion, String estado) {
         try {
             gestorCubiculos.actualizarEstado(numReservacion, estado);
@@ -999,6 +1091,12 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Llama a Gestor para obtener las reservaciones con estado PENDIENTE o ACTIVA por filtro de fechas
+     * @param fechaInicio Filtro para buscar por fecha "Desde", se da null para ignorar el filtro
+     * @param fechaFin Filtro para buscar por fecha "Hasta", se da null para ignorar el filtro
+     * @return Lista de reservaciones pendientes y activas.
+     */
     public static List<ReservacionDTOMostrar> cargarReservacionesPendientes(LocalDate fechaInicio, LocalDate fechaFin) {
         try {
             return gestorCubiculos.obtenerReservacionesPendientes(fechaInicio, fechaFin);
@@ -1008,6 +1106,12 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Llama a Gestor para obtener todas las reservaciones por filtro de fechas
+     * @param fechaInicio Filtro para buscar por fecha "Desde", se da null para ignorar el filtro
+     * @param fechaFin Filtro para buscar por fecha "Hasta", se da null para ignorar el filtro
+     * @return Lista de todas las reservaciones.
+     */
     public static List<ReservacionDTOMostrar> cargarReservacionesHistorial(LocalDate fechaInicio, LocalDate fechaFin) {
         try {
             return gestorCubiculos.obtenerReservacionesHistorial(fechaInicio, fechaFin);
@@ -1017,6 +1121,11 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Llama a Gestor para obtener una reservación con todos sus posibles campos de información.
+     * @param numReservacion La reservación a buscar
+     * @return Los detalles completos de una reservación
+     */
     public static ReservacionDetalleDTO getDetalleReservacion(Integer numReservacion) {
         try {
             return gestorCubiculos.getDetalleReservacion(numReservacion);
@@ -1026,6 +1135,10 @@ public class ControlNavegacion {
         }
     }
 
+    /**
+     * Muestra la pantalla en la que se cargan todas las reservaciones con páneles
+     * @param modo VER o HISTORIAL segun sea el caso
+     */
     public static void mostrarPantallaVerReservaciones(ModoCubiculos modo) {
         JFrame pantallaVerReservaciones = new PantallaVerReservaciones(modo);
         pantallaVerReservaciones.setLocationRelativeTo(null);
