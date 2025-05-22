@@ -64,6 +64,11 @@ public class MenuSalidas extends javax.swing.JFrame {
         btnRegresar.setBackground(new java.awt.Color(255, 255, 51));
         btnRegresar.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         btnRegresar.setText("<---");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +123,11 @@ public class MenuSalidas extends javax.swing.JFrame {
         this.dispose();
         ControlNavegacion.mostrarPantallaRegistrarSalida();
     }//GEN-LAST:event_btnRegistrarSalidaActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        ControlNavegacion.mostrarPantallaMenuIniciado();
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     
 //    public static void main(String args[]) {

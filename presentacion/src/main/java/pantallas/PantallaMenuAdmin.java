@@ -167,6 +167,11 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
 
         botonAgendaEspacios.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonAgendaEspacios.setText("<html><center>Agenda de espacios</center></html>");
+        botonAgendaEspacios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAgendaEspaciosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCentroLayout = new javax.swing.GroupLayout(panelCentro);
         panelCentro.setLayout(panelCentroLayout);
@@ -249,6 +254,10 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
         ControlNavegacion.mostrarPantallaEstadoPedidos();
         this.dispose();
     }//GEN-LAST:event_botonEstadoPedidosActionPerformed
+
+    private void botonAgendaEspaciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgendaEspaciosActionPerformed
+       ControlNavegacion.mostrarPantallaMenuCubiculos();
+    }//GEN-LAST:event_botonAgendaEspaciosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgendaEspacios;
