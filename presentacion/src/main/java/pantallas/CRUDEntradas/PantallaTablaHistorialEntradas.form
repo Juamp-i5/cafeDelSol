@@ -124,7 +124,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="LbTitulo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Historial"/>
+        <Property name="text" type="java.lang.String" value="Historial de entradas"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="LbTitulo.setFont(new java.awt.Font(&quot;Segoe UI&quot;, 1, 36));"/>
