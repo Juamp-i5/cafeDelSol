@@ -851,7 +851,6 @@ public class ControlNavegacion {
     public static boolean aumentarStock(String idIngrediente, Double cantidad) {
         try {
             gestorCRUDIngredientes.aumentarStock(idIngrediente, cantidad);
-            JOptionPane.showMessageDialog(null, "Se aumentó el stock exitosamente");
             return true;
         } catch (GestionCRUDIngredientesException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

@@ -146,26 +146,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         }
     }
 
-    public void PreRegistro() {
-        if (modeloTablaIngrdientes.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (TFProveedor.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        if (TFProveedor.getText().trim().length() > 50) {
-            JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
-            TFProveedor.setText(null);
-            return;
-        }
-        if (!esProveedorNumerico(TFProveedor.getText().trim())) {
-            JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -314,7 +294,23 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 
         if (respuesta == JOptionPane.YES_OPTION) {
 
-            PreRegistro();
+            if (modeloTablaIngrdientes.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Agregue al menos un ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (TFProveedor.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ingrese un proveedor válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (TFProveedor.getText().trim().length() > 50) {
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no debe exceder los 50 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+                TFProveedor.setText(null);
+                return;
+            }
+            if (!esProveedorNumerico(TFProveedor.getText().trim())) {
+                JOptionPane.showMessageDialog(this, "El nombre del proveedor no puede ser numérico.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             if (detalle == null) {
                 detalle = new DetalleEntradaDTO();
@@ -339,7 +335,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 UnidadMedida unidad = (UnidadMedida) modeloTablaIngrdientes.getValueAt(i, 3);
                 Object precioUnitarioObj = modeloTablaIngrdientes.getValueAt(i, 4);
                 NivelStock estadoObj = (NivelStock) modeloTablaIngrdientes.getValueAt(i, 6);
-                
+
                 try {
                     if (cantidadObj instanceof String string) {
                         cantidadAgregada = Double.valueOf(string);
@@ -356,7 +352,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Precio unitario inválido en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
+
                 if (cantidadObj instanceof String cantidadStr && !cantidadStr.trim().isEmpty() && !esNumeroValido(cantidadStr)) {
                     JOptionPane.showMessageDialog(this, "Cantidad agregada inválida (solo números) en fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -381,7 +377,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "La cantidad agregada no puede ser cero en la fila " + (i + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-                
+
                 precioTotal = cantidadAgregada * precioUnitario;
                 modeloTablaIngrdientes.setValueAt(precioTotal, i, 5);
                 DetalleEntradaDTO preRegistro = new DetalleEntradaDTO();
@@ -392,11 +388,11 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 preRegistro.setNivelStock(estadoObj);
 
                 String idIngrediente = ControlNavegacion.obtenerIdIngredientePorNombre(nombreIngrediente);
-                boolean resultado = ControlNavegacion.aumentarStock(idIngrediente,cantidadAgregada);
-                if (resultado!=true) {
+                boolean resultado = ControlNavegacion.aumentarStock(idIngrediente, cantidadAgregada);
+                if (resultado != true) {
                     JOptionPane.showMessageDialog(this, "No se pudo aumentar el stock.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                preRegistro.setIdIngrediente(idIngrediente);      
+                preRegistro.setIdIngrediente(idIngrediente);
                 registroNuevo.add(preRegistro);
 
                 totalEntrada += precioTotal;
@@ -443,7 +439,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 
                     String valorComoTexto = String.valueOf(valor);
                     if (valorComoTexto.length() > LIMITE_LONGITUD_NUMERO) {
-                        JOptionPane.showMessageDialog(this, "El valor en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " no debe exceder los "+ LIMITE_LONGITUD_NUMERO + " dígitos en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "El valor en la columna " + (col == 2 ? "'Cantidad agregada'" : "'Precio unitario'") + " no debe exceder los " + LIMITE_LONGITUD_NUMERO + " dígitos en la fila " + (fila + 1) + ".", "Error", JOptionPane.ERROR_MESSAGE);
                         modeloTablaIngrdientes.setValueAt(null, fila, col);
                         return;
                     }
@@ -461,11 +457,11 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
         this.setVisible(false);
         ControlNavegacion.mostrarPantallaIngrediente(ingredienteNuevo -> {
             this.setVisible(true);
-            System.out.println("ingrediente: "+ingredienteNuevo);
             if (ingredienteNuevo == null) {
                 JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            DetallesIngredienteViejoDTO ingrediente = ControlNavegacion.obtenerDetallesIngrediente(ingredienteNuevo.getId());
             boolean encontrado = false;
             for (int i = 0; i < modeloTablaIngrdientes.getRowCount(); i++) {
                 String nombreExistente = String.valueOf(modeloTablaIngrdientes.getValueAt(i, 0));
@@ -477,13 +473,13 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
 
             if (!encontrado) {
                 modeloTablaIngrdientes.addRow(new Object[]{
-                    ingredienteNuevo.getNombre(),
-                    ingredienteNuevo.getCantidadDisponible(),
+                    ingrediente.getNombre(),
+                    ingrediente.getCantidadDisponible(),
                     null,
-                    ingredienteNuevo.getUnidadMedida(),
+                    ingrediente.getUnidadMedida(),
                     null,
                     0.0,
-                    ingredienteNuevo.getNivelStock()
+                    ingrediente.getNivelStock()
                 });
             }
         });
