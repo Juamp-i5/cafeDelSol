@@ -200,7 +200,8 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonSalidaInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalidaInventarioActionPerformed
-        // TODO add your handling code here:
+        ControlNavegacion.mostrarPantallaMenuSalidas();
+        this.dispose();
     }//GEN-LAST:event_botonSalidaInventarioActionPerformed
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
