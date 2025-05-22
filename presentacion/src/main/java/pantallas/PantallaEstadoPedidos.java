@@ -35,7 +35,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     }
 
     private void cargarPanelesPedidos() {
-        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
         int posicionScroll = scrollPane.getVerticalScrollBar().getValue();
         JPanel contenedorPanel = obtenerPaneles(pedidos);
         scrollPane.setViewportView(contenedorPanel);
@@ -54,9 +54,9 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
         }
 
         for (PedidoDTO pedido : pedidos) {
-            PedidoDTO pedidoHistorial = ControlNavegacion.obtenerPedidoPorId(pedido.getId());
-            PanelPedidoIndividual panelComanda = new PanelPedidoIndividual(pedidoHistorial, this);
-            contenedorPaneles.add(panelComanda);
+//            PedidoDTO pedidoHistorial = ControlNavegacion.obtenerPedidoPorId(pedido.getId());
+//            PanelPedidoIndividual panelComanda = new PanelPedidoIndividual(pedidoHistorial, this);
+//            contenedorPaneles.add(panelComanda);
 
         }
         return contenedorPaneles;
@@ -72,7 +72,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
      * Refresca la interfaz gráfica para mostrar los datos más recientes.
      */
     public void recargarPaneles() {
-        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
         cargarPanelesPedidos();
         this.revalidate();
         this.repaint();

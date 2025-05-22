@@ -229,8 +229,8 @@ public class PantallaEditarDetallesIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        ingrediente = ControlNavegacion.editarIngrediente(ingredienteEditado.getId(), ingredienteEditado.getNombre());
-        ControlNavegacion.mostrarPantallaVerDetallesIngrediente(ingrediente.getId());
+        DetallesIngredienteViejoDTO nuevoIngredienteEditado = ControlNavegacion.editarIngrediente(ingredienteEditado.getId(), ingredienteEditado.getNombre());
+        ControlNavegacion.mostrarPantallaVerDetallesIngrediente(nuevoIngredienteEditado.getId());
         this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
