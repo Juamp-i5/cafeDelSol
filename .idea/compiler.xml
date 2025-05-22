@@ -7,7 +7,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="gestionPedidos" />
-        <module name="infraestructura" />
         <module name="DTOs" />
         <module name="presentacion" />
         <module name="negocio" />
@@ -15,5 +14,8 @@
         <module name="fachadaSubsistemas" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="infraestructura" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

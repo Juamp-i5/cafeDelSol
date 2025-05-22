@@ -12,6 +12,7 @@ import java.time.LocalDate;
  * @author katia
  */
 public class SalidaListDTOPersistencia {
+
     private String id;
     private String nombreIngrediente;
     private Double cantidad;
@@ -80,6 +81,5 @@ public class SalidaListDTOPersistencia {
     public String toString() {
         return "SalidaListDTOPersistencia{" + "id=" + id + ", nombreIngrediente=" + nombreIngrediente + ", cantidad=" + cantidad + ", motivo=" + motivo + ", fecha=" + fecha + '}';
     }
-    
-    
+
 }

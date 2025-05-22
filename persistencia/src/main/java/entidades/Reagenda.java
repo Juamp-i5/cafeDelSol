@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
  * @author rodri
  */
 public class Reagenda {
-    
+
     private ObjectId id;
     private Integer numReservacion;
     private String nombre;
@@ -24,11 +24,11 @@ public class Reagenda {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
-    
+
     private String motivo;
     private LocalDateTime fechaReagenda;
     private Integer numReservacionNuevo;
-    
+
     public Reagenda() {
     }
 

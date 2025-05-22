@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
  * @author rodri
  */
 public class Cubiculo {
-    
+
     private ObjectId id;
     private String nombre;
     private Double precioHora;
@@ -58,10 +58,5 @@ public class Cubiculo {
     public String toString() {
         return "Cubiculo{" + "id=" + id + ", nombre=" + nombre + ", precioHora=" + precioHora + '}';
     }
-    
-    
-    
-    
-    
-    
+
 }

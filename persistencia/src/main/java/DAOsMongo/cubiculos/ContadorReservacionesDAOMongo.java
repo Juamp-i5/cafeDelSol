@@ -26,14 +26,14 @@ import org.bson.conversions.Bson;
  *
  * @author rodri
  */
-public class ContadorReservacionesDAOMongo implements IContadorReservaciones{
+public class ContadorReservacionesDAOMongo implements IContadorReservaciones {
 
     private static ContadorReservacionesDAOMongo instancia;
     private final IConexionMongo conexion;
     private final MongoDatabase database;
     private final MongoCollection<ContadorReservaciones> coleccion;
     private static final String NOMBRE_COLECCION = "contadorReservaciones";
-    
+
     // Constructor con la conexion y codec para POJOs
     public ContadorReservacionesDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
@@ -55,35 +55,34 @@ public class ContadorReservacionesDAOMongo implements IContadorReservaciones{
         }
         return instancia;
     }
-    
+
     /**
-     * Busca el contador en la base de datos y aumenta uno para guardarlo después
-     * @return El número del contador  + 1
-     * @throws PersistenciaCubiculoEsception 
+     * Busca el contador en la base de datos y aumenta uno para guardarlo
+     * después
+     *
+     * @return El número del contador + 1
+     * @throws PersistenciaCubiculoEsception
      */
     @Override
     public Integer encontrarActualizar() throws PersistenciaCubiculoEsception {
-         try {
-        Bson filtro = Filters.exists("contador");
-        Bson incremento = Updates.inc("contador", 1);
-        FindOneAndUpdateOptions opciones = new FindOneAndUpdateOptions()
-                .returnDocument(ReturnDocument.AFTER);
+        try {
+            Bson filtro = Filters.exists("contador");
+            Bson incremento = Updates.inc("contador", 1);
+            FindOneAndUpdateOptions opciones = new FindOneAndUpdateOptions()
+                    .returnDocument(ReturnDocument.AFTER);
 
-        Document documentoActualizado = database
-                .getCollection("contadorReservaciones")
-                .findOneAndUpdate(filtro, incremento, opciones);
+            Document documentoActualizado = database
+                    .getCollection("contadorReservaciones")
+                    .findOneAndUpdate(filtro, incremento, opciones);
 
-        if (documentoActualizado == null || !documentoActualizado.containsKey("contador")) {
-            throw new PersistenciaCubiculoEsception("No se pudo obtener el nuevo número de reservación.");
+            if (documentoActualizado == null || !documentoActualizado.containsKey("contador")) {
+                throw new PersistenciaCubiculoEsception("No se pudo obtener el nuevo número de reservación.");
+            }
+
+            return documentoActualizado.getInteger("contador");
+        } catch (Exception e) {
+            throw new PersistenciaCubiculoEsception("Error al actualizar el contador de reservaciones.", e);
         }
-        
-        return documentoActualizado.getInteger("contador");
-    } catch (Exception e) {
-        throw new PersistenciaCubiculoEsception("Error al actualizar el contador de reservaciones.", e);
     }
-    }
-    
-    
-    
-    
+
 }

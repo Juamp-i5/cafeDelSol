@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
  * @author rodri
  */
 public class Reservacion {
-    
+
     private ObjectId id;
     private Integer numReservacion;
     private String nombre;
@@ -30,7 +30,7 @@ public class Reservacion {
     private Double precioReservacion;
     private String motivo;
     private Integer numReservacionNuevo;
-    private LocalDateTime fechaModificacion; 
+    private LocalDateTime fechaModificacion;
 
     public Reservacion() {
     }
@@ -194,8 +194,5 @@ public class Reservacion {
     public String toString() {
         return "Reservacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", idCubiculo=" + idCubiculo + ", nombreCubiculo=" + nombreCubiculo + ", precioHora=" + precioHora + ", precioReservacion=" + precioReservacion + ", motivo=" + motivo + ", numReservacionNuevo=" + numReservacionNuevo + ", fechModificacion=" + fechaModificacion + '}';
     }
-    
-    
-    
-    
+
 }

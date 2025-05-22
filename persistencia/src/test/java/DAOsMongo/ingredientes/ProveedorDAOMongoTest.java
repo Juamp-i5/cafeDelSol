@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Pruebas unitarias para ProveedorDAOMongo utilizando una base de datos de
  * prueba.
+ *
  * @author norma
  */
 public class ProveedorDAOMongoTest {
@@ -28,10 +29,10 @@ public class ProveedorDAOMongoTest {
 
     @BeforeEach
     public void setUp() {
-        ConexionMongoPrueba.clearInstance(); 
+        ConexionMongoPrueba.clearInstance();
 
         IConexionMongo conexion = ConexionMongoPrueba.getInstance();
-        dao = new ProveedorDAOMongo(conexion);  
+        dao = new ProveedorDAOMongo(conexion);
 
         coleccion = conexion.getDatabase().getCollection("proveedores", Proveedor.class);
         coleccion.deleteMany(new org.bson.Document());
@@ -54,7 +55,7 @@ public class ProveedorDAOMongoTest {
         coleccion.insertOne(proveedor2);
 
         List<ProveedorDTOPersistencia> resultado = dao.obtenerProveedores();
-        for(ProveedorDTOPersistencia p : resultado){
+        for (ProveedorDTOPersistencia p : resultado) {
             System.out.println(p.getNombre());
         }
 

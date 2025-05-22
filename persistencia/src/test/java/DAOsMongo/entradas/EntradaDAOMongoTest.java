@@ -53,7 +53,7 @@ public class EntradaDAOMongoTest {
         coleccion = conexion.getDatabase().getCollection(NOMBRE_COLECCION_ENTRADAS, Entrada.class);
         coleccionIngredientes = conexion.getDatabase().getCollection(NOMBRE_COLECCION_INGREDIENTES, Ingrediente.class);
 
-        coleccion.deleteMany(new Document()); 
+        coleccion.deleteMany(new Document());
         coleccionIngredientes.deleteMany(new Document());
     }
 
@@ -119,14 +119,14 @@ public class EntradaDAOMongoTest {
         ingrediente.setCantidadDisponible(75.0);
         ingrediente.setNivelStock("BAJO");
         listaIngredientes.add(ingrediente);
-        
+
         Entrada e1 = new Entrada();
         e1.setIdEntrada(new ObjectId());
         e1.setProveedor("P1");
         e1.setFechaHora(LocalDateTime.of(2024, 1, 10, 10, 0, 0));
         e1.setPrecioTotal(50.0);
         e1.setDetallesEntrada(Arrays.asList(
-                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId(),listaIngredientes)
+                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId(), listaIngredientes)
         ));
 
         Entrada e2 = new Entrada();
@@ -173,7 +173,7 @@ public class EntradaDAOMongoTest {
         ingrediente.setNivelStock("BAJO");
         ingrediente.setIdProveedor(idProveedor);
         coleccionIngredientes.insertOne(ingrediente);
-        
+
         DetalleEntrada detalle = new DetalleEntrada();
         detalle.setIdIngrediente(idIngrediente);
         detalle.setNombreIngrediente("Azúcar Morena");
@@ -181,7 +181,7 @@ public class EntradaDAOMongoTest {
         detalle.setPrecioUnitario(1.5);
         detalle.setPrecioTotal(15.0);
         detalle.setNivelStock("ALTO");
-        
+
         ObjectId idEntrada = new ObjectId();
         Entrada entrada = new Entrada();
         entrada.setIdEntrada(idEntrada);
@@ -189,9 +189,9 @@ public class EntradaDAOMongoTest {
         entrada.setFechaHora(LocalDateTime.now().minusHours(2).withNano(0));
         entrada.setPrecioTotal(15.0);
         entrada.setDetallesEntrada(Collections.singletonList(detalle));
-        
-        coleccion.insertOne(entrada); 
-        
+
+        coleccion.insertOne(entrada);
+
         EntradaViejaDTOPersistencia entradaResultado = dao.obtenerDetallesConIngredientes(idEntrada.toHexString());
         assertNotNull(entradaResultado, "El resultado no debe ser null");
         System.out.println(entradaResultado);

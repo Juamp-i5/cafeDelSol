@@ -12,7 +12,7 @@ public class PersistenciaCubiculoEsception extends Exception {
 
     public PersistenciaCubiculoEsception() {
     }
-    
+
     public PersistenciaCubiculoEsception(String message) {
         super(message);
     }
@@ -20,5 +20,5 @@ public class PersistenciaCubiculoEsception extends Exception {
     public PersistenciaCubiculoEsception(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
 }

@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Pruebas unitarias para IngredienteDAOMongo utilizando una base de datos de
  * prueba.
+ *
  * @author norma
  */
 public class IngredienteDAOMongoTest {
@@ -130,7 +131,7 @@ public class IngredienteDAOMongoTest {
      * Test of buscarIngredientesPorFiltros method, of class
      * IngredienteDAOMongo.
      */
-    @Test   
+    @Test
     public void testBuscarIngredientesPorFiltros() throws Exception {
         IngredienteDTOPersistencia ingrediente1 = new IngredienteDTOPersistencia();
         ingrediente1.setNombre("Agua");

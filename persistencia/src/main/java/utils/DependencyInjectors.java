@@ -18,7 +18,7 @@ import interfacesMappers.IToppingMapper;
 import interfacesMappers.IUsuarioMapper;
 import mappers.DetallesEfectivoMapper;
 import mappers.DetallesTarjetaMapper;
-import mappers.IDetallesTarjetaMapper;
+import interfacesMappers.IDetallesTarjetaMapper;
 import mappers.IngredienteMapper;
 import mappers.PagoMapper;
 import mappers.PedidoMapper;

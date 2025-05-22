@@ -133,7 +133,7 @@ public class ReservacionDAOMongoTest {
      */
     @Test
     void getDetalleReservacion_deberiaRetornarDetalleCorrecto() throws Exception {
-        ReservacionDTOCompletaPersistencia r =new ReservacionDTOCompletaPersistencia(1, "Rodri", "1234567890", LocalDate.now(), LocalTime.now(), LocalTime.now(), Estado.ACTIVA, "682eeda539682aeb2e0aa821", "Cubículo A", 50.0, 0.0);
+        ReservacionDTOCompletaPersistencia r = new ReservacionDTOCompletaPersistencia(1, "Rodri", "1234567890", LocalDate.now(), LocalTime.now(), LocalTime.now(), Estado.ACTIVA, "682eeda539682aeb2e0aa821", "Cubículo A", 50.0, 0.0);
         dao.agregarReservacion(r);
 
         ReservacionDetalleDTOPersistencia detalle = dao.getDetalleReservacion(r.getNumReservacion());

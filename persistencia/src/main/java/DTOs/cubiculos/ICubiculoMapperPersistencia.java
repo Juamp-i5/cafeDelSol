@@ -11,7 +11,7 @@ import entidades.Cubiculo;
  * @author rodri
  */
 public interface ICubiculoMapperPersistencia {
-    
+
     public CubiculoCompletoDTOPersistencia toDTO(Cubiculo entidad);
-    
+
 }

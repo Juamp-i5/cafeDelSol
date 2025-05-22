@@ -16,13 +16,13 @@ import org.bson.Document;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test; 
-import static org.junit.jupiter.api.Assertions.*; 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
- * Pruebas unitarias para SaborDAO utilizando una base de datos de
- * prueba.
+ * Pruebas unitarias para SaborDAO utilizando una base de datos de prueba.
+ *
  * @author norma
  */
 public class SaborDAOMongoTest {
@@ -72,8 +72,8 @@ public class SaborDAOMongoTest {
 
         List<PersistenciaSaborDTO> result = saborDAO.buscarTodos();
 
-        assertNotNull( result, "La lista no debe ser null");
-        assertEquals( 2, result.size(), "Debe haber 2 sabores guardados");
+        assertNotNull(result, "La lista no debe ser null");
+        assertEquals(2, result.size(), "Debe haber 2 sabores guardados");
         assertTrue(result.stream().anyMatch(s -> s.getNombre().equals("Mango")));
         assertTrue(result.stream().anyMatch(s -> s.getNombre().equals("Coco")));
     }
@@ -111,7 +111,7 @@ public class SaborDAOMongoTest {
 
         PersistenciaSaborDTO resultado = saborDAO.buscarPorNombre("Melón");
 
-        assertNotNull( resultado, "El sabor debe encontrarse después de guardarlo");
+        assertNotNull(resultado, "El sabor debe encontrarse después de guardarlo");
         assertEquals("Melón", resultado.getNombre(), "El nombre debe coincidir");
     }
 

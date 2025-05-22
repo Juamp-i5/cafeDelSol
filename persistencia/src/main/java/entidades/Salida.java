@@ -13,12 +13,13 @@ import org.bson.types.ObjectId;
  * @author katia
  */
 public class Salida {
+
     private ObjectId id;
     private LocalDate fecha;
     private ObjectId idIngrediente;
     private Double cantidad;
     private MotivoEnum motivo;
-    
+
     public Salida() {
     }
 
@@ -77,5 +78,4 @@ public class Salida {
         this.idIngrediente = idIngrediente;
     }
 
-    
 }

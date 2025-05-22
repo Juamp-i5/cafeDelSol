@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
  * @author rodri
  */
 public class Cancelacion {
-    
+
     private ObjectId id;
     private Integer numReservacion;
     private String nombre;
@@ -24,7 +24,7 @@ public class Cancelacion {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
-    
+
     private String motivo;
     private LocalDateTime fechaCancelacion;
 
@@ -140,7 +140,5 @@ public class Cancelacion {
     public String toString() {
         return "Cancelacion{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", motivo=" + motivo + ", fechaCancelacion=" + fechaCancelacion + '}';
     }
-    
-    
-    
+
 }

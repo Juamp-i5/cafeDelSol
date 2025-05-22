@@ -4,15 +4,34 @@
  */
 package mappers;
 
+import interfacesMappers.IDetallesTarjetaMapper;
 import DTOs.PersistenciaDetallesTarjetaDTO;
 import entidades.DetallesTarjeta;
 
 /**
+ * * Implementación de la interfaz {@link IDetallesTarjetaMapper} para la
+ * conversión entre entidades {@link DetallesTarjeta} y DTOs
+ * {@link PersistenciaDetallesTarjetaDTO}.
+ * <p>
+ * Esta clase se encarga de mapear los datos relacionados con los detalles de
+ * pagos con tarjeta, facilitando la transferencia de información entre la capa
+ * de persistencia y otras capas de la aplicación.
+ * </p>
  *
  * @author Jp
  */
 public class DetallesTarjetaMapper implements IDetallesTarjetaMapper {
 
+    /**
+     * Convierte un objeto {@link DetallesTarjeta} (entidad de persistencia) a
+     * un {@link PersistenciaDetallesTarjetaDTO} (objeto de transferencia de
+     * datos).
+     *
+     * @param entidad El objeto {@link DetallesTarjeta} a convertir. Puede ser
+     * {@code null}.
+     * @return Un {@link PersistenciaDetallesTarjetaDTO} con los datos
+     * mapeados, o {@code null} si la entidad de entrada es {@code null}.
+     */
     @Override
     public PersistenciaDetallesTarjetaDTO toDTO(DetallesTarjeta entidad) {
         if (entidad == null) {
@@ -28,6 +47,16 @@ public class DetallesTarjetaMapper implements IDetallesTarjetaMapper {
         return dto;
     }
 
+    /**
+     * Convierte un objeto {@link PersistenciaDetallesTarjetaDTO} (objeto de
+     * transferencia de datos) a un {@link DetallesTarjeta} (entidad de
+     * persistencia).
+     *
+     * @param dto El objeto {@link PersistenciaDetallesTarjetaDTO} a convertir.
+     * Puede ser {@code null}.
+     * @return Un {@link DetallesTarjeta} con los datos mapeados, o
+     * {@code null} si el DTO de entrada es {@code null}.
+     */
     @Override
     public DetallesTarjeta toEntity(PersistenciaDetallesTarjetaDTO dto) {
         if (dto == null) {

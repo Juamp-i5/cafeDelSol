@@ -15,6 +15,7 @@ import java.util.List;
  * @author katia
  */
 public interface ISalidaMapperPersistencia {
+
     Salida toEntity(SalidaNuevaDTOPersistencia dto);
 
     SalidaListDTOPersistencia toSalidaListDTO(Salida salida, String nombreIngrediente);

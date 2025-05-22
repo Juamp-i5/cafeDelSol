@@ -10,7 +10,8 @@ import org.bson.types.ObjectId;
  * @author pablo
  *
  * Clase que representa una "Entrada" o "Registro de Ingreso" en un sistema.
- * Podría ser, por ejemplo, la entrada de productos a un almacén o el registro de una transacción.
+ * Podría ser, por ejemplo, la entrada de productos a un almacén o el registro
+ * de una transacción.
  */
 public class Entrada {
 
@@ -22,14 +23,16 @@ public class Entrada {
     private List<DetalleEntrada> detallesEntrada; // Una lista de objetos 'DetalleEntrada' que describe cada artículo o componente de la entrada.
 
     /**
-     * Constructor por defecto de la clase Entrada.
-     * Es necesario para que algunas librerías (como las de mapeo de objetos a BSON/JSON) puedan crear instancias.
+     * Constructor por defecto de la clase Entrada. Es necesario para que
+     * algunas librerías (como las de mapeo de objetos a BSON/JSON) puedan crear
+     * instancias.
      */
     public Entrada() {
     }
 
     /**
-     * Constructor completo para inicializar una nueva instancia de Entrada con todos sus atributos.
+     * Constructor completo para inicializar una nueva instancia de Entrada con
+     * todos sus atributos.
      *
      * @param idEntrada El identificador único de la entrada.
      * @param proveedor El nombre del proveedor.
@@ -46,8 +49,9 @@ public class Entrada {
     }
 
     /**
-     * Constructor para inicializar una nueva instancia de Entrada sin el idEntrada,
-     * útil cuando la base de datos es la que genera el ID automáticamente.
+     * Constructor para inicializar una nueva instancia de Entrada sin el
+     * idEntrada, útil cuando la base de datos es la que genera el ID
+     * automáticamente.
      *
      * @param proveedor El nombre del proveedor.
      * @param fechaHora La fecha y hora de la entrada.
@@ -62,9 +66,9 @@ public class Entrada {
     }
 
     // --- Métodos Getters y Setters ---
-
     /**
      * Obtiene el identificador único de la entrada.
+     *
      * @return El ObjectId de la entrada.
      */
     public ObjectId getIdEntrada() {
@@ -73,6 +77,7 @@ public class Entrada {
 
     /**
      * Establece el identificador único de la entrada.
+     *
      * @param idEntrada El ObjectId a establecer.
      */
     public void setIdEntrada(ObjectId idEntrada) {
@@ -81,6 +86,7 @@ public class Entrada {
 
     /**
      * Obtiene el nombre del proveedor.
+     *
      * @return El String que representa el proveedor.
      */
     public String getProveedor() {
@@ -89,6 +95,7 @@ public class Entrada {
 
     /**
      * Establece el nombre del proveedor.
+     *
      * @param proveedor El String del proveedor a establecer.
      */
     public void setProveedor(String proveedor) {
@@ -97,6 +104,7 @@ public class Entrada {
 
     /**
      * Obtiene el precio total de la entrada.
+     *
      * @return El Double que representa el precio total.
      */
     public Double getPrecioTotal() {
@@ -105,6 +113,7 @@ public class Entrada {
 
     /**
      * Establece el precio total de la entrada.
+     *
      * @param precioTotal El Double del precio total a establecer.
      */
     public void setPrecioTotal(Double precioTotal) {
@@ -113,6 +122,7 @@ public class Entrada {
 
     /**
      * Obtiene la fecha y hora de la entrada.
+     *
      * @return El LocalDateTime de la fecha y hora.
      */
     public LocalDateTime getFechaHora() {
@@ -121,6 +131,7 @@ public class Entrada {
 
     /**
      * Establece la fecha y hora de la entrada.
+     *
      * @param fechaHora El LocalDateTime de la fecha y hora a establecer.
      */
     public void setFechaHora(LocalDateTime fechaHora) {
@@ -129,6 +140,7 @@ public class Entrada {
 
     /**
      * Obtiene la lista de detalles de la entrada.
+     *
      * @return La List de DetalleEntrada.
      */
     public List<DetalleEntrada> getDetallesEntrada() {
@@ -137,6 +149,7 @@ public class Entrada {
 
     /**
      * Establece la lista de detalles de la entrada.
+     *
      * @param detallesEntrada La List de DetalleEntrada a establecer.
      */
     public void setDetallesEntrada(List<DetalleEntrada> detallesEntrada) {
@@ -144,12 +157,14 @@ public class Entrada {
     }
 
     /**
-     * Sobreescribe el método toString para proporcionar una representación de cadena legible de un objeto Entrada.
-     * Esto es útil para depuración y para mostrar información del objeto.
+     * Sobreescribe el método toString para proporcionar una representación de
+     * cadena legible de un objeto Entrada. Esto es útil para depuración y para
+     * mostrar información del objeto.
+     *
      * @return Una cadena que representa el objeto Entrada.
      */
     @Override
     public String toString() {
-        return "Entrada{" +"idEntrada=" + idEntrada +", proveedor='" + proveedor + '\'' +", fechaHora=" + fechaHora +", precioTotal=" + precioTotal +", detallesEntrada=" + detallesEntrada +'}';
+        return "Entrada{" + "idEntrada=" + idEntrada + ", proveedor='" + proveedor + '\'' + ", fechaHora=" + fechaHora + ", precioTotal=" + precioTotal + ", detallesEntrada=" + detallesEntrada + '}';
     }
 }

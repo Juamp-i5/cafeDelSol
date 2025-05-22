@@ -150,9 +150,5 @@ public class ReagendaDTOPersistencia {
     public String toString() {
         return "ReagendaDTOPersistencia{" + "id=" + id + ", numReservacion=" + numReservacion + ", nombre=" + nombre + ", telefono=" + telefono + ", fechaReserva=" + fechaReserva + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", estado=" + estado + ", motivo=" + motivo + ", fechaReagenda=" + fechaReagenda + ", numReservacionNuevo=" + numReservacionNuevo + '}';
     }
-    
-    
-    
-    
 
 }

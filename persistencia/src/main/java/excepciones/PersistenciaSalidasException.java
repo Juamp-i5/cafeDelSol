@@ -8,7 +8,7 @@ package excepciones;
  *
  * @author katia
  */
-public class PersistenciaSalidasException extends Exception{
+public class PersistenciaSalidasException extends Exception {
 
     public PersistenciaSalidasException() {
     }
@@ -20,5 +20,5 @@ public class PersistenciaSalidasException extends Exception{
     public PersistenciaSalidasException(String message, Throwable cause) {
         super(message, cause);
     }
-    
+
 }

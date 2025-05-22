@@ -25,36 +25,39 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
- * Implementación de ISalidaDAO. Se utiliza MongoDB como base de datos.
- * Esta clase sigue el patrón singleton para garantizar que solo exista una instancia
+ * Implementación de ISalidaDAO. Se utiliza MongoDB como base de datos. Esta
+ * clase sigue el patrón singleton para garantizar que solo exista una instancia
  * de la DAO.
+ *
  * @author katia
  */
-public class SalidaDAOMongo implements ISalidaDAO{
+public class SalidaDAOMongo implements ISalidaDAO {
+
     private static SalidaDAOMongo instancia;
     private final IConexionMongo conexion;
     private final MongoDatabase database;
     private final MongoCollection<Salida> coleccion;
     private static final String NOMBRE_COLECCION = "salidas";
-    
+
     /**
      * Constructor que inicializa la conexión, la bd y la colección.
-     * @param conexion Objeto de conexión a MongoDB que proporciona acceso
-     * a la bd.
+     *
+     * @param conexion Objeto de conexión a MongoDB que proporciona acceso a la
+     * bd.
      */
     public SalidaDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
         CodecRegistry codecRegistry = fromRegistries(
-            MongoClientSettings.getDefaultCodecRegistry(),
-            fromProviders(PojoCodecProvider.builder().automatic(true).build())
+                MongoClientSettings.getDefaultCodecRegistry(),
+                fromProviders(PojoCodecProvider.builder().automatic(true).build())
         );
         this.database = conexion.getDatabase().withCodecRegistry(codecRegistry);
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Salida.class);
     }
-    
+
     /**
-     * Devuelve la instancia única de SalidaDAOMongo. 
-     * Si no existe, la crea.
+     * Devuelve la instancia única de SalidaDAOMongo. Si no existe, la crea.
+     *
      * @param conexion Objeto de conexión a MongoDB.
      * @return Instancia única de la DAO.
      */
@@ -64,12 +67,14 @@ public class SalidaDAOMongo implements ISalidaDAO{
         }
         return instancia;
     }
-    
+
     /**
      * Registra una nueva salida en la base de datos.
+     *
      * @param salida Salida que se desea perssitir.
      * @return True si la inserción fue exitosa.
-     * @throws PersistenciaSalidasException Por si ocurre un error al insertar la salida.
+     * @throws PersistenciaSalidasException Por si ocurre un error al insertar
+     * la salida.
      */
     @Override
     public boolean registrarSalida(Salida salida) throws PersistenciaSalidasException {
@@ -80,11 +85,13 @@ public class SalidaDAOMongo implements ISalidaDAO{
             throw new PersistenciaSalidasException("Error al registrar la salida: " + e.getMessage(), e);
         }
     }
-    
+
     /**
      * Consulta todas las salidas almacenadas en la base de datos.
+     *
      * @return Lista de objetos tipo Salida.
-     * @throws PersistenciaSalidasException Por si ocurre un error al recuperar las salidas.
+     * @throws PersistenciaSalidasException Por si ocurre un error al recuperar
+     * las salidas.
      */
     @Override
     public List<Salida> consultarTodas() throws PersistenciaSalidasException {
@@ -98,17 +105,19 @@ public class SalidaDAOMongo implements ISalidaDAO{
 
     /**
      * Consulta las salidas registradas en un periodo específico.
+     *
      * @param fechaInicio Fecha de inicio del rango.
      * @param fechaFin Fecha de fin del rango.
      * @return Lista de salidas dentro del rango de fechas.
-     * @throws PersistenciaSalidasException En caso de error durante la consulta.
+     * @throws PersistenciaSalidasException En caso de error durante la
+     * consulta.
      */
     @Override
     public List<Salida> consultarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaSalidasException {
         try {
             Bson filtro = Filters.and(
-                Filters.gte("fecha", fechaInicio),
-                Filters.lte("fecha", fechaFin)
+                    Filters.gte("fecha", fechaInicio),
+                    Filters.lte("fecha", fechaFin)
             );
             return coleccion.find(filtro).into(new ArrayList<>());
         } catch (Exception e) {
@@ -118,9 +127,11 @@ public class SalidaDAOMongo implements ISalidaDAO{
 
     /**
      * Consulta una salida específica por su identificador único.
+     *
      * @param id Identificador único de MongoDB.
      * @return Objeto de tipo Salida correspondiente al ID.
-     * @throws PersistenciaSalidasException Si no se encuentra la salida o si ocurre un error al obtenerla.
+     * @throws PersistenciaSalidasException Si no se encuentra la salida o si
+     * ocurre un error al obtenerla.
      */
     @Override
     public Salida consultarPorId(ObjectId id) throws PersistenciaSalidasException {

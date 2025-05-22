@@ -24,13 +24,13 @@ import org.junit.jupiter.api.BeforeEach;
  * @author rodri
  */
 public class CubiculoDAOMongoTest {
-    
+
     private static MongoCollection<Cubiculo> coleccion;
 
     private static IConexionMongo conexionPrueba;
     private static ICubiculoDAO cubiculoDAO;
     private static MongoDatabase database;
-    
+
     @BeforeAll
     public static void setUpClass() throws Exception {
         conexionPrueba = ConexionMongoPrueba.getInstance();
@@ -54,9 +54,9 @@ public class CubiculoDAOMongoTest {
     @Test
     public void testObtenerCubiculos() throws Exception {
         System.out.println("Obtener todos");
-        
+
         List<String> lista = List.of("Cubículo A");
-        
+
         List<String> result = cubiculoDAO.obtenerCubiculos();
         assertNotNull(result);
         assertEquals(lista, result);
@@ -69,13 +69,13 @@ public class CubiculoDAOMongoTest {
     public void testObtenerPorNombre() throws Exception {
         System.out.println("obtenerPorNombre");
         String nombre = "Cubiculo A";
-        
+
         Cubiculo encontrado = coleccion.find(new Document("nombre", "Cubículo A")).first();
         assertNotNull(encontrado);
-        
+
         CubiculoCompletoDTOPersistencia result = cubiculoDAO.obtenerPorNombre(encontrado.getNombre());
         assertNotNull(result);
         assertEquals("Cubículo A", result.getNombre());
     }
-    
+
 }

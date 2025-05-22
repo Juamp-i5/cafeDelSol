@@ -15,13 +15,13 @@ import java.util.List;
 import org.bson.Document;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test; 
-import static org.junit.jupiter.api.Assertions.*; 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
- * Pruebas unitarias para TamanioDAO utilizando una base de datos de
- * prueba.
+ * Pruebas unitarias para TamanioDAO utilizando una base de datos de prueba.
+ *
  * @author norma
  */
 public class TamanioDAOMongoTest {
@@ -73,8 +73,8 @@ public class TamanioDAOMongoTest {
 
         List<PersistenciaTamanioDTO> result = tamanioDAO.buscarTodos();
 
-        assertNotNull( result, "La lista no debe ser null");
-        assertEquals( 2, result.size(), "Debe haber 2 tamanios guardados");
+        assertNotNull(result, "La lista no debe ser null");
+        assertEquals(2, result.size(), "Debe haber 2 tamanios guardados");
         assertTrue(result.stream().anyMatch(t -> t.getNombre().equals("Chico")));
         assertTrue(result.stream().anyMatch(t -> t.getNombre().equals("Extra Grande")));
     }

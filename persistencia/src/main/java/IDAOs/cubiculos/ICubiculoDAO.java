@@ -15,8 +15,8 @@ import java.util.List;
  * @author rodri
  */
 public interface ICubiculoDAO {
-    
+
     public List<String> obtenerCubiculos() throws PersistenciaCubiculoEsception;
-    
+
     public CubiculoCompletoDTOPersistencia obtenerPorNombre(String nombre) throws PersistenciaCubiculoEsception;
 }

@@ -9,7 +9,7 @@ package DTOs.cubiculos;
  * @author rodri
  */
 public class CubiculoCompletoDTOPersistencia {
-    
+
     private String id;
     private String nombre;
     private Double precioHora;
@@ -51,7 +51,5 @@ public class CubiculoCompletoDTOPersistencia {
     public String toString() {
         return "CubiculoCompletoDTO{" + "id=" + id + ", nombre=" + nombre + ", precioHora=" + precioHora + '}';
     }
-    
-    
-    
+
 }

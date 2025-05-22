@@ -43,7 +43,6 @@ public class InsertarDatosPrueba {
 //        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
 //        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
 //        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
-
     }
 
     private static void insertarUsuarios(IUsuarioDAO usuarioDAO) throws PersistenciaException {

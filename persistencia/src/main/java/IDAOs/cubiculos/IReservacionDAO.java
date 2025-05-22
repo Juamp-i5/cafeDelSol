@@ -17,19 +17,19 @@ import java.util.List;
  * @author rodri
  */
 public interface IReservacionDAO {
-    
+
     public ReservacionDTOCompletaPersistencia agregarReservacion(ReservacionDTOCompletaPersistencia reservacion) throws PersistenciaCubiculoEsception;
-    
+
     public boolean actualizarEstadoReservacion(Integer numReservacion, Estado estado) throws PersistenciaCubiculoEsception;
-    
+
     public ReservacionDTOCompletaPersistencia buscarPorId(Integer numReservacion) throws PersistenciaCubiculoEsception;
-    
+
     public List<ReservacionDTOCompletaPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception;
-    
-    public List<ReservacionDTOCompletaPersistencia> buscarPendientesPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception; 
-    
+
+    public List<ReservacionDTOCompletaPersistencia> buscarPendientesPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception;
+
     public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception;
-    
-    public ReservacionDetalleDTOPersistencia getDetalleReservacion (Integer numReservacion) throws PersistenciaCubiculoEsception;
+
+    public ReservacionDetalleDTOPersistencia getDetalleReservacion(Integer numReservacion) throws PersistenciaCubiculoEsception;
 
 }

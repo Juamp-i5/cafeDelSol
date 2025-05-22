@@ -1,18 +1,20 @@
 package DTOs.entradas;
+
 import DTOs.ingredientes.IngredienteDTOPersistencia;
 import java.util.List;
 
 /**
  *
- * @author pablo
- * Esta clase sirve como un Objeto de Transferencia de Datos (DTO) para la capa de persistencia,
- * específicamente para representar los detalles de una entrada de un ingrediente.
- * Su propósito es transferir datos de manera eficiente entre las capas de la aplicación,
- * especialmente entre la capa de negocio y la capa de acceso a datos (DAO),
- * manteniendo un formato plano y simple que refleja cómo los datos podrían
- * almacenarse o recuperarse de la base de datos.
+ * @author pablo Esta clase sirve como un Objeto de Transferencia de Datos (DTO)
+ * para la capa de persistencia, específicamente para representar los detalles
+ * de una entrada de un ingrediente. Su propósito es transferir datos de manera
+ * eficiente entre las capas de la aplicación, especialmente entre la capa de
+ * negocio y la capa de acceso a datos (DAO), manteniendo un formato plano y
+ * simple que refleja cómo los datos podrían almacenarse o recuperarse de la
+ * base de datos.
  */
 public class DetalleEntradaDTOPersistencia {
+
     private String nombreIngrediente;
     private Double precioUnitario;
     private Double precioTotal;
@@ -22,24 +24,28 @@ public class DetalleEntradaDTOPersistencia {
     private List<IngredienteDTOPersistencia> ingredienteInfo;
 
     /**
-     * Constructor por defecto. Es necesario para que los frameworks de persistencia
-     * puedan instanciar la clase al recuperar datos de la base de datos.
+     * Constructor por defecto. Es necesario para que los frameworks de
+     * persistencia puedan instanciar la clase al recuperar datos de la base de
+     * datos.
      */
     public DetalleEntradaDTOPersistencia() {
     }
 
     /**
-     * Constructor completo que permite inicializar todos los atributos de un `DetalleEntradaDTOPersistencia`.
-     * Este constructor es útil para crear instancias del DTO con todos los datos necesarios
-     * antes de ser transferidos a o desde la capa de persistencia.
+     * Constructor completo que permite inicializar todos los atributos de un
+     * `DetalleEntradaDTOPersistencia`. Este constructor es útil para crear
+     * instancias del DTO con todos los datos necesarios antes de ser
+     * transferidos a o desde la capa de persistencia.
      *
      * @param nombreIngrediente El nombre del ingrediente.
      * @param precioUnitario El precio por unidad del ingrediente.
      * @param precioTotal El precio total de la cantidad de este ingrediente.
      * @param cantidadIngrediente La cantidad del ingrediente.
      * @param nivelStock El nivel de stock actual del ingrediente.
-     * @param idIngrediente El ID del ingrediente al que se refiere este detalle, en formato String.
-     * @param ingredienteInfo Una lista (posiblemente con un solo elemento) que contiene la información completa del ingrediente asociada.
+     * @param idIngrediente El ID del ingrediente al que se refiere este
+     * detalle, en formato String.
+     * @param ingredienteInfo Una lista (posiblemente con un solo elemento) que
+     * contiene la información completa del ingrediente asociada.
      */
     public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente, List<IngredienteDTOPersistencia> ingredienteInfo) {
         this.nombreIngrediente = nombreIngrediente;
@@ -50,9 +56,10 @@ public class DetalleEntradaDTOPersistencia {
         this.idIngrediente = idIngrediente;
         this.ingredienteInfo = ingredienteInfo;
     }
-    
+
     /**
      * Obtiene el nombre del ingrediente asociado a este detalle de entrada.
+     *
      * @return El nombre del ingrediente.
      */
     public String getNombreIngrediente() {
@@ -61,6 +68,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Establece el nombre del ingrediente para este detalle de entrada.
+     *
      * @param nombreIngrediente El nuevo nombre del ingrediente.
      */
     public void setNombreIngrediente(String nombreIngrediente) {
@@ -69,6 +77,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Obtiene el precio unitario del ingrediente en este detalle de entrada.
+     *
      * @return El precio unitario del ingrediente.
      */
     public Double getPrecioUnitario() {
@@ -76,7 +85,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Establece el precio unitario del ingrediente para este detalle de entrada.
+     * Establece el precio unitario del ingrediente para este detalle de
+     * entrada.
+     *
      * @param precioUnitario El nuevo precio unitario del ingrediente.
      */
     public void setPrecioUnitario(Double precioUnitario) {
@@ -84,7 +95,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Obtiene el precio total calculado para la cantidad de este ingrediente en el detalle de entrada.
+     * Obtiene el precio total calculado para la cantidad de este ingrediente en
+     * el detalle de entrada.
+     *
      * @return El precio total del ingrediente en esta entrada.
      */
     public Double getPrecioTotal() {
@@ -92,7 +105,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Establece el precio total para la cantidad de este ingrediente en el detalle de entrada.
+     * Establece el precio total para la cantidad de este ingrediente en el
+     * detalle de entrada.
+     *
      * @param precioTotal El nuevo precio total.
      */
     public void setPrecioTotal(Double precioTotal) {
@@ -100,7 +115,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Obtiene la cantidad del ingrediente registrada en este detalle de entrada.
+     * Obtiene la cantidad del ingrediente registrada en este detalle de
+     * entrada.
+     *
      * @return La cantidad del ingrediente.
      */
     public Double getCantidadIngrediente() {
@@ -109,6 +126,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Establece la cantidad del ingrediente para este detalle de entrada.
+     *
      * @param cantidadIngrediente La nueva cantidad del ingrediente.
      */
     public void setCantidadIngrediente(Double cantidadIngrediente) {
@@ -116,7 +134,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Obtiene el ID del ingrediente asociado a este detalle de entrada, representado como un String.
+     * Obtiene el ID del ingrediente asociado a este detalle de entrada,
+     * representado como un String.
+     *
      * @return El ID del ingrediente.
      */
     public String getIdIngrediente() {
@@ -125,6 +145,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Establece el ID del ingrediente para este detalle de entrada.
+     *
      * @param idIngrediente El nuevo ID del ingrediente en formato String.
      */
     public void setIdIngrediente(String idIngrediente) {
@@ -133,6 +154,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Obtiene la descripción del nivel de stock actual del ingrediente.
+     *
      * @return El nivel de stock del ingrediente.
      */
     public String getNivelStock() {
@@ -141,6 +163,7 @@ public class DetalleEntradaDTOPersistencia {
 
     /**
      * Establece la descripción del nivel de stock para este ingrediente.
+     *
      * @param nivelStock La nueva descripción del nivel de stock.
      */
     public void setNivelStock(String nivelStock) {
@@ -148,8 +171,10 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Obtiene la lista de objetos `IngredienteDTOPersistencia` que contienen información detallada del ingrediente.
-     * Esto es útil cuando la información del ingrediente se "une" o se incrusta en el detalle de la entrada.
+     * Obtiene la lista de objetos `IngredienteDTOPersistencia` que contienen
+     * información detallada del ingrediente. Esto es útil cuando la información
+     * del ingrediente se "une" o se incrusta en el detalle de la entrada.
+     *
      * @return Una lista con la información del ingrediente.
      */
     public List<IngredienteDTOPersistencia> getIngredienteInfo() {
@@ -157,7 +182,9 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Establece la lista de objetos `IngredienteDTOPersistencia` para este detalle de entrada.
+     * Establece la lista de objetos `IngredienteDTOPersistencia` para este
+     * detalle de entrada.
+     *
      * @param ingredienteInfo La nueva lista con la información del ingrediente.
      */
     public void setIngredienteInfo(List<IngredienteDTOPersistencia> ingredienteInfo) {
@@ -165,9 +192,11 @@ public class DetalleEntradaDTOPersistencia {
     }
 
     /**
-     * Sobrescribe el método `toString()` para proporcionar una representación de cadena clara y legible
-     * del objeto `DetalleEntradaDTOPersistencia`. Esto es especialmente útil para depuración
-     * y para registrar información sobre los datos transferidos.
+     * Sobrescribe el método `toString()` para proporcionar una representación
+     * de cadena clara y legible del objeto `DetalleEntradaDTOPersistencia`.
+     * Esto es especialmente útil para depuración y para registrar información
+     * sobre los datos transferidos.
+     *
      * @return Una cadena que representa el estado actual del objeto.
      */
     @Override

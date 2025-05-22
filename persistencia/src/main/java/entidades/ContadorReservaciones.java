@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
  * @author rodri
  */
 public class ContadorReservaciones {
-    
+
     ObjectId id;
     Long secuencia;
 
@@ -43,5 +43,5 @@ public class ContadorReservaciones {
     public String toString() {
         return "ContadorReservaciones{" + "id=" + id + ", secuencia=" + secuencia + '}';
     }
-    
+
 }

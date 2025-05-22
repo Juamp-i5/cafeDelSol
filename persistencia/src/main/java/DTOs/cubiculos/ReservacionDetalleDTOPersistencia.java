@@ -14,7 +14,7 @@ import java.time.LocalTime;
  * @author rodri
  */
 public class ReservacionDetalleDTOPersistencia {
-    
+
     private Integer numReservacion;
     private String nombre;
     private String telefono;

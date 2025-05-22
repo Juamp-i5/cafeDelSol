@@ -16,17 +16,17 @@ import org.bson.Document;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test; 
-import static org.junit.jupiter.api.Assertions.*; 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 
 /**
- * Pruebas unitarias para ToppingDAO utilizando una base de datos de
- * prueba.
+ * Pruebas unitarias para ToppingDAO utilizando una base de datos de prueba.
+ *
  * @author norma
  */
 public class ToppingDAOMongoTest {
-    
+
     private static MongoCollection<Topping> coleccion;
 
     private static IConexionMongo conexionPrueba;
@@ -68,7 +68,7 @@ public class ToppingDAOMongoTest {
         coleccion.insertOne(topping2);
 
         List<PersistenciaToppingDTO> resultado = toppingDAO.buscarTodos();
-        
+
         assertNotNull(resultado);
         assertEquals(2, resultado.size());
         assertTrue(resultado.stream().anyMatch(t -> "Chispas".equals(t.getNombre())));
@@ -110,5 +110,5 @@ public class ToppingDAOMongoTest {
         assertEquals("Nuevo Topping", guardado.getNombre());
         assertEquals(dto.getId(), guardado.getId());
     }
-    
+
 }

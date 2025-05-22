@@ -2,6 +2,7 @@ package DTOs.ingredientes;
 
 /**
  * Clase ProveedorDTOPersistencia que representa los datos de un proveedor.
+ *
  * @author Jp
  */
 public class ProveedorDTOPersistencia {
@@ -17,6 +18,7 @@ public class ProveedorDTOPersistencia {
 
     /**
      * Constructor que inicializa todos los atributos del objeto.
+     *
      * @param id Identificador del ingrediente.
      * @param nombre Nombre del proveedor.
      */

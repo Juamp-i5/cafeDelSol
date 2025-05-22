@@ -15,9 +15,13 @@ import org.bson.types.ObjectId;
  * @author katia
  */
 public interface ISalidaDAO {
+
     public boolean registrarSalida(Salida salida) throws PersistenciaSalidasException;
+
     public List<Salida> consultarTodas() throws PersistenciaSalidasException;
+
     public List<Salida> consultarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaSalidasException;
+
     public Salida consultarPorId(ObjectId id) throws PersistenciaSalidasException;
-    
+
 }

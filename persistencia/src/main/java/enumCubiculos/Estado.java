@@ -9,5 +9,5 @@ package enumCubiculos;
  * @author rodri
  */
 public enum Estado {
-    PENDIENTE,ACTIVA,CONCLUIDA,REAGENDADO,CANCELADO
+    PENDIENTE, ACTIVA, CONCLUIDA, REAGENDADO, CANCELADO
 }

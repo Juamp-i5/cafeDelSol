@@ -17,38 +17,39 @@ import org.bson.types.ObjectId;
  *
  * @author katia
  */
-public class SalidaMapperPersistencia implements ISalidaMapperPersistencia{
+public class SalidaMapperPersistencia implements ISalidaMapperPersistencia {
+
     @Override
     public Salida toEntity(SalidaNuevaDTOPersistencia dto) {
         return new Salida(
-            dto.getFecha(),
-            new ObjectId(dto.getIdIngrediente()),
-            dto.getCantidad(),
-            dto.getMotivo()
+                dto.getFecha(),
+                new ObjectId(dto.getIdIngrediente()),
+                dto.getCantidad(),
+                dto.getMotivo()
         );
     }
 
     @Override
     public SalidaListDTOPersistencia toSalidaListDTO(Salida salida, String nombreIngrediente) {
         return new SalidaListDTOPersistencia(
-            salida.getId().toHexString(),
-            nombreIngrediente,
-            salida.getCantidad(),
-            salida.getMotivo(),
-            salida.getFecha()
+                salida.getId().toHexString(),
+                nombreIngrediente,
+                salida.getCantidad(),
+                salida.getMotivo(),
+                salida.getFecha()
         );
     }
 
     @Override
     public DetalleSalidaDTOPersistencia toDetalleSalidaDTO(Salida salida, String nombreIngrediente) {
         return new DetalleSalidaDTOPersistencia(
-            nombreIngrediente,
-            salida.getCantidad(),
-            salida.getMotivo(),
-            salida.getFecha()
+                nombreIngrediente,
+                salida.getCantidad(),
+                salida.getMotivo(),
+                salida.getFecha()
         );
     }
-    
+
     @Override
     public List<SalidaListDTOPersistencia> toSalidaListDTOList(List<Salida> salidas, List<String> nombresIngredientes) {
         List<SalidaListDTOPersistencia> lista = new ArrayList<>();
@@ -65,5 +66,5 @@ public class SalidaMapperPersistencia implements ISalidaMapperPersistencia{
             lista.add(toDetalleSalidaDTO(salidas.get(i), nombresIngredientes.get(i)));
         }
         return lista;
-    }    
+    }
 }

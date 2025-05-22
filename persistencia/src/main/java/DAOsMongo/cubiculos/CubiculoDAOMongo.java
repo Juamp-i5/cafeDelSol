@@ -34,9 +34,9 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
     private final MongoDatabase database;
     private final MongoCollection<Cubiculo> coleccion;
     private static final String NOMBRE_COLECCION = "cubiculos";
-    
+
     ICubiculoMapperPersistencia cubiculoMapper = new CubiculoMapperPersistencia();
-    
+
     // Constructor con la conexion y codec para POJOs
     public CubiculoDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
@@ -50,7 +50,7 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
         this.database = conexion.getDatabase().withCodecRegistry(codecRegistry);
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Cubiculo.class);
     }
-    
+
     // Singleton getter
     public static CubiculoDAOMongo getInstance(IConexionMongo conexion) {
         if (instancia == null) {
@@ -61,15 +61,16 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
 
     /**
      * Método que busca todos los cubículos existentes
+     *
      * @return Lista de los nombres de los cubículos existentes
-     * @throws PersistenciaCubiculoEsception 
+     * @throws PersistenciaCubiculoEsception
      */
     @Override
     public List<String> obtenerCubiculos() throws PersistenciaCubiculoEsception {
         try {
             List<Cubiculo> entidades = coleccion.find().into(new ArrayList<>());
             List<String> lista = new ArrayList<>();
-            
+
             for (Cubiculo entidad : entidades) {
                 lista.add(entidad.getNombre());
             }
@@ -81,9 +82,10 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
 
     /**
      * Método para buscar un cubículo por nombre
+     *
      * @param nombre Nombre del cubículo a buscar
      * @return Cubículo encontrado
-     * @throws PersistenciaCubiculoEsception 
+     * @throws PersistenciaCubiculoEsception
      */
     @Override
     public CubiculoCompletoDTOPersistencia obtenerPorNombre(String nombre) throws PersistenciaCubiculoEsception {

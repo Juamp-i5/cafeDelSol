@@ -14,11 +14,11 @@ import java.time.LocalTime;
  *
  * @author rodri
  */
-public class ReservacionDetalleMapperPersistencia implements IReservacionDetalleMapperPersistencia{
+public class ReservacionDetalleMapperPersistencia implements IReservacionDetalleMapperPersistencia {
 
     public ReservacionDetalleMapperPersistencia() {
     }
-    
+
     @Override
     public ReservacionDetalleDTOPersistencia toDTO(Reservacion entidad) {
         if (entidad == null) {
@@ -41,5 +41,5 @@ public class ReservacionDetalleMapperPersistencia implements IReservacionDetalle
         dto.setFechaModificacion(entidad.getFechaModificacion());
         return dto;
     }
-    
+
 }

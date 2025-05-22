@@ -16,7 +16,7 @@ public interface IReservacionMapperPersistencia {
     public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad);
 
     public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto);
-    
+
     public List<ReservacionDTOCompletaPersistencia> toDTOList(List<Reservacion> entidades);
 
 }

@@ -14,7 +14,7 @@ import java.time.LocalTime;
  * @author rodri
  */
 public class CancelacionDTOPersistencia {
-    
+
     private String id;
     private Integer numReservacion;
     private String nombre;
@@ -23,7 +23,7 @@ public class CancelacionDTOPersistencia {
     private LocalTime horaInicio;
     private LocalTime horaFin;
     private Estado estado;
-    
+
     private String motivo;
     private LocalDateTime fechaCancelacion;
 

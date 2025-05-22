@@ -24,18 +24,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import excepciones.PersistenciaSalidasException;
 import org.junit.jupiter.api.TestInstance;
 
-
 /**
  *
  * @author katia
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SalidaDAOMongoTest {
-    
+
     private ISalidaDAO salidaDAO;
     private IConexionMongo conexion;
     private MongoDatabase database;
-    
+
     @BeforeAll
     void setUp() {
         conexion = ConexionMongoPrueba.getInstance();
@@ -48,7 +47,7 @@ public class SalidaDAOMongoTest {
         MongoCollection<Salida> coleccion = database.getCollection("salidas", Salida.class);
         coleccion.deleteMany(new org.bson.Document());
     }
-    
+
     @AfterEach
     void limpiarColeccionAfter() {
         MongoCollection<Salida> coleccion = database.getCollection("salidas", Salida.class);
@@ -122,6 +121,5 @@ public class SalidaDAOMongoTest {
 
         assertEquals(2, salidas.size());
     }
-    
-    
+
 }

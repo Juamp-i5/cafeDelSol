@@ -12,6 +12,7 @@ import java.time.LocalDate;
  * @author katia
  */
 public class SalidaNuevaDTOPersistencia {
+
     private LocalDate fecha;
     private String idIngrediente;
     private Double cantidad;
@@ -63,6 +64,5 @@ public class SalidaNuevaDTOPersistencia {
     public String toString() {
         return "SalidaNuevaDTOPersistencia{" + "fecha=" + fecha + ", idIngrediente=" + idIngrediente + ", cantidad=" + cantidad + ", motivo=" + motivo + '}';
     }
-    
-    
+
 }

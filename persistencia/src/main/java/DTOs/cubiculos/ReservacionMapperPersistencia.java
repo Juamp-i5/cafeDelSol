@@ -13,13 +13,13 @@ import org.bson.types.ObjectId;
  *
  * @author rodri
  */
-public class ReservacionMapperPersistencia implements IReservacionMapperPersistencia{
+public class ReservacionMapperPersistencia implements IReservacionMapperPersistencia {
 
     public ReservacionMapperPersistencia() {
     }
 
     @Override
-    public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad){
+    public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad) {
         if (entidad == null) {
             return null;
         }
@@ -27,7 +27,7 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
-        
+
         dto.setNumReservacion(entidad.getNumReservacion());
         dto.setNombre(entidad.getNombre());
         dto.setTelefono(entidad.getTelefono());
@@ -39,17 +39,17 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         dto.setNombreCubiculo(entidad.getNombreCubiculo());
         dto.setPrecioHora(entidad.getPrecioHora());
         dto.setPrecioReservacion(entidad.getPrecioReservacion());
-        
+
         return dto;
     }
 
     @Override
-    public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto){
+    public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto) {
         if (dto == null) {
             return null;
         }
         Reservacion entidad = new Reservacion();
-        
+
         entidad.setNumReservacion(dto.getNumReservacion());
         entidad.setNombre(dto.getNombre());
         entidad.setTelefono(dto.getTelefono());
@@ -61,7 +61,7 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         entidad.setNombreCubiculo(dto.getNombreCubiculo());
         entidad.setPrecioHora(dto.getPrecioHora());
         entidad.setPrecioReservacion(dto.getPrecioReservacion());
-        
+
         return entidad;
     }
 
@@ -76,5 +76,5 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         }
         return dtos;
     }
-    
+
 }

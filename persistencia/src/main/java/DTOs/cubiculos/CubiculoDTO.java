@@ -9,7 +9,7 @@ package DTOs.cubiculos;
  * @author rodri
  */
 public class CubiculoDTO {
-    
+
     private String nombre;
 
     public CubiculoDTO() {
@@ -31,7 +31,5 @@ public class CubiculoDTO {
     public String toString() {
         return "CubiculoDTO{" + "nombre=" + nombre + '}';
     }
-    
-    
-    
+
 }

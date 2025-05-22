@@ -7,15 +7,35 @@ package entidades;
 import org.bson.types.ObjectId;
 
 /**
+ * Representa la entidad de un tamaño de producto en la base de datos.
+ * Contiene información como el identificador único, nombre, precio adicional
+ * asociado a este tamaño y datos de imagen.
  *
  * @author rodri
  */
 public class Tamanio {
 
+    /**
+     * Identificador único del tamaño.
+     */
     private ObjectId id;
+
+    /**
+     * Nombre descriptivo del tamaño (ej. "Grande", "Mediano").
+     */
     private String nombre;
+
+    /**
+     * Precio adicional que se suma al precio base del producto cuando se
+     * selecciona este tamaño.
+     */
     private Double precioAdicional;
+
+    /**
+     * Datos binarios de la imagen asociada al tamaño, si aplica.
+     */
     private byte[] imagenData;
+
 
     public Tamanio() {
     }

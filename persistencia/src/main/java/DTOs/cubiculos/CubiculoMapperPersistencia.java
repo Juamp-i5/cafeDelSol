@@ -10,8 +10,8 @@ import entidades.Cubiculo;
  *
  * @author rodri
  */
-public class CubiculoMapperPersistencia implements ICubiculoMapperPersistencia{
-    
+public class CubiculoMapperPersistencia implements ICubiculoMapperPersistencia {
+
     public CubiculoMapperPersistencia() {
     }
 
@@ -24,7 +24,7 @@ public class CubiculoMapperPersistencia implements ICubiculoMapperPersistencia{
         if (entidad.getId() != null) {
             dto.setId(entidad.getId().toHexString());
         }
-        
+
         dto.setNombre(entidad.getNombre());
         dto.setPrecioHora(entidad.getPrecioHora());
         return dto;

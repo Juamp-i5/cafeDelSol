@@ -11,7 +11,7 @@ import excepciones.PersistenciaCubiculoEsception;
  * @author rodri
  */
 public interface IContadorReservaciones {
-    
+
     public Integer encontrarActualizar() throws PersistenciaCubiculoEsception;
-    
+
 }

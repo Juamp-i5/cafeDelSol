@@ -27,12 +27,12 @@ import org.bson.types.ObjectId;
 
 /**
  *
- * @author pablo
- * Implementación de la interfaz IEntradaDAO que proporciona métodos para la persistencia
- * de datos de las entradas en una base de datos MongoDB. Esta clase sigue el patrón Singleton
- * para asegurar una única instancia y gestiona las interacciones con las colecciones
- * "RegistroEntradas" e "ingredientes". También utiliza un mapeador para convertir
- * entre objetos de dominio (Entidad) y objetos de transferencia de datos (DTOs).
+ * @author pablo Implementación de la interfaz IEntradaDAO que proporciona
+ * métodos para la persistencia de datos de las entradas en una base de datos
+ * MongoDB. Esta clase sigue el patrón Singleton para asegurar una única
+ * instancia y gestiona las interacciones con las colecciones "RegistroEntradas"
+ * e "ingredientes". También utiliza un mapeador para convertir entre objetos de
+ * dominio (Entidad) y objetos de transferencia de datos (DTOs).
  */
 public class EntradaDAOMongo implements IEntradaDAO {
 
@@ -44,27 +44,32 @@ public class EntradaDAOMongo implements IEntradaDAO {
 
     private final String NOMBRE_COLECCION = "RegistroEntradas";
     IEntradaMapperPersistencia entradaMapper = new EntradaMapperPersistencia();
-    
+
     /**
-     * El constructor privado de la clase asegura que solo se pueda instanciar a través
-     * del método estático `getInstance()`, garantizando el patrón Singleton.
-     * Aquí se inicializa la conexión a la base de datos y se obtienen las referencias
-     * a las colecciones de MongoDB para Entradas e Ingredientes.
+     * El constructor privado de la clase asegura que solo se pueda instanciar a
+     * través del método estático `getInstance()`, garantizando el patrón
+     * Singleton. Aquí se inicializa la conexión a la base de datos y se
+     * obtienen las referencias a las colecciones de MongoDB para Entradas e
+     * Ingredientes.
      *
-     * @param conexion Una implementación de la interfaz IConexionMongo para acceder a la base de datos.
+     * @param conexion Una implementación de la interfaz IConexionMongo para
+     * acceder a la base de datos.
      */
     EntradaDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
         this.database = conexion.getDatabase();
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Entrada.class);
     }
-    
+
     /**
-     * Proporciona la única instancia de la clase `EntradaDAOMongo`, siguiendo el patrón Singleton.
-     * Si la instancia aún no ha sido creada, la inicializa; de lo contrario, devuelve la existente.
-     * Esto asegura que todos los componentes de la aplicación compartan la misma conexión y configuración de DAO.
+     * Proporciona la única instancia de la clase `EntradaDAOMongo`, siguiendo
+     * el patrón Singleton. Si la instancia aún no ha sido creada, la
+     * inicializa; de lo contrario, devuelve la existente. Esto asegura que
+     * todos los componentes de la aplicación compartan la misma conexión y
+     * configuración de DAO.
      *
-     * @param conexion La implementación de la interfaz IConexionMongo necesaria para inicializar la conexión.
+     * @param conexion La implementación de la interfaz IConexionMongo necesaria
+     * para inicializar la conexión.
      * @return La única instancia de `EntradaDAOMongo`.
      */
     public static EntradaDAOMongo getInstance(IConexionMongo conexion) {
@@ -76,13 +81,16 @@ public class EntradaDAOMongo implements IEntradaDAO {
 
     /**
      * Registra una nueva entrada en la colección de MongoDB "RegistroEntradas".
-     * Antes de la inserción, convierte el DTO de la nueva entrada a la entidad de persistencia
-     * correspondiente utilizando el `entradaMapper`. Si la operación de inserción no es reconocida
-     * por el servidor de la base de datos, se lanza una `PersistenciaEntradasException`.
+     * Antes de la inserción, convierte el DTO de la nueva entrada a la entidad
+     * de persistencia correspondiente utilizando el `entradaMapper`. Si la
+     * operación de inserción no es reconocida por el servidor de la base de
+     * datos, se lanza una `PersistenciaEntradasException`.
      *
-     * @param entrada El objeto `EntradaNuevaDTOPersistencia` que contiene los datos de la entrada a registrar.
+     * @param entrada El objeto `EntradaNuevaDTOPersistencia` que contiene los
+     * datos de la entrada a registrar.
      * @return `true` si la entrada se registró exitosamente.
-     * @throws PersistenciaEntradasException Si ocurre un error durante el proceso de inserción en la base de datos.
+     * @throws PersistenciaEntradasException Si ocurre un error durante el
+     * proceso de inserción en la base de datos.
      */
     @Override
     public boolean registrarEntrada(EntradaNuevaDTOPersistencia entrada) throws PersistenciaEntradasException {
@@ -98,16 +106,22 @@ public class EntradaDAOMongo implements IEntradaDAO {
     }
 
     /**
-     * Recupera una lista de entradas de la base de datos que caen dentro de un rango de fechas y horas especificado.
-     * Construye dinámicamente los filtros de MongoDB (`$gte` para fecha de inicio y `$lte` para fecha de fin)
-     * para realizar la consulta en la colección "RegistroEntradas". Los objetos `LocalDateTime`
-     * se ajustan para incluir el día completo si solo se proporciona una fecha. Finalmente,
-     * los documentos de `Entrada` obtenidos se mapean a `EntradaViejaDTOPersistencia` antes de ser devueltos.
+     * Recupera una lista de entradas de la base de datos que caen dentro de un
+     * rango de fechas y horas especificado. Construye dinámicamente los filtros
+     * de MongoDB (`$gte` para fecha de inicio y `$lte` para fecha de fin) para
+     * realizar la consulta en la colección "RegistroEntradas". Los objetos
+     * `LocalDateTime` se ajustan para incluir el día completo si solo se
+     * proporciona una fecha. Finalmente, los documentos de `Entrada` obtenidos
+     * se mapean a `EntradaViejaDTOPersistencia` antes de ser devueltos.
      *
-     * @param fechaInicio La fecha y hora de inicio del rango de búsqueda (puede ser `null` para no filtrar por inicio).
-     * @param fechaFin La fecha y hora de fin del rango de búsqueda (puede ser `null` para no filtrar por fin).
-     * @return Una lista de `EntradaViejaDTOPersistencia` que cumplen con los criterios de fecha.
-     * @throws PersistenciaEntradasException Si ocurre un error durante la consulta de las entradas.
+     * @param fechaInicio La fecha y hora de inicio del rango de búsqueda (puede
+     * ser `null` para no filtrar por inicio).
+     * @param fechaFin La fecha y hora de fin del rango de búsqueda (puede ser
+     * `null` para no filtrar por fin).
+     * @return Una lista de `EntradaViejaDTOPersistencia` que cumplen con los
+     * criterios de fecha.
+     * @throws PersistenciaEntradasException Si ocurre un error durante la
+     * consulta de las entradas.
      */
     @Override
     public List<EntradaViejaDTOPersistencia> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws PersistenciaEntradasException {
@@ -130,18 +144,22 @@ public class EntradaDAOMongo implements IEntradaDAO {
     }
 
     /**
-     * Obtiene los detalles completos de una entrada específica, incluyendo la información
-     * de los ingredientes asociados a cada detalle de entrada. Esto se logra mediante
-     * un complejo pipeline de agregación de MongoDB que realiza las siguientes operaciones:
-     * filtra por el ID de la entrada, desestructura los detalles de la entrada (`$unwind`),
-     * realiza un "join" con la colección de ingredientes (`$lookup`) para incrustar su información,
-     * vuelve a desestructurar el resultado del `lookup` y finalmente reagrupa (`$group`)
-     * los documentos para reconstruir la entrada con los detalles enriquecidos.
-     * Si el ID proporcionado es inválido o la entrada no se encuentra, se lanza una excepción.
+     * Obtiene los detalles completos de una entrada específica, incluyendo la
+     * información de los ingredientes asociados a cada detalle de entrada. Esto
+     * se logra mediante un complejo pipeline de agregación de MongoDB que
+     * realiza las siguientes operaciones: filtra por el ID de la entrada,
+     * desestructura los detalles de la entrada (`$unwind`), realiza un "join"
+     * con la colección de ingredientes (`$lookup`) para incrustar su
+     * información, vuelve a desestructurar el resultado del `lookup` y
+     * finalmente reagrupa (`$group`) los documentos para reconstruir la entrada
+     * con los detalles enriquecidos. Si el ID proporcionado es inválido o la
+     * entrada no se encuentra, se lanza una excepción.
      *
      * @param entradaId El ID de la entrada en formato String.
-     * @return Un objeto `EntradaViejaDTOPersistencia` con todos los detalles de la entrada e información de ingredientes, o `null` si no se encuentra.
-     * @throws PersistenciaEntradasException Si el ID es inválido o si ocurre un error durante la agregación.
+     * @return Un objeto `EntradaViejaDTOPersistencia` con todos los detalles de
+     * la entrada e información de ingredientes, o `null` si no se encuentra.
+     * @throws PersistenciaEntradasException Si el ID es inválido o si ocurre un
+     * error durante la agregación.
      */
     @Override
     public EntradaViejaDTOPersistencia obtenerDetallesConIngredientes(String entradaId) throws PersistenciaEntradasException {

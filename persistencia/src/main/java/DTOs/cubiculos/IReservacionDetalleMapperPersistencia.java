@@ -11,6 +11,6 @@ import entidades.Reservacion;
  * @author rodri
  */
 public interface IReservacionDetalleMapperPersistencia {
-    
-    public ReservacionDetalleDTOPersistencia toDTO (Reservacion entidad);
+
+    public ReservacionDetalleDTOPersistencia toDTO(Reservacion entidad);
 }

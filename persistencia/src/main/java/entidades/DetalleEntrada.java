@@ -5,10 +5,10 @@ import org.bson.types.ObjectId;
 
 /**
  *
- * @author pablo
- * Clase que representa un "Detalle de Entrada".
- * Cada instancia de esta clase describe un ingrediente específico que forma parte de una 'Entrada' más grande.
- * Por ejemplo, si una Entrada es una factura de compra, cada DetalleEntrada sería una línea de esa factura.
+ * @author pablo Clase que representa un "Detalle de Entrada". Cada instancia de
+ * esta clase describe un ingrediente específico que forma parte de una
+ * 'Entrada' más grande. Por ejemplo, si una Entrada es una factura de compra,
+ * cada DetalleEntrada sería una línea de esa factura.
  */
 public class DetalleEntrada {
 
@@ -18,27 +18,30 @@ public class DetalleEntrada {
     private Double cantidad;          // La cantidad de este ingrediente que se ha registrado en la entrada.
     private String nivelStock;        // Una descripción o estado del nivel de stock actual de este ingrediente (e.g., "Alto", "Bajo", "Crítico").
     private ObjectId idIngrediente;   // El identificador único del ingrediente al que hace referencia este detalle.
-                                      // Se usa para vincular este detalle con la información completa del ingrediente.
+    // Se usa para vincular este detalle con la información completa del ingrediente.
     private List<Ingrediente> ingredienteInfo; // Una lista (posiblemente con un solo elemento) que contiene la información completa del ingrediente.
-                                             // Esto podría ser una "vista" o un "lookup" del ingrediente al que se refiere idIngrediente.
+    // Esto podría ser una "vista" o un "lookup" del ingrediente al que se refiere idIngrediente.
 
     /**
-     * Constructor por defecto de la clase DetalleEntrada.
-     * Necesario para frameworks de serialización/deserialización (como los de MongoDB).
+     * Constructor por defecto de la clase DetalleEntrada. Necesario para
+     * frameworks de serialización/deserialización (como los de MongoDB).
      */
     public DetalleEntrada() {
     }
 
     /**
-     * Constructor completo para inicializar una nueva instancia de DetalleEntrada con todos sus atributos.
+     * Constructor completo para inicializar una nueva instancia de
+     * DetalleEntrada con todos sus atributos.
      *
      * @param nombreIngrediente El nombre del ingrediente.
      * @param precioUnitario El precio por unidad del ingrediente.
      * @param precioTotal El precio total de la cantidad de este ingrediente.
      * @param cantidad La cantidad del ingrediente.
      * @param nivelStock El nivel de stock actual del ingrediente.
-     * @param idIngrediente El ID del ingrediente al que se refiere este detalle.
-     * @param ingredienteInfo Una lista con la información completa del ingrediente.
+     * @param idIngrediente El ID del ingrediente al que se refiere este
+     * detalle.
+     * @param ingredienteInfo Una lista con la información completa del
+     * ingrediente.
      */
     public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, String nivelStock, ObjectId idIngrediente, List<Ingrediente> ingredienteInfo) {
         this.nombreIngrediente = nombreIngrediente;
@@ -51,9 +54,9 @@ public class DetalleEntrada {
     }
 
     // --- Métodos Getters y Setters ---
-
     /**
      * Obtiene el nombre del ingrediente.
+     *
      * @return El String que representa el nombre del ingrediente.
      */
     public String getNombreIngrediente() {
@@ -62,7 +65,9 @@ public class DetalleEntrada {
 
     /**
      * Establece el nombre del ingrediente.
-     * @param nombreIngrediente El String del nombre del ingrediente a establecer.
+     *
+     * @param nombreIngrediente El String del nombre del ingrediente a
+     * establecer.
      */
     public void setNombreIngrediente(String nombreIngrediente) {
         this.nombreIngrediente = nombreIngrediente;
@@ -70,6 +75,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene el precio unitario del ingrediente.
+     *
      * @return El Double que representa el precio unitario.
      */
     public Double getPrecioUnitario() {
@@ -78,6 +84,7 @@ public class DetalleEntrada {
 
     /**
      * Establece el precio unitario del ingrediente.
+     *
      * @param precioUnitario El Double del precio unitario a establecer.
      */
     public void setPrecioUnitario(Double precioUnitario) {
@@ -86,6 +93,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene el precio total de la cantidad de este ingrediente.
+     *
      * @return El Double que representa el precio total.
      */
     public Double getPrecioTotal() {
@@ -94,6 +102,7 @@ public class DetalleEntrada {
 
     /**
      * Establece el precio total de la cantidad de este ingrediente.
+     *
      * @param precioTotal El Double del precio total a establecer.
      */
     public void setPrecioTotal(Double precioTotal) {
@@ -102,6 +111,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene la cantidad del ingrediente.
+     *
      * @return El Double que representa la cantidad.
      */
     public Double getCantidad() {
@@ -110,6 +120,7 @@ public class DetalleEntrada {
 
     /**
      * Establece la cantidad del ingrediente.
+     *
      * @param cantidad El Double de la cantidad a establecer.
      */
     public void setCantidad(Double cantidad) {
@@ -118,6 +129,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene el identificador único del ingrediente.
+     *
      * @return El ObjectId del ingrediente.
      */
     public ObjectId getIdIngrediente() {
@@ -126,6 +138,7 @@ public class DetalleEntrada {
 
     /**
      * Establece el identificador único del ingrediente.
+     *
      * @param idIngrediente El ObjectId del ingrediente a establecer.
      */
     public void setIdIngrediente(ObjectId idIngrediente) {
@@ -134,6 +147,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene el nivel de stock del ingrediente.
+     *
      * @return El String que representa el nivel de stock.
      */
     public String getNivelStock() {
@@ -142,6 +156,7 @@ public class DetalleEntrada {
 
     /**
      * Establece el nivel de stock del ingrediente.
+     *
      * @param nivelStock El String del nivel de stock a establecer.
      */
     public void setNivelStock(String nivelStock) {
@@ -150,6 +165,7 @@ public class DetalleEntrada {
 
     /**
      * Obtiene la información completa del ingrediente.
+     *
      * @return La List de Ingrediente.
      */
     public List<Ingrediente> getIngredienteInfo() {
@@ -158,6 +174,7 @@ public class DetalleEntrada {
 
     /**
      * Establece la información completa del ingrediente.
+     *
      * @param ingredienteInfo La List de Ingrediente a establecer.
      */
     public void setIngredienteInfo(List<Ingrediente> ingredienteInfo) {
@@ -165,8 +182,10 @@ public class DetalleEntrada {
     }
 
     /**
-     * Sobreescribe el método toString para proporcionar una representación de cadena legible de un objeto DetalleEntrada.
-     * Útil para depuración y para mostrar información del objeto.
+     * Sobreescribe el método toString para proporcionar una representación de
+     * cadena legible de un objeto DetalleEntrada. Útil para depuración y para
+     * mostrar información del objeto.
+     *
      * @return Una cadena que representa el objeto DetalleEntrada.
      */
     @Override
