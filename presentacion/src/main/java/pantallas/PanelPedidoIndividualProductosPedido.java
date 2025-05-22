@@ -19,6 +19,7 @@ public class PanelPedidoIndividualProductosPedido extends javax.swing.JPanel {
         lblProducto.setText(productoPedido.getProducto().getNombre());
         lblSabor.setText(productoPedido.getSabor().getNombre());
         lblTamanio.setText(productoPedido.getTamanio().getNombre());
+//        lblPrecio.setText(productoPedido.getCosto().toString() + " x " + productoPedido.getCantidad().toString());
         if (productoPedido.getTopping() == null) {
             lblTopping.setText("");
         } else {
@@ -53,7 +54,6 @@ public class PanelPedidoIndividualProductosPedido extends javax.swing.JPanel {
         lblTamanio.setText("Tamanio");
 
         lblPrecio.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        lblPrecio.setText("$100");
 
         lblTopping.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         lblTopping.setText("Topping");

@@ -51,8 +51,6 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
      *
      * 
      */
-//                    List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(registro.getNombreIngrediente(), registro.getNivelStock().toString());
-//                    IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();    
     
     public void mostrarDetallesEnTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaDetallesEntrada.getModel();

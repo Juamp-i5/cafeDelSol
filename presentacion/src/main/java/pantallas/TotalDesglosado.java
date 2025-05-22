@@ -162,7 +162,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    ControlNavegacion.mostrarPantallaMenuPrincipal();
+                    ControlNavegacion.mostrarPantallaMenuIniciado();
                 }
             }, 1000);
         }

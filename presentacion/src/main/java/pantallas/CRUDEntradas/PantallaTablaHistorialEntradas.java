@@ -164,7 +164,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
             }
         });
 
-        LbTitulo.setText("Historial");
+        LbTitulo.setText("Historial de entradas");
 
         LbFechaInicio.setText("Fecha Inicio");
 

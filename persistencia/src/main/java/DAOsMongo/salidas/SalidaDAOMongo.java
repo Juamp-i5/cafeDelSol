@@ -25,7 +25,9 @@ import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
- *
+ * Implementación de ISalidaDAO. Se utiliza MongoDB como base de datos.
+ * Esta clase sigue el patrón singleton para garantizar que solo exista una instancia
+ * de la DAO.
  * @author katia
  */
 public class SalidaDAOMongo implements ISalidaDAO{
@@ -35,6 +37,11 @@ public class SalidaDAOMongo implements ISalidaDAO{
     private final MongoCollection<Salida> coleccion;
     private static final String NOMBRE_COLECCION = "salidas";
     
+    /**
+     * Constructor que inicializa la conexión, la bd y la colección.
+     * @param conexion Objeto de conexión a MongoDB que proporciona acceso
+     * a la bd.
+     */
     public SalidaDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
         CodecRegistry codecRegistry = fromRegistries(
@@ -45,6 +52,12 @@ public class SalidaDAOMongo implements ISalidaDAO{
         this.coleccion = database.getCollection(NOMBRE_COLECCION, Salida.class);
     }
     
+    /**
+     * Devuelve la instancia única de SalidaDAOMongo. 
+     * Si no existe, la crea.
+     * @param conexion Objeto de conexión a MongoDB.
+     * @return Instancia única de la DAO.
+     */
     public static SalidaDAOMongo getInstance(IConexionMongo conexion) {
         if (instancia == null) {
             instancia = new SalidaDAOMongo(conexion);
@@ -52,6 +65,12 @@ public class SalidaDAOMongo implements ISalidaDAO{
         return instancia;
     }
     
+    /**
+     * Registra una nueva salida en la base de datos.
+     * @param salida Salida que se desea perssitir.
+     * @return True si la inserción fue exitosa.
+     * @throws PersistenciaSalidasException Por si ocurre un error al insertar la salida.
+     */
     @Override
     public boolean registrarSalida(Salida salida) throws PersistenciaSalidasException {
         try {
@@ -62,6 +81,11 @@ public class SalidaDAOMongo implements ISalidaDAO{
         }
     }
     
+    /**
+     * Consulta todas las salidas almacenadas en la base de datos.
+     * @return Lista de objetos tipo Salida.
+     * @throws PersistenciaSalidasException Por si ocurre un error al recuperar las salidas.
+     */
     @Override
     public List<Salida> consultarTodas() throws PersistenciaSalidasException {
         try {
@@ -72,6 +96,13 @@ public class SalidaDAOMongo implements ISalidaDAO{
         }
     }
 
+    /**
+     * Consulta las salidas registradas en un periodo específico.
+     * @param fechaInicio Fecha de inicio del rango.
+     * @param fechaFin Fecha de fin del rango.
+     * @return Lista de salidas dentro del rango de fechas.
+     * @throws PersistenciaSalidasException En caso de error durante la consulta.
+     */
     @Override
     public List<Salida> consultarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaSalidasException {
         try {
@@ -85,6 +116,12 @@ public class SalidaDAOMongo implements ISalidaDAO{
         }
     }
 
+    /**
+     * Consulta una salida específica por su identificador único.
+     * @param id Identificador único de MongoDB.
+     * @return Objeto de tipo Salida correspondiente al ID.
+     * @throws PersistenciaSalidasException Si no se encuentra la salida o si ocurre un error al obtenerla.
+     */
     @Override
     public Salida consultarPorId(ObjectId id) throws PersistenciaSalidasException {
         try {

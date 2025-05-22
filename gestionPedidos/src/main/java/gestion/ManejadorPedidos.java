@@ -79,7 +79,7 @@ public class ManejadorPedidos implements IGestionPedidos {
         pedido.getPagoDTO().getResultadoPagoDTO().setMarca(resultado.getMarca());
         pedido.getPagoDTO().getResultadoPagoDTO().setTipoTarjeta(resultado.getTipoTarjeta());
         pedido.getPagoDTO().getResultadoPagoDTO().setTitular(resultado.getTitular());
-        
+
         if (!resultado.isExito()) {
             throw new GestionException("Pago fallido: " + resultado.getMensajeError());
         }
@@ -180,7 +180,8 @@ public class ManejadorPedidos implements IGestionPedidos {
         if (productoPedidoActual == null) {
             throw new GestionException("No hay un producto activo para cancelar.");
         }
-        productoPedidoActual = null;
+        this.pedido = new PedidoDTO();
+        productoPedidoActual = new ProductoPedidoDTO();
         return true;
     }
 
@@ -267,7 +268,10 @@ public class ManejadorPedidos implements IGestionPedidos {
     public PedidoDTO registrarPedido() throws GestionException {
         try {
             pedidoBO.registrarPedido(pedido);
-            return pedido;
+            PedidoDTO pedidoRegistrado = pedido;
+            this.productoPedidoActual = new ProductoPedidoDTO();
+            this.pedido = new PedidoDTO();
+            return pedidoRegistrado;
         } catch (NegocioException ex) {
             Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
         }
