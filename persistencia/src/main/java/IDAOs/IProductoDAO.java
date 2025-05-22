@@ -16,7 +16,7 @@ public interface IProductoDAO {
 
     public List<PersistenciaProductoDTO> buscarTodos() throws PersistenciaException;
 
-    public List<PersistenciaProductoDTO> buscarTodosHabilitados() throws PersistenciaException;
+    public List<PersistenciaProductoDTO> buscarTodosHabilitadosConStock() throws PersistenciaException;
 
     public List<PersistenciaProductoDTO> buscarPorNombreYCategoria(String filtroNombre, String filtroCategoria) throws PersistenciaException;
 

@@ -15,6 +15,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UnwindOptions;
 import conexion.IConexionMongo;
+import entidades.ProductoTamanio;
+import entidades.ProductoTamanioIngrediente;
 import interfacesMappers.IProductoMapper;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -63,16 +65,62 @@ public class ProductoDAOMongo implements IProductoDAO {
     }
 
     @Override
-    public List<PersistenciaProductoDTO> buscarTodosHabilitados() throws PersistenciaException {
+    public List<PersistenciaProductoDTO> buscarTodosHabilitadosConStock() throws PersistenciaException {
         List<PersistenciaProductoDTO> productos = new ArrayList<>();
         Bson filtro = Filters.eq("estado", "HABILITADO");
+
         try (MongoCursor<Producto> cursor = coleccion.find(filtro).iterator()) {
             while (cursor.hasNext()) {
-                productos.add(productoMapper.toDTO(cursor.next()));
+                Producto producto = cursor.next();
+                boolean tamanioConIngredientesSuficientes = false;
+
+                for (ProductoTamanio tamanio : producto.getTamanios()) {
+                    boolean stockSuficiente = true;
+
+                    for (ProductoTamanioIngrediente ic : tamanio.getIngredientes()) {
+                        String idIngrediente = ic.getIngrediente().getId().toHexString();
+                        Double cantidadNecesaria = ic.getCantidad();
+
+                        Document ingredienteDoc = database.getCollection("ingredientes")
+                                .find(Filters.eq("_id", new ObjectId(idIngrediente)))
+                                .first();
+
+                        if (ingredienteDoc == null) {
+                            stockSuficiente = false;
+                            break;
+                        }
+
+                        Object cantidadDisponibleObj = ingredienteDoc.get("cantidadDisponible");
+                        Double cantidadDisponible;
+
+                        if (cantidadDisponibleObj instanceof Number) {
+                            cantidadDisponible = ((Number) cantidadDisponibleObj).doubleValue();
+                        } else {
+                            stockSuficiente = false;
+                            break;
+                        }
+
+                        if (cantidadDisponible < cantidadNecesaria) {
+                            stockSuficiente = false;
+                            break;
+                        }
+                    }
+
+                    if (!stockSuficiente) {
+                        tamanioConIngredientesSuficientes = false;
+                        break;
+                    }
+                    tamanioConIngredientesSuficientes = true;
+                }
+
+                if (tamanioConIngredientesSuficientes) {
+                    productos.add(productoMapper.toDTO(producto));
+                }
             }
         } catch (Exception e) {
-            throw new PersistenciaException("Error al consultar todos los productos habilitados en la base de datos", e);
+            throw new PersistenciaException("Error al consultar productos habilitados con stock suficiente", e);
         }
+
         return productos;
     }
 
@@ -308,6 +356,6 @@ public class ProductoDAOMongo implements IProductoDAO {
 
     @Override
     public void restarIngredientes(String idProducto, String idTamanio) throws PersistenciaException {
-        
+
     }
 }

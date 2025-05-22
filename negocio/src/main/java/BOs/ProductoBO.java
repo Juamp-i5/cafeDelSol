@@ -49,7 +49,7 @@ public class ProductoBO implements IProductoBO {
     @Override
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
-            List<PersistenciaProductoDTO> productos = productoDAO.buscarTodosHabilitados();
+            List<PersistenciaProductoDTO> productos = productoDAO.buscarTodosHabilitadosConStock();
             List<ProductoMostrarDTO> productosDTO = new ArrayList<>();
             
             for (PersistenciaProductoDTO producto : productos) {

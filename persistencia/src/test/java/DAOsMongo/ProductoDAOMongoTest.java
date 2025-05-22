@@ -1,19 +1,27 @@
 package DAOsMongo;
 
 import DTOs.PersistenciaProductoDTO;
+import DTOs.PersistenciaProductoTamanioDTO;
+import DTOs.PersistenciaProductoTamanioIngredienteDTO;
+import DTOs.PersistenciaTamanioDTO;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 import conexion.ConexionMongoPrueba;
 import conexion.IConexionMongo;
 import entidades.Producto;
 import excepciones.PersistenciaException;
 import IDAOs.IProductoDAO;
+import com.mongodb.client.MongoCollection;
 import interfacesMappers.IProductoMapper;
 import utils.DependencyInjectors;
 import com.mongodb.client.MongoDatabase;
+import entidades.Ingrediente;
+import interfacesMappers.IIngredienteMapper;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.List;
+import mappers.IngredienteMapper;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,7 +76,6 @@ public class ProductoDAOMongoTest {
         return dto;
     }
 
-
     @Test
     void testGuardarProductoYBuscarPorId() throws PersistenciaException {
         String idGenerado = new ObjectId().toHexString();
@@ -118,17 +125,47 @@ public class ProductoDAOMongoTest {
     }
 
     @Test
-    void testBuscarTodosHabilitados() throws PersistenciaException {
+    void testBuscarTodosHabilitadosConStock() throws PersistenciaException {
+        // Crear ingrediente con stock suficiente
+        MongoCollection<Ingrediente> coleccionIngredientes = database.getCollection("ingredientes", Ingrediente.class);
+        Ingrediente ingredienteConStock = new Ingrediente();
+        ObjectId ingredienteId = new ObjectId();
+        ingredienteConStock.setId(ingredienteId);
+        ingredienteConStock.setNombre("Fresa");
+        ingredienteConStock.setUnidadMedida("GRAMOS");
+        ingredienteConStock.setCantidadDisponible(100.0); // Stock suficiente
+        coleccionIngredientes.insertOne(ingredienteConStock);
+
+        IIngredienteMapper ingredienteMapper = new IngredienteMapper();
+        // Crear ingredientes con cantidades requeridas menores al stock
+        PersistenciaProductoTamanioIngredienteDTO ingredienteDTO = new PersistenciaProductoTamanioIngredienteDTO();
+        IngredienteDTOPersistencia ingredienteDTOPersistencia = ingredienteMapper.toDTO(ingredienteConStock);
+        ingredienteDTO.setIngrediente(ingredienteDTOPersistencia);
+        ingredienteDTO.setCantidad(20.0); // Se requiere solo 20.0
+
+        // Crear tamaño con ese ingrediente
+        PersistenciaProductoTamanioDTO tamanio = new PersistenciaProductoTamanioDTO();
+        tamanio.setTamanio(new PersistenciaTamanioDTO(null, "Mediano", 2.0, null));
+        tamanio.setIngredientes(List.of(ingredienteDTO));
+
+        // Crear productos con ese tamaño
         PersistenciaProductoDTO pHabilitado = crearProductoDTOCompleto(new ObjectId().toHexString(), "Agua Fresca", "Bebidas", "HABILITADO", 20.0);
         PersistenciaProductoDTO pDeshabilitado = crearProductoDTOCompleto(new ObjectId().toHexString(), "Torta Especial", "Comida", "DESHABILITADO", 70.0);
         PersistenciaProductoDTO pHabilitado2 = crearProductoDTOCompleto(new ObjectId().toHexString(), "Licuado Fresa", "Bebidas", "HABILITADO", 40.0);
 
+        pHabilitado.setTamanios(List.of(tamanio));
+        pHabilitado2.setTamanios(List.of(tamanio));
+
+        // Guardar productos
         productoDAO.guardarProducto(pHabilitado);
         productoDAO.guardarProducto(pDeshabilitado);
         productoDAO.guardarProducto(pHabilitado2);
 
-        List<PersistenciaProductoDTO> productosHabilitados = productoDAO.buscarTodosHabilitados();
-        assertEquals(2, productosHabilitados.size(), "Debería haber dos productos habilitados.");
+        // Ejecutar método bajo prueba
+        List<PersistenciaProductoDTO> productosHabilitados = productoDAO.buscarTodosHabilitadosConStock();
+
+        // Verificaciones
+        assertEquals(2, productosHabilitados.size(), "Debería haber dos productos habilitados con stock suficiente.");
         assertTrue(productosHabilitados.stream().allMatch(p -> p.getEstado().equals("HABILITADO")));
         assertTrue(productosHabilitados.stream().anyMatch(p -> p.getNombre().equals("Agua Fresca")));
         assertTrue(productosHabilitados.stream().anyMatch(p -> p.getNombre().equals("Licuado Fresa")));
@@ -153,7 +190,7 @@ public class ProductoDAOMongoTest {
         List<PersistenciaProductoDTO> noEncontrados = productoDAO.buscarPorNombreYCategoria("Pizza", "Comida");
         assertTrue(noEncontrados.isEmpty(), "No debería encontrar Pizza en Comida.");
     }
-    
+
     @Test
     void testBuscarPorNombreYCategoriaConNombreParcial() throws PersistenciaException {
         PersistenciaProductoDTO p1 = crearProductoDTOCompleto(new ObjectId().toHexString(), "Sándwich de Pollo Especial", "Comida", "HABILITADO", 60.0);
@@ -187,7 +224,7 @@ public class ProductoDAOMongoTest {
         productoDAO.guardarProducto(productoOriginalDTO);
 
         PersistenciaProductoDTO productoActualizadoDTO = crearProductoDTOCompleto(idOriginal, "Té Verde Matcha", "Bebidas Premium", "HABILITADO", 22.0);
-        productoActualizadoDTO.setId(idOriginal); 
+        productoActualizadoDTO.setId(idOriginal);
 
         productoDAO.actualizarProducto(productoActualizadoDTO);
 
@@ -197,12 +234,12 @@ public class ProductoDAOMongoTest {
         assertEquals("Bebidas Premium", productoDesdeBD.getCategoria());
         assertEquals(22.0, productoDesdeBD.getPrecioBase());
     }
-    
+
     @Test
     void testActualizarProductoIdNoExistente() throws PersistenciaException {
         String idInexistente = new ObjectId().toHexString();
         PersistenciaProductoDTO dtoFantasma = crearProductoDTOCompleto(idInexistente, "Fantasma", "Etéreo", "DESHABILITADO", 0);
-        
+
         assertDoesNotThrow(() -> productoDAO.actualizarProducto(dtoFantasma));
 
         PersistenciaProductoDTO noDeberiaExistir = productoDAO.buscarPorId(idInexistente);
