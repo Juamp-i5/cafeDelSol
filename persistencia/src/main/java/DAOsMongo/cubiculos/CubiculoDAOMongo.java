@@ -59,6 +59,11 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
         return instancia;
     }
 
+    /**
+     * Método que busca todos los cubículos existentes
+     * @return Lista de los nombres de los cubículos existentes
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public List<String> obtenerCubiculos() throws PersistenciaCubiculoEsception {
         try {
@@ -74,6 +79,12 @@ public class CubiculoDAOMongo implements ICubiculoDAO {
         }
     }
 
+    /**
+     * Método para buscar un cubículo por nombre
+     * @param nombre Nombre del cubículo a buscar
+     * @return Cubículo encontrado
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public CubiculoCompletoDTOPersistencia obtenerPorNombre(String nombre) throws PersistenciaCubiculoEsception {
         try {
