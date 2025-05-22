@@ -67,7 +67,7 @@ public class InsertarDatosPrueba {
     private static void insertarTamanios(ITamanioDAO tamanioDAO) throws PersistenciaException {
         System.out.println("Iniciando inserción de Tamaños base (DTOs)...");
         List<PersistenciaTamanioDTO> tamanios = Arrays.asList(
-                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "PEQUEÑO", 0.0, cargarImagenDesdeRecursos("tamanioPequenio.jpg")),
+                new PersistenciaTamanioDTO(new ObjectId().toHexString(), "CHICO", 0.0, cargarImagenDesdeRecursos("tamanioPequenio.jpg")),
                 new PersistenciaTamanioDTO(new ObjectId().toHexString(), "MEDIANO", 20.0, cargarImagenDesdeRecursos("tamanioMediano.jpg")),
                 new PersistenciaTamanioDTO(new ObjectId().toHexString(), "GRANDE", 40.0, cargarImagenDesdeRecursos("tamanioGrande.jpg"))
         );
