@@ -355,7 +355,8 @@ public class PantallaTablaProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAgregarProductoActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
-        // TODO add your handling code here:
+        ControlNavegacion.mostrarPantallaMenuIniciado();
+        this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
 
     private void botonModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModificarProductoActionPerformed

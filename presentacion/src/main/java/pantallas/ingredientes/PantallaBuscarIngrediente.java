@@ -2,10 +2,10 @@ package pantallas.ingredientes;
 
 import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientes.NivelStock;
-import DTOs.CRUDIngredientes.UnidadMedida;
 import control.ControlNavegacion;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.function.Consumer;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,6 +17,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
     DefaultTableModel modeloTablaIngredientes;
     private Timer debounceTimer;
+    Consumer<IngredienteViejoListDTO> regreso;
 
     private final int DEBOUNCE_DELAY = 50;
 
@@ -26,6 +27,11 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
         this.modeloTablaIngredientes = obtenerModeloTablaIngredientes();
         setupInitialUIState();
         cargarDatos();
+    }
+
+    public PantallaBuscarIngrediente(Consumer regreso) {
+        this();
+        this.regreso = regreso;
     }
 
     private DefaultTableModel obtenerModeloTablaIngredientes() {
@@ -62,6 +68,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
         for (IngredienteViejoListDTO ingrediente : ingredientes) {
             this.modeloTablaIngredientes.addRow(
                     new Object[]{
+                        ingrediente.getId(),
                         ingrediente.getNombre(),
                         ingrediente.getCantidadDisponible(),
                         ingrediente.getUnidadMedida(),
@@ -165,13 +172,13 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
 
         tablaIngredientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Cantidad disponible", "Unidad de medida", "Estado"
+                "Id", "Nombre", "Cantidad disponible", "Unidad de medida", "Estado"
             }
         ));
         scrollPanelIngredientes.setViewportView(tablaIngredientes);
@@ -248,7 +255,14 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        // TODO add your handling code here:
+        if (regreso != null) {
+            int row = this.tablaIngredientes.getSelectedRow();
+            IngredienteViejoListDTO ingredienteSeleccionado = new IngredienteViejoListDTO(
+                    modeloTablaIngredientes.getValueAt(row, 0).toString(),
+                    modeloTablaIngredientes.getValueAt(row, 1).toString()
+            );
+            regreso.accept(ingredienteSeleccionado);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnVolverAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverAtrasActionPerformed

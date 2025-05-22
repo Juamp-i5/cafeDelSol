@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  *
  * @author norma
  */
-public class IngredienteBO implements IIngredienteBO{
+public class IngredienteBO implements IIngredienteBO {
 
     IIngredienteDAOMongo ingredienteDAO = AccesoDatos.getIngredienteDAO();
     IIngredienteMapper ingredienteMapper = IngredienteMapper.getInstance();
@@ -58,11 +58,21 @@ public class IngredienteBO implements IIngredienteBO{
     @Override
     public List<IngredienteViejoListDTO> buscarIngredientesPorFiltros(String filtroNombre, String filtroNivelStock) throws NegocioException {
         try {
+            if (filtroNombre != null) {
+                filtroNombre = filtroNombre.trim();
+            }
             List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
             return ingredienteMapper.toDTOIngredienteList(ingredientes);
         } catch (PersistenciaIngredientesException ex) {
             throw new NegocioException("Error al buscar los ingredientes por filtros.");
         }
+        
+//        try {
+//            List<IngredienteDTOPersistencia> ingredientes = ingredienteDAO.buscarIngredientesPorFiltros(filtroNombre, filtroNivelStock);
+//            return ingredienteMapper.toDTOIngredienteList(ingredientes);
+//        } catch (PersistenciaIngredientesException ex) {
+//            throw new NegocioException("Error al buscar los ingredientes por filtros.");
+//        }
     }
 
     @Override
@@ -101,9 +111,9 @@ public class IngredienteBO implements IIngredienteBO{
             throw new NegocioException("Error al obtener el ingrediente por nombre.");
         }
     }
-    
+
     @Override
-    public void actualizarNivelStock(String idIngrediente)throws NegocioException{
+    public void actualizarNivelStock(String idIngrediente) throws NegocioException {
         try {
             ingredienteDAO.actualizarNivelStock(idIngrediente);
         } catch (PersistenciaIngredientesException ex) {

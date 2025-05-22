@@ -26,6 +26,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
     private DatePicker datePickerFin;
     private List<EntradaViejaDTO> listaEntradas;
     private Timer debounceTimer;
+    private int DELAY_DEBOUNCE = 400;
 
     /**
      * Creates new form PantallaTablaHistorialEntradas
@@ -44,7 +45,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
         DatePickerSettings settingsFin = new DatePickerSettings();
         settingsFin.setFormatForDatesCommonEra("dd/MM/yyyy");
         datePickerFin = new DatePicker(settingsFin);
-        debounceTimer = new Timer(400, e -> actualizarFechasFiltradas());
+        debounceTimer = new Timer(DELAY_DEBOUNCE, e -> actualizarFechasFiltradas());
         debounceTimer.setRepeats(false);
         datePickerInicio.addDateChangeListener(event -> Debounce());
         datePickerFin.addDateChangeListener(event -> Debounce());

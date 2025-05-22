@@ -129,7 +129,6 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
 //                tabla.addCell(new Phrase(String.valueOf(ingrediente.getCantidadDisponible()), cuerpoFont)); //Stock actual
             }
         }
-
         documento.add(tabla);
         documento.add(new Paragraph(" "));
         Paragraph total = new Paragraph("Precio total de entrada: $" + String.format("%.2f", entrada.getPrecioTotal()), cuerpoFont); 

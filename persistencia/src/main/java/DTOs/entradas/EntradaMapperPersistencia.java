@@ -84,6 +84,7 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     @Override
     public EntradaViejaDTOPersistencia todtoViejoPersistencia(Entrada entrada) {
         EntradaViejaDTOPersistencia entradaDTO = new EntradaViejaDTOPersistencia();
+        entradaDTO.setIdEntrada(entrada.getIdEntrada().toHexString());
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());

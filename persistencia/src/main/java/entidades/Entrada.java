@@ -2,6 +2,7 @@ package entidades;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import org.bson.codecs.pojo.annotations.BsonId;
 import org.bson.types.ObjectId;
 
 /**
@@ -9,6 +10,7 @@ import org.bson.types.ObjectId;
  * @author pablo
  */
 public class Entrada {
+    @BsonId
     private ObjectId idEntrada;
     private String proveedor;
     private LocalDateTime fechaHora;
@@ -71,5 +73,10 @@ public class Entrada {
 
     public void setDetallesEntrada(List<DetalleEntrada> detallesEntrada) {
         this.detallesEntrada = detallesEntrada;
+    }
+
+    @Override
+    public String toString() {
+        return "Entrada{" + "idEntrada=" + idEntrada + ", proveedor=" + proveedor + ", fechaHora=" + fechaHora + ", precioTotal=" + precioTotal + ", detallesEntrada=" + detallesEntrada + '}';
     }
 }

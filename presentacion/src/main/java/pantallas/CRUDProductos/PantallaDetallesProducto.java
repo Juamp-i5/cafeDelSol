@@ -65,7 +65,7 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
 
     private void agregarIngrediente() {
         this.setVisible(false);
-        ControlNavegacion.mostrarPantallaIngredienteSimulada(ingredienteSeleccionado -> {
+        ControlNavegacion.mostrarPantallaIngrediente(ingredienteSeleccionado -> {
             this.setVisible(true);
 
             if (ingredienteSeleccionado != null) {
