@@ -65,7 +65,8 @@ public class SalidaDAOMongo implements ISalidaDAO{
     @Override
     public List<Salida> consultarTodas() throws PersistenciaSalidasException {
         try {
-            return coleccion.find().into(new ArrayList<>());
+            List<Salida> lista = coleccion.find().into(new ArrayList<>());
+            return lista;
         } catch (Exception e) {
             throw new PersistenciaSalidasException("Error al consultar todas las salidas: " + e.getMessage(), e);
         }

@@ -9,6 +9,7 @@ import BOs.ingredientes.IngredienteBO;
 import DTOs.CRUDSalidas.DetalleSalidaDTO;
 import DTOs.CRUDSalidas.SalidaListDTO;
 import DTOs.CRUDSalidas.SalidaNuevaDTO;
+import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.salidas.DetalleSalidaDTOPersistencia;
 import DTOs.salidas.SalidaListDTOPersistencia;
 import DTOs.salidas.SalidaNuevaDTOPersistencia;
@@ -67,7 +68,8 @@ public class SalidaBO implements ISalidaBO{
             List<SalidaListDTO> resultado = new ArrayList<>();
 
             for (Salida salida : salidas) {
-                String nombreIngrediente = ingredienteDAO.obtenerDetallesIngrediente(salida.getIdIngrediente().toHexString()).getNombre();
+                DetallesIngredienteViejoDTOPersistencia detalle = ingredienteDAO.obtenerDetallesIngrediente(salida.getIdIngrediente().toHexString());
+                String nombreIngrediente = detalle.getNombre();
                 SalidaListDTOPersistencia dtoPersistencia = mapper.toSalidaListDTO(salida, nombreIngrediente);
                 resultado.add(mapper.toSalidaListDTO(dtoPersistencia));
             }
