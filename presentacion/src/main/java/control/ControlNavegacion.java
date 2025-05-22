@@ -10,6 +10,8 @@ import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.ProductoListDTO;
 import DTOs.CRUDSalidas.DetalleSalidaDTO;
+import DTOs.CRUDSalidas.SalidaListDTO;
+import DTOs.CRUDSalidas.SalidaNuevaDTO;
 import pantallas.cubiculos.PantallaCubiculosOPedidos;
 import pantallas.cubiculos.PantallaReservar;
 import pantallas.cubiculos.PantallaMenuCubiculos;
@@ -32,6 +34,7 @@ import Gestion.GestorCRUDEntradas;
 import Gestion.IGestorCRUDEntradas;
 import excepciones.GestionCRUDIngredientesException;
 import excepciones.GestionCRUDProductosException;
+import excepciones.GestionCRUDSalidasException;
 import excepciones.GestionCubiculosException;
 import exception.GestionException;
 import gestion.GestorCRUDProductos;
@@ -42,11 +45,14 @@ import gestion.IGestorCubiculos;
 import gestion.ManejadorPedidos;
 import gestionIngredientes.GestorCRUDIngredientes;
 import gestionIngredientes.IGestorCRUDIngredientes;
+import gestionSalidas.GestorCRUDSalidas;
 import java.awt.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
@@ -1103,6 +1109,51 @@ public class ControlNavegacion {
         pantallaDetalleSalida.setVisible(true);
         
         framesVisitados.add(pantallaDetalleSalida);
+    }
+    
+    public static boolean registrarSalida(SalidaNuevaDTO salida) {
+        try {
+            return GestorCRUDSalidas.getInstance().registrarSalida(salida);
+        } catch (GestionCRUDSalidasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public static List<SalidaListDTO> obtenerSalidasPorRango(LocalDate inicio, LocalDate fin) {
+        try {
+            return GestorCRUDSalidas.getInstance().consultarPorRangoFechas(inicio, fin);
+        } catch (GestionCRUDSalidasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public static List<SalidaListDTO> obtenerTodasLasSalidas() {
+        try {
+            return GestorCRUDSalidas.getInstance().consultarTodas();
+        } catch (GestionCRUDSalidasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
+    }
+
+    public static List<DetalleSalidaDTO> obtenerDetallesPorFecha(LocalDate fecha) {
+        try {
+            List<SalidaListDTO> salidas = GestorCRUDSalidas.getInstance().consultarPorRangoFechas(fecha, fecha);
+            List<DetalleSalidaDTO> detalles = new ArrayList<>();
+            for (SalidaListDTO salida : salidas) {
+                detalles.add(GestorCRUDSalidas.getInstance().consultarPorId(salida.getId()));
+            }
+            return detalles;
+        } catch (GestionCRUDSalidasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            return Collections.emptyList();
+        }
     }
   
 }
