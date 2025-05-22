@@ -1,5 +1,6 @@
 package DTOs.entradas;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
+import DTOs.ingredientes.IngredienteDTOPersistencia;
 
 /**
  *
@@ -12,17 +13,19 @@ public class DetalleEntradaDTOPersistencia {
     private Double cantidadIngrediente;
     private String nivelStock;
     private String idIngrediente;
+    private IngredienteDTOPersistencia ingredienteInfo;
 
     public DetalleEntradaDTOPersistencia() {
     }
 
-    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente) {
+    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente, IngredienteDTOPersistencia ingredienteInfo) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidadIngrediente = cantidadIngrediente;
         this.nivelStock = nivelStock;
         this.idIngrediente = idIngrediente;
+        this.ingredienteInfo = ingredienteInfo;
     }
     
     public String getNombreIngrediente() {
@@ -73,8 +76,16 @@ public class DetalleEntradaDTOPersistencia {
         this.nivelStock = nivelStock;
     }
 
+    public IngredienteDTOPersistencia getIngredienteInfo() {
+        return ingredienteInfo;
+    }
+
+    public void setIngredienteInfo(IngredienteDTOPersistencia ingredienteInfo) {
+        this.ingredienteInfo = ingredienteInfo;
+    }
+
     @Override
     public String toString() {
-        return "DetalleEntradaDTOPersistencia{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + '}';
+        return "DetalleEntradaDTOPersistencia{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidadIngrediente=" + cantidadIngrediente + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + ", ingredienteInfo=" + ingredienteInfo + '}';
     }
 }

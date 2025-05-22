@@ -846,6 +846,17 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static String obtenerIdIngredientePorNombre(String nombre){
+        try {
+            return gestorCRUDIngredientes.obtenerIdIngredientePorNombre(nombre);
+        } catch (GestionCRUDIngredientesException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     //=====================================================
     //==================== CUBICULOS ======================

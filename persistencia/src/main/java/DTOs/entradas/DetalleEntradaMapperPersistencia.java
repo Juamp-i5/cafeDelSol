@@ -2,6 +2,7 @@ package DTOs.entradas;
 
 import entidades.DetalleEntrada;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -27,9 +28,9 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
         detalles.setPrecioUnitario(detallesDTO.getPrecioUnitario());
         detalles.setCantidad(detallesDTO.getCantidadIngrediente());
 
-//        String idHex = detallesDTO.getIdIngrediente();
-//        ObjectId objectId = new ObjectId(idHex);
-//        detalles.setIdIngrediente(objectId);
+        String idHex = detallesDTO.getIdIngrediente();
+        ObjectId objectId = new ObjectId(idHex);
+        detalles.setIdIngrediente(objectId);
 
         detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
         detalles.setNivelStock(detallesDTO.getNivelStock());
@@ -42,7 +43,7 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
         detallesDTO.setCantidadIngrediente(detalles.getCantidad());
-//        detallesDTO.setIdIngrediente(detalles.getIdIngrediente().toHexString());
+        detallesDTO.setIdIngrediente(detalles.getIdIngrediente().toHexString());
         detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
         detallesDTO.setNivelStock(detalles.getNivelStock());
         return detallesDTO;
@@ -59,6 +60,9 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
 
     @Override
     public List<DetalleEntradaDTOPersistencia> todtoPersistenciaList(List<DetalleEntrada> detallesList) {
+        if (detallesList == null) {
+            return Collections.emptyList(); // evita NullPointerException
+        }
         List<DetalleEntradaDTOPersistencia> detallesDTOList = new ArrayList<>();
         for (DetalleEntrada detalle : detallesList) {
             detallesDTOList.add(todtoPersistencia(detalle));

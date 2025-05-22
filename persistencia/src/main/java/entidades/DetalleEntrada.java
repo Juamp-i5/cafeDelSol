@@ -74,4 +74,9 @@ public class DetalleEntrada {
     public void setNivelStock(String nivelStock) {
         this.nivelStock = nivelStock;
     }
+
+    @Override
+    public String toString() {
+        return "DetalleEntrada{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidad=" + cantidad + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + '}';
+    }
 }
