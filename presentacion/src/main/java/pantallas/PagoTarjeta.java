@@ -174,7 +174,7 @@ public class PagoTarjeta extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
-
+            e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ocurrió un error al procesar la tarjeta: " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }

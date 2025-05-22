@@ -18,7 +18,7 @@ public class Producto {
     private String descripcion;
     private String categoria;
     private String estado;
-    private double precioBase;
+    private Double precioBase;
     private byte[] imageData;
     private List<ProductoTamanio> tamanios;
 
@@ -65,11 +65,11 @@ public class Producto {
         this.estado = estado;
     }
 
-    public double getPrecioBase() {
+    public Double getPrecioBase() {
         return precioBase;
     }
 
-    public void setPrecioBase(double precioBase) {
+    public void setPrecioBase(Double precioBase) {
         this.precioBase = precioBase;
     }
 
