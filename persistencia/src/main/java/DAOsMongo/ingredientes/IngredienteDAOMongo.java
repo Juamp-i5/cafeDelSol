@@ -44,7 +44,7 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
 
     IIngredienteMapperPersistencia ingredienteMapper = new IngredienteMapperPersistencia();
 
-    public IngredienteDAOMongo(IConexionMongo conexion) {
+    private IngredienteDAOMongo(IConexionMongo conexion) {
         this.conexion = conexion;
 
         CodecRegistry codecRegistry = fromRegistries(

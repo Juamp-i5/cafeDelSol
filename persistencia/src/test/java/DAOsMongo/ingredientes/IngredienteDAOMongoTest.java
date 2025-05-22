@@ -6,15 +6,14 @@ package DAOsMongo.ingredientes;
 
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IngredienteDTOPersistencia;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import conexion.ConexionMongoPrueba;
 import conexion.IConexionMongo;
 import entidades.Ingrediente;
-import entidades.Proveedor;
 import java.util.List;
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -28,37 +27,30 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class IngredienteDAOMongoTest {
 
-    private IngredienteDAOMongo dao;
-    private MongoCollection<Ingrediente> coleccion;
+    private static MongoCollection<Ingrediente> coleccion;
+
+    private static IConexionMongo conexionPrueba;
+    private static IIngredienteDAOMongo ingredienteDAO;
+    private static MongoDatabase database;
+
+    @BeforeAll
+    public static void setUpClase() throws Exception {
+        conexionPrueba = ConexionMongoPrueba.getInstance();
+        database = conexionPrueba.getDatabase();
+        ingredienteDAO = IngredienteDAOMongo.getInstance(conexionPrueba);
+        coleccion = conexionPrueba.getDatabase().getCollection("ingredientes", Ingrediente.class);
+    }
 
     @BeforeEach
     public void setUp() {
-        ConexionMongoPrueba.clearInstance();
-
-        IConexionMongo conexion = ConexionMongoPrueba.getInstance();
-        dao = new IngredienteDAOMongo(conexion);
-
-        coleccion = conexion.getDatabase().getCollection("ingredientes", Ingrediente.class);
-        coleccion.deleteMany(new Document());
-
-        MongoCollection<Proveedor> proveedores = conexion.getDatabase().getCollection("proveedores", Proveedor.class);
-        proveedores.deleteMany(new Document());
-
-        Proveedor proveedor = new Proveedor();
-        proveedor.setId(new ObjectId("682adc6e276fe18581fca4be"));
-        proveedor.setNombre("Proveedor de prueba");
-
-        proveedores.insertOne(proveedor);
+        database.getCollection("ingredientes", Ingrediente.class).deleteMany(new Document());
     }
 
-    @AfterEach
-    public void tearDown() {
-        coleccion.deleteMany(new Document());
-
-        MongoCollection<Proveedor> proveedores = ConexionMongoPrueba.getInstance()
-                .getDatabase().getCollection("proveedores", Proveedor.class);
-        proveedores.deleteMany(new Document());
-
+    @AfterAll
+    public static void tearDownClase() {
+        if (database != null) {
+            database.getCollection("ingredientes", Ingrediente.class).deleteMany(new Document());
+        }
         ConexionMongoPrueba.clearInstance();
     }
 
@@ -75,7 +67,7 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        boolean resultado = dao.agregarIngrediente(ingrediente);
+        boolean resultado = ingredienteDAO.agregarIngrediente(ingrediente);
         assertTrue(resultado, "Debe agregar ingrediente correctamente");
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Azúcar")).first();
@@ -96,12 +88,12 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Sal")).first();
         assertNotNull(encontrado);
 
-        DetallesIngredienteViejoDTOPersistencia detalles = dao.obtenerDetallesIngrediente(encontrado.getId().toHexString());
+        DetallesIngredienteViejoDTOPersistencia detalles = ingredienteDAO.obtenerDetallesIngrediente(encontrado.getId().toHexString());
         assertNotNull(detalles);
         assertEquals("Sal", detalles.getNombre());
     }
@@ -119,14 +111,14 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Harina")).first();
         assertNotNull(encontrado);
 
         String nuevoNombre = "Harina Integral";
 
-        DetallesIngredienteViejoDTOPersistencia resultado = dao.editarIngrediente(encontrado.getId().toHexString(), nuevoNombre);
+        DetallesIngredienteViejoDTOPersistencia resultado = ingredienteDAO.editarIngrediente(encontrado.getId().toHexString(), nuevoNombre);
         assertNotNull(resultado);
         assertEquals(nuevoNombre, resultado.getNombre());
 
@@ -138,7 +130,7 @@ public class IngredienteDAOMongoTest {
      * Test of buscarIngredientesPorFiltros method, of class
      * IngredienteDAOMongo.
      */
-    @Test
+    @Test   
     public void testBuscarIngredientesPorFiltros() throws Exception {
         IngredienteDTOPersistencia ingrediente1 = new IngredienteDTOPersistencia();
         ingrediente1.setNombre("Agua");
@@ -156,14 +148,14 @@ public class IngredienteDAOMongoTest {
         ingrediente2.setNivelStock("ENSTOCK");
         ingrediente2.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente1);
-        dao.agregarIngrediente(ingrediente2);
+        ingredienteDAO.agregarIngrediente(ingrediente1);
+        ingredienteDAO.agregarIngrediente(ingrediente2);
 
-        List<IngredienteDTOPersistencia> resultado = dao.buscarIngredientesPorFiltros("Matcha", "");
+        List<IngredienteDTOPersistencia> resultado = ingredienteDAO.buscarIngredientesPorFiltros("Matcha", "");
         assertNotNull(resultado);
         assertTrue(resultado.size() == 1);
 
-        resultado = dao.buscarIngredientesPorFiltros("", "BAJOSTOCK");
+        resultado = ingredienteDAO.buscarIngredientesPorFiltros("", "BAJOSTOCK");
         assertTrue(resultado.stream().anyMatch(i -> "Agua".equals(i.getNombre())));
     }
 
@@ -180,12 +172,12 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Café")).first();
         assertNotNull(encontrado);
 
-        boolean res = dao.aumentarStock(encontrado.getId().toHexString(), 10.0);
+        boolean res = ingredienteDAO.aumentarStock(encontrado.getId().toHexString(), 10.0);
         assertTrue(res);
 
         Ingrediente actualizado = coleccion.find(new Document("_id", encontrado.getId())).first();
@@ -205,12 +197,12 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Leche")).first();
         assertNotNull(encontrado);
 
-        boolean res = dao.reducirStock(encontrado.getId().toHexString(), 4.0);
+        boolean res = ingredienteDAO.reducirStock(encontrado.getId().toHexString(), 4.0);
         assertTrue(res);
 
         Ingrediente actualizado = coleccion.find(new Document("_id", encontrado.getId())).first();
@@ -230,12 +222,12 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
         Ingrediente encontrado = coleccion.find(new Document("nombre", "Miel")).first();
         assertNotNull(encontrado);
 
-        dao.actualizarNivelStock(encontrado.getId().toHexString());
+        ingredienteDAO.actualizarNivelStock(encontrado.getId().toHexString());
 
         Ingrediente actualizado = coleccion.find(new Document("_id", encontrado.getId())).first();
         assertEquals("BAJOSTOCK", actualizado.getNivelStock());
@@ -254,12 +246,12 @@ public class IngredienteDAOMongoTest {
         ingrediente.setNivelStock("ENSTOCK");
         ingrediente.setIdProveedor("682adc6e276fe18581fca4be");
 
-        dao.agregarIngrediente(ingrediente);
+        ingredienteDAO.agregarIngrediente(ingrediente);
 
-        boolean existe = dao.obtenerIngredientePorNombre("Chai");
+        boolean existe = ingredienteDAO.obtenerIngredientePorNombre("Chai");
         assertTrue(existe);
 
-        boolean noExiste = dao.obtenerIngredientePorNombre("No Existe");
+        boolean noExiste = ingredienteDAO.obtenerIngredientePorNombre("No Existe");
         assertFalse(noExiste);
     }
 
