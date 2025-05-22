@@ -56,6 +56,7 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
         return null;
     }
     
+    @Override
     public EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) throws GestorCRUDEntradasException{
         try {
             return entradaBO.obtenerDetallesConIngredientes(entradaId);

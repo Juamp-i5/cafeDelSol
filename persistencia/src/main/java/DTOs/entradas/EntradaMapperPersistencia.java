@@ -3,6 +3,7 @@ package DTOs.entradas;
 import entidades.Entrada;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  *
@@ -74,6 +75,8 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
     @Override
     public Entrada toEntityViejo(EntradaViejaDTOPersistencia entradaDTO) {
         Entrada entrada = new Entrada();
+        ObjectId entradaid = new ObjectId(entradaDTO.getIdEntrada());
+        entrada.setIdEntrada(entradaid);
         entrada.setFechaHora(entradaDTO.getFechaHora());
         entrada.setProveedor(entradaDTO.getProveedor());
         entrada.setPrecioTotal(entradaDTO.getPrecioTotal());
@@ -98,6 +101,8 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
         List<Entrada> entradas = new ArrayList<>();
         for (EntradaViejaDTOPersistencia entradasdto : entradasDTO) {
             Entrada entrada = new Entrada();
+            ObjectId entradaid = new ObjectId(entradasdto.getIdEntrada());
+            entrada.setIdEntrada(entradaid);
             entrada.setFechaHora(entradasdto.getFechaHora());
             entrada.setProveedor(entradasdto.getProveedor());
             entrada.setPrecioTotal(entradasdto.getPrecioTotal());
@@ -112,6 +117,7 @@ public class EntradaMapperPersistencia implements IEntradaMapperPersistencia {
         List<EntradaViejaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (Entrada entrada : entradas) {
             EntradaViejaDTOPersistencia entradadto = new EntradaViejaDTOPersistencia();
+            entradadto.setIdEntrada(entrada.getIdEntrada().toHexString());
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());

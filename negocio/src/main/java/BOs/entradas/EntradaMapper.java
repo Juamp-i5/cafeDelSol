@@ -73,6 +73,7 @@ public class EntradaMapper implements IEntradaMapper {
     @Override
     public EntradaViejaDTO todtoViejo(EntradaViejaDTOPersistencia entradaDTO) {
         EntradaViejaDTO entrada = new EntradaViejaDTO();
+        entrada.setIdEntrada(entradaDTO.getIdEntrada());
         entrada.setFechaHora(entradaDTO.getFechaHora());
         entrada.setProveedor(entradaDTO.getProveedor());
         entrada.setPrecioTotal(entradaDTO.getPrecioTotal());
@@ -83,6 +84,7 @@ public class EntradaMapper implements IEntradaMapper {
     @Override
     public EntradaViejaDTOPersistencia todtoViejoPersistencia(EntradaViejaDTO entrada) {
         EntradaViejaDTOPersistencia entradaDTO = new EntradaViejaDTOPersistencia();
+        entradaDTO.setIdEntrada(entrada.getIdEntrada());
         entradaDTO.setFechaHora(entrada.getFechaHora());
         entradaDTO.setProveedor(entrada.getProveedor());
         entradaDTO.setPrecioTotal(entrada.getPrecioTotal());
@@ -96,6 +98,7 @@ public class EntradaMapper implements IEntradaMapper {
         List<EntradaViejaDTO> entradas = new ArrayList<>();
         for (EntradaViejaDTOPersistencia entradasdto : entradasDTO) {
             EntradaViejaDTO entrada = new EntradaViejaDTO();
+            entrada.setIdEntrada(entradasdto.getIdEntrada());
             entrada.setFechaHora(entradasdto.getFechaHora());
             entrada.setProveedor(entradasdto.getProveedor());
             entrada.setPrecioTotal(entradasdto.getPrecioTotal());
@@ -110,6 +113,7 @@ public class EntradaMapper implements IEntradaMapper {
         List<EntradaViejaDTOPersistencia> entradasDTO = new ArrayList<>();
         for (EntradaViejaDTO entrada : entradas) {
             EntradaViejaDTOPersistencia entradadto = new EntradaViejaDTOPersistencia();
+            entradadto.setIdEntrada(entrada.getIdEntrada());
             entradadto.setFechaHora(entrada.getFechaHora());
             entradadto.setProveedor(entrada.getProveedor());
             entradadto.setPrecioTotal(entrada.getPrecioTotal());

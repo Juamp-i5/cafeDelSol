@@ -183,13 +183,12 @@ public class EntradaDAOMongoTest {
         entrada.setFechaHora(LocalDateTime.now().minusHours(2).withNano(0));
         entrada.setPrecioTotal(15.0);
         entrada.setDetallesEntrada(Collections.singletonList(detalle));
-        System.out.println(entrada);
         
         coleccion.insertOne(entrada); 
         
         EntradaViejaDTOPersistencia entradaResultado = dao.obtenerDetallesConIngredientes(idEntrada.toHexString());
         assertNotNull(entradaResultado, "El resultado no debe ser null");
-        
+        System.out.println(entradaResultado);
         assertEquals("Distribuidora Dulce", entradaResultado.getProveedor(), "El proveedor debe coincidir");
         assertEquals(15.0, entradaResultado.getPrecioTotal(), 0.01, "El precio total debe ser correcto");
         assertEquals(1, entradaResultado.getDetallesEntrada().size(), "Debe haber un detalle de entrada");

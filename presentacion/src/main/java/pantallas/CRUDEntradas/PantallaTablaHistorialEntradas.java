@@ -99,6 +99,7 @@ public final class PantallaTablaHistorialEntradas extends javax.swing.JFrame {
                 int filaSeleccionada = jTable2.getSelectedRow();
                 if (filaSeleccionada != -1) {
                     EntradaViejaDTO entradaSeleccionada = listaEntradas.get(filaSeleccionada);
+                    System.out.println("Id entrada: "+entradaSeleccionada.getIdEntrada());
                     ControlNavegacion.mostrarPantallaDetallesEntrada(entradaSeleccionada);
                     PantallaTablaHistorialEntradas.this.setVisible(false);
                 }

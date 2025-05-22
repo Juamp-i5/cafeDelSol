@@ -117,16 +117,14 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
         celda.setBackgroundColor(colorEncabezado);
         tabla.addCell(celda);
         if (entrada != null && entrada.getDetallesEntrada() != null) {
-            for (DetalleEntradaDTO detalle : entrada.getDetallesEntrada()) {
-//                List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(detalle.getNombreIngrediente(), detalle.getNivelStock().toString());
-//                IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
+            EntradaViejaDTO entradadto = ControlNavegacion.obtenerDetallesConIngredientes(entrada.getIdEntrada());
+            List<DetalleEntradaDTO> registroDetalles = entradadto.getDetallesEntrada();
+            for (DetalleEntradaDTO detalle : registroDetalles) {
                 tabla.addCell(new Phrase(detalle.getNombreIngrediente(), cuerpoFont));
-                tabla.addCell(new Phrase(" ")); //Stock actual
-                tabla.addCell(new Phrase(" ")); //Unidad de medida
+                tabla.addCell(new Phrase(String.valueOf(detalle.getIngredienteInfo().get(0).getCantidadDisponible()), cuerpoFont)); 
+                tabla.addCell(new Phrase(String.valueOf(detalle.getIngredienteInfo().get(0).getUnidadMedida()), cuerpoFont)); //Unidad de medida
                 tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioUnitario()), cuerpoFont));
                 tabla.addCell(new Phrase(String.valueOf("$ " + detalle.getPrecioTotal()), cuerpoFont));
-//                tabla.addCell(new Phrase(String.valueOf(ingrediente.getUnidadMedida()), cuerpoFont)); //Unidad de medida
-//                tabla.addCell(new Phrase(String.valueOf(ingrediente.getCantidadDisponible()), cuerpoFont)); //Stock actual
             }
         }
         documento.add(tabla);
