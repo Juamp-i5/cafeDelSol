@@ -63,7 +63,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import pantallas.*;
-import pantallas.CRUDEntradas.BuscadorIngredientesSimulado;
 import pantallas.CRUDEntradas.PantallaTablaDetallesEntrada;
 import pantallas.CRUDEntradas.PantallaTablaHistorialEntradas;
 import pantallas.CRUDEntradas.PantallaTablaRegistroEntrada;
@@ -740,17 +739,11 @@ public class ControlNavegacion {
         frame.setVisible(true);
     }
 
-    public static void mostrarPantallaBuscadorIngrediente(Consumer<IngredienteViejoListDTO> regreso) {
-        JFrame frame = new BuscadorIngredientesSimulado(regreso);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-
     // entradas metodos
     public static boolean registrarEntrada(EntradaNuevaDTO entrada) {
         try {
             gestorCRUDEntradas.registrarEntrada(entrada);
-            JOptionPane.showMessageDialog(null, "Ingrediente agregado exitosamente");
+            JOptionPane.showMessageDialog(null, "Entrada registrada exitosamente");
             return true;
         } catch (GestorCRUDEntradasException ex) {
             JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);

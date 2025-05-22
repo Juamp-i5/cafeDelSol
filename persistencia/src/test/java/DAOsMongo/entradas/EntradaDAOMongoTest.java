@@ -53,7 +53,7 @@ public class EntradaDAOMongoTest {
         coleccion = conexion.getDatabase().getCollection(NOMBRE_COLECCION_ENTRADAS, Entrada.class);
         coleccionIngredientes = conexion.getDatabase().getCollection(NOMBRE_COLECCION_INGREDIENTES, Ingrediente.class);
 
-        coleccion.deleteMany(new Document()); // Limpiar antes
+        coleccion.deleteMany(new Document()); 
         coleccionIngredientes.deleteMany(new Document());
     }
 
@@ -62,7 +62,6 @@ public class EntradaDAOMongoTest {
         coleccion.deleteMany(new Document());
         coleccionIngredientes.deleteMany(new Document());
 
-        // Cerrar conexión hasta después de terminar las operaciones
         ConexionMongoPrueba.clearInstance();
     }
 
@@ -111,13 +110,23 @@ public class EntradaDAOMongoTest {
     public void testObtenerEntradasPorFechas() throws Exception {
         System.out.println("testObtenerEntradasPorFechasRangoCompleto");
 
+        List<Ingrediente> listaIngredientes = new ArrayList<>();
+        ObjectId idIngrediente = new ObjectId();
+        Ingrediente ingrediente = new Ingrediente();
+        ingrediente.setId(idIngrediente);
+        ingrediente.setNombre("Azúcar Morena");
+        ingrediente.setUnidadMedida("KG");
+        ingrediente.setCantidadDisponible(75.0);
+        ingrediente.setNivelStock("BAJO");
+        listaIngredientes.add(ingrediente);
+        
         Entrada e1 = new Entrada();
         e1.setIdEntrada(new ObjectId());
         e1.setProveedor("P1");
         e1.setFechaHora(LocalDateTime.of(2024, 1, 10, 10, 0, 0));
         e1.setPrecioTotal(50.0);
         e1.setDetallesEntrada(Arrays.asList(
-//                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId())
+                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId(),listaIngredientes)
         ));
 
         Entrada e2 = new Entrada();
@@ -150,7 +159,6 @@ public class EntradaDAOMongoTest {
 
     @Test
     public void testObtenerDetallesConIngredientes() throws PersistenciaEntradasException {
-        // Insertar ingrediente
         ObjectId idProveedor = new ObjectId();
         Proveedor proveedor = new Proveedor();
         proveedor.setId(idProveedor);
@@ -165,8 +173,7 @@ public class EntradaDAOMongoTest {
         ingrediente.setNivelStock("BAJO");
         ingrediente.setIdProveedor(idProveedor);
         coleccionIngredientes.insertOne(ingrediente);
-
-        // Crear detalle de entrada
+        
         DetalleEntrada detalle = new DetalleEntrada();
         detalle.setIdIngrediente(idIngrediente);
         detalle.setNombreIngrediente("Azúcar Morena");
@@ -174,8 +181,7 @@ public class EntradaDAOMongoTest {
         detalle.setPrecioUnitario(1.5);
         detalle.setPrecioTotal(15.0);
         detalle.setNivelStock("ALTO");
-
-        // Insertar entrada directamente
+        
         ObjectId idEntrada = new ObjectId();
         Entrada entrada = new Entrada();
         entrada.setIdEntrada(idEntrada);

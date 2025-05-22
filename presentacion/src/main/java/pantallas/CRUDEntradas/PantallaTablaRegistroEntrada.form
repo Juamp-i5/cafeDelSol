@@ -24,39 +24,38 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="BtnVolverAtras" min="-2" pref="134" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="BtnConfirmar" min="-2" pref="134" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="LbTitulo" min="-2" pref="647" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jSeparator1" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="18" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                  <Component id="TablaRegistro" min="-2" pref="986" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="LbProveedor" min="-2" max="-2" attributes="0"/>
-                          <Component id="TFProveedor" min="-2" pref="282" max="-2" attributes="0"/>
+          <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="18" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="TablaRegistro" min="-2" pref="986" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="LbProveedor" min="-2" max="-2" attributes="0"/>
+                                  <Component id="TFProveedor" min="-2" pref="282" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="BtnAgregarIngrediente" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="BtnCancelar" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                      <Component id="BtnVolverAtras" min="-2" pref="151" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="BtnAgregarIngrediente" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="BtnCancelar" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnConfirmar" min="-2" pref="158" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,12 +79,12 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="TablaRegistro" min="-2" pref="533" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jSeparator1" min="-2" pref="4" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="BtnConfirmar" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
-                  <Component id="BtnVolverAtras" alignment="3" min="-2" pref="49" max="-2" attributes="0"/>
+                  <Component id="BtnVolverAtras" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
+                  <Component id="BtnConfirmar" alignment="3" min="-2" pref="61" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -100,6 +99,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnVolverAtrasActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="BtnVolverAtras.setFont(new java.awt.Font(&quot;Segoe UI&quot;, 1, 18));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="BtnVolverAtras.setBackground(new java.awt.Color(255, 204, 0));"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="BtnConfirmar">
       <Properties>
@@ -108,6 +111,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnConfirmarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="BtnConfirmar.setBackground(new java.awt.Color(255, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="BtnConfirmar.setFont(new java.awt.Font(&quot;Segoe UI&quot;, 1, 18));"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>
@@ -135,6 +142,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnAgregarIngredienteActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="BtnAgregarIngrediente.setBackground(new java.awt.Color(255, 204, 0));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="BtnAgregarIngrediente.setFont(new java.awt.Font(&quot;Segoe UI&quot;, 1, 18));"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="BtnCancelar">
       <Properties>
@@ -143,6 +154,10 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCancelarActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="BtnCancelar.setFont(new java.awt.Font(&quot;Segoe UI&quot;, 1, 18));"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="BtnCancelar.setBackground(new java.awt.Color(255, 204, 0));"/>
+      </AuxValues>
     </Component>
     <Container class="javax.swing.JScrollPane" name="TablaRegistro">
 
