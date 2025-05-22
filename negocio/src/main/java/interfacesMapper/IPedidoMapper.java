@@ -17,4 +17,6 @@ public interface IPedidoMapper {
     public Pedido toEntity(PedidoDTO pedidoDTO);
 
     public PersistenciaPedidoDTO toPersistenciaPedidoDTO(PedidoDTO fuentePedido);
+    
+    public PedidoDTO toPedidoDTO(PersistenciaPedidoDTO persistenciaPedido);
 }

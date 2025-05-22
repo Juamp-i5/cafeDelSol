@@ -4,6 +4,8 @@
  */
 package mapper;
 
+import DTOs.CambioDTO;
+import DTOs.EfectivoDTO;
 import DTOs.PagoDTO;
 import DTOs.PedidoDTO;
 import DTOs.PersistenciaDetallesEfectivoDTO;
@@ -20,6 +22,7 @@ import DTOs.ProductoPedidoDTO;
 import DTOs.ResultadoPagoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
+import DTOs.TarjetaDTO;
 import DTOs.ToppingMostrarDTO;
 import entidades.Pedido;
 import interfacesMapper.IPedidoMapper;
@@ -197,16 +200,104 @@ public class PedidoMapper implements IPedidoMapper {
             persistenciaPago.setMetodoPago(metodoPago);
             if ("EFECTIVO".equals(metodoPago)) {
                 persistenciaPago.setDetallesEfectivo(pDetallesEfectivo);
-                persistenciaPago.setDetallesTarjeta(null); // Asegurar que el otro sea null
+                persistenciaPago.setDetallesTarjeta(null);
             } else if ("TARJETA".equals(metodoPago)) {
                 persistenciaPago.setDetallesTarjeta(pDetallesTarjeta);
-                persistenciaPago.setDetallesEfectivo(null); // Asegurar que el otro sea null
+                persistenciaPago.setDetallesEfectivo(null);
             }
 
             persistenciaPedido.setPago(persistenciaPago);
         }
 
         return persistenciaPedido;
+    }
+
+    @Override
+    public PedidoDTO toPedidoDTO(PersistenciaPedidoDTO persistenciaPedido) {
+        if (persistenciaPedido == null) {
+            return null;
+        }
+
+        PedidoDTO pedido = new PedidoDTO();
+        pedido.setCostoTotal(persistenciaPedido.getPrecioTotal());
+        pedido.setIdUsuario(persistenciaPedido.getBaristaId());
+
+        List<ProductoPedidoDTO> listaProductos = new ArrayList<>();
+        if (persistenciaPedido.getProductos() != null) {
+            for (PersistenciaProductoPedidoDTO persistenciaProdPedido : persistenciaPedido.getProductos()) {
+                if (persistenciaProdPedido == null) {
+                    continue;
+                }
+
+                ProductoPedidoDTO productoPedido = new ProductoPedidoDTO();
+
+                if (persistenciaProdPedido.getProducto() != null) {
+                    ProductoMostrarDTO producto = new ProductoMostrarDTO();
+                    producto.setNombre(persistenciaProdPedido.getProducto().getNombre());
+                    producto.setPrecio(persistenciaProdPedido.getPrecioUnitario()); // o persistenciaProdPedido.getProducto().getPrecio()
+                    productoPedido.setProducto(producto);
+                }
+
+                if (persistenciaProdPedido.getSabor() != null) {
+                    SaborMostrarDTO sabor = new SaborMostrarDTO();
+                    sabor.setNombre(persistenciaProdPedido.getSabor().getNombre());
+                    productoPedido.setSabor(sabor);
+                }
+
+                if (persistenciaProdPedido.getTamanio() != null) {
+                    TamanioMostrarDTO tamanio = new TamanioMostrarDTO();
+                    tamanio.setNombre(persistenciaProdPedido.getTamanio().getNombre());
+                    tamanio.setPrecioAdicional(0.0); // Establece si es necesario
+                    productoPedido.setTamanio(tamanio);
+                }
+
+                if (persistenciaProdPedido.getTopping() != null) {
+                    ToppingMostrarDTO topping = new ToppingMostrarDTO();
+                    topping.setNombre(persistenciaProdPedido.getTopping().getNombre());
+                    productoPedido.setTopping(topping);
+                }
+
+                productoPedido.setCantidad(persistenciaProdPedido.getCantidad());
+                productoPedido.setCosto(persistenciaProdPedido.getSubtotal());
+
+                listaProductos.add(productoPedido);
+            }
+        }
+        pedido.setProductos(listaProductos);
+
+        if (persistenciaPedido.getPago() != null) {
+            PersistenciaPagoDTO persistenciaPago = persistenciaPedido.getPago();
+            PagoDTO pago = new PagoDTO();
+            pago.setMoneda(persistenciaPago.getMoneda());
+
+            String metodo = persistenciaPago.getMetodoPago();
+            if ("TARJETA".equals(metodo) && persistenciaPago.getDetallesTarjeta() != null) {
+                TarjetaDTO tarjeta = new TarjetaDTO();
+                tarjeta.setNombreBanco(persistenciaPago.getDetallesTarjeta().getBanco());
+                tarjeta.setNumTarjeta("****" + persistenciaPago.getDetallesTarjeta().getUltimosDigitos()); // Para mostrar de forma parcial
+                pago.setTarjetaDTO(tarjeta);
+
+                ResultadoPagoDTO resultado = new ResultadoPagoDTO();
+                resultado.setTipoTarjeta(persistenciaPago.getDetallesTarjeta().getTipoTarjeta());
+                resultado.setMarca(persistenciaPago.getDetallesTarjeta().getMarca());
+                resultado.setBanco(persistenciaPago.getDetallesTarjeta().getBanco());
+                resultado.setTitular(persistenciaPago.getDetallesTarjeta().getTitular());
+                resultado.setIdTransaccion(persistenciaPago.getDetallesTarjeta().getNoAutorizacion());
+                pago.setResultadoPagoDTO(resultado);
+            } else if ("EFECTIVO".equals(metodo) && persistenciaPago.getDetallesEfectivo() != null) {
+                EfectivoDTO efectivo = new EfectivoDTO();
+                efectivo.setCantidadIngresada(persistenciaPago.getDetallesEfectivo().getMontoRecibido());
+                pago.setEfectivoDTO(efectivo);
+
+                CambioDTO cambio = new CambioDTO();
+                cambio.setCambio(persistenciaPago.getDetallesEfectivo().getCambio());
+                pago.setCambioDTO(cambio);
+            }
+
+            pedido.setPagoDTO(pago);
+        }
+
+        return pedido;
     }
 
 }

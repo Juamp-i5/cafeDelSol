@@ -1041,7 +1041,7 @@ public class ControlNavegacion {
         framesVisitados.add(pantallaVerReservaciones);
     }
 
-    public static void mostrarPantallaPantallaEstadoPedidos() {
+    public static void mostrarPantallaEstadoPedidos() {
         JFrame frame = new PantallaEstadoPedidos();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

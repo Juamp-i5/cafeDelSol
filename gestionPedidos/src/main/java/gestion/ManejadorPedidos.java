@@ -291,7 +291,11 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     @Override
     public List<PedidoDTO> obtenerPedidosDelivery() throws GestionException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            return pedidoBO.obtenerPedidosDelivery();
+        } catch (NegocioException ex) {
+            throw new GestionException("Error al obtener los pedidos delivery", ex);
+        }
     }
 
     @Override
