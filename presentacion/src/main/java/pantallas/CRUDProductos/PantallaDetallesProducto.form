@@ -49,8 +49,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="comboBoxCategoria" pref="250" max="32767" attributes="0"/>
-                              <Component id="textFieldDescripcion" alignment="0" max="32767" attributes="0"/>
+                              <Component id="comboBoxCategoria" max="32767" attributes="0"/>
+                              <Component id="textFieldDescripcion" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                               <Component id="textFieldNombre" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -105,7 +105,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="labelDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="textFieldDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="textFieldDescripcion" alignment="3" max="32767" attributes="0"/>
                               <Component id="LabelPrecioMediano" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="textFieldPrecioMediano" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
