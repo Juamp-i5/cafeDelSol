@@ -9,6 +9,12 @@ import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 
+/**
+ * Clase para establecer y manejar una conexión de prueba con una base de datos MongoDB utilizando el patrón
+ * Singleton.
+ *
+ * @author norma
+ */
 public class ConexionMongoPrueba implements IConexionMongo {
 
     private static final String URL = "mongodb://localhost:27017";
@@ -18,6 +24,11 @@ public class ConexionMongoPrueba implements IConexionMongo {
     private MongoDatabase mongoDatabase;
     private MongoClient mongoClient;
 
+    /**
+     * Constructor privado para implementar el patrón Singleton. Establece la
+     * conexión con la base de datos MongoDB y prueba la conexión. Lanza una
+     * excepción en caso de error de conexión.
+     */
     private ConexionMongoPrueba() {
         try {
             CodecRegistry pojoCodecRegistry = CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build());
@@ -38,6 +49,12 @@ public class ConexionMongoPrueba implements IConexionMongo {
         }
     }
 
+    /**
+     * Obtiene la única instancia de la clase.
+     * Si no existe una instancia previa, se crea una nueva.
+     *
+     * @return la instancia Singleton.
+     */
     public static ConexionMongoPrueba getInstance() {
         if (instancia == null) {
             instancia = new ConexionMongoPrueba();
@@ -45,6 +62,12 @@ public class ConexionMongoPrueba implements IConexionMongo {
         return instancia;
     }
 
+    /**
+     * Retorna la instancia de la base de datos conectada.
+     *
+     * @return objeto MongoDatabase correspondiente a la conexión actual
+     * @throws IllegalStateException si la conexión no ha sido inicializada
+     */
     @Override
     public MongoDatabase getDatabase() {
         if (mongoDatabase == null) {
@@ -53,6 +76,10 @@ public class ConexionMongoPrueba implements IConexionMongo {
         return mongoDatabase;
     }
 
+     /**
+     * Cierra la conexión actual con MongoDB si existe.
+     * También limpia las referencias a la instancia, base de datos y cliente.
+     */
     @Override
     public void close() {
         if (mongoClient != null) {
@@ -69,6 +96,10 @@ public class ConexionMongoPrueba implements IConexionMongo {
         }
     }
 
+    /**
+     * Limpia la instancia Singleton existente y cierra la conexión si está
+     * activa.
+     */
     public static void clearInstance() {
         if (instancia != null) {
             instancia.close();
