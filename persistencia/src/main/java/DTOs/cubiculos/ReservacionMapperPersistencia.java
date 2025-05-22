@@ -18,6 +18,11 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
     public ReservacionMapperPersistencia() {
     }
 
+    /**
+     * Transforma una entidad Reservación a ReservacionDTOCompletaPersistencia
+     * @param entidad Reservacion a transformar
+     * @return Entidad transformada a ReservacionDTOCompletaPersistencia
+     */
     @Override
     public ReservacionDTOCompletaPersistencia toDTO(Reservacion entidad){
         if (entidad == null) {
@@ -43,6 +48,11 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         return dto;
     }
 
+    /**
+     * Transforma un ReservacionDTOCompletaPersistencia a una entidad Reservacion
+     * @param dto DTO a transformar
+     * @return DTO transformado en entidad
+     */
     @Override
     public Reservacion toMongo(ReservacionDTOCompletaPersistencia dto){
         if (dto == null) {
@@ -65,6 +75,11 @@ public class ReservacionMapperPersistencia implements IReservacionMapperPersiste
         return entidad;
     }
 
+    /**
+     * Transforma una lista de Reservacion entidades a una de ReservacionDTOCompletaPersistencia
+     * @param entidades lista de entidades a transformar
+     * @return Lista de ReservacionDTOCompletaPersistencia
+     */
     @Override
     public List<ReservacionDTOCompletaPersistencia> toDTOList(List<Reservacion> entidades) {
         if (entidades == null) {
