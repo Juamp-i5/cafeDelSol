@@ -69,7 +69,13 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
         return instancia;
     }
-
+    
+    /**
+     * Agrega una reservacion a la base de datos
+     * @param reservacion reservación a agregar
+     * @return reservación agregada
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public ReservacionDTOCompletaPersistencia agregarReservacion(ReservacionDTOCompletaPersistencia reservacion) throws PersistenciaCubiculoEsception {
         try {
@@ -81,6 +87,13 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Actualiza el estado de una reservación
+     * @param numReservacion reservación a actualizar el estado
+     * @param estado estado nuevo
+     * @return true si se logró el movimiento
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public boolean actualizarEstadoReservacion(Integer numReservacion, Estado estado) throws PersistenciaCubiculoEsception {
         try {
@@ -101,6 +114,12 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Buscar una reservación por su numero de reservación
+     * @param id Numero de resrvación
+     * @return Reservación encontrada
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public ReservacionDTOCompletaPersistencia buscarPorId(Integer id) throws PersistenciaCubiculoEsception {
         try {
@@ -114,6 +133,13 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Obtiene reservaciones por un rango de fechas, se puede usar null para ignorar el filtro
+     * @param fechaInicio Filtro fecha "Desde"
+     * @param fechaFin Filtro fecha "Hasta"
+     * @return Lista de reservaciones que coinciden con los parámetros
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public List<ReservacionDTOCompletaPersistencia> buscarPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception {
         try {
@@ -140,12 +166,18 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Obtiene reservaciones pendientes o activas por un rango de fechas, se puede usar null para ignorar el filtro
+     * @param fechaInicio Filtro fecha "Desde"
+     * @param fechaFin Filtro fecha "Hasta"
+     * @return Lista de reservaciones que coinciden con los parámetros
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public List<ReservacionDTOCompletaPersistencia> buscarPendientesPorRangoFechas(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaCubiculoEsception {
         try {
             List<Bson> filtros = new ArrayList<>();
 
-            // Filtro por estado "PENDIENTE"
             filtros.add(Filters.in("estado", Estado.PENDIENTE, Estado.ACTIVA));
 
             // Filtros por fechas, si no son null
@@ -161,7 +193,6 @@ public class ReservacionDAOMongo implements IReservacionDAO {
             // Combina los filtros (estado + fechas)
             Bson filtroFinal = Filters.and(filtros);
 
-            // Ejecuta la consulta
             List<ReservacionDTOCompletaPersistencia> listaDTO = reservacionMapper.toDTOList(
                     coleccion.find(filtroFinal).into(new ArrayList<>())
             );
@@ -172,6 +203,15 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Actualiza la reservacion y añade los campos correspondientes dependiendo de si cambia a Cancelada o Reagendada
+     * @param numReservacion Reservacion a modificar
+     * @param numReservacionNuevo En caso de ser reagenda, marcar como "null" si no
+     * @param motivo Motivo del cambio
+     * @param fechaHora Fecha exacta de la modificación
+     * @return True si la modificación fue exitosa
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public boolean modificarReservacion(Integer numReservacion, Integer numReservacionNuevo, String motivo, LocalDateTime fechaHora) throws PersistenciaCubiculoEsception {
         try {
@@ -205,6 +245,12 @@ public class ReservacionDAOMongo implements IReservacionDAO {
         }
     }
 
+    /**
+     * Obtiene una reservación con absolutamente todos sus datos
+     * @param numReservacion Reservación a obtener detalle
+     * @return Reservación con todos sus detalles
+     * @throws PersistenciaCubiculoEsception 
+     */
     @Override
     public ReservacionDetalleDTOPersistencia getDetalleReservacion(Integer numReservacion) throws PersistenciaCubiculoEsception {
         try {
