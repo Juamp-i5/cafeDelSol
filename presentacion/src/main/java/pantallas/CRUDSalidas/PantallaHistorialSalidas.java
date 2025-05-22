@@ -8,6 +8,7 @@ import DTOs.CRUDSalidas.DetalleSalidaDTO;
 import DTOs.CRUDSalidas.SalidaListDTO;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import control.ControlNavegacion;
 import excepciones.GestionCRUDSalidasException;
 import gestionSalidas.GestorCRUDSalidas;
 import java.awt.BorderLayout;
@@ -131,7 +132,6 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         panelCentro.add(scroll, BorderLayout.CENTER);
         add(panelCentro, BorderLayout.CENTER);
 
-        // Botón regresar
         JPanel panelInferior = new JPanel(new BorderLayout());
         panelInferior.setBackground(new Color(235, 235, 235));
         btnRegresar = new JButton("<---");
@@ -141,11 +141,10 @@ public class PantallaHistorialSalidas extends javax.swing.JFrame {
         panelInferior.add(btnRegresar, BorderLayout.WEST);
         add(panelInferior, BorderLayout.SOUTH);
 
-        // Acciones
         btnBuscar.addActionListener(e -> buscarSalidas());
         btnRegresar.addActionListener(e -> {
             this.dispose();
-            new MenuSalidas().setVisible(true);
+            ControlNavegacion.volverPantallaAnterior();
         });
 
     }

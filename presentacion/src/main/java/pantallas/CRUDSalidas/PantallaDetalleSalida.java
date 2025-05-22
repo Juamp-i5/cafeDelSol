@@ -11,6 +11,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import control.ControlNavegacion;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -114,7 +115,6 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
             return;
         }
 
-        // ---------- Panel superior ----------
         JPanel panelTitulo = new JPanel(new BorderLayout());
         panelTitulo.setBackground(new Color(235, 235, 235));
 
@@ -138,7 +138,6 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
 
         getContentPane().add(panelTitulo, BorderLayout.NORTH);
 
-        // ---------- Tabla ----------
         modeloTabla = new DefaultTableModel(new Object[]{"Cantidad", "Ingrediente", "Motivo"}, 0);
         tablaDetalles = new JTable(modeloTabla);
         tablaDetalles.setRowHeight(40);
@@ -149,7 +148,6 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
         scrollTabla.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
         getContentPane().add(scrollTabla, BorderLayout.CENTER);
 
-        // Agregar todas las salidas de esa fecha
         for (DetalleSalidaDTO dto : detalles) {
             modeloTabla.addRow(new Object[]{
                 dto.getCantidad(),
@@ -158,7 +156,6 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
             });
         }
 
-        // ---------- Panel inferior ----------
         JPanel panelInferior = new JPanel(new BorderLayout());
         panelInferior.setBackground(new Color(235, 235, 235));
         panelInferior.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -169,7 +166,7 @@ public class PantallaDetalleSalida extends javax.swing.JFrame {
         btnRegresar.setBackground(Color.YELLOW);
         btnRegresar.addActionListener(e -> {
             this.dispose();
-            new PantallaHistorialSalidas().setVisible(true);
+            ControlNavegacion.volverPantallaAnterior();
         });
 
         btnGenerarPDF = new JButton("Generar PDF");

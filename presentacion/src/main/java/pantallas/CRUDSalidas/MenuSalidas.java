@@ -4,6 +4,8 @@
  */
 package pantallas.CRUDSalidas;
 
+import control.ControlNavegacion;
+
 /**
  *
  * @author katia
@@ -14,6 +16,7 @@ public class MenuSalidas extends javax.swing.JFrame {
      * Creates new form MenuSalidas
      */
     public MenuSalidas() {
+        setTitle("Menu Salidas");
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -107,13 +110,13 @@ public class MenuSalidas extends javax.swing.JFrame {
     private void btnHistorialSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialSalidasActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new PantallaHistorialSalidas().setVisible(true);
+        ControlNavegacion.mostrarPantallaHistorialSalidas();
     }//GEN-LAST:event_btnHistorialSalidasActionPerformed
 
     private void btnRegistrarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSalidaActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        new PantallaRegistrarSalida().setVisible(true);
+        ControlNavegacion.mostrarPantallaRegistrarSalida();
     }//GEN-LAST:event_btnRegistrarSalidaActionPerformed
 
     /**

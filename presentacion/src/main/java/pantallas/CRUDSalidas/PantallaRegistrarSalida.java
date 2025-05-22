@@ -8,6 +8,7 @@ import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDSalidas.SalidaNuevaDTO;
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
+import control.ControlNavegacion;
 import enums.MotivoEnum;
 import excepciones.GestionCRUDIngredientesException;
 import excepciones.GestionCRUDSalidasException;
@@ -253,7 +254,7 @@ public class PantallaRegistrarSalida extends javax.swing.JFrame {
         
         btnRegresar.addActionListener(e -> {
             this.dispose();
-            new MenuSalidas().setVisible(true);
+            ControlNavegacion.volverPantallaAnterior();
         });
     }
     
