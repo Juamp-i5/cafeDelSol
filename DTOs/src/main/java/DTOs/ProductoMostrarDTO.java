@@ -11,7 +11,7 @@ package DTOs;
 public class ProductoMostrarDTO {
 
     private String nombre;
-    private double precio;
+    private Double precio;
     private byte[] imagenData;
 
     public ProductoMostrarDTO() {
@@ -31,11 +31,11 @@ public class ProductoMostrarDTO {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

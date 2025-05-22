@@ -14,8 +14,8 @@ public class ProductoPedidoDTO {
     private TamanioMostrarDTO tamanio;
     private SaborMostrarDTO sabor;
     private ToppingMostrarDTO topping;
-    private int cantidad = 1;
-    private double costo;
+    private Integer cantidad = 1;
+    private Double costo;
 
     public ProductoPedidoDTO() {
         this.cantidad = 1;
@@ -68,19 +68,19 @@ public class ProductoPedidoDTO {
         this.topping = topping;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public double getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 
