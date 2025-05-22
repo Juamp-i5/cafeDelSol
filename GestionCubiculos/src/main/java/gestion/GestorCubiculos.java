@@ -43,6 +43,7 @@ public class GestorCubiculos implements IGestorCubiculos {
     private IContadorBO contadorBO = ContadorBO.getInstance();
     private IValidadorCubiculos validador = new ValidadorCubiculos();
 
+    
     private GestorCubiculos() {
     }
 
