@@ -1,5 +1,6 @@
 package entidades;
 
+import java.util.List;
 import org.bson.types.ObjectId;
 
 /**
@@ -14,17 +15,19 @@ public class DetalleEntrada {
     private Double cantidad;
     private String nivelStock;
     private ObjectId idIngrediente;
+    private List<Ingrediente> ingredienteInfo;
 
     public DetalleEntrada() {
     }
 
-    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, String nivelStock, ObjectId idIngrediente) {
+    public DetalleEntrada(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidad, String nivelStock, ObjectId idIngrediente, List<Ingrediente> ingredienteInfo) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
         this.cantidad = cantidad;
         this.nivelStock = nivelStock;
         this.idIngrediente = idIngrediente;
+        this.ingredienteInfo = ingredienteInfo;
     }
 
     public String getNombreIngrediente() {
@@ -75,8 +78,16 @@ public class DetalleEntrada {
         this.nivelStock = nivelStock;
     }
 
+    public List<Ingrediente> getIngredienteInfo() {
+        return ingredienteInfo;
+    }
+
+    public void setIngredienteInfo(List<Ingrediente> ingredienteInfo) {
+        this.ingredienteInfo = ingredienteInfo;
+    }
+
     @Override
     public String toString() {
-        return "DetalleEntrada{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidad=" + cantidad + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + '}';
+        return "DetalleEntrada{" + "nombreIngrediente=" + nombreIngrediente + ", precioUnitario=" + precioUnitario + ", precioTotal=" + precioTotal + ", cantidad=" + cantidad + ", nivelStock=" + nivelStock + ", idIngrediente=" + idIngrediente + ", ingredienteInfo=" + ingredienteInfo + '}';
     }
 }

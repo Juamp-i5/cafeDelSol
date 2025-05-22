@@ -25,7 +25,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     public PantallaEstadoPedidos() {
         initComponents();
         ajustarScroll();
-        cargarPanelesPedidos();
+//        cargarPanelesPedidos();
     }
 
     private void ajustarScroll() {

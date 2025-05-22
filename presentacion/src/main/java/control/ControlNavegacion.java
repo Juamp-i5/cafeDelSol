@@ -764,6 +764,17 @@ public class ControlNavegacion {
             return null;
         }
     }
+    
+    public static EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId){
+        try {
+            return gestorCRUDEntradas.obtenerDetallesConIngredientes(entradaId);
+        } catch (GestorCRUDEntradasException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     //ingredientes métodos
     public static boolean agregarIngrediente(IngredienteNuevoDTO ingrediente) {

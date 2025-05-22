@@ -147,7 +147,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTerminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTerminarActionPerformed
-        pantallaPadre.recargarPaneles();
+//        pantallaPadre.recargarPaneles();
     }//GEN-LAST:event_btnTerminarActionPerformed
 
 

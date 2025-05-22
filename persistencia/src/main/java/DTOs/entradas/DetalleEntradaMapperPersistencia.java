@@ -1,5 +1,7 @@
 package DTOs.entradas;
 
+import DTOs.ingredientes.IIngredienteMapperPersistencia;
+import DTOs.ingredientes.IngredienteMapperPersistencia;
 import entidades.DetalleEntrada;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +15,8 @@ import org.bson.types.ObjectId;
 public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPersistencia {
 
     private static DetalleEntradaMapperPersistencia instanceMapper;
+    
+    IIngredienteMapperPersistencia ingredienteMapper = new IngredienteMapperPersistencia();
 
     public static DetalleEntradaMapperPersistencia getInstance() {
         if (instanceMapper == null) {
@@ -43,9 +47,12 @@ public class DetalleEntradaMapperPersistencia implements IDetalleEntradaMapperPe
         detallesDTO.setNombreIngrediente(detalles.getNombreIngrediente());
         detallesDTO.setPrecioUnitario(detalles.getPrecioUnitario());
         detallesDTO.setCantidadIngrediente(detalles.getCantidad());
-        detallesDTO.setIdIngrediente(detalles.getIdIngrediente().toHexString());
+        detallesDTO.setIdIngrediente(
+                detalles.getIdIngrediente().toHexString()
+        );
         detallesDTO.setPrecioTotal(detalles.getPrecioTotal());
         detallesDTO.setNivelStock(detalles.getNivelStock());
+        detallesDTO.setIngredienteInfo(ingredienteMapper.toDTOList(detalles.getIngredienteInfo()));
         return detallesDTO;
     }
 

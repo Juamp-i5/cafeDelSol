@@ -11,7 +11,7 @@ package com.gestioningredientes;
 public class GestionIngredientes {
 
     public static void main(String[] args) {
-
+        
     }
 }
 

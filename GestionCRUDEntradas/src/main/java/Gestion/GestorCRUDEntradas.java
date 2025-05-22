@@ -55,4 +55,13 @@ public class GestorCRUDEntradas implements IGestorCRUDEntradas{
         }
         return null;
     }
+    
+    public EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) throws GestorCRUDEntradasException{
+        try {
+            return entradaBO.obtenerDetallesConIngredientes(entradaId);
+        } catch (NegocioException ex) {
+            Logger.getLogger(GestorCRUDEntradas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
