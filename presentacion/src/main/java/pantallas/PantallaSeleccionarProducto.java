@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 
 /**
  * Clase que representa la pantalla para seleccionar un producto.
- * 
+ *
  * @author Jp
  */
 public class PantallaSeleccionarProducto extends javax.swing.JFrame {
@@ -31,7 +31,7 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
 
     /**
      * Constructor de la clase PantallaSeleccionarProducto.
-     * 
+     *
      * @param productos Lista de productos a mostrar.
      * @param modo Modo de operación (CREACION o EDICION).
      */
@@ -81,9 +81,9 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         private final ProductoMostrarDTO producto;
         private final JPanel panel;
 
-         /**
+        /**
          * Constructor de la clase de eventos.
-         * 
+         *
          * @param producto Producto asociado al panel.
          * @param panel Panel del producto.
          */
@@ -110,9 +110,9 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         }
     }
 
-     /**
+    /**
      * Maneja la selección de un producto.
-     * 
+     *
      * @param producto Producto seleccionado.
      */
     private void productoSeleccionado(ProductoMostrarDTO producto) {
@@ -210,9 +210,10 @@ public class PantallaSeleccionarProducto extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     /**
-     * Acción cuando se hace clic en el botón "Regresar".
-     * Dependiendo del modo actual, regresa a la pantalla anterior o muestra la pantalla de edición del producto.
+    /**
+     * Acción cuando se hace clic en el botón "Regresar". Dependiendo del modo
+     * actual, regresa a la pantalla anterior o muestra la pantalla de edición
+     * del producto.
      *
      * @param evt Evento de acción generado al hacer clic en el botón.
      */

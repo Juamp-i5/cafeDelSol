@@ -4,8 +4,11 @@ import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDIngredientes.NivelStock;
 import control.ControlNavegacion;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import java.util.function.Consumer;
+import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,6 +35,15 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
     public PantallaBuscarIngrediente(Consumer regreso) {
         this();
         this.regreso = regreso;
+        this.btnSeleccionar.setVisible(true);
+        this.btnVolverAtras.setVisible(false);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                regreso.accept(null);
+            }
+        });
     }
 
     private DefaultTableModel obtenerModeloTablaIngredientes() {
@@ -262,6 +274,7 @@ public class PantallaBuscarIngrediente extends javax.swing.JFrame {
                     modeloTablaIngredientes.getValueAt(row, 1).toString()
             );
             regreso.accept(ingredienteSeleccionado);
+            this.dispose();
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

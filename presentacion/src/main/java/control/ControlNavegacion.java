@@ -29,7 +29,6 @@ import DTOs.cubiculos.ReservacionNuevaDTO;
 import Excepcion.GestorCRUDEntradasException;
 import Gestion.GestorCRUDEntradas;
 import Gestion.IGestorCRUDEntradas;
-import entidades.Usuario;
 import excepciones.GestionCRUDIngredientesException;
 import excepciones.GestionCRUDProductosException;
 import excepciones.GestionCubiculosException;
@@ -62,7 +61,6 @@ import pantallas.CRUDEntradas.PantallaTablaDetallesEntrada;
 import pantallas.CRUDEntradas.PantallaTablaHistorialEntradas;
 import pantallas.CRUDEntradas.PantallaTablaRegistroEntrada;
 import pantallas.CRUDProductos.PantallaDetallesProducto;
-import pantallas.CRUDProductos.PantallaIngredienteSimulada;
 import pantallas.CRUDProductos.PantallaRegistrarProducto;
 import pantallas.CRUDProductos.PantallaTablaProductos;
 import pantallas.cubiculos.PagoEfectivoCubiculos;
@@ -315,16 +313,26 @@ public class ControlNavegacion {
      * @param modo El modo de operación (indica si es modo creación o edición).
      */
     public static void mostrarPantallaTamanios(Modo modo) {
+        List<TamanioMostrarDTO> tamanios = getTamanios();
+        if (tamanios == null) {
+            return;
+        }
+        JFrame pantalla = new PantallaTamanios(tamanios, modo);
+        pantalla.setLocationRelativeTo(null);
+        pantalla.setVisible(true);
+
+        gestor.imprimirPedidoConsola();
+
+        framesVisitados.add(pantalla);
+    }
+
+    public static List<TamanioMostrarDTO> getTamanios() {
         try {
-            JFrame tamanios = new PantallaTamanios(gestor.cargarTamanios(), modo);
-            tamanios.setLocationRelativeTo(null);
-            tamanios.setVisible(true);
-
-            gestor.imprimirPedidoConsola();
-
-            framesVisitados.add(tamanios);
+            return gestor.cargarTamanios();
         } catch (GestionException ex) {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Error al obtener tamanios");
+            return null;
         }
     }
 
@@ -575,6 +583,8 @@ public class ControlNavegacion {
         JFrame pantalla = new PantallaMenuAdmin();
         pantalla.setLocationRelativeTo(null);
         pantalla.setVisible(true);
+
+        framesVisitados.add(pantalla);
     }
 
     public static void mostrarPantallaInicioSesion() {
@@ -589,6 +599,8 @@ public class ControlNavegacion {
         JFrame pantalla = new PantallaMenuBarista();
         pantalla.setLocationRelativeTo(null);
         pantalla.setVisible(true);
+
+        framesVisitados.add(pantalla);
     }
 
     public static void mostrarPantallaMenuIniciado() {
@@ -652,27 +664,17 @@ public class ControlNavegacion {
         }
     }
 
-    public static void guardarProducto(ProductoCreateDTO productoDTO) {
-        try {
-            gestorCRUDProductos.guardarProducto(productoDTO);
-            JOptionPane.showMessageDialog(null, "Producto guardado exitosamente");
-            ControlNavegacion.mostrarPantallaTablaProductos();
-        } catch (GestionCRUDProductosException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void guardarProducto(ProductoCreateDTO productoDTO) throws GestionCRUDProductosException {
+        gestorCRUDProductos.guardarProducto(productoDTO);
+        JOptionPane.showMessageDialog(null, "Producto guardado exitosamente");
+        ControlNavegacion.mostrarPantallaTablaProductos();
+
     }
 
-    public static void actualizarProducto(DetallesProductoDTO productoDTO) {
-        try {
-            gestorCRUDProductos.actualizarProducto(productoDTO);
-            JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente");
-        } catch (GestionCRUDProductosException | IllegalArgumentException ex) {
-            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-            ex.printStackTrace();
-            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void actualizarProducto(DetallesProductoDTO productoDTO) throws GestionCRUDProductosException {
+        gestorCRUDProductos.actualizarProducto(productoDTO);
+        JOptionPane.showMessageDialog(null, "Producto actualizado exitosamente");
+
     }
 
     //ingredientes pantallas
@@ -857,8 +859,8 @@ public class ControlNavegacion {
             Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static String obtenerIdIngredientePorNombre(String nombre){
+
+    public static String obtenerIdIngredientePorNombre(String nombre) {
         try {
             return gestorCRUDIngredientes.obtenerIdIngredientePorNombre(nombre);
         } catch (GestionCRUDIngredientesException ex) {

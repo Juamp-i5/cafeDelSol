@@ -5,6 +5,7 @@
 package pantallas;
 
 import control.ControlNavegacion;
+import control.Modo;
 import control.Sesion;
 
 /**
@@ -12,16 +13,16 @@ import control.Sesion;
  * @author Jp
  */
 public class PantallaMenuAdmin extends javax.swing.JFrame {
-    
+
     public PantallaMenuAdmin() {
         initComponents();
         setInitialUIstate();
     }
-    
+
     private void setInitialUIstate() {
         setNombreUsuario();
     }
-    
+
     public void setNombreUsuario() {
         labelNombreUsuario.setText("Hola!, " + Sesion.getCurrentUsuario().getNombresPila());
     }
@@ -129,6 +130,11 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
 
         botonRealizarPedido.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonRealizarPedido.setText("<html><center>Realizar un pedido</center></html>");
+        botonRealizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarPedidoActionPerformed(evt);
+            }
+        });
 
         botonEstadoPedidos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         botonEstadoPedidos.setText("<html><center>Estado de los pedidos</center></html>");
@@ -207,6 +213,11 @@ public class PantallaMenuAdmin extends javax.swing.JFrame {
         ControlNavegacion.mostrarPantallaTablaProductos();
         this.dispose();
     }//GEN-LAST:event_botonInventarioProductosActionPerformed
+
+    private void botonRealizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarPedidoActionPerformed
+        ControlNavegacion.mostrarPantallaProductos(Modo.CREACION);
+        this.dispose();
+    }//GEN-LAST:event_botonRealizarPedidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgendaEspacios;

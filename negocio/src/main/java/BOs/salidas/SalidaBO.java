@@ -51,11 +51,10 @@ public class SalidaBO implements ISalidaBO{
         try {
             SalidaNuevaDTOPersistencia dtoPersistencia = mapper.toSalidaNuevaDTOPersistencia(salidaNueva);
             Salida salida = mapper.toEntity(dtoPersistencia);
-            boolean registrada = salidaDAO.registrarSalida(salida);
 
             ingredienteDAO.reducirStock(salidaNueva.getIdIngrediente(), salidaNueva.getCantidad());
 
-            return registrada;
+            return salidaDAO.registrarSalida(salida);
         } catch (PersistenciaSalidasException | PersistenciaIngredientesException e) {
             throw new NegocioException("No se pudo registrar la salida.", e);
         }

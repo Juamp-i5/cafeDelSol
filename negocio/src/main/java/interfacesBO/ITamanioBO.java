@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface ITamanioBO {
 
-    public List<TamanioMostrarDTO> cargarProductos() throws NegocioException;
+    public List<TamanioMostrarDTO> cargarTamanios() throws NegocioException;
 
 }
