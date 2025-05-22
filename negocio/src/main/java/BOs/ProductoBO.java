@@ -29,42 +29,42 @@ import java.util.stream.Collectors;
  * @author rodri
  */
 public class ProductoBO implements IProductoBO {
-
+    
     IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
     ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
     IProductoMapper productoMapper = ProductoMapper.getInstance();
-
+    
     private static ProductoBO instanceBO;
-
+    
     public ProductoBO() {
     }
-
+    
     public static ProductoBO getInstance() {
         if (instanceBO == null) {
             instanceBO = new ProductoBO();
         }
         return instanceBO;
     }
-
+    
     @Override
     public List<ProductoMostrarDTO> cargarProductos() throws NegocioException {
         try {
             List<PersistenciaProductoDTO> productos = productoDAO.buscarTodosHabilitados();
             List<ProductoMostrarDTO> productosDTO = new ArrayList<>();
-
+            
             for (PersistenciaProductoDTO producto : productos) {
                 ProductoMostrarDTO productoDTO = productoMapper.toProductoMostrarDTO(producto);
                 productosDTO.add(productoDTO);
             }
-
+            
             return productosDTO;
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al cargar los productos");
         }
-
+        
     }
-
+    
     @Override
     public List<ProductoListDTO> obtenerProductosFiltrados(String filtroNombre, String filtroCategoria) throws NegocioException {
         List<PersistenciaProductoDTO> productos;
@@ -86,7 +86,7 @@ public class ProductoBO implements IProductoBO {
             throw new NegocioException("Error al procesar los datos de los productos filtrados", e);
         }
     }
-
+    
     @Override
     public DetallesProductoDTO obtenerDetallesProducto(String idProducto) throws NegocioException {
         DetallesProductoDTO producto;
@@ -99,7 +99,7 @@ public class ProductoBO implements IProductoBO {
             throw new NegocioException("Error al intentar consultar detalles producto", e);
         }
     }
-
+    
     @Override
     public void guardarProducto(ProductoCreateDTO productoDTO) throws NegocioException {
         try {
@@ -111,15 +111,17 @@ public class ProductoBO implements IProductoBO {
                 tamanioDTO.getTamanio().setId(id);
                 tamanioDTO.getTamanio().setNombre(null);
             }
+            
+            productoDAO.guardarProducto(producto);
         } catch (PersistenciaException e) {
         }
     }
-
+    
     @Override
     public void actualizarProducto(DetallesProductoDTO productoDTO) throws NegocioException {
         try {
             PersistenciaProductoDTO producto;
-
+            
             producto = productoMapper.toPersistenciaProductoDTO(productoDTO);
             for (PersistenciaProductoTamanioDTO tamanioDTO : producto.getTamanios()) {
                 String nombre = tamanioDTO.getTamanio().getNombre();
@@ -127,12 +129,12 @@ public class ProductoBO implements IProductoBO {
                 tamanioDTO.getTamanio().setId(id);
                 tamanioDTO.getTamanio().setNombre(null);
             }
-
+            
             productoDAO.actualizarProducto(producto);
         } catch (PersistenciaException ex) {
             Logger.getLogger(ProductoBO.class.getName()).log(Level.SEVERE, null, ex);
             throw new NegocioException("Error al actualizar producto en negocio", ex);
         }
     }
-
+    
 }

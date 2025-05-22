@@ -40,7 +40,7 @@ public class TamanioBO implements ITamanioBO {
     }
 
     @Override
-    public List<TamanioMostrarDTO> cargarProductos() throws NegocioException {
+    public List<TamanioMostrarDTO> cargarTamanios() throws NegocioException {
         try {
 
             List<PersistenciaTamanioDTO> tamanios = tamanioDAO.buscarTodos();

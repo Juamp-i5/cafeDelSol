@@ -123,7 +123,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public List<TamanioMostrarDTO> cargarTamanios() throws GestionException {
         try {
-            return tamanioBO.cargarProductos();
+            return tamanioBO.cargarTamanios();
         } catch (NegocioException ex) {
             Logger.getLogger(ManejadorPedidos.class.getName()).log(Level.SEVERE, null, ex);
             throw new GestionException("Error al cargar Tamanios");

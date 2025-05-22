@@ -9,11 +9,16 @@ import DTOs.CRUDProductos.CategoriaProducto;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.TamanioProducto;
+import DTOs.TamanioMostrarDTO;
 import control.ControlNavegacion;
+import excepciones.GestionCRUDProductosException;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.Timer;
@@ -42,15 +47,17 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         this.modeloTablaProductos = (DefaultTableModel) tablaProductosTable.getModel();
         this.producto = productoDTO;
         this.productoActualizado = new DetallesProductoDTO(producto);
-        try {
-            if (productoDTO.getPrecios() != null & productoDTO.getPrecios().get(TamanioProducto.CHICO) != null) {
-                this.aumentoMediano = productoDTO.getPrecios().get(TamanioProducto.MEDIANO) - productoDTO.getPrecios().get(TamanioProducto.CHICO);
-                this.aumentoGrande = productoDTO.getPrecios().get(TamanioProducto.GRANDE) - productoDTO.getPrecios().get(TamanioProducto.CHICO);
+
+        List<TamanioMostrarDTO> tamanios = ControlNavegacion.getTamanios();
+        for (TamanioMostrarDTO tamanio : tamanios) {
+            if (tamanio.getNombre().equals("MEDIANO")) {
+                aumentoMediano = tamanio.getPrecioAdicional();
+
+            } else if (tamanio.getNombre().equals("GRANDE")) {
+                aumentoGrande = tamanio.getPrecioAdicional();
             }
-        } catch (NullPointerException e) {
-            this.aumentoMediano = 20;
-            this.aumentoGrande = 40;
         }
+
         setInitialUI();
     }
 
@@ -69,6 +76,11 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
             this.setVisible(true);
 
             if (ingredienteSeleccionado != null) {
+                if (existeIngrediente(ingredienteSeleccionado.getId())) {
+                    JOptionPane.showMessageDialog(null, "Ya está el ingrediente en el producto");
+                    return;
+                }
+
                 modeloTablaProductos.addRow(new Object[]{
                     ingredienteSeleccionado.getId(),
                     ingredienteSeleccionado.getNombre(),
@@ -78,6 +90,16 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
                 });
             }
         });
+    }
+
+    private boolean existeIngrediente(String id) {
+        for (int i = 0; i < modeloTablaProductos.getRowCount(); i++) {
+            String idFila = modeloTablaProductos.getValueAt(i, 0).toString();
+            if (id.equals(idFila)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void quitarIngrediente() {
@@ -199,7 +221,14 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
         CategoriaProducto categoria = CategoriaProducto.valueOf(comboBoxCategoria.getSelectedItem().toString().trim());
         byte[] imagen = imagePanelProducto.getImageBytes();
         EstadoProducto estado = EstadoProducto.valueOf(comboBoxEstado.getSelectedItem().toString().trim());
-        Double precioChico = Double.valueOf(textFieldPrecioChico.getText().trim());
+
+        String precioChicoTexto = textFieldPrecioChico.getText().trim();
+        if ("".equals(precioChicoTexto)) {
+            JOptionPane.showMessageDialog(null, "No puede estar vacío el precio");
+            return;
+        }
+
+        Double precioChico = Double.valueOf(precioChicoTexto);
         Double precioMediano = Double.valueOf(textFieldPrecioMediano.getText().trim());
         Double precioGrande = Double.valueOf(textFieldPrecioGrande.getText().trim());
 
@@ -555,19 +584,29 @@ public class PantallaDetallesProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarIngredienteActionPerformed
 
     private void botonActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActualizarProductoActionPerformed
-        recolectarDatosFormulario();
+        try {
+            recolectarDatosFormulario();
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (producto.equals(productoActualizado)) {
             JOptionPane.showMessageDialog(null, "No cambiaste ningún dato");
         } else {
             if (JOptionPane.showConfirmDialog(null, "¿Deseas actualizar el producto?", "Confirmar actualizacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                ControlNavegacion.actualizarProducto(productoActualizado);
+                try {
+                    ControlNavegacion.actualizarProducto(productoActualizado);
+                } catch (GestionCRUDProductosException | IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                    Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_botonActualizarProductoActionPerformed
 
     private void textFieldPrecioChicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldPrecioChicoKeyTyped
-
         debounce(() -> {
             try {
                 double precioChicoNuevo = Double.parseDouble(this.textFieldPrecioChico.getText());
