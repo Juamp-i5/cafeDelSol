@@ -9,11 +9,19 @@ import DTOs.CRUDProductos.CategoriaProducto;
 import DTOs.CRUDProductos.EstadoProducto;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
+import DTOs.TamanioMostrarDTO;
 import control.ControlNavegacion;
+import excepciones.GestionCRUDProductosException;
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.Timer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,13 +32,27 @@ import javax.swing.table.DefaultTableModel;
 public class PantallaRegistrarProducto extends javax.swing.JFrame {
 
     private DefaultTableModel modeloTablaProductos;
-
     private ProductoCreateDTO productoNuevo = new ProductoCreateDTO();
+    private double aumentoMediano;
+    private double aumentoGrande;
+    private Timer debounceTimer;
+
+    private final int DEBOUNCE_DELAY = 100; //millis
 
     public PantallaRegistrarProducto() {
         initComponents();
 
         modeloTablaProductos = (DefaultTableModel) tablaProductosTable.getModel();
+
+        List<TamanioMostrarDTO> tamanios = ControlNavegacion.getTamanios();
+        for (TamanioMostrarDTO tamanio : tamanios) {
+            if (tamanio.getNombre().equals("MEDIANO")) {
+                aumentoMediano = tamanio.getPrecioAdicional();
+
+            } else if (tamanio.getNombre().equals("GRANDE")) {
+                aumentoGrande = tamanio.getPrecioAdicional();
+            }
+        }
 
         setInitialUI();
     }
@@ -55,6 +77,11 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             this.setVisible(true);
 
             if (ingredienteSeleccionado != null) {
+                if (existeIngrediente(ingredienteSeleccionado.getId())) {
+                    JOptionPane.showMessageDialog(null, "Ya está el ingrediente en el producto");
+                    return;
+                }
+
                 modeloTablaProductos.addRow(new Object[]{
                     ingredienteSeleccionado.getId(),
                     ingredienteSeleccionado.getNombre(),
@@ -64,6 +91,16 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
                 });
             }
         });
+    }
+
+    private boolean existeIngrediente(String id) {
+        for (int i = 0; i < modeloTablaProductos.getRowCount(); i++) {
+            String idFila = modeloTablaProductos.getValueAt(i, 0).toString();
+            if (id.equals(idFila)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void quitarIngrediente() {
@@ -140,7 +177,13 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         CategoriaProducto categoria = CategoriaProducto.valueOf(comboBoxCategoria.getSelectedItem().toString().trim());
         byte[] imagen = imagePanelProducto.getImageBytes();
         EstadoProducto estado = EstadoProducto.valueOf(comboBoxEstado.getSelectedItem().toString().trim());
-        Double precioChico = Double.valueOf(textFieldPrecioChico.getText().trim());
+
+        String precioChicoTexto = textFieldPrecioChico.getText().trim();
+        if ("".equals(precioChicoTexto)) {
+            throw new IllegalArgumentException("No puede estar vacio el precio");
+        }
+
+        Double precioChico = Double.valueOf(precioChicoTexto);
         Double precioMediano = Double.valueOf(textFieldPrecioMediano.getText().trim());
         Double precioGrande = Double.valueOf(textFieldPrecioGrande.getText().trim());
 
@@ -165,8 +208,8 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             String id = tablaProductosTable.getValueAt(i, 0).toString();
             String nombre = tablaProductosTable.getValueAt(i, 1).toString();
             Double cantidadChico = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
-            Double cantidadMediano = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
-            Double cantidadGrande = Double.valueOf(tablaProductosTable.getValueAt(i, 2).toString());
+            Double cantidadMediano = Double.valueOf(tablaProductosTable.getValueAt(i, 3).toString());
+            Double cantidadGrande = Double.valueOf(tablaProductosTable.getValueAt(i, 4).toString());
 
             Map<TamanioProducto, Double> cantidades = new HashMap<>();
             cantidades.put(TamanioProducto.CHICO, cantidadChico);
@@ -176,6 +219,20 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
             ingredientes.put(new IngredienteViejoListDTO(id, nombre), cantidades);
         }
         productoNuevo.setIngredientes(ingredientes);
+    }
+
+    private void debounce(Runnable action) {
+        if (debounceTimer != null && debounceTimer.isRunning()) {
+            debounceTimer.stop();
+        }
+
+        ActionListener taskPerformer = evt -> {
+            action.run();
+        };
+
+        debounceTimer = new Timer(DEBOUNCE_DELAY, taskPerformer);
+        debounceTimer.setRepeats(false);
+        debounceTimer.start();
     }
 
     /**
@@ -256,14 +313,21 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
         LabelPrecioMediano.setText("Precio mediano");
 
         textFieldPrecioMediano.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldPrecioMediano.setEnabled(false);
         textFieldPrecioMediano.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioMediano.setPreferredSize(new java.awt.Dimension(80, 31));
 
         textFieldPrecioChico.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         textFieldPrecioChico.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioChico.setPreferredSize(new java.awt.Dimension(80, 31));
+        textFieldPrecioChico.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldPrecioChicoKeyTyped(evt);
+            }
+        });
 
         textFieldPrecioGrande.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        textFieldPrecioGrande.setEnabled(false);
         textFieldPrecioGrande.setMinimumSize(new java.awt.Dimension(80, 31));
         textFieldPrecioGrande.setPreferredSize(new java.awt.Dimension(80, 31));
 
@@ -472,15 +536,33 @@ public class PantallaRegistrarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEliminarIngredienteActionPerformed
 
     private void botonRegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarProductoActionPerformed
-        recolectarDatosFormulario();
+        try {
+            recolectarDatosFormulario();
 
-        ControlNavegacion.guardarProducto(productoNuevo);
+            ControlNavegacion.guardarProducto(productoNuevo);
+            this.dispose();
+        } catch (GestionCRUDProductosException | IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+            Logger.getLogger(ControlNavegacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_botonRegistrarProductoActionPerformed
 
     private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
         ControlNavegacion.mostrarPantallaTablaProductos();
         this.dispose();
     }//GEN-LAST:event_botonVolverActionPerformed
+
+    private void textFieldPrecioChicoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldPrecioChicoKeyTyped
+        debounce(() -> {
+            try {
+                double precioChicoNuevo = Double.parseDouble(this.textFieldPrecioChico.getText());
+                this.textFieldPrecioMediano.setText((this.aumentoMediano + precioChicoNuevo) + "");
+                this.textFieldPrecioGrande.setText((this.aumentoGrande + precioChicoNuevo) + "");
+            } catch (Exception e) {
+            }
+        });
+    }//GEN-LAST:event_textFieldPrecioChicoKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelPrecioMediano;

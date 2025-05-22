@@ -8,6 +8,7 @@ import DTOs.CRUDIngredientes.IngredienteViejoListDTO;
 import DTOs.CRUDProductos.DetallesProductoDTO;
 import DTOs.CRUDProductos.ProductoCreateDTO;
 import DTOs.CRUDProductos.TamanioProducto;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -33,7 +34,6 @@ public class ValidadorGestorCRUDProductos implements IValidadorGestorCRUDProduct
             throw new IllegalArgumentException("El nombre del producto no puede exceder los " + MAX_LONGITUD_NOMBRE + " caracteres.");
         }
 
-        // Validar descripción (opcional, pero si existe, no muy larga)
         if (productoDTO.getDescipcion() != null && productoDTO.getDescipcion().length() > MAX_LONGITUD_DESCRIPCION) {
             throw new IllegalArgumentException("La descripción del producto no puede exceder los " + MAX_LONGITUD_DESCRIPCION + " caracteres.");
         }
@@ -63,23 +63,44 @@ public class ValidadorGestorCRUDProductos implements IValidadorGestorCRUDProduct
 
         // Validar ingredientes
         if (productoDTO.getIngredientes() != null) {
+            if (productoDTO.getIngredientes().isEmpty()) {
+                throw new IllegalArgumentException("Cada producto debe tener al menos 1 ingrediente");
+            }
+
             for (Map.Entry<IngredienteViejoListDTO, Map<TamanioProducto, Double>> entry : productoDTO.getIngredientes().entrySet()) {
+                // Validación del ingrediente
                 if (entry.getKey() == null || entry.getKey().getId() == null || entry.getKey().getId().trim().isEmpty()) {
                     throw new IllegalArgumentException("Cada ingrediente debe tener un ID válido.");
                 }
 
-                if (entry.getValue() == null || entry.getValue().isEmpty()) {
-                    throw new IllegalArgumentException("Debe especificarse la cantidad para al menos un tamaño para el ingrediente " + entry.getKey().getNombre());
+                Map<TamanioProducto, Double> cantidadesPorTamanio = entry.getValue();
+
+                // Verificar que existan valores para TODOS los tamaños
+                if (cantidadesPorTamanio == null || cantidadesPorTamanio.size() != TamanioProducto.values().length) {
+                    throw new IllegalArgumentException("Debe especificarse la cantidad para TODOS los tamaños ("
+                            + Arrays.toString(TamanioProducto.values()) + ") para el ingrediente "
+                            + entry.getKey().getNombre());
                 }
-                for (Map.Entry<TamanioProducto, Double> cantidadEntry : entry.getValue().entrySet()) {
-                    if (cantidadEntry.getKey() == null) {
-                        throw new IllegalArgumentException("El tamaño del producto para la cantidad del ingrediente " + entry.getKey().getNombre() + " no puede ser nulo.");
+
+                // Validar cada tamaño específicamente
+                for (TamanioProducto tamanio : TamanioProducto.values()) {
+                    Double cantidad = cantidadesPorTamanio.get(tamanio);
+
+                    if (cantidad == null) {
+                        throw new IllegalArgumentException("Falta la cantidad para el tamaño "
+                                + tamanio + " del ingrediente " + entry.getKey().getNombre());
                     }
-                    if (cantidadEntry.getValue() == null || cantidadEntry.getValue() <= 0) {
-                        throw new IllegalArgumentException("La cantidad del ingrediente " + entry.getKey().getNombre() + " para el tamaño " + cantidadEntry.getKey() + " debe ser positiva.");
+
+                    if (cantidad <= 0) {
+                        throw new IllegalArgumentException("La cantidad del ingrediente "
+                                + entry.getKey().getNombre() + " para el tamaño " + tamanio
+                                + " debe ser mayor a 0 (valor actual: " + cantidad + ")");
                     }
                 }
+
             }
+        } else {
+            throw new IllegalArgumentException("Cada producto debe tener al menos 1 ingrediente");
         }
     }
 
