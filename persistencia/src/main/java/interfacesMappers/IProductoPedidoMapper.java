@@ -2,19 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package interfacesMapper;
+package interfacesMappers;
 
 import DTOs.PersistenciaProductoPedidoDTO;
 import entidades.ProductoPedido;
-import excepciones.NegocioException;
 
 /**
  *
- * @author rodri
+ * @author Jp
  */
 public interface IProductoPedidoMapper {
 
-    public ProductoPedido toEntity(PersistenciaProductoPedidoDTO productoPedidoDTO) throws NegocioException;
+    public PersistenciaProductoPedidoDTO toDTO(ProductoPedido entidad);
 
-    public ProductoPedido toEntitySinTopping(PersistenciaProductoPedidoDTO productoPedidoDTO) throws NegocioException;
+    public ProductoPedido toEntity(PersistenciaProductoPedidoDTO dto);
 }

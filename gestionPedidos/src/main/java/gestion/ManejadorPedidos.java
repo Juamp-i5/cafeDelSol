@@ -15,7 +15,7 @@ import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -48,7 +48,7 @@ public class ManejadorPedidos implements IGestionPedidos {
 
 //    private static final Logger LOG = Logger.getLogger(ManejadorPedidos.class.getName());
     private PedidoDTO pedido;
-    private ProductoPedidoDTO productoPedidoActual;
+    private PersistenciaProductoPedidoDTO productoPedidoActual;
     IPedidoBO pedidoBO = PedidoBO.getInstance();
     IProductoBO productoBO = ProductoBO.getInstance();
     ISaborBO saborBO = SaborBO.getInstance();
@@ -60,6 +60,8 @@ public class ManejadorPedidos implements IGestionPedidos {
 
     public ManejadorPedidos() {
         this.fachadaPago = new FachadaPago(new PagoTarjetaAPI(), new ValidarPago());
+        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
+        this.pedido = new PedidoDTO();
     }
 
     @Override
@@ -80,12 +82,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public ProductoPedidoDTO getProductoPedidoActual() {
+    public PersistenciaProductoPedidoDTO getProductoPedidoActual() {
         return productoPedidoActual;
     }
 
     @Override
-    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual) {
+    public void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedidoActual) {
         this.productoPedidoActual = productoPedidoActual;
     }
 
@@ -112,12 +114,12 @@ public class ManejadorPedidos implements IGestionPedidos {
     @Override
     public void iniciarPedido() {
         this.pedido = new PedidoDTO();
-        this.productoPedidoActual = new ProductoPedidoDTO();
+        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
     }
 
     @Override
     public void crearProductoPedido() {
-        this.productoPedidoActual = new ProductoPedidoDTO();
+        this.productoPedidoActual = new PersistenciaProductoPedidoDTO();
     }
 
     @Override
@@ -237,7 +239,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     public double calcularTotal() {
         double total = 0;
 
-        for (ProductoPedidoDTO productoPedido : pedido.getPedido()) {
+        for (PersistenciaProductoPedidoDTO productoPedido : pedido.getPedido()) {
             total += productoPedido.getCosto();
         }
         pedido.setCostoTotal(total);
@@ -254,7 +256,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     }
 
     @Override
-    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
+    public void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
         pedido.getPedido().remove(productoPedido);
     }
 
@@ -272,7 +274,7 @@ public class ManejadorPedidos implements IGestionPedidos {
     public double actualizarTotal() {
         double total = 0;
 
-        for (ProductoPedidoDTO productoPedido : pedido.getPedido()) {
+        for (PersistenciaProductoPedidoDTO productoPedido : pedido.getPedido()) {
             double costoProducto = (productoPedido.getProducto().getPrecio() + productoPedido.getTamanio().getPrecioAdicional()) * productoPedido.getCantidad();
             productoPedido.setCosto(costoProducto);
             total += costoProducto;

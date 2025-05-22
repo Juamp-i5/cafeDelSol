@@ -6,7 +6,7 @@ package com.mycompany.presentacion;
 
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -48,9 +48,9 @@ public class PruebaAgregarTerminarPerdido {
 //        
 //        topping.setId(1L);
 //        
-//        ProductoPedidoDTO PEDIDO1 = new ProductoPedidoDTO(producto, tamanio, sabor, topping);
-//        ProductoPedidoDTO PEDIDO2 = new ProductoPedidoDTO(producto, tamanio, sabor, topping);
-//        ProductoPedidoDTO PEDIDO3 = new ProductoPedidoDTO(producto, tamanio, sabor, topping);
+//        PersistenciaProductoPedidoDTO PEDIDO1 = new PersistenciaProductoPedidoDTO(producto, tamanio, sabor, topping);
+//        PersistenciaProductoPedidoDTO PEDIDO2 = new PersistenciaProductoPedidoDTO(producto, tamanio, sabor, topping);
+//        PersistenciaProductoPedidoDTO PEDIDO3 = new PersistenciaProductoPedidoDTO(producto, tamanio, sabor, topping);
 //        
 //        
 //        

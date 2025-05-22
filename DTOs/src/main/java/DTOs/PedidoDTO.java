@@ -23,7 +23,7 @@ public class PedidoDTO {
     public PedidoDTO(boolean terminado) {
         this.terminado = terminado;
     }
-    
+
     public PedidoDTO(List<ProductoPedidoDTO> pedido) {
         this.pedido = pedido;
     }
@@ -62,7 +62,7 @@ public class PedidoDTO {
     public void setCostoTotal(double costoTotal) {
         this.costoTotal = costoTotal;
     }
-    
+
     @Override
     public String toString() {
         StringBuilder salida = new StringBuilder();

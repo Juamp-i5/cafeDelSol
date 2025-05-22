@@ -5,7 +5,7 @@
 package com.mycompany.presentacion;
 
 import DTOs.ProductoMostrarDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -28,8 +28,8 @@ public class PruebaEditar {
 //        SaborMostrarDTO sabor = new SaborMostrarDTO(3L, "Moka", "../img/saborMoka.jpg");
 //        ToppingMostrarDTO topping = new ToppingMostrarDTO(1L, "Azúcar", "../img/azucar.jpeg");
 
-        // Crear el objeto ProductoPedidoDTO
-//        ProductoPedidoDTO productoPedido = new ProductoPedidoDTO();
+        // Crear el objeto PersistenciaProductoPedidoDTO
+//        PersistenciaProductoPedidoDTO productoPedido = new PersistenciaProductoPedidoDTO();
 //        productoPedido.setProducto(producto);
 //        productoPedido.setTamanio(tamanio);
 //        productoPedido.setSabor(sabor);

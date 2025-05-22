@@ -4,7 +4,7 @@
  */
 package pantallas;
 
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import control.ControlNavegacion;
 import control.Modo;
 import exception.GestionException;
@@ -30,13 +30,13 @@ public class PantallaEditarProducto extends javax.swing.JFrame {
     private JButton btnProducto, btnTamanio, btnSabor, btnToppings, btnRegresar;
 
     /**
-     * Constructor de la clase PantallaEditarProducto. Inicializa la ventana con
-     * los datos del producto a editar.
+     * Constructor de la clase PantallaEditarProducto.Inicializa la ventana con
+ los datos del producto a editar.
      *
-     * @param productoPedido Objeto ProductoPedidoDTO con la información del
-     * producto actual.
+     * @param productoPedido Objeto PersistenciaProductoPedidoDTO con la información del
+ producto actual.
      */
-    public PantallaEditarProducto(ProductoPedidoDTO productoPedido) {
+    public PantallaEditarProducto(PersistenciaProductoPedidoDTO productoPedido) {
         ControlNavegacion.setProductoPedidoActual(productoPedido);
         setTitle("Editar Producto");
         setSize(1000, 800);

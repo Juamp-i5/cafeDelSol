@@ -5,7 +5,7 @@
 package pantallas.cubiculos;
 
 import pantallas.*;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
 import java.awt.event.ActionListener;
 

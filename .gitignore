@@ -18,3 +18,6 @@ gestionIngredientes/target/gestionIngredientes-1.0-SNAPSHOT.jar
 gestionIngredientes/target/gestionIngredientes-1.0-SNAPSHOT.jar
 gestionIngredientes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 gestionIngredientes/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+gestionCRUDProductos/target/gestionCRUDProductos-1.0-SNAPSHOT.jar
+gestionIngredientes/target/gestionIngredientes-1.0-SNAPSHOT.jar
+gestionCRUDProductos/target/gestionCRUDProductos-1.0-SNAPSHOT.jar

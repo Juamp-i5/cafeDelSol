@@ -6,7 +6,6 @@ package mapper;
 
 import DTOs.PedidoDTO;
 import entidades.Pedido;
-import excepciones.NegocioException;
 import interfacesMapper.IPedidoMapper;
 
 /**

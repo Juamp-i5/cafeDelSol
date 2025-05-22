@@ -4,16 +4,26 @@
  */
 package utils;
 
+import interfacesMappers.IDetallesEfectivoMapper;
 import interfacesMappers.IIngredienteMapper;
+import interfacesMappers.IPagoMapper;
+import interfacesMappers.IPedidoMapper;
 import interfacesMappers.IProductoMapper;
+import interfacesMappers.IProductoPedidoMapper;
 import interfacesMappers.IProductoTamanioIngredienteMapper;
 import interfacesMappers.IProductoTamanioMapper;
 import interfacesMappers.ISaborMapper;
 import interfacesMappers.ITamanioMapper;
 import interfacesMappers.IToppingMapper;
 import interfacesMappers.IUsuarioMapper;
+import mappers.DetallesEfectivoMapper;
+import mappers.DetallesTarjetaMapper;
+import mappers.IDetallesTarjetaMapper;
 import mappers.IngredienteMapper;
+import mappers.PagoMapper;
+import mappers.PedidoMapper;
 import mappers.ProductoMapper;
+import mappers.ProductoPedidoMapper;
 import mappers.ProductoTamanioIngredienteMapper;
 import mappers.ProductoTamanioMapper;
 import mappers.SaborMapper;
@@ -37,6 +47,11 @@ public class DependencyInjectors {
     private final IProductoTamanioMapper productoTamanioMapper = new ProductoTamanioMapper(tamanioMapper, productoTamanioIngredienteMapper);
     private final IProductoMapper productoMapper = new ProductoMapper(productoTamanioMapper);
     private final IUsuarioMapper usuarioMapper = new UsuarioMapper();
+    private final IProductoPedidoMapper productoPedidoMapper = new ProductoPedidoMapper(productoMapper, saborMapper, tamanioMapper, toppingMapper);
+    private final IDetallesEfectivoMapper detallesEfectivoMapper = new DetallesEfectivoMapper();
+    private final IDetallesTarjetaMapper detallesTarjetaMapper = new DetallesTarjetaMapper();
+    private final IPagoMapper pagoMapper = new PagoMapper(detallesEfectivoMapper, detallesTarjetaMapper);
+    private final IPedidoMapper pedidoMapper = new PedidoMapper(productoPedidoMapper, pagoMapper);
 
     private DependencyInjectors() {
     }
@@ -79,6 +94,26 @@ public class DependencyInjectors {
 
     public IUsuarioMapper getUsuarioMapper() {
         return usuarioMapper;
+    }
+
+    public IProductoPedidoMapper getProductoPedidoMapper() {
+        return productoPedidoMapper;
+    }
+
+    public IDetallesEfectivoMapper getDetallesEfectivoMapper() {
+        return detallesEfectivoMapper;
+    }
+
+    public IDetallesTarjetaMapper getDetallesTarjetaMapper() {
+        return detallesTarjetaMapper;
+    }
+
+    public IPagoMapper getPagoMapper() {
+        return pagoMapper;
+    }
+
+    public IPedidoMapper getPedidoMapper() {
+        return pedidoMapper;
     }
 
 }

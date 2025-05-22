@@ -2,65 +2,63 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs;
 
 /**
  *
- * @author rodri
+ * @author Jp
  */
-public class ProductoPedido {
+public class PersistenciaProductoPedidoDTO {
 
-    private Producto producto;
-    private Sabor sabor;
-    private Tamanio tamanio;
-    private Topping topping;
+    private PersistenciaProductoDTO producto;
+    private PersistenciaSaborDTO sabor;
+    private PersistenciaTamanioDTO tamanio;
+    private PersistenciaToppingDTO topping;
     private Integer cantidad;
     private Double precioUnitario;
     private Double subtotal;
 
-    public ProductoPedido() {
-        this.cantidad = 1;
+    public PersistenciaProductoPedidoDTO() {
     }
 
-    public ProductoPedido(Producto producto, Sabor sabor, Tamanio tamanio, Topping topping, Integer cantidad, Double precioUnitario, Double subtotal) {
+    public PersistenciaProductoPedidoDTO(PersistenciaProductoDTO producto, PersistenciaSaborDTO sabor, PersistenciaTamanioDTO tamanio, PersistenciaToppingDTO topping, Integer cantidad, Double precioUnitario) {
         this.producto = producto;
         this.sabor = sabor;
         this.tamanio = tamanio;
         this.topping = topping;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
-        this.subtotal = subtotal;
     }
 
-    public Producto getProducto() {
+    public PersistenciaProductoDTO getProducto() {
         return producto;
     }
 
-    public void setProducto(Producto producto) {
+    public void setProducto(PersistenciaProductoDTO producto) {
         this.producto = producto;
     }
 
-    public Sabor getSabor() {
+    public PersistenciaSaborDTO getSabor() {
         return sabor;
     }
 
-    public void setSabor(Sabor sabor) {
+    public void setSabor(PersistenciaSaborDTO sabor) {
         this.sabor = sabor;
     }
 
-    public Tamanio getTamanio() {
+    public PersistenciaTamanioDTO getTamanio() {
         return tamanio;
     }
 
-    public void setTamanio(Tamanio tamanio) {
+    public void setTamanio(PersistenciaTamanioDTO tamanio) {
         this.tamanio = tamanio;
     }
 
-    public Topping getTopping() {
+    public PersistenciaToppingDTO getTopping() {
         return topping;
     }
 
-    public void setTopping(Topping topping) {
+    public void setTopping(PersistenciaToppingDTO topping) {
         this.topping = topping;
     }
 

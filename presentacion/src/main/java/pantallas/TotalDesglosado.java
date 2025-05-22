@@ -6,7 +6,7 @@ package pantallas;
 
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import control.Modo;
 import exception.GestionException;
 import java.awt.event.ActionEvent;
@@ -70,12 +70,12 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private JPanel obtenerPanelesProductosPedidos() {
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
 
         JPanel contenedorPanelesProductosPedidos = new JPanel();
         contenedorPanelesProductosPedidos.setLayout(new BoxLayout(contenedorPanelesProductosPedidos, BoxLayout.Y_AXIS));
 
-        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
+        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
             PanelProductoPedido panelProductoPedido = new PanelProductoPedido(productoPedido);
             configurarPanelProducto(panelProductoPedido);
             contenedorPanelesProductosPedidos.add(panelProductoPedido);
@@ -126,7 +126,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a cancelar.
      */
-    private void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
+    private void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
         int opc = JOptionPane.showConfirmDialog(
                 this,
                 "¿Deseas cancelar el producto pedido?",
@@ -176,7 +176,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a editar.
      */
-    private void editarProductoPedido(ProductoPedidoDTO productoPedido) {
+    private void editarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
         this.dispose();
         ControlNavegacion.mostrarPantallaEditarProducto(productoPedido);
     }
@@ -187,7 +187,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a modificar.
      */
-    private void agregarCantidad(ProductoPedidoDTO productoPedido) {
+    private void agregarCantidad(PersistenciaProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() < 99) {
             productoPedido.setCantidad(productoPedido.getCantidad() + 1);
             ControlNavegacion.actualizarTotal();
@@ -203,7 +203,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      *
      * @param productoPedido El producto a modificar.
      */
-    private void quitarCantidad(ProductoPedidoDTO productoPedido) {
+    private void quitarCantidad(PersistenciaProductoPedidoDTO productoPedido) {
         if (productoPedido.getCantidad() != 1) {
             productoPedido.setCantidad(productoPedido.getCantidad() - 1);
             ControlNavegacion.actualizarTotal();
@@ -371,7 +371,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnTarjetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTarjetaActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
         if (listaProductosPedidos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -390,7 +390,7 @@ public class TotalDesglosado extends javax.swing.JFrame {
      */
     private void btnEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEfectivoActionPerformed
         PedidoDTO pedido = ControlNavegacion.getPedido();
-        List<ProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
+        List<PersistenciaProductoPedidoDTO> listaProductosPedidos = pedido.getPedido();
         if (listaProductosPedidos.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El pedido está vacío", "Error", JOptionPane.ERROR_MESSAGE);
         } else {

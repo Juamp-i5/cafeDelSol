@@ -8,7 +8,7 @@ import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.ToppingMostrarDTO;
@@ -178,7 +178,7 @@ public interface IGestionPedidos {
      *
      * @param productoPedido El producto pedido que se quiere eliminar.
      */
-    public void cancelarProductoPedido(ProductoPedidoDTO productoPedido);
+    public void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido);
 
     /**
      * Imprime la información del pedido y del producto pedido actual en
@@ -191,14 +191,14 @@ public interface IGestionPedidos {
      *
      * @param productoPedidoActual El producto pedido actual.
      */
-    public void setProductoPedidoActual(ProductoPedidoDTO productoPedidoActual);
+    public void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedidoActual);
 
     /**
      * Obtiene el producto pedido actual.
      *
      * @return El producto pedido actual.
      */
-    public ProductoPedidoDTO getProductoPedidoActual();
+    public PersistenciaProductoPedidoDTO getProductoPedidoActual();
 
     /**
      * Actualiza el total del pedido en relación a los costos de los productos

@@ -5,7 +5,7 @@
 package pantallas;
 
 import DTOs.PedidoDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import java.util.List;
 import javax.swing.BoxLayout;
 
@@ -15,7 +15,7 @@ import javax.swing.BoxLayout;
  */
 public class PanelPedidoIndividual extends javax.swing.JPanel {
 
-    private List<ProductoPedidoDTO> listaProductosPedidos;
+    private List<PersistenciaProductoPedidoDTO> listaProductosPedidos;
     private PedidoDTO pedido;
     private PantallaEstadoPedidos pantallaPadre;
 
@@ -33,7 +33,7 @@ public class PanelPedidoIndividual extends javax.swing.JPanel {
 
         pnlProductosPedidos.removeAll();
 
-        for (ProductoPedidoDTO productoPedido : listaProductosPedidos) {
+        for (PersistenciaProductoPedidoDTO productoPedido : listaProductosPedidos) {
             PanelPedidoIndividualProductosPedido panelProductoPedido = new PanelPedidoIndividualProductosPedido(productoPedido);
             pnlProductosPedidos.add(panelProductoPedido);
         }

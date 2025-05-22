@@ -16,7 +16,7 @@ import DTOs.EfectivoDTO;
 import DTOs.InicioSesionDTO;
 import DTOs.PedidoDTO;
 import DTOs.ProductoMostrarDTO;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.SaborMostrarDTO;
 import DTOs.TamanioMostrarDTO;
 import DTOs.TarjetaDTO;
@@ -110,7 +110,7 @@ public class ControlNavegacion {
      *
      * @return El pedido actual.
      */
-    public static ProductoPedidoDTO getProductoPedidoActual() {
+    public static PersistenciaProductoPedidoDTO getProductoPedidoActual() {
         return gestor.getProductoPedidoActual();
     }
 
@@ -189,7 +189,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto pedido actual.
      */
-    public static void setProductoPedidoActual(ProductoPedidoDTO productoPedido) {
+    public static void setProductoPedidoActual(PersistenciaProductoPedidoDTO productoPedido) {
         gestor.setProductoPedidoActual(productoPedido);
     }
 
@@ -245,7 +245,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto pedido que se quiere eliminar.
      */
-    public static void cancelarProductoPedido(ProductoPedidoDTO productoPedido) {
+    public static void cancelarProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
         gestor.cancelarProductoPedido(productoPedido);
     }
 
@@ -413,7 +413,7 @@ public class ControlNavegacion {
      *
      * @param productoPedido El producto que se desea editar.
      */
-    public static void mostrarPantallaEditarProducto(ProductoPedidoDTO productoPedido) {
+    public static void mostrarPantallaEditarProducto(PersistenciaProductoPedidoDTO productoPedido) {
         JFrame editarProducto = new PantallaEditarProducto(productoPedido);
         editarProducto.setLocationRelativeTo(null);
         editarProducto.setVisible(true);
@@ -483,7 +483,7 @@ public class ControlNavegacion {
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
-                ControlNavegacion.mostrarPantallaMenuPrincipal();
+                ControlNavegacion.mostrarPantallaMenuIniciado();
             }
         }, 1000);
     }
@@ -766,8 +766,8 @@ public class ControlNavegacion {
             return null;
         }
     }
-    
-    public static EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId){
+
+    public static EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) {
         try {
             return gestorCRUDEntradas.obtenerDetallesConIngredientes(entradaId);
         } catch (GestorCRUDEntradasException ex) {

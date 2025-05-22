@@ -2,52 +2,50 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package entidades;
+package DTOs;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import org.bson.types.ObjectId;
 
 /**
  *
- * @author rodri
+ * @author Jp
  */
-public class Pedido {
+public class PersistenciaPedidoDTO {
 
-    private ObjectId id;
-    private List<ProductoPedido> productos;
+    private String id;
+    private List<PersistenciaProductoPedidoDTO> productos;
     private Double precioTotal;
     private String estado;
-    private ObjectId baristaId;
-    private Pago pago;
+    private String baristaId;
+    private PersistenciaPagoDTO pago;
     private LocalDateTime fechaHora;
 
-    public Pedido() {
+    public PersistenciaPedidoDTO() {
     }
 
-    public Pedido(ObjectId id, List<ProductoPedido> productos, Double precioTotal, String estado, ObjectId baristaId, Pago pago, LocalDateTime fechaHora) {
+    public PersistenciaPedidoDTO(String id, List<PersistenciaProductoPedidoDTO> productos, String estado, String baristaId, PersistenciaPagoDTO pago, LocalDateTime fechaHora) {
         this.id = id;
         this.productos = productos;
-        this.precioTotal = precioTotal;
         this.estado = estado;
         this.baristaId = baristaId;
         this.pago = pago;
         this.fechaHora = fechaHora;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public List<ProductoPedido> getProductos() {
+    public List<PersistenciaProductoPedidoDTO> getProductos() {
         return productos;
     }
 
-    public void setProductos(List<ProductoPedido> productos) {
+    public void setProductos(List<PersistenciaProductoPedidoDTO> productos) {
         this.productos = productos;
     }
 
@@ -67,19 +65,19 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public ObjectId getBaristaId() {
+    public String getBaristaId() {
         return baristaId;
     }
 
-    public void setBaristaId(ObjectId baristaId) {
+    public void setBaristaId(String baristaId) {
         this.baristaId = baristaId;
     }
 
-    public Pago getPago() {
+    public PersistenciaPagoDTO getPago() {
         return pago;
     }
 
-    public void setPago(Pago pago) {
+    public void setPago(PersistenciaPagoDTO pago) {
         this.pago = pago;
     }
 

@@ -7,7 +7,7 @@ package pantallas.cubiculos;
 import pantallas.*;
 import DTOs.PedidoDTO;
 import control.ControlNavegacion;
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import DTOs.cubiculos.ReservacionDTOMostrar;
 import DTOs.cubiculos.ReservacionDetalleDTO;
 import control.Modo;

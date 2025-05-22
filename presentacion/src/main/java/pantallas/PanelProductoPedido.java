@@ -4,7 +4,7 @@
  */
 package pantallas;
 
-import DTOs.ProductoPedidoDTO;
+import DTOs.PersistenciaProductoPedidoDTO;
 import java.awt.event.ActionListener;
 
 /**
@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class PanelProductoPedido extends javax.swing.JPanel {
 
-    private ProductoPedidoDTO productoPedido;
+    private PersistenciaProductoPedidoDTO productoPedido;
 
     /**
      * Crea un nuevo panel para mostrar la información de un producto pedido en
@@ -25,7 +25,7 @@ public class PanelProductoPedido extends javax.swing.JPanel {
      * @param productoPedido El objeto que contiene la información del producto
      * y su pedido.
      */
-    public PanelProductoPedido(ProductoPedidoDTO productoPedido) {
+    public PanelProductoPedido(PersistenciaProductoPedidoDTO productoPedido) {
         initComponents();
         this.productoPedido = productoPedido;
         this.lblNombreProducto.setText(productoPedido.getProducto().getNombre());
@@ -41,12 +41,12 @@ public class PanelProductoPedido extends javax.swing.JPanel {
     }
 
     /**
-     * Obtiene el objeto ProductoPedidoDTO asociado a este panel.
+     * Obtiene el objeto PersistenciaProductoPedidoDTO asociado a este panel.
      *
-     * @return El objeto ProductoPedidoDTO que contiene los detalles del
-     * producto en el pedido.
+     * @return El objeto PersistenciaProductoPedidoDTO que contiene los detalles del
+ producto en el pedido.
      */
-    public ProductoPedidoDTO getProductoPedido() {
+    public PersistenciaProductoPedidoDTO getProductoPedido() {
         return this.productoPedido;
     }
 
