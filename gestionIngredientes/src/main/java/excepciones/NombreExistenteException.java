@@ -1,19 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package excepciones;
 
 /**
+ * Excepción para indicar que ya existe un ingrediente con ese nombre.
  *
  * @author norma
  */
 public class NombreExistenteException extends GestionCRUDIngredientesException {
 
+    /**
+     * Constructor con mensaje específico.
+     */
     public NombreExistenteException() {
         super("Ya existe un ingrediente ese nombre");
     }
 
+    /**
+     * Constructor con mensaje.
+     *
+     * @param message mensaje.
+     */
     public NombreExistenteException(String message) {
         super(message);
     }

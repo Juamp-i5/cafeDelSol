@@ -15,6 +15,11 @@ public class CubiculoMapperPersistencia implements ICubiculoMapperPersistencia {
     public CubiculoMapperPersistencia() {
     }
 
+    /**
+     * Convierte una entidad Cubículo a CubiculoCompletoDTOPersistencia
+     * @param entidad cubículo a transformar
+     * @return Entidad transformada a DTO
+     */
     @Override
     public CubiculoCompletoDTOPersistencia toDTO(Cubiculo entidad) {
         if (entidad == null) {

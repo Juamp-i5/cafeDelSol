@@ -19,6 +19,11 @@ public class ReservacionDetalleMapperPersistencia implements IReservacionDetalle
     public ReservacionDetalleMapperPersistencia() {
     }
 
+    /**
+     * Transforma una entidad Reservación a ReservacionDetalleDTOPersistencia
+     * @param entidad Reservacion a transformar
+     * @return Entidad transformada a ReservacionDetalleDTOPersistencia
+     */
     @Override
     public ReservacionDetalleDTOPersistencia toDTO(Reservacion entidad) {
         if (entidad == null) {
