@@ -11,10 +11,6 @@ import java.util.List;
 /**
  *
  * @author rodri
- * Esta interfaz, `ISaborDAO`, establece el **contrato (interfaz)** para las
- * operaciones de **acceso a datos (DAO)** relacionadas con la entidad `Sabor`.
- * Define un conjunto de métodos que cualquier clase que implemente esta interfaz
- * debe proporcionar para interactuar con una fuente de datos (como una base de datos).
  * Su propósito fundamental es asegurar la **separación de preocupaciones** en la
  * arquitectura, permitiendo que la capa de negocio interactúe con los datos de
  * los sabores sin depender de los detalles específicos de la implementación
