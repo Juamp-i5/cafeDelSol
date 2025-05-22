@@ -27,4 +27,6 @@ public interface IProductoDAO {
     public void guardarProducto(PersistenciaProductoDTO producto) throws PersistenciaException;
 
     public void actualizarProducto(PersistenciaProductoDTO producto) throws PersistenciaException;
+
+    public void restarIngredientes(String idProducto, String idTamanio) throws PersistenciaException;
 }

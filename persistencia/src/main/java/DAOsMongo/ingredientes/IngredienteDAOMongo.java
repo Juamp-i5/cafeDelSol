@@ -105,9 +105,9 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
             dto.setUnidadMedida(resultado.getString("unidadMedida"));
             dto.setNivelStock(resultado.getString("nivelStock"));
             Document proveedorDoc = (Document) resultado.get("detalleProveedor");
-            if (proveedorDoc != null){
-              dto.setNombreProveedor(proveedorDoc.getString("nombre"));  
-            }else {
+            if (proveedorDoc != null) {
+                dto.setNombreProveedor(proveedorDoc.getString("nombre"));
+            } else {
                 dto.setNombreProveedor("Desconocido");
             }
             //dto.setNombreProveedor(proveedorDoc.getString("nombre"));
@@ -217,6 +217,14 @@ public class IngredienteDAOMongo implements IIngredienteDAOMongo {
         } catch (Exception e) {
             throw new PersistenciaIngredientesException("Error al buscar ingrediente por nombre: " + e.getMessage(), e);
         }
+    }
+
+    @Override
+    public void descontarStock(String idIngrediente, double cantidad) {
+        Bson filtro = Filters.eq("_id", new ObjectId(idIngrediente));
+        Bson update = Updates.inc("cantidadDisponible", -cantidad);
+
+        coleccion.updateOne(filtro, update);
     }
 
 }

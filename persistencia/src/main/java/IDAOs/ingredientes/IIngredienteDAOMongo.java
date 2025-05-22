@@ -28,4 +28,5 @@ public interface IIngredienteDAOMongo {
     
     public boolean obtenerIngredientePorNombre(String nombre) throws PersistenciaIngredientesException;
    
+    public void descontarStock(String idIngrediente, double cantidad);
 }

@@ -29,9 +29,8 @@ public class PedidoDAOMongo implements IPedidoDAO {
 
     private final MongoCollection<Pedido> coleccion;
     private final String NOMBRE_COLECCION = "pedidos";
-    
-    private final IPedidoMapper pedidoMapper = DependencyInjectors.getInstancia().getPedidoMapper();
 
+    private final IPedidoMapper pedidoMapper = DependencyInjectors.getInstancia().getPedidoMapper();
 
     private PedidoDAOMongo(IConexionMongo conexion) {
         this.database = conexion.getDatabase();
@@ -57,6 +56,7 @@ public class PedidoDAOMongo implements IPedidoDAO {
         }
         try {
             coleccion.insertOne(entidad);
+
         } catch (Exception e) {
             throw new PersistenciaException("Error al registrar el pedido en la base de datos", e);
         }
@@ -86,6 +86,5 @@ public class PedidoDAOMongo implements IPedidoDAO {
             throw new PersistenciaException("Error al actualizar el estado del pedido", e);
         }
     }
-    
-    
+
 }

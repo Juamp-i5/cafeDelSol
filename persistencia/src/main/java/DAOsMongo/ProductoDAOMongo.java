@@ -16,7 +16,6 @@ import com.mongodb.client.model.Projections;
 import com.mongodb.client.model.UnwindOptions;
 import conexion.IConexionMongo;
 import interfacesMappers.IProductoMapper;
-import org.bson.BsonDocument;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -305,5 +304,10 @@ public class ProductoDAOMongo implements IProductoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al actualizar el producto en la base de datos", e);
         }
+    }
+
+    @Override
+    public void restarIngredientes(String idProducto, String idTamanio) throws PersistenciaException {
+        
     }
 }

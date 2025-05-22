@@ -7,6 +7,8 @@ import DTOs.PersistenciaSaborDTO;
 import DTOs.PersistenciaTamanioDTO;
 import DTOs.PersistenciaToppingDTO;
 import DTOs.PersistenciaProductoPedidoDTO;
+import DTOs.PersistenciaProductoTamanioDTO;
+import DTOs.PersistenciaProductoTamanioIngredienteDTO;
 import DTOs.ProductoPedidoDTO;
 import excepciones.NegocioException;
 import interfacesBO.IPedidoBO;
@@ -20,10 +22,12 @@ import IDAOs.IProductoDAO;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
+import IDAOs.ingredientes.IIngredienteDAOMongo;
 import acceso.AccesoDatos;
 import entidades.Pedido;
 import entidades.ProductoPedido;
 import excepciones.PersistenciaException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,18 +37,23 @@ import java.util.logging.Logger;
  */
 public class PedidoBO implements IPedidoBO {
 
+
     IPedidoMapper pedidoMapper = PedidoMapper.getInstance();
     IProductoDAO productoDAO = AccesoDatos.getProductoDAO();
     ISaborDAO saborDAO = AccesoDatos.getSaborDAO();
     ITamanioDAO tamanioDAO = AccesoDatos.getTamanioDAO();
     IToppingDAO toppingDAO = AccesoDatos.getToppingDAO();
     IPedidoDAO pedidoDAO = AccesoDatos.getPedidoDAO();
+    IIngredienteDAOMongo ingredienteDAO = AccesoDatos.getIngredienteDAO();
+
 
     private List<NuevaVentaObserver> observers = new ArrayList<>();
+
 
     public void agregarObserver(NuevaVentaObserver observer) {
         observers.add(observer);
     }
+
 
     private void notificarObservers() {
         for (NuevaVentaObserver observer : observers) {
@@ -52,10 +61,13 @@ public class PedidoBO implements IPedidoBO {
         }
     }
 
+
     private static PedidoBO instanceBO;
+
 
     public PedidoBO() {
     }
+
 
     public static PedidoBO getInstance() {
         if (instanceBO == null) {
@@ -64,10 +76,12 @@ public class PedidoBO implements IPedidoBO {
         return instanceBO;
     }
 
+
     @Override
     public void registrarPedido(PedidoDTO pedidoDTO) throws NegocioException {
         try {
             PersistenciaPedidoDTO pedidoEntidad = pedidoMapper.toPersistenciaPedidoDTO(pedidoDTO);
+
 
             List<PersistenciaProductoPedidoDTO> productosPedidoEntidades = new ArrayList<>();
             for (ProductoPedidoDTO ppDTO : pedidoDTO.getProductos()) {
@@ -78,7 +92,32 @@ public class PedidoBO implements IPedidoBO {
             }
             pedidoEntidad.setProductos(productosPedidoEntidades);
 
+
             pedidoDAO.registrarPedido(pedidoEntidad);
+            for (PersistenciaProductoPedidoDTO productoPedidoDTO : pedidoEntidad.getProductos()) {
+                String idProducto = productoPedidoDTO.getProducto().getId();
+                String idTamanio = productoPedidoDTO.getTamanio().getId();
+                int cantidadPedida = productoPedidoDTO.getCantidad();
+
+                PersistenciaProductoDTO productoDetalle = productoDAO.buscarPorId(idProducto);
+
+                if (productoDetalle != null) {
+                    Optional<PersistenciaProductoTamanioDTO> tamanioProd = productoDetalle.getTamanios().stream()
+                            .filter(tp -> tp.getTamanio().getId().equals(idTamanio))
+                            .findFirst();
+
+                    if (tamanioProd.isPresent()) {
+                        for (PersistenciaProductoTamanioIngredienteDTO ingredienteProd : tamanioProd.get().getIngredientes()) {
+                            String idIngrediente = ingredienteProd.getIngrediente().getId();
+                            double totalADescontar = ingredienteProd.getCantidad() * cantidadPedida;
+
+                            // 4. Descontar ingrediente del inventario
+                            ingredienteDAO.descontarStock(idIngrediente, totalADescontar);
+                        }
+                    }
+                }
+            }
+
 
             notificarObservers();
 
@@ -87,6 +126,7 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al registrar");
         }
     }
+
 
     @Override
     public List<PedidoDTO> obtenerPedidosDelivery() throws NegocioException {
