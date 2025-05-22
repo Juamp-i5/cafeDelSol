@@ -50,4 +50,13 @@ public class EntradaBO implements IEntradaBO {
             throw new NegocioException("Error al obtener entradas desde la fecha: " + fechaInicio, e);
         }
     }
+    
+    @Override
+    public EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) throws NegocioException{
+        try {
+            return entradaMapper.todtoViejo(entradaDAO.obtenerDetallesConIngredientes(entradaId));
+        } catch (PersistenciaEntradasException e) {
+            throw new NegocioException("Error al obtener la entrada", e);
+        }
+    }        
 }

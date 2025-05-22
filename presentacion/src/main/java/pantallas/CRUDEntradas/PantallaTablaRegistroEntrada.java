@@ -390,7 +390,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 preRegistro.setPrecioUnitario(precioUnitario);
                 preRegistro.setPrecioTotal(precioTotal);
                 preRegistro.setNivelStock(estadoObj);
-
+//
 //                String idIngrediente = ControlNavegacion.obtenerIdIngredientePorNombre(nombreIngrediente);
 //                boolean resultado = ControlNavegacion.aumentarStock(idIngrediente,cantidadAgregada);
 //                if (resultado!=true) {
@@ -459,7 +459,7 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
             }
         });
         this.setVisible(false);
-        BuscadorIngredientesSimulado buscador = new BuscadorIngredientesSimulado((IngredienteViejoListDTO ingredienteNuevo) -> {
+        ControlNavegacion.mostrarPantallaIngrediente(ingredienteNuevo -> {
             this.setVisible(true);
             if (ingredienteNuevo == null) {
                 JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún ingrediente.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -486,7 +486,6 @@ public final class PantallaTablaRegistroEntrada extends javax.swing.JFrame {
                 });
             }
         });
-        buscador.setVisible(true);
     }//GEN-LAST:event_BtnAgregarIngredienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

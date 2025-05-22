@@ -117,7 +117,7 @@ public class EntradaDAOMongoTest {
         e1.setFechaHora(LocalDateTime.of(2024, 1, 10, 10, 0, 0));
         e1.setPrecioTotal(50.0);
         e1.setDetallesEntrada(Arrays.asList(
-                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId())
+//                new DetalleEntrada("Ing1", 10.0, 50.0, 5.0, "ALTO", new ObjectId())
         ));
 
         Entrada e2 = new Entrada();

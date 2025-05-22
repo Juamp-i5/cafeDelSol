@@ -14,5 +14,7 @@ public interface IGestorCRUDEntradas {
     
     public boolean registrarEntrada(EntradaNuevaDTO entrada) throws GestorCRUDEntradasException;
     
+    public EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) throws GestorCRUDEntradasException;
+    
     public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws GestorCRUDEntradasException;
 }

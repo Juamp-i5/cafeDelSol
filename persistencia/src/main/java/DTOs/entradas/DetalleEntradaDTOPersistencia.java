@@ -1,6 +1,7 @@
 package DTOs.entradas;
 import DTOs.ingredientes.DetallesIngredienteViejoDTOPersistencia;
 import DTOs.ingredientes.IngredienteDTOPersistencia;
+import java.util.List;
 
 /**
  *
@@ -13,12 +14,12 @@ public class DetalleEntradaDTOPersistencia {
     private Double cantidadIngrediente;
     private String nivelStock;
     private String idIngrediente;
-    private IngredienteDTOPersistencia ingredienteInfo;
+    private List<IngredienteDTOPersistencia> ingredienteInfo;
 
     public DetalleEntradaDTOPersistencia() {
     }
 
-    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente, IngredienteDTOPersistencia ingredienteInfo) {
+    public DetalleEntradaDTOPersistencia(String nombreIngrediente, Double precioUnitario, Double precioTotal, Double cantidadIngrediente, String nivelStock, String idIngrediente, List<IngredienteDTOPersistencia> ingredienteInfo) {
         this.nombreIngrediente = nombreIngrediente;
         this.precioUnitario = precioUnitario;
         this.precioTotal = precioTotal;
@@ -76,11 +77,11 @@ public class DetalleEntradaDTOPersistencia {
         this.nivelStock = nivelStock;
     }
 
-    public IngredienteDTOPersistencia getIngredienteInfo() {
+    public List<IngredienteDTOPersistencia> getIngredienteInfo() {
         return ingredienteInfo;
     }
 
-    public void setIngredienteInfo(IngredienteDTOPersistencia ingredienteInfo) {
+    public void setIngredienteInfo(List<IngredienteDTOPersistencia> ingredienteInfo) {
         this.ingredienteInfo = ingredienteInfo;
     }
 

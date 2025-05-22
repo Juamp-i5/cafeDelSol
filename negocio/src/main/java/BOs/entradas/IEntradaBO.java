@@ -16,5 +16,7 @@ public interface IEntradaBO {
 
     public boolean registrarEntrada(EntradaNuevaDTO entrada) throws NegocioException;
     
+    public EntradaViejaDTO obtenerDetallesConIngredientes(String entradaId) throws NegocioException;
+    
     public List<EntradaViejaDTO> obtenerEntradasPorFechas(LocalDateTime fechaInicio, LocalDateTime fechaFin) throws NegocioException;
 }

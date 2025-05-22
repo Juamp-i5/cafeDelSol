@@ -49,26 +49,26 @@ public final class PantallaTablaDetallesEntrada extends javax.swing.JFrame {
 
     /**
      *
+     * 
      */
+//                    List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(registro.getNombreIngrediente(), registro.getNivelStock().toString());
+//                    IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();    
+    
     public void mostrarDetallesEnTabla() {
         DefaultTableModel modelo = (DefaultTableModel) TablaDetallesEntrada.getModel();
         modelo.setRowCount(0);
         if (entrada != null && entrada.getDetallesEntrada() != null) {
-            List<DetalleEntradaDTO> registros = entrada.getDetallesEntrada();
-            if (registros != null) {
-                for (DetalleEntradaDTO registro : registros) {
-//                    List<IngredienteViejoListDTO> listaIngredientes = ControlNavegacion.buscarIngredientesPorFiltros(registro.getNombreIngrediente(), registro.getNivelStock().toString());
-//                    IngredienteViejoListDTO ingrediente = listaIngredientes.getFirst();
+            EntradaViejaDTO entradadto = ControlNavegacion.obtenerDetallesConIngredientes(entrada.getIdEntrada());
+            List<DetalleEntradaDTO> registroDetalles = entradadto.getDetallesEntrada();
+            if (registroDetalles != null) {
+                for (DetalleEntradaDTO registro : registroDetalles) {                  
                     modelo.addRow(new Object[]{
                         registro.getNombreIngrediente(),
-                        null,
-//                        ingrediente.getCantidadDisponible(),
-                        null,
-//                        ingrediente.getUnidadMedida(),
+                        registro.getIngredienteInfo().get(0).getCantidadDisponible(),
+                        registro.getIngredienteInfo().get(0).getUnidadMedida(),
                         registro.getPrecioUnitario(),
                         registro.getPrecioTotal(),
-                        null
-//                        ingrediente.getNivelStock()
+                        registro.getIngredienteInfo().get(0).getNivelStock()
                     });
                 }
             }

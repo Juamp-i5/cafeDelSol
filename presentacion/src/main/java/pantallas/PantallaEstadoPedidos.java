@@ -25,7 +25,7 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
     public PantallaEstadoPedidos() {
         initComponents();
         ajustarScroll();
-        cargarPanelesPedidos();
+//        cargarPanelesPedidos();
     }
 
     private void ajustarScroll() {
@@ -34,49 +34,49 @@ public class PantallaEstadoPedidos extends javax.swing.JFrame {
         }
     }
 
-    private void cargarPanelesPedidos() {
-        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
-        int posicionScroll = scrollPane.getVerticalScrollBar().getValue();
-        JPanel contenedorPanel = obtenerPaneles(pedidos);
-        scrollPane.setViewportView(contenedorPanel);
-        scrollPane.getVerticalScrollBar().setValue(posicionScroll);
-    }
-
-    private JPanel obtenerPaneles(List<PedidoDTO> pedidos) {
-        contenedorPaneles = new JPanel();
-        contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
-
-        if (pedidos == null || pedidos.isEmpty()) {
-            JLabel lblVacio = new JLabel("No hay comandas registradas actualmente.");
-            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
-            contenedorPaneles.add(lblVacio);
-            return contenedorPaneles;
-        }
-
-        for (PedidoDTO pedido : pedidos) {
-            PedidoDTO pedidoHistorial = ControlNavegacion.obtenerPedidoPorId(pedido.getId());
-            PanelPedidoIndividual panelComanda = new PanelPedidoIndividual(pedidoHistorial, this);
-            contenedorPaneles.add(panelComanda);
-
-        }
-        return contenedorPaneles;
-    }
-    
-    public JPanel getContenedorPaneles() {
-        return contenedorPaneles;
-    }
-
-    /**
-     * Acción q: Recarga los paneles de comandas, obteniendo la lista
-     * actualizada de comandas registradas desde el controlador de navegación.
-     * Refresca la interfaz gráfica para mostrar los datos más recientes.
-     */
-    public void recargarPaneles() {
-        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
-        cargarPanelesPedidos();
-        this.revalidate();
-        this.repaint();
-    }
+//    private void cargarPanelesPedidos() {
+//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+//        int posicionScroll = scrollPane.getVerticalScrollBar().getValue();
+//        JPanel contenedorPanel = obtenerPaneles(pedidos);
+//        scrollPane.setViewportView(contenedorPanel);
+//        scrollPane.getVerticalScrollBar().setValue(posicionScroll);
+//    }
+//
+//    private JPanel obtenerPaneles(List<PedidoDTO> pedidos) {
+//        contenedorPaneles = new JPanel();
+//        contenedorPaneles.setLayout(new BoxLayout(contenedorPaneles, BoxLayout.Y_AXIS));
+//
+//        if (pedidos == null || pedidos.isEmpty()) {
+//            JLabel lblVacio = new JLabel("No hay comandas registradas actualmente.");
+//            lblVacio.setAlignmentX(Component.CENTER_ALIGNMENT);
+//            contenedorPaneles.add(lblVacio);
+//            return contenedorPaneles;
+//        }
+//
+//        for (PedidoDTO pedido : pedidos) {
+//            PedidoDTO pedidoHistorial = ControlNavegacion.obtenerPedidoPorId(pedido.getId());
+//            PanelPedidoIndividual panelComanda = new PanelPedidoIndividual(pedidoHistorial, this);
+//            contenedorPaneles.add(panelComanda);
+//
+//        }
+//        return contenedorPaneles;
+//    }
+//    
+//    public JPanel getContenedorPaneles() {
+//        return contenedorPaneles;
+//    }
+//
+//    /**
+//     * Acción q: Recarga los paneles de comandas, obteniendo la lista
+//     * actualizada de comandas registradas desde el controlador de navegación.
+//     * Refresca la interfaz gráfica para mostrar los datos más recientes.
+//     */
+//    public void recargarPaneles() {
+//        this.pedidos = ControlNavegacion.obtenerPedidosRegistradas();
+//        cargarPanelesPedidos();
+//        this.revalidate();
+//        this.repaint();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.

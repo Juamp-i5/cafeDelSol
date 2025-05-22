@@ -3,6 +3,8 @@ package BOs.entradas;
 import DTOs.CRUDEntradas.DetalleEntradaDTO;
 import entidades.DetalleEntrada;
 import BOs.entradas.IDetalleEntradaMapper;
+import BOs.ingredientes.IIngredienteMapper;
+import BOs.ingredientes.IngredienteMapper;
 import DTOs.CRUDIngredientes.NivelStock;
 import DTOs.entradas.DetalleEntradaDTOPersistencia;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ import java.util.List;
 public class DetalleEntradaMapper implements IDetalleEntradaMapper {
 
     private static DetalleEntradaMapper instanceMapper;
+    
+    IIngredienteMapper ingredienteMapper = new IngredienteMapper();
 
     public static DetalleEntradaMapper getInstance() {
         if (instanceMapper == null) {
@@ -32,6 +36,7 @@ public class DetalleEntradaMapper implements IDetalleEntradaMapper {
         detalles.setIdIngrediente(detallesDTO.getIdIngrediente());
         detalles.setPrecioTotal(detallesDTO.getPrecioTotal());
         detalles.setNivelStock(detallesDTO.getNivelStock() != null ? NivelStock.valueOf(detallesDTO.getNivelStock()) : null);
+        detalles.setIngredienteInfo(ingredienteMapper.toDTOIngredienteList(detallesDTO.getIngredienteInfo()));
         return detalles;
     }
 
