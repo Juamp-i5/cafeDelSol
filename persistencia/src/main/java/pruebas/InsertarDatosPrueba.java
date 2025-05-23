@@ -94,6 +94,7 @@ public class InsertarDatosPrueba {
         proveedorDAO.guardarProveedor(proveedor1);
         proveedorDAO.guardarProveedor(proveedor2);
         proveedorDAO.guardarProveedor(proveedor3);
+        proveedorDAO.guardarProveedor(proveedor4);
     }
 
     private static void insertarTamanios(ITamanioDAO tamanioDAO) throws PersistenciaException {
