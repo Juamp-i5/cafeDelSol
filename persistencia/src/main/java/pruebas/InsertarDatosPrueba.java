@@ -8,14 +8,17 @@ import DAOsMongo.SaborDAOMongo;
 import DAOsMongo.TamanioDAOMongo;
 import DAOsMongo.ToppingDAOMongo;
 import DAOsMongo.UsuarioDAOMongo;
+import DAOsMongo.ingredientes.ProveedorDAOMongo;
 import DTOs.PersistenciaSaborDTO;
 import DTOs.PersistenciaTamanioDTO;
 import DTOs.PersistenciaToppingDTO;
 import DTOs.PersistenciaUsuarioDTO;
+import DTOs.ingredientes.ProveedorDTOPersistencia;
 import IDAOs.ISaborDAO;
 import IDAOs.ITamanioDAO;
 import IDAOs.IToppingDAO;
 import IDAOs.IUsuarioDAO;
+import IDAOs.ingredientes.IProveedorDAOMongo;
 import conexion.ConexionMongo;
 import excepciones.PersistenciaException;
 import java.io.IOException;
@@ -39,10 +42,11 @@ public class InsertarDatosPrueba {
     public static void main(String[] args) throws PersistenciaException {
         ConexionMongo conexionMongo = ConexionMongo.getInstance();
 
-//        insertarUsuarios(UsuarioDAOMongo.getInstancia(conexionMongo));
-//        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
-//        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
-//        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
+        insertarProveedores(ProveedorDAOMongo.getInstance(conexionMongo));
+        insertarUsuarios(UsuarioDAOMongo.getInstancia(conexionMongo));
+        insertarTamanios(TamanioDAOMongo.getInstance(conexionMongo));
+        insertarSabores(SaborDAOMongo.getInstance(conexionMongo));
+        insertarToppings(ToppingDAOMongo.getInstance(conexionMongo));
     }
 
     private static void insertarUsuarios(IUsuarioDAO usuarioDAO) throws PersistenciaException {
@@ -64,6 +68,32 @@ public class InsertarDatosPrueba {
 
         usuarioDAO.agregarUsuario(adminDTO);
         usuarioDAO.agregarUsuario(baristaDTO);
+    }
+    
+    private static void insertarProveedores(IProveedorDAOMongo proveedorDAO) throws PersistenciaException{
+        ProveedorDTOPersistencia proveedor1 = new ProveedorDTOPersistencia();
+        ObjectId id = new ObjectId();
+        proveedor1.setId(id.toHexString());
+        proveedor1.setNombre("Gamesa");
+        
+        ProveedorDTOPersistencia proveedor2 = new ProveedorDTOPersistencia();
+        ObjectId id2 = new ObjectId();
+        proveedor2.setId(id2.toHexString());
+        proveedor2.setNombre("Sams");
+        
+        ProveedorDTOPersistencia proveedor3 = new ProveedorDTOPersistencia();
+        ObjectId id3 = new ObjectId();
+        proveedor3.setId(id3.toHexString());
+        proveedor3.setNombre("Nescafe");
+        
+        ProveedorDTOPersistencia proveedor4 = new ProveedorDTOPersistencia();
+        ObjectId id4 = new ObjectId();
+        proveedor4.setId(id4.toHexString());
+        proveedor4.setNombre("Walmart");
+        
+        proveedorDAO.guardarProveedor(proveedor1);
+        proveedorDAO.guardarProveedor(proveedor2);
+        proveedorDAO.guardarProveedor(proveedor3);
     }
 
     private static void insertarTamanios(ITamanioDAO tamanioDAO) throws PersistenciaException {
